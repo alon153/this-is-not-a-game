@@ -1,2 +1,2 @@
-# this-is-not-a-game
-This Is Not a Game
+# This Is Not a Game
+A fast paced whacky and chaotic party game!
