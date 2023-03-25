@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 243755885}
   - component: {fileID: 243755884}
-  - component: {fileID: 243755883}
+  - component: {fileID: 243755886}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -141,14 +141,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &243755883
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243755882}
-  m_Enabled: 1
 --- !u!20 &243755884
 Camera:
   m_ObjectHideFlags: 0
@@ -207,6 +199,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &243755886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243755882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1001 &5528608370504085117
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -257,54 +262,6 @@ PrefabInstance:
     - target: {fileID: 5528608369377680928, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinBehavior
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_MaxPlayerCount
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_Id
-      value: bffec49f-24c2-4e1c-a8c4-6c31ae0f0a06
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_UseReference
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_Name
-      value: Join
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Id
-      value: 9d4121d2-6625-478b-b2d6-b2750da957f7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Id
-      value: da7c71be-44fb-4371-a41a-bb653b59c4f5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Path
-      value: <Keyboard>/enter
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Path
-      value: <Gamepad>/start
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[0].m_Action
-      value: Join
-      objectReference: {fileID: 0}
-    - target: {fileID: 5528608369377680934, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
-      propertyPath: m_JoinAction.m_Action.m_SingletonActionBindings.Array.data[1].m_Action
-      value: Join
       objectReference: {fileID: 0}
     - target: {fileID: 5528608369377680935, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
       propertyPath: m_Name
