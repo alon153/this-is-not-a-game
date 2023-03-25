@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameMode;
 using Player;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace Managers
 {
@@ -13,6 +15,14 @@ namespace Managers
         private List<PlayerController> _players = new();
         private HashSet<int> _playerIds = new();
 
+        private GameModeFactory _gameModeFactory;
+
+        #endregion
+        
+        #region Serialized Fields
+
+        [SerializeField] private List<GameModes> _startWithModes;
+        
         #endregion
         
         #region Properties
@@ -31,8 +41,14 @@ namespace Managers
                 Destroy(gameObject);
                 return;
             }
-
+            
             Instance = this;
+            Init();
+        }
+
+        private void Init()
+        {
+            _gameModeFactory = new GameModeFactory(_startWithModes);
         }
 
         #endregion
