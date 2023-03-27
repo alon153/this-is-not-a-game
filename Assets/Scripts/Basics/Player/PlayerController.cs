@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
+using GameMode;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Player
+namespace Basics.Player
 {
-    public class PlayerController : MonoBehaviour
+    public partial class PlayerController : MonoBehaviour
     {
         #region Constants
 
@@ -42,6 +43,12 @@ namespace Player
 
         private Vector2 _pushbackVector;
 
+        private bool _frozen = false;
+        private Guid _freezeId = Guid.Empty;
+
+        private SpriteRenderer _renderer;
+        private Vector3 _originalScale;
+
         #endregion
 
         #region Properties
@@ -66,6 +73,7 @@ namespace Player
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
+            _renderer = GetComponent<SpriteRenderer>();
         }
 
         private void Start()
@@ -76,7 +84,8 @@ namespace Player
         private void FixedUpdate()
         {
             ModifyPhysics();
-            MoveCharacter();
+            if(!_frozen)
+                MoveCharacter();
         }
 
         #endregion
@@ -121,9 +130,32 @@ namespace Player
 
         #endregion
 
+        #region Public Methods
+
+        public void Freeze(float time = 2)
+        {
+            if (_freezeId != Guid.Empty) {
+                TimeManager.Instance.CancelInvoke(_freezeId);
+                _freezeId = Guid.Empty;
+            }
+            Rigidbody.velocity = Vector2.zero;
+            _frozen = true;
+            _freezeId = TimeManager.Instance.DelayInvoke((() => { _frozen = false; }), time);
+        }
+
+        public void UnFreeze()
+        {
+            if (_freezeId != Guid.Empty) {
+                TimeManager.Instance.CancelInvoke(_freezeId);
+                _freezeId = Guid.Empty;
+            }
+            _frozen = false;
+        }
+
+        #endregion
+
         #region Private Methods
-        
-        
+
         private void MoveCharacter()
         {
             if (_dashing)
@@ -168,6 +200,22 @@ namespace Player
             {
                 Rigidbody.velocity *= Vector2.zero;
             }
+        }
+
+        private void Reset()
+        {
+            var color = _renderer.color;
+            color.a = 1;
+            _renderer.color = color;
+            Rigidbody.velocity = Vector2.zero;
+            Rigidbody.drag = 0;
+            UnFreeze();
+        }
+
+        private void Respawn()
+        {
+            transform.position = GameManager.Instance.Arena.GetRespawnPosition(gameObject);
+            Reset();
         }
 
         #endregion
