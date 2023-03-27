@@ -4,10 +4,11 @@ using GameMode;
 using Player;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using Utilities;
 
 namespace Managers
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : SingletonPersistent<GameManager>
     {
 
         #region None-Serialized Fields
@@ -27,7 +28,6 @@ namespace Managers
         
         #region Properties
 
-        public static GameManager Instance { get; private set; }
         public static List<PlayerController> Players => Instance._players; 
 
         #endregion
@@ -36,13 +36,7 @@ namespace Managers
 
         private void Awake()
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            
-            Instance = this;
+            base.Awake();
             Init();
         }
 
@@ -63,6 +57,7 @@ namespace Managers
             controller.Index = _players.Count;
             _players.Add(controller);
             _playerIds.Add(controller.GetInstanceID());
+            ScoreManager.Instance.SetNewPlayerScore(controller.GetInstanceID());
         }
 
         #endregion

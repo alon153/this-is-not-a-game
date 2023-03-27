@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace Managers
 {
-    public class TimeManager : MonoBehaviour
+    public class TimeManager : SingletonPersistent<TimeManager>
     {
         #region Serialized Fields
   
@@ -19,22 +20,11 @@ namespace Managers
 
         #region Properties
 
-        public static TimeManager Instance { get; private set; }
 
         #endregion
         
         #region Event Functions
-
-        private void Awake()
-        {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            Instance = this;
-        }
+      
 
         private void Update()
         {
