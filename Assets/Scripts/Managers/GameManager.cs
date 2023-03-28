@@ -14,7 +14,7 @@ namespace Managers
         #region Serialized Fields
 
         [SerializeField] private List<GameModes> _startWithModes;
-        [field: SerializeField] public Arena Arena { get; private set; }
+        [SerializeField] private Arena _arenaPrefab; 
         
         #endregion
 
@@ -30,7 +30,8 @@ namespace Managers
 
         #region Properties
 
-        public static List<PlayerController> Players => Instance._players; 
+        public static List<PlayerController> Players => Instance._players;
+        public Arena Arena { get; private set; } 
 
         #endregion
 
@@ -45,6 +46,7 @@ namespace Managers
         private void Init()
         {
             _gameModeFactory = new GameModeFactory(_startWithModes);
+            Arena = Instantiate(_arenaPrefab);
         }
 
         #endregion
