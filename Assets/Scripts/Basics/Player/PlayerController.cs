@@ -3,6 +3,7 @@ using System.Collections;
 using GameMode;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Basics.Player
@@ -22,11 +23,17 @@ namespace Basics.Player
         [SerializeField] private float _maxSpeed = 2;
         [SerializeField] private float _acceleration = 2;
         [SerializeField] private float _deceleration = 2;
+        
 
         [Header("Dash")] 
         [field: SerializeField] public float DashTime = 0.5f;
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
+        [SerializeField] private float _knockBackForce = 3f;
+        [SerializeField] private float _mutualKnockBackForce = 1.5f;
+        [SerializeField] private float _knockBackDelay = 0.15f;
+        [SerializeField] private UnityEvent _onBeginKickBack;
+        [SerializeField] private UnityEvent _onDoneKickBack;
 
         #endregion
 
@@ -44,6 +51,7 @@ namespace Basics.Player
         private Vector2 _pushbackVector;
 
         private bool _frozen = false;
+        private bool _canMove = true;
         private Guid _freezeId = Guid.Empty;
 
         private SpriteRenderer _renderer;
@@ -86,6 +94,17 @@ namespace Basics.Player
             ModifyPhysics();
             if(!_frozen)
                 MoveCharacter();
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player") && _dashing)
+            {
+                _dashing = false;
+                bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
+                Debug.Log("is mutual: " + isMutual);
+                KnockBackPlayer(other.gameObject, isMutual);
+            }
         }
 
         #endregion
@@ -152,12 +171,24 @@ namespace Basics.Player
             _frozen = false;
         }
 
+        public bool GetIsDashing()
+        { 
+            return _dashing;
+        }
+
+        public void SetMovementAbility(bool canMove)
+        {
+            _canMove = canMove;
+        }
+
         #endregion
 
         #region Private Methods
 
         private void MoveCharacter()
-        {
+        { 
+            if (!_canMove) return;
+            
             if (_dashing)
             {
                 Rigidbody.velocity = _dashDirection * DashSpeed;
@@ -216,6 +247,30 @@ namespace Basics.Player
         {
             transform.position = GameManager.Instance.Arena.GetRespawnPosition(gameObject);
             Reset();
+        }
+
+        private void KnockBackPlayer(GameObject player, bool mutualCollision)
+        {
+            StopAllCoroutines();
+            _onBeginKickBack?.Invoke();
+            
+            Rigidbody2D otherPlayerRb = player.GetComponent<Rigidbody2D>();
+            PlayerController otherPlayerController = player.GetComponent<PlayerController>();
+            
+            Vector2 knockDir = (player.transform.position - transform.position).normalized;
+            float force = mutualCollision ? _mutualKnockBackForce : _knockBackForce;
+            otherPlayerController.SetMovementAbility(false);
+           
+            otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
+            StartCoroutine(ResetMovementAfterKnockBack(otherPlayerRb, otherPlayerController));
+        }
+
+        private IEnumerator ResetMovementAfterKnockBack(Rigidbody2D otherPlayerRb, PlayerController otherPlayerControl)
+        {
+            yield return new WaitForSeconds(_knockBackDelay);
+            otherPlayerRb.velocity = Vector2.zero;
+            otherPlayerControl.SetMovementAbility(true);
+            _onDoneKickBack?.Invoke();
         }
 
         #endregion
