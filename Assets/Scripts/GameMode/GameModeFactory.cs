@@ -1,31 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameMode.Modes;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace GameMode
 {
-    public class GameModeFactory
+    [CreateAssetMenu(fileName = "GameModeFactory", menuName = "ScriptableObjects/GameModeFactory")]
+    public class GameModeFactory: ScriptableObject
     {
-        #region Fields
+        #region Serialized Fields
+
+        [SerializeField] private PaintMode _paintMode;        
+
+        #endregion
+        
+        #region None-Serialized Fields
 
         private List<GameModes> _availableModes;
         private List<GameModes> _playedModes;
         private Queue<GameModes> _startWith;
+        
+        #endregion
 
-        public GameModeFactory()
+        #region Public Methods
+
+        public void Init()
         {
             _availableModes = Enum.GetValues(typeof(GameModes)).Cast<GameModes>().ToList();
             _playedModes = new List<GameModes>();
         }
 
-        public GameModeFactory(List<GameModes> availableModes)
+        public void Init(List<GameModes> availableModes)
         {
             _availableModes = new(availableModes);
             _playedModes = new List<GameModes>();
         }
         
-        public GameModeFactory(List<GameModes> startWith, List<GameModes> availableModes = null)
+        public void Init(List<GameModes> startWith, List<GameModes> availableModes = null)
         {
             _startWith = new Queue<GameModes>(startWith);
             _availableModes = availableModes == null || availableModes.Count == 0 
@@ -35,13 +48,19 @@ namespace GameMode
             _playedModes = new List<GameModes>();
         }
 
+        public void Init(GameModes mode)
+        {
+            _availableModes = new List<GameModes>();
+            _availableModes.Add(mode);
+            _playedModes = new List<GameModes>();
+        }
+
         public GameModeBase GetGameMode()
         {
             GameModes mode = GetModeEnum();
             return mode switch
             {
-                GameModes.Ikea => throw new NotImplementedException(),
-                GameModes.Pool => throw new NotImplementedException(),
+                GameModes.Paint => _paintMode,
                 _ => throw new Exception("No mode to create")
             };
         }

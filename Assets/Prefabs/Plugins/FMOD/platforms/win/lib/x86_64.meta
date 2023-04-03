@@ -1,8 +1,16 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7db9bdbe2d802ed43a7fde569772c6ae
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
+=======
+guid: 8105cca2fc4eb2e488e010278c3ea1bf
+folderAsset: yes
+timeCreated: 1432606678
+licenseType: Store
+DefaultImporter:
+>>>>>>> a043fb9 (Created Paint GameMode)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

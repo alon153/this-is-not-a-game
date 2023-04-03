@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace GameMode
 {
   public abstract class GameModeBase

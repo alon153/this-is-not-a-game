@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7a9a363a09c51ed4a8e5b189dddb0917
+=======
+guid: 927f279d82ae9084686ad55f24d40725
+>>>>>>> a043fb9 (Created Paint GameMode)
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,14 +18,30 @@ PluginImporter:
   - first:
       Any: 
     second:
+<<<<<<< HEAD
       enabled: 1
+=======
+      enabled: 0
+>>>>>>> a043fb9 (Created Paint GameMode)
       settings: {}
   - first:
       Editor: Editor
     second:
+<<<<<<< HEAD
       enabled: 0
       settings:
         DefaultValueInitialized: true
+=======
+      enabled: 1
+      settings:
+        CPU: x86_64
+        OS: Windows
+  - first:
+      Standalone: Win64
+    second:
+      enabled: 1
+      settings: {}
+>>>>>>> a043fb9 (Created Paint GameMode)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

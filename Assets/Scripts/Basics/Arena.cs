@@ -1,11 +1,23 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Basics
 {
     public class Arena : MonoBehaviour
     {
         [SerializeField] private LayerMask _respawnBlockers;
-        
+        [SerializeField] private SpriteMask _spriteMask;
+
+        public SpriteRenderer Renderer { get; private set; }
+
+        private void Awake()
+        {
+            Renderer = GetComponent<SpriteRenderer>();
+            _spriteMask = GetComponent<SpriteMask>();
+            _spriteMask.sprite = Renderer.sprite;
+        }
+
         public Vector3 GetRespawnPosition(GameObject obj)
         {
             var pos = transform.position;

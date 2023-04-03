@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using GameMode;
 using Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utilities.Listeners;
 
 namespace Basics.Player
 {
@@ -31,9 +33,8 @@ namespace Basics.Player
         #endregion
 
         #region Non-Serialized Fields
-
+        
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
-
         private bool _canDash = true;
         private bool _dashing;
 
@@ -46,8 +47,13 @@ namespace Basics.Player
         private bool _frozen = false;
         private Guid _freezeId = Guid.Empty;
 
-        private SpriteRenderer _renderer;
+        public SpriteRenderer Renderer { get; private set; }
         private Vector3 _originalScale;
+
+        private Vector3 _lastPosition;
+
+        private HashSet<IOnMoveListener> _moveListeners = new HashSet<IOnMoveListener>();
+
 
         #endregion
 
@@ -73,12 +79,27 @@ namespace Basics.Player
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
-            _renderer = GetComponent<SpriteRenderer>();
+            Renderer = GetComponent<SpriteRenderer>();
+            
+            _lastPosition = transform.position;
         }
 
         private void Start()
         {
             GameManager.Instance.RegisterPlayer(this);
+        }
+
+        private void Update()
+        {
+            var pos = transform.position;
+            if (pos != _lastPosition)
+            {
+                foreach (var l in _moveListeners)
+                {
+                    l.OnMove(this, _lastPosition, pos);
+                }
+                _lastPosition = pos;
+            }
         }
 
         private void FixedUpdate()
@@ -96,7 +117,6 @@ namespace Basics.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            print("move");
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -127,6 +147,17 @@ namespace Basics.Player
                     break;
             }
         }
+        
+        public void OnAction(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    // only here for debugging...
+                    GameManager.Instance.ToggleRound();
+                    break;
+            }
+        }
 
         #endregion
 
@@ -152,6 +183,18 @@ namespace Basics.Player
             _frozen = false;
         }
 
+        public void RegisterMoveListener(IOnMoveListener l)
+        {
+            if(!_moveListeners.Contains(l))
+                _moveListeners.Add(l);
+        }
+        
+        public void UnRegisterMoveListener(IOnMoveListener l)
+        {
+            if(_moveListeners.Contains(l))
+                _moveListeners.Remove(l);
+        }
+        
         #endregion
 
         #region Private Methods
@@ -204,9 +247,9 @@ namespace Basics.Player
 
         private void Reset()
         {
-            var color = _renderer.color;
+            var color = Renderer.color;
             color.a = 1;
-            _renderer.color = color;
+            Renderer.color = color;
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
             UnFreeze();

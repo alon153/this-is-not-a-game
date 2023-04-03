@@ -35,7 +35,7 @@ namespace Basics.Player
         {
             float duration = 0f;
             float scaleFactor = 1f;
-            var color = _renderer.color;
+            var color = Renderer.color;
             var scale = transform.localScale;
             yield return null;
             
@@ -43,7 +43,7 @@ namespace Basics.Player
             {
                 //fade out
                 color.a = 1 - duration / FallTime;
-                _renderer.color = color;
+                Renderer.color = color;
                 
                 //shrink
                 scaleFactor = 1 - 0.5f * duration / FallTime;
@@ -54,7 +54,7 @@ namespace Basics.Player
             }
 
             color.a = 0f;
-            _renderer.color = color;
+            Renderer.color = color;
             transform.localScale = scale;
             yield return null;
 

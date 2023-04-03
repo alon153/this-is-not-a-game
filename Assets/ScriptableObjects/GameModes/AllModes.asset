@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d3bc96382984671b4cef908b65b44a7, type: 3}
+  m_Name: AllModes
+  m_EditorClassIdentifier: 
+  _paintMode:
+    _paintIntervals: 0.05
+    _paintingSprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
+    _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
+    _threshold: 0.2
+    _coloringOffset: 0.05
