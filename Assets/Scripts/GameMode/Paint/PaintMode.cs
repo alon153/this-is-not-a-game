@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Basics;
 using Basics.Player;
 using Managers;
+using UnityEditor.Build;
 using UnityEngine;
 using Utilities;
 using Utilities.Listeners;
@@ -27,50 +29,63 @@ namespace GameMode.Modes
 
         #region Non-Serialized Fields
         
-        private float _paintTime;
+        private float[] _paintTime;
         private GameObject _splashContainer;
-        
+
         #endregion
 
         #region GameModeBase Methods
 
+        /// <summary>
+        /// Registers as a MoveListener for all players and creates a container for all Splash objects.
+        /// </summary>
         public override void InitRound()
         {
-            foreach (var player in GameManager.Players)
+            foreach (var player in GameManager.Instance.Players)
             {
                 player.RegisterMoveListener(this);
             }
 
-            _paintTime = Time.time;
+            _paintTime = new float[GameManager.Instance.Players.Count];
+            for (int i = 0; i < _paintTime.Length; i++)
+            {
+                _paintTime[i] = Time.time;
+            }
 
             _splashContainer = new GameObject();
             _splashContainer.name = "Splash Container";
             _splashContainer.transform.SetParent(GameManager.Instance.Arena.transform);
         }
 
+        /// <summary>
+        /// Destroy the splash container and unregisters as MoveListener
+        /// </summary>
         public override void ClearRound()
         {
             Object.Destroy(_splashContainer.gameObject);
             
-            foreach (var player in GameManager.Players)
+            foreach (var player in GameManager.Instance.Players)
             {
                 player.UnRegisterMoveListener(this);
             }
+            
+            GameManager.Instance.UnFreezePlayers();
         }
-
+        
         public override void OnTimeOVer()
         {
+            GameManager.Instance.FreezePlayers(timed: false);
             CountColors();
         }
 
         #endregion
 
         #region Private Methods
-
+        
         private void CountColors()
         {
             Dictionary<int, Color> colors = new Dictionary<int, Color>();
-            for (int i = 0; i < GameManager.Instance.PlayerColors.Count; i++)
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {
                 colors[i] = GameManager.Instance.PlayerColors[i].AddOffset(_coloringOffset);
             }
@@ -79,12 +94,12 @@ namespace GameMode.Modes
 
         public void OnMove(PlayerController player, Vector3 from, Vector3 to)
         {
-            if (Time.time >= _paintTime)
+            if (Time.time >= _paintTime[player.Index])
             {
                 var sprite = _paintingSprite == null ? player.Renderer.sprite : _paintingSprite;
                 var color = GameManager.Instance.PlayerColors[player.Index];
                 DrawSprite(player.transform.position, sprite, color.AddOffset(_coloringOffset));
-                _paintTime = Time.time + _paintIntervals;
+                _paintTime[player.Index] = Time.time + _paintIntervals;
             }
         }
 
@@ -95,6 +110,17 @@ namespace GameMode.Modes
             splash.Renderer.color = color;
         }
         
+        /// <summary>
+        /// Checks for a set of players indexes and colors how much of the arena has each player colored
+        /// </summary>
+        /// <param name="colors">
+        /// Keys - indexes of the players, Values - the colors of each player
+        /// </param>
+        /// <param name="thresh">
+        /// A color on the arena will be treated as the color of player i if the distance between the color on
+        /// the arena and the color of the player doesn't pass this value
+        /// </param>
+        /// <returns></returns>
         private IEnumerator CountColors_Inner(Dictionary<int, Color> colors, float thresh)
         {
             yield return new WaitForEndOfFrame();
@@ -141,11 +167,15 @@ namespace GameMode.Modes
                 if (min != -1 &&  minDist <= thresh)
                     percentages[min]++;
             }
-            
-            foreach (var key in percentages.Keys)
+
+            var keys = percentages.Keys.ToList();
+            foreach (var key in keys)
             {
                 percentages[key] = (int) (percentages[key] * 100/total);
+                ScoreManager.Instance.SetPlayerScore(key, percentages[key]);
             }
+            
+            GameManager.Instance.EndRound();
         }
 
         #endregion

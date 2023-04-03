@@ -36,10 +36,7 @@ namespace Utilities
         
         public static Color AddOffset(this Color c, float offset)
         {
-            // return (c.ToVector3() + Vector3.one*offset).ToColor();
-            Color color = (c.ToVector3() + Vector3.one*offset).ToColor();
-            Debug.Log($"{c} to {color}");
-            return color;
+            return (c.ToVector3() + Vector3.one*offset).ToColor();
         }
     }
 }

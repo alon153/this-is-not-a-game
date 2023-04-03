@@ -153,8 +153,7 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    // only here for debugging...
-                    GameManager.Instance.ToggleRound();
+                    GameManager.Instance.NextRound();
                     break;
             }
         }
@@ -163,7 +162,7 @@ namespace Basics.Player
 
         #region Public Methods
 
-        public void Freeze(float time = 2)
+        public void Freeze(bool timed=true, float time = 2)
         {
             if (_freezeId != Guid.Empty) {
                 TimeManager.Instance.CancelInvoke(_freezeId);
@@ -171,7 +170,9 @@ namespace Basics.Player
             }
             Rigidbody.velocity = Vector2.zero;
             _frozen = true;
-            _freezeId = TimeManager.Instance.DelayInvoke((() => { _frozen = false; }), time);
+            
+            if(timed)
+                _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
         }
 
         public void UnFreeze()

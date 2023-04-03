@@ -21,7 +21,11 @@ namespace Managers
         
         [field: SerializeField] public List<Color> PlayerColors { get; private set; }
 
-        [Header("GameMode")]
+        [Header("Round Settings")] 
+        [SerializeField] private int _roundLength;
+        [SerializeField] private int _numRounds;
+        
+        [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
         [SerializeField] private bool _isSingleMode;
         [SerializeField] private GameModes _singleMode;
@@ -36,12 +40,13 @@ namespace Managers
         private HashSet<int> _playerIds = new();
 
         private GameModeBase _gameMode;
+        private int _roundsPlayed = 0;
 
         #endregion
 
         #region Properties
 
-        public static List<PlayerController> Players => Instance._players;
+        public List<PlayerController> Players => Instance._players;
         public Arena Arena { get; private set; }
 
         #endregion
@@ -54,19 +59,17 @@ namespace Managers
             Init();
         }
 
-        private void Init()
-        {
-            if (_isSingleMode)
-                _gameModeFactory.Init(_singleMode);
-            else
-                _gameModeFactory.Init(_startWith);
-            Arena = Instantiate(_arenaPrefab);
-        }
-
         #endregion
 
         #region Public Methods
 
+        /// <summary>
+        /// Called at each player's Start() event function.
+        /// Handles all logistics needed for new players
+        /// </summary>
+        /// <param name="controller">
+        /// The newly connected player
+        /// </param>
         public void RegisterPlayer(PlayerController controller)
         {
             if (_playerIds.Contains(controller.GetInstanceID()))
@@ -77,23 +80,100 @@ namespace Managers
             
             _players.Add(controller);
             _playerIds.Add(controller.GetInstanceID());
-            ScoreManager.Instance.SetNewPlayerScore(controller.GetInstanceID());
+            ScoreManager.Instance.SetNewPlayerScore(controller.Index);
         }
 
-        public void ToggleRound()
+        /// <summary>
+        /// If the number of rounds played exceeded the number of rounds set for the whole game -> End game
+        /// Else -> Generate a new game mode and start it
+        /// </summary>
+        public void NextRound()
         {
-            if (_gameMode == null)
+            if(_gameMode != null)
+                return;
+            
+            if (_roundsPlayed >= _numRounds)
             {
-                _gameMode = _gameModeFactory.GetGameMode();
-                _gameMode.InitRound();
+                EndGame();
+                return;
             }
-            else
+            
+            _gameMode = _gameModeFactory.GetGameMode();
+            if(_gameMode == null)
             {
-                _gameMode.ClearRound();
-                _gameMode = null;
+                EndGame();
+                return;
             }
+            
+            UIManager.Instance.ActivateScoreDisplays();
+            _gameMode.InitRound();
+            TimeManager.Instance.StartCountDown(_roundLength);
+        }
+        
+        /// <summary>
+        /// Called by TimeManager when the current round's time is up.
+        /// Calls the GameMode's OnTimeOver().
+        /// </summary>
+        public void OnTimeOver()
+        {
+            if(_gameMode == null)
+                return;
+            
+            _gameMode.OnTimeOVer();
+        }
+
+        /// <summary>
+        /// Updates number of rounds played and clears the round that has ended.
+        /// </summary>
+        public void EndRound()
+        {
+            if(_gameMode == null)
+                return;
+
+            _roundsPlayed++;
+            _gameMode.ClearRound();
+            _gameMode = null;
         }
 
         #endregion
+
+        #region Private Methods
+        
+        private void EndGame()
+        {
+            print("End");
+        }
+
+        /// <summary>
+        /// Inits the GameModeFactory.
+        /// If singleMode was checked -> Init the factory with a single mode
+        /// Else -> Init the factory with the StartWith list
+        /// </summary>
+        private void Init()
+        {
+            if (_isSingleMode)
+                _gameModeFactory.Init(_singleMode);
+            else
+                _gameModeFactory.Init(_startWith);
+            Arena = Instantiate(_arenaPrefab);
+        }        
+
+        #endregion
+
+        public void FreezePlayers(bool timed=true, float time=2)
+        {
+            foreach (var player in Players)
+            {
+                player.Freeze(timed, time);
+            }
+        }
+        
+        public void UnFreezePlayers()
+        {
+            foreach (var player in Players)
+            {
+                player.UnFreeze();
+            }
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Utilities;
 
@@ -7,19 +9,12 @@ namespace Managers
 {
     public class TimeManager : SingletonPersistent<TimeManager>
     {
-        #region Serialized Fields
-  
-        #endregion
         #region Non-Serialized Fields
 
         private readonly Dictionary<Guid, (Action action, float time)> _actions = new();
         private readonly Dictionary<Guid, (Action action, float time)> _fixedActions = new();
-        
 
-        #endregion
-
-        #region Properties
-
+        private Coroutine _countDownCoroutine;
 
         #endregion
         
@@ -41,6 +36,14 @@ namespace Managers
         #endregion
 
         #region Public Methods
+
+        public void StartCountDown(int duration)
+        {
+            if(_countDownCoroutine != null)
+                StopCoroutine(_countDownCoroutine);
+                
+            _countDownCoroutine = StartCoroutine(CountDown_Inner(duration));
+        }
 
         public Guid DelayInvoke(Action action, float delayTime)
         {
@@ -70,6 +73,26 @@ namespace Managers
 
         #region Private Methods
 
+        private IEnumerator CountDown_Inner(int duration)
+        {
+            UIManager.Instance.UpdateTime(duration);
+            yield return null;
+            
+            float timeLeft = duration;
+            while (timeLeft > 0)
+            {
+                UIManager.Instance.UpdateTime(Mathf.Ceil(timeLeft));
+                yield return null;
+                
+                timeLeft -= Time.deltaTime;
+            }
+            
+            UIManager.Instance.UpdateTime(0);
+            yield return null;
+            
+            GameManager.Instance.OnTimeOver();
+        }
+
         private bool Cancel_Inner(Guid id, bool invoke)
         {
             if (_fixedActions.ContainsKey(id) || _actions.ContainsKey(id))
@@ -93,7 +116,8 @@ namespace Managers
         private void CountDown(float time, Dictionary<Guid, (Action action, float time)> actions)
         {
             var toDelete = new HashSet<Guid>();
-            foreach (var key in actions.Keys)
+            var keys = actions.Keys.ToList();
+            foreach (var key in keys)
             {
                 var val = actions[key];
                 if (time >= val.time)

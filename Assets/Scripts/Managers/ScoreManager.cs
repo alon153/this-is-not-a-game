@@ -41,6 +41,7 @@ namespace Managers
         public void SetNewPlayerScore(int playerId)
         {
             _playerScores.Add(playerId, InitialScore);
+            UIManager.Instance.SetNewPlayerDisplay(playerId);
         }
         
         public float GetPlayerScore(int playerId)
@@ -60,7 +61,7 @@ namespace Managers
         /// <param name="shouldAdd">
         /// if true, the points will be added to score. if false, the points will be subtracted from player score.   
         /// </param>
-        public void SetPlayerScore(int playerId, float score, bool shouldAdd)
+        public void SetPlayerScore(int playerId, float score, bool shouldAdd=true)
         {
             switch (shouldAdd)
             {
