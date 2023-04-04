@@ -114,6 +114,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1635228a-d09d-4a67-98ca-4640dfb47d6e
     m_ActionName: Game/Dash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1687361226651586059}
+        m_TargetAssemblyTypeName: Basics.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c353a459-c03b-42d3-9677-5e77cd7ed211
+    m_ActionName: Game/Action[/Keyboard/leftCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -160,7 +176,7 @@ SpriteRenderer:
   m_SortingLayerID: 583492459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

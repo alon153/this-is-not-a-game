@@ -46,6 +46,9 @@ TagManager:
   - name: Arena
     uniqueID: 3800773413
     locked: 0
+  - name: Splash
+    uniqueID: 1089671697
+    locked: 0
   - name: Object
     uniqueID: 2231531883
     locked: 0

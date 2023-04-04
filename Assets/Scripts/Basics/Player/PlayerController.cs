@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using GameMode;
 using Managers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Utilities.Listeners;
 
 namespace Basics.Player
 {
@@ -23,24 +24,17 @@ namespace Basics.Player
         [SerializeField] private float _maxSpeed = 2;
         [SerializeField] private float _acceleration = 2;
         [SerializeField] private float _deceleration = 2;
-        
 
         [Header("Dash")] 
         [field: SerializeField] public float DashTime = 0.5f;
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
-        [SerializeField] private float _knockBackForce = 3f;
-        [SerializeField] private float _mutualKnockBackForce = 1.5f;
-        [SerializeField] private float _knockBackDelay = 0.15f;
-        [SerializeField] private UnityEvent _onBeginKickBack;
-        [SerializeField] private UnityEvent _onDoneKickBack;
 
         #endregion
 
         #region Non-Serialized Fields
-
+        
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
-
         private bool _canDash = true;
         private bool _dashing;
 
@@ -51,11 +45,15 @@ namespace Basics.Player
         private Vector2 _pushbackVector;
 
         private bool _frozen = false;
-        private bool _canMove = true;
         private Guid _freezeId = Guid.Empty;
 
-        private SpriteRenderer _renderer;
+        public SpriteRenderer Renderer { get; private set; }
         private Vector3 _originalScale;
+
+        private Vector3 _lastPosition;
+
+        private HashSet<IOnMoveListener> _moveListeners = new HashSet<IOnMoveListener>();
+
 
         #endregion
 
@@ -81,7 +79,9 @@ namespace Basics.Player
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
-            _renderer = GetComponent<SpriteRenderer>();
+            Renderer = GetComponent<SpriteRenderer>();
+            
+            _lastPosition = transform.position;
         }
 
         private void Start()
@@ -89,22 +89,24 @@ namespace Basics.Player
             GameManager.Instance.RegisterPlayer(this);
         }
 
+        private void Update()
+        {
+            var pos = transform.position;
+            if (pos != _lastPosition)
+            {
+                foreach (var l in _moveListeners)
+                {
+                    l.OnMove(this, _lastPosition, pos);
+                }
+                _lastPosition = pos;
+            }
+        }
+
         private void FixedUpdate()
         {
             ModifyPhysics();
             if(!_frozen)
                 MoveCharacter();
-        }
-
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Player") && _dashing)
-            {
-                _dashing = false;
-                bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
-                Debug.Log("is mutual: " + isMutual);
-                KnockBackPlayer(other.gameObject, isMutual);
-            }
         }
 
         #endregion
@@ -115,7 +117,6 @@ namespace Basics.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            print("move");
             switch (context.phase)
             {
                 case InputActionPhase.Performed:
@@ -146,12 +147,22 @@ namespace Basics.Player
                     break;
             }
         }
+        
+        public void OnAction(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    GameManager.Instance.NextRound();
+                    break;
+            }
+        }
 
         #endregion
 
         #region Public Methods
 
-        public void Freeze(float time = 2)
+        public void Freeze(bool timed=true, float time = 2)
         {
             if (_freezeId != Guid.Empty) {
                 TimeManager.Instance.CancelInvoke(_freezeId);
@@ -159,7 +170,9 @@ namespace Basics.Player
             }
             Rigidbody.velocity = Vector2.zero;
             _frozen = true;
-            _freezeId = TimeManager.Instance.DelayInvoke((() => { _frozen = false; }), time);
+            
+            if(timed)
+                _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
         }
 
         public void UnFreeze()
@@ -171,24 +184,24 @@ namespace Basics.Player
             _frozen = false;
         }
 
-        public bool GetIsDashing()
-        { 
-            return _dashing;
-        }
-
-        public void SetMovementAbility(bool canMove)
+        public void RegisterMoveListener(IOnMoveListener l)
         {
-            _canMove = canMove;
+            if(!_moveListeners.Contains(l))
+                _moveListeners.Add(l);
         }
-
+        
+        public void UnRegisterMoveListener(IOnMoveListener l)
+        {
+            if(_moveListeners.Contains(l))
+                _moveListeners.Remove(l);
+        }
+        
         #endregion
 
         #region Private Methods
 
         private void MoveCharacter()
-        { 
-            if (!_canMove) return;
-            
+        {
             if (_dashing)
             {
                 Rigidbody.velocity = _dashDirection * DashSpeed;
@@ -235,9 +248,9 @@ namespace Basics.Player
 
         private void Reset()
         {
-            var color = _renderer.color;
+            var color = Renderer.color;
             color.a = 1;
-            _renderer.color = color;
+            Renderer.color = color;
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
             UnFreeze();
@@ -247,30 +260,6 @@ namespace Basics.Player
         {
             transform.position = GameManager.Instance.Arena.GetRespawnPosition(gameObject);
             Reset();
-        }
-
-        private void KnockBackPlayer(GameObject player, bool mutualCollision)
-        {
-            StopAllCoroutines();
-            _onBeginKickBack?.Invoke();
-            
-            Rigidbody2D otherPlayerRb = player.GetComponent<Rigidbody2D>();
-            PlayerController otherPlayerController = player.GetComponent<PlayerController>();
-            
-            Vector2 knockDir = (player.transform.position - transform.position).normalized;
-            float force = mutualCollision ? _mutualKnockBackForce : _knockBackForce;
-            otherPlayerController.SetMovementAbility(false);
-           
-            otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
-            StartCoroutine(ResetMovementAfterKnockBack(otherPlayerRb, otherPlayerController));
-        }
-
-        private IEnumerator ResetMovementAfterKnockBack(Rigidbody2D otherPlayerRb, PlayerController otherPlayerControl)
-        {
-            yield return new WaitForSeconds(_knockBackDelay);
-            otherPlayerRb.velocity = Vector2.zero;
-            otherPlayerControl.SetMovementAbility(true);
-            _onDoneKickBack?.Invoke();
         }
 
         #endregion

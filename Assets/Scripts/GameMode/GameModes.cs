@@ -4,6 +4,7 @@
     {
         Null,
         Ikea,
-        Pool
+        Pool,
+        Paint,
     }
 }

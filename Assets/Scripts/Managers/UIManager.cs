@@ -13,6 +13,7 @@ namespace Managers
         #region Serialized Fields
 
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
+        [SerializeField] private TextMeshProUGUI _timeText;
 
         #endregion
         
@@ -59,7 +60,8 @@ namespace Managers
                                "Available displays:" + _playerScoreDisplay.Count);
                 return;
             }
-            
+
+            playerScoreTexts[_activeScoreDisplays].color = GameManager.Instance.PlayerColors[playerId];
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
             _activeScoreDisplays += NewPlayerRegistered;
         }
@@ -97,6 +99,13 @@ namespace Managers
             }
         }
 
+        /// <summary>
+        /// Called by TimeManager to update the display of the time left
+        /// </summary>
+        public void UpdateTime(float time)
+        {
+            _timeText.text = $"TIME: {(int) time}";
+        }
 
         #endregion
 
