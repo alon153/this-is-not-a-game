@@ -11,8 +11,18 @@ namespace GameMode.Pool
     {
         #region Serialized Fields
 
-        [SerializeField] private List<BoxCollider2D> holeBordersColliders = new List<BoxCollider2D>();
+        [Header("Border Control")]
+        [SerializeField] private List<GameObject> holeBordersColliders = new List<GameObject>();
+
+        [SerializeField] private bool topBorderActive = false;
+
+        [SerializeField] private bool bottomBorderActive = false;
+
+        [SerializeField] private bool leftBorderActive = false;
+
+        [SerializeField] private bool rightBorderActive = false;
         
+        [Header("Hole Functionality")]
         [SerializeField] Action<PlayerController> fallenToHoleEvent;
 
         #endregion
@@ -24,11 +34,11 @@ namespace GameMode.Pool
         #endregion
         
         #region MonoBehaviour Methods
-        
+
         // Start is called before the first frame update
         void Start()
         {
-
+            SetUpBorders();
         }
 
         // Update is called once per frame
@@ -57,19 +67,20 @@ namespace GameMode.Pool
         #endregion
 
         #region Private Methods
-        
-        
+
+        private void SetUpBorders()
+        {
+            holeBordersColliders[(int) Borders.Top].SetActive(topBorderActive);
+            holeBordersColliders[(int) Borders.Bottom].SetActive(bottomBorderActive);
+            holeBordersColliders[(int) Borders.Left].SetActive(leftBorderActive);
+            holeBordersColliders[(int) Borders.Right].SetActive(rightBorderActive);
+        }
         
         #endregion
 
         #region Public Methods
 
-        
-
         #endregion
-        
-        
-        
     }
     
 }
