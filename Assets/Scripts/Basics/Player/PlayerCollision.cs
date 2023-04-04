@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Basics.Player
@@ -7,6 +8,13 @@ namespace Basics.Player
     {
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
+
+        #region Private Fields
+        
+        // this will only have a value when this player is knocked by another. 
+        [CanBeNull] private PlayerController _playerKnockedBy;
+
+        #endregion
         
         private void OnTriggerExit2D(Collider2D other)
         {
@@ -15,10 +23,21 @@ namespace Basics.Player
                 Fall();
             }
         }
+        
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player") && _dashing)
+            {
+                _dashing = false;
+                bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
+                Debug.Log("is mutual: " + isMutual);
+                KnockBackPlayer(other.gameObject, isMutual);
+            }
+        }
 
-        #region Public Methods
 
-        private void Fall()
+        #region Public Metho
+        public void Fall()
         {
             var vel = Rigidbody.velocity;
             Freeze();
@@ -61,6 +80,60 @@ namespace Basics.Player
             Respawn();
         }
         
+        private IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb, PlayerController playerControl)
+        {
+            yield return new WaitForSeconds(_knockBackDelay);
+            playerRb.velocity = Vector2.zero;
+            playerControl.SetMovementAbility(true);
+            _playerKnockedBy = null;
+            _onDoneKickBack?.Invoke();
+        }
+        
+        /// <summary>
+        /// called when Player is knocking another player.
+        /// Note: this method is called by the player BASHING, not the player BASHED!
+        /// </summary>
+        /// <param name="player">
+        /// the player who has been knocked.
+        /// </param>
+        /// <param name="mutualCollision">
+        /// true if both players bashed each other, false otherwise. 
+        /// </param>
+        private void KnockBackPlayer(GameObject player, bool mutualCollision)
+        {
+            StopAllCoroutines();
+            _onBeginKickBack?.Invoke();
+            
+            Rigidbody2D otherPlayerRb = player.GetComponent<Rigidbody2D>();
+            PlayerController otherPlayerController = player.GetComponent<PlayerController>();
+            
+            // calculate bash direction and force
+            Vector2 knockDir = (player.transform.position - transform.position).normalized;
+            float force = mutualCollision ? _mutualKnockBackForce : _knockBackForce;
+            
+            // set bashed player 
+            otherPlayerController.SetMovementAbility(false);
+            otherPlayerController.SetKnockingPlayer(this);
+            otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
+            StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb, 
+                otherPlayerController));
+        }
+        
+        #endregion
+
+        #region Public Methods
+
+        public void SetKnockingPlayer(PlayerController playerKnocking)
+        {
+            _playerKnockedBy = playerKnocking;
+        }
+
+        [CanBeNull]
+        public PlayerController GetBashingPlayer()
+        {
+            return _playerKnockedBy;
+        }
+
         #endregion
     }
 }

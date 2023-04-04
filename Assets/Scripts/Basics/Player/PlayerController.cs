@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameMode;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities.Listeners;
 
@@ -14,6 +15,8 @@ namespace Basics.Player
         #region Constants
 
         private const int DEFAULT_INDEX = -1;
+        
+        private const float DEC_THRESHOLD = 0.2f;
 
         #endregion
         
@@ -29,6 +32,11 @@ namespace Basics.Player
         [field: SerializeField] public float DashTime = 0.5f;
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
+        [SerializeField] private float _knockBackForce = 3f;
+        [SerializeField] private float _mutualKnockBackForce = 1.5f;
+        [SerializeField] private float _knockBackDelay = 0.15f;
+        [SerializeField] private UnityEvent _onBeginKickBack;
+        [SerializeField] private UnityEvent _onDoneKickBack;
 
         #endregion
 
@@ -40,12 +48,12 @@ namespace Basics.Player
 
         private Vector2 _direction;
 
-        private const float DEC_THRESHOLD = 0.2f;
-
         private Vector2 _pushbackVector;
 
         private bool _frozen = false;
         private Guid _freezeId = Guid.Empty;
+        
+        private bool _canMove = true;
 
         public SpriteRenderer Renderer { get; private set; }
         private Vector3 _originalScale;
@@ -196,12 +204,25 @@ namespace Basics.Player
                 _moveListeners.Remove(l);
         }
         
+        public bool GetIsDashing()
+        { 
+            return _dashing;
+        }
+
+        public void SetMovementAbility(bool canMove)
+        {
+            _canMove = canMove;
+        }
+
+        
         #endregion
 
         #region Private Methods
 
         private void MoveCharacter()
         {
+            if (!_canMove) return;
+            
             if (_dashing)
             {
                 Rigidbody.velocity = _dashDirection * DashSpeed;
