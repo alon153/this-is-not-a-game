@@ -21,9 +21,9 @@ namespace GameMode.Pool
         [SerializeField] private bool leftBorderActive = false;
 
         [SerializeField] private bool rightBorderActive = false;
-        
-        [Header("Hole Functionality")]
-        [SerializeField] Action<PlayerController> fallenToHoleEvent;
+
+        [SerializeField] private UnityEvent<PlayerController> onFallIntoHallEvent;
+
 
         #endregion
 
@@ -53,14 +53,7 @@ namespace GameMode.Pool
             {
                 PlayerController playerController = other.GetComponent<PlayerController>();
                 // player falls inside the hole, will probably change later
-                playerController.Fall();
-                
-                // player was pushed to the hole by another player.
-                if (playerController.GetBashingPlayer() != null)
-                {   
-                    // need to check how to pass arguments to event 
-                    fallenToHoleEvent.Invoke(playerController);
-                }
+                onFallIntoHallEvent.Invoke(playerController);
             }
         }
 

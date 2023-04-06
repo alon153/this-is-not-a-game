@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameMode.Modes;
+using GameMode.Pool;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,7 +13,9 @@ namespace GameMode
     {
         #region Serialized Fields
 
-        [SerializeField] private PaintMode _paintMode;        
+        [SerializeField] private PaintMode _paintMode;
+
+        [SerializeField] private PoolMode _poolMode;
 
         #endregion
         
@@ -61,6 +64,7 @@ namespace GameMode
             return mode switch
             {
                 GameModes.Paint => _paintMode,
+                GameModes.Pool => _poolMode,
                 _ => throw new Exception("No mode to create")
             };
         }

@@ -18,3 +18,6 @@ MonoBehaviour:
     _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
     _threshold: 0.2
     _coloringOffset: 0.05
+  _poolMode:
+    poolHolesParent: {fileID: 7643970745100840505, guid: 39113bbd2fbf062488fbd3cf1fd17f6a, type: 3}
+    scoreOnHit: 10
