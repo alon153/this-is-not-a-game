@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Basics.Player;
 using Managers;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using UnityEngine.Events;
 using Utilities.Listeners;
 using Object = UnityEngine.Object;
 
@@ -25,18 +27,27 @@ namespace GameMode.Pool
         #region Non Serialized Fields
 
         private List<GameObject> _poolHoles = new List<GameObject>();
+
+        private UnityEvent<PlayerController> _onFallEvent = new UnityEvent<PlayerController>();
         
         #endregion
 
         #region GameModeBase Methods
         public override void InitRound()
         {   
-            Debug.Log("got here");
-            GameObject parent = Object.Instantiate(poolHolesParent);
+           
+            GameObject parent = Object.Instantiate(poolHolesParent, poolHolesParent.transform.position, 
+                Quaternion.identity);
             foreach (Transform hole in parent.transform)
-                _poolHoles.Add(hole.gameObject);
+            {
+                var holeObj = hole.gameObject;
+                holeObj.SetActive(true);
+                holeObj.GetComponent<PoolHole>().SetUpPoolMode(this);
+                _poolHoles.Add(holeObj);
+            }
             
-            TogglePoolHoles(true);
+            // todo fix null bug here!!!
+            //TogglePoolHoles(true);
         }
 
         public override void ClearRound()
@@ -54,10 +65,11 @@ namespace GameMode.Pool
             PlayerController playerBashing = playerFalling.GetBashingPlayer();
             if (playerBashing != null)
             {   
-                playerFalling.Freeze();
-                playerFalling.Fall();
+                Debug.Log("got here");
                 ScoreManager.Instance.SetPlayerScore(playerBashing.GetInstanceID(), scoreOnHit);
             }
+            playerFalling.Freeze();
+            playerFalling.Fall();
         }
         
         #endregion
@@ -72,7 +84,7 @@ namespace GameMode.Pool
         /// </param>
         private void TogglePoolHoles(bool activate)
         {
-            foreach (var hole in _poolHoles)
+            foreach (GameObject hole in _poolHoles)
                 hole.SetActive(activate);
         }
 

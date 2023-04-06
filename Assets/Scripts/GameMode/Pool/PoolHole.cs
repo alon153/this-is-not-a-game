@@ -22,13 +22,13 @@ namespace GameMode.Pool
 
         [SerializeField] private bool rightBorderActive = false;
 
-        [SerializeField] private UnityEvent<PlayerController> onFallIntoHallEvent;
-
+        
 
         #endregion
 
         #region Non Serlized Fields
-
+        
+        private PoolMode _modeManager;
         private enum Borders {Top, Bottom, Left, Right}
 
         #endregion
@@ -50,10 +50,11 @@ namespace GameMode.Pool
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
-            {
+            {   
+                
                 PlayerController playerController = other.GetComponent<PlayerController>();
                 // player falls inside the hole, will probably change later
-                onFallIntoHallEvent.Invoke(playerController);
+                _modeManager.OnFallIntoHall(playerController);
             }
         }
 
@@ -69,10 +70,16 @@ namespace GameMode.Pool
             holeBordersColliders[(int) Borders.Right].SetActive(rightBorderActive);
         }
         
+        
         #endregion
 
         #region Public Methods
 
+        public void SetUpPoolMode(PoolMode newMode)
+        {
+            _modeManager = newMode;
+        }
+        
         #endregion
     }
     
