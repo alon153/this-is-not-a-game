@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using Basics.Player;
 using Managers;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Utilities.Listeners;
+using Object = UnityEngine.Object;
 
 namespace GameMode.Pool
 {   
@@ -29,8 +31,9 @@ namespace GameMode.Pool
         #region GameModeBase Methods
         public override void InitRound()
         {   
-           
-            foreach (Transform hole in poolHolesParent.transform)
+            Debug.Log("got here");
+            GameObject parent = Object.Instantiate(poolHolesParent);
+            foreach (Transform hole in parent.transform)
                 _poolHoles.Add(hole.gameObject);
             
             TogglePoolHoles(true);
