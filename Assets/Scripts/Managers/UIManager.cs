@@ -44,6 +44,13 @@ namespace Managers
         }
         #endregion
         
+        private string FormatTime(int totalSeconds)
+        {
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+            return string.Format("Time: {0:00}:{1:00}", minutes, seconds);
+        }
+        
         #region Public Methods
         
         /// <summary>
@@ -60,7 +67,8 @@ namespace Managers
                                "Available displays:" + _playerScoreDisplay.Count);
                 return;
             }
-
+            
+            
             playerScoreTexts[_activeScoreDisplays].color = GameManager.Instance.PlayerColors[playerId];
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
             _activeScoreDisplays += NewPlayerRegistered;
@@ -104,8 +112,10 @@ namespace Managers
         /// </summary>
         public void UpdateTime(float time)
         {
-            _timeText.text = $"TIME: {(int) time}";
+          
+          _timeText.text = FormatTime((int) time);
         }
+
 
         #endregion
 

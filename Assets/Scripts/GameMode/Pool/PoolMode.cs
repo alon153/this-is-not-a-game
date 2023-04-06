@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Basics.Player;
 using Managers;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Events;
 using Utilities.Listeners;
@@ -65,8 +63,7 @@ namespace GameMode.Pool
             PlayerController playerBashing = playerFalling.GetBashingPlayer();
             if (playerBashing != null)
             {   
-                Debug.Log("got here");
-                ScoreManager.Instance.SetPlayerScore(playerBashing.GetInstanceID(), scoreOnHit);
+               ScoreManager.Instance.SetPlayerScore(playerBashing.Index, scoreOnHit);
             }
             playerFalling.Freeze();
             playerFalling.Fall();

@@ -30,8 +30,9 @@ namespace Basics.Player
             {
                 _dashing = false;
                 bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
-                Debug.Log("is mutual: " + isMutual);
                 KnockBackPlayer(other.gameObject, isMutual);
+               
+                
             }
         }
 
