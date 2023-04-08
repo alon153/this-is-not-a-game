@@ -271,7 +271,7 @@ namespace Basics.Player
 
         private void Respawn()
         {
-            transform.position = GameManager.Instance.Arena.GetRespawnPosition(gameObject);
+            transform.position = GameManager.Instance.GetCurArena().GetRespawnPosition(gameObject);
             Reset();
         }
 

@@ -17,7 +17,6 @@ namespace GameMode.Pool
         #region Serialized Fields
         
         [Tooltip("list stores pool holes object deactivated, will be activated when starting a new pool round")]
-        [SerializeField] private GameObject poolHolesParent;
 
         [SerializeField] private float scoreOnHit = 10f;
 
@@ -33,25 +32,30 @@ namespace GameMode.Pool
 
         #region GameModeBase Methods
         public override void InitRound()
-        {   
-            _poolHoles.Clear();
-            GameObject parent = Object.Instantiate(poolHolesParent, poolHolesParent.transform.position, 
-                Quaternion.identity);
-            foreach (Transform hole in parent.transform)
-            {
-                var poolArenaObj = hole.gameObject;
-                poolArenaObj.SetActive(true);
-
-                if (poolArenaObj.CompareTag("PoolHole"))
-                     _poolHoles.Add(poolArenaObj);
-
-                else if (poolArenaObj.CompareTag("PoolBorders"))
-                    _arenaBorders = poolArenaObj;
-            }
-
+        {
+            InitArena();
             foreach (PlayerController player in GameManager.Instance.Players)
                 player.RegisterFallListener(this);              
             
+        }
+
+        public override void InitArena()
+        {
+            _poolHoles.Clear();
+            GameObject arena = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
+            foreach (Transform parentArenaObj in arena.transform)
+            {
+                foreach (Transform arenaObj in parentArenaObj.transform)
+                {
+                    var poolArenaObj = arenaObj.gameObject;
+                                   
+                    if (poolArenaObj.CompareTag("PoolHole"))
+                        _poolHoles.Add(poolArenaObj);
+                    
+                    else if (poolArenaObj.CompareTag("PoolBorders"))
+                        _arenaBorders = poolArenaObj;
+                }
+            }
         }
 
         public override void ClearRound()

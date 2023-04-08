@@ -57,6 +57,11 @@ namespace GameMode.Modes
             _splashContainer.transform.SetParent(GameManager.Instance.Arena.transform);
         }
 
+        public override void InitArena()
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Destroy the splash container and unregisters as MoveListener
         /// </summary>

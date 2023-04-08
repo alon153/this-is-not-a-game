@@ -49,6 +49,11 @@ namespace GameMode.Ikea
             
         }
 
+        public override void InitArena()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void ClearRound()
         {
             throw new NotImplementedException();

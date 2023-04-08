@@ -17,7 +17,7 @@ namespace Managers
     {
         #region Serialized Fields
 
-        [SerializeField] private Arena _arenaPrefab;
+        [SerializeField] private Arena _defaultArenaPrefab;
         
         [field: SerializeField] public List<Color> PlayerColors { get; private set; }
 
@@ -53,7 +53,7 @@ namespace Managers
 
         #region Event Functions
 
-        private void Awake()
+        public override void Awake()
         {
             base.Awake();
             Init();
@@ -157,7 +157,7 @@ namespace Managers
                 _gameModeFactory.Init(_singleMode);
             else
                 _gameModeFactory.Init(_startWith);
-            Arena = Instantiate(_arenaPrefab);
+            
         }        
 
         #endregion
@@ -176,6 +176,11 @@ namespace Managers
             {
                 player.UnFreeze();
             }
+        }
+
+        public Arena GetCurArena()
+        {
+            return _gameMode.ModeArena;
         }
 
     }

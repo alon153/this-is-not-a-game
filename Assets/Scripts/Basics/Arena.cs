@@ -3,7 +3,8 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Basics
-{
+{   
+    [Serializable]
     public class Arena : MonoBehaviour
     {
         [SerializeField] private LayerMask _respawnBlockers;
