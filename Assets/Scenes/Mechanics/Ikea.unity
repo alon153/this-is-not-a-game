@@ -272,8 +272,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _singleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 10
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2591634745758349653, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_text

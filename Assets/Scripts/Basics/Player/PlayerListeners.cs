@@ -6,9 +6,8 @@ namespace Basics.Player
     public partial class PlayerController
     {
         private HashSet<IOnMoveListener> _moveListeners = new HashSet<IOnMoveListener>();
-
         private HashSet<IOnFallListener> _fallListeners = new HashSet<IOnFallListener>();
-
+        
         public void RegisterMoveListener(IOnMoveListener l)
         {
             if(!_moveListeners.Contains(l))

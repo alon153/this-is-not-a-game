@@ -3,6 +3,7 @@ using System.Collections;
 using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
+using Utilities.Interfaces;
 
 namespace Basics.Player
 {
@@ -11,6 +12,19 @@ namespace Basics.Player
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
         public bool IsBashed { get; set; } = false;
+
+        private InteractableObject _interactable;
+
+        public InteractableObject Interactable
+        {
+            get => _interactable;
+            set
+            {
+                if ((_interactable == null && value == null) ||
+                    (_interactable != null && value != null)) return;
+                _interactable = value;
+            }
+        }
 
         #region Private Fields
         
@@ -59,6 +73,7 @@ namespace Basics.Player
         }
 
         #region Public Methods
+
         public void Fall()
         {
             foreach (var listener in _fallListeners)
