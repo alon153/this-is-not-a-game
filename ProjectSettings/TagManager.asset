@@ -52,6 +52,12 @@ TagManager:
   - name: Object
     uniqueID: 2231531883
     locked: 0
+  - name: Dispenser
+    uniqueID: 1654018919
+    locked: 0
+  - name: Part
+    uniqueID: 4173128985
+    locked: 0
   - name: Player
     uniqueID: 583492459
     locked: 0

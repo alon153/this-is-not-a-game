@@ -11,6 +11,16 @@ namespace Basics
 
         public SpriteRenderer Renderer { get; private set; }
 
+        public Vector3 BottomLeft => transform.position - transform.lossyScale / 2;
+        public Vector3 TopRight => transform.position + transform.lossyScale / 2;
+        public Vector3 TopLeft => BottomLeft + new Vector3(0,transform.lossyScale.y,0);
+        public Vector3 BottomRight => TopRight - new Vector3(0,transform.lossyScale.y,0);
+        public Vector3 TopMiddle => (TopLeft + TopRight) / 2;
+        public Vector3 BottomMiddle => (BottomLeft + BottomRight) / 2;
+        public Vector3 RightMiddle => (TopRight + BottomRight) / 2;
+        public Vector3 LeftMiddle => (TopLeft + BottomLeft) / 2;
+        public Vector3 Center => transform.position;
+
         private void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();

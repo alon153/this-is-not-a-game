@@ -8,7 +8,7 @@ using Managers;
 using UnityEditor.Build;
 using UnityEngine;
 using Utilities;
-using Utilities.Listeners;
+using Utilities.Interfaces;
 using Object = UnityEngine.Object;
 
 namespace GameMode.Modes
@@ -97,7 +97,7 @@ namespace GameMode.Modes
             if (Time.time >= _paintTime[player.Index])
             {
                 var sprite = _paintingSprite == null ? player.Renderer.sprite : _paintingSprite;
-                var color = GameManager.Instance.PlayerColors[player.Index];
+                var color = player.Color;
                 DrawSprite(player.transform.position, sprite, color.AddOffset(_coloringOffset));
                 _paintTime[player.Index] = Time.time + _paintIntervals;
             }
@@ -124,26 +124,23 @@ namespace GameMode.Modes
         private IEnumerator CountColors_Inner(Dictionary<int, Color> colors, float thresh)
         {
             yield return new WaitForEndOfFrame();
-
-            var arenaTrans = GameManager.Instance.Arena.transform;
-            var scale = arenaTrans.lossyScale;
-            scale.z = 0;
-            var pos = arenaTrans.position;
-
+            
             //Get Screen Shot
             Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
 
             //Get the arena's pixel range
-            var bottomLeft = Camera.main.WorldToScreenPoint(pos - scale / 2);
-            var topRight = Camera.main.WorldToScreenPoint(pos + scale / 2);
+            var arena = GameManager.Instance.Arena;
+            var bottomLeft = Camera.main.WorldToScreenPoint(arena.BottomLeft);
+            var topRight = Camera.main.WorldToScreenPoint(arena.TopRight);
             float total = (topRight.x - bottomLeft.x) * (topRight.y - bottomLeft.y);
             
+            //Count how many pixels are colored with each color
             Dictionary<int, int> percentages = new Dictionary<int, int>();
             foreach (var key in colors.Keys)
             {
                 percentages[key] = 0;
             }
-
+            
             for (int x = (int) bottomLeft.x; x <= topRight.x; x++)
             for (int y = (int) bottomLeft.y; y <= topRight.y; y++)
             {

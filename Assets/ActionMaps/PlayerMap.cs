@@ -53,6 +53,15 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToogleRound"",
+                    ""type"": ""Button"",
+                    ""id"": ""bfe516d9-3e89-4e68-8c86-9e8265473acc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +240,28 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b137d8e4-9bb3-4e70-b93e-91d3920d910f"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""ToogleRound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""059d0450-f110-40dd-900d-0444fc31c460"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""ToogleRound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -265,6 +296,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
         m_Game_Dash = m_Game.FindAction("Dash", throwIfNotFound: true);
         m_Game_Action = m_Game.FindAction("Action", throwIfNotFound: true);
+        m_Game_ToogleRound = m_Game.FindAction("ToogleRound", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -327,6 +359,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Move;
     private readonly InputAction m_Game_Dash;
     private readonly InputAction m_Game_Action;
+    private readonly InputAction m_Game_ToogleRound;
     public struct GameActions
     {
         private @PlayerMap m_Wrapper;
@@ -334,6 +367,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Game_Move;
         public InputAction @Dash => m_Wrapper.m_Game_Dash;
         public InputAction @Action => m_Wrapper.m_Game_Action;
+        public InputAction @ToogleRound => m_Wrapper.m_Game_ToogleRound;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -352,6 +386,9 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @Action.started -= m_Wrapper.m_GameActionsCallbackInterface.OnAction;
                 @Action.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnAction;
                 @Action.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnAction;
+                @ToogleRound.started -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleRound;
+                @ToogleRound.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleRound;
+                @ToogleRound.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleRound;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -365,6 +402,9 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @Action.started += instance.OnAction;
                 @Action.performed += instance.OnAction;
                 @Action.canceled += instance.OnAction;
+                @ToogleRound.started += instance.OnToogleRound;
+                @ToogleRound.performed += instance.OnToogleRound;
+                @ToogleRound.canceled += instance.OnToogleRound;
             }
         }
     }
@@ -392,5 +432,6 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
+        void OnToogleRound(InputAction.CallbackContext context);
     }
 }

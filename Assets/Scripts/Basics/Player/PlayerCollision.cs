@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
+using Utilities.Interfaces;
 
 namespace Basics.Player
 {
@@ -8,6 +10,19 @@ namespace Basics.Player
     {
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
+
+        private InteractableObject _interactable;
+
+        public InteractableObject Interactable
+        {
+            get => _interactable;
+            set
+            {
+                if ((_interactable == null && value == null) ||
+                    (_interactable != null && value != null)) return;
+                _interactable = value;
+            }
+        }
 
         #region Private Fields
         
@@ -31,11 +46,8 @@ namespace Basics.Player
                 _dashing = false;
                 bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
                 KnockBackPlayer(other.gameObject, isMutual);
-               
-                
             }
         }
-
 
         #region Public Metho
         public void Fall()

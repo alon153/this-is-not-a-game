@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameMode;
+using GameMode.Ikea;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using Utilities.Listeners;
+using Utilities.Interfaces;
 
 namespace Basics.Player
 {
@@ -41,6 +42,8 @@ namespace Basics.Player
         #endregion
 
         #region Non-Serialized Fields
+
+        private Color _color;
         
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
         private bool _canDash = true;
@@ -60,14 +63,12 @@ namespace Basics.Player
 
         private Vector3 _lastPosition;
 
-        private HashSet<IOnMoveListener> _moveListeners = new HashSet<IOnMoveListener>();
-
 
         #endregion
 
         #region Properties
 
-        public int Index { get; set; } = DEFAULT_INDEX;
+        public int Index { get; private set; } = DEFAULT_INDEX;
 
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
@@ -79,6 +80,17 @@ namespace Basics.Player
         }
 
         public Rigidbody2D Rigidbody { get; set; }
+        
+        public Color Color { 
+            get => _color;
+            private set
+            {
+                _color = value;
+                Renderer.color = value;
+            }
+        }
+        
+        public PlayerAddon Addon { get; set; }
 
         #endregion
 
@@ -94,11 +106,15 @@ namespace Basics.Player
 
         private void Start()
         {
-            GameManager.Instance.RegisterPlayer(this);
+            Index = GameManager.Instance.RegisterPlayer(this);
+            Color = GameManager.Instance.PlayerColors[Index];
         }
 
         private void Update()
         {
+            if (Interactable != null && !Interactable.CanInteract)
+                Interactable = null;
+            
             var pos = transform.position;
             if (pos != _lastPosition)
             {
@@ -161,6 +177,21 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if (Interactable != null)
+                    {
+                        Interactable.OnInteract(this);
+                        Interactable = null;
+                    }
+                    break;
+                    
+            }
+        }
+
+        public void OnToggleRound(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
                     GameManager.Instance.NextRound();
                     break;
             }
@@ -192,18 +223,6 @@ namespace Basics.Player
             _frozen = false;
         }
 
-        public void RegisterMoveListener(IOnMoveListener l)
-        {
-            if(!_moveListeners.Contains(l))
-                _moveListeners.Add(l);
-        }
-        
-        public void UnRegisterMoveListener(IOnMoveListener l)
-        {
-            if(_moveListeners.Contains(l))
-                _moveListeners.Remove(l);
-        }
-        
         public bool GetIsDashing()
         { 
             return _dashing;
@@ -213,7 +232,6 @@ namespace Basics.Player
         {
             _canMove = canMove;
         }
-
         
         #endregion
 
