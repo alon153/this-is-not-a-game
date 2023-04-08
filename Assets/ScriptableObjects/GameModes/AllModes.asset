@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AllModes
   m_EditorClassIdentifier: 
   _paintMode:
-    <ModeArena>k__BackingField: {fileID: 0}
+    <ModeArena>k__BackingField: {fileID: 5596075538407626734, guid: 60e827da81b50ee4d82a42b5b7c9b5d3, type: 3}
     _paintIntervals: 0.05
     _paintingSprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
     _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
@@ -23,7 +23,7 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 5357777095989818182, guid: 6d774cf085ced544ab612a022d7bfdde, type: 3}
     scoreOnHit: 10
   _ikeaMode:
-    <ModeArena>k__BackingField: {fileID: 0}
+    <ModeArena>k__BackingField: {fileID: 8762798985053022016, guid: 32feeff5395a37a4a9f37a84898a9e7b, type: 3}
     _partsPrefabs:
     - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
     _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}

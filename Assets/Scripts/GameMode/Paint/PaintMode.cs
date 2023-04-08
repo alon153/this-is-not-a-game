@@ -40,7 +40,7 @@ namespace GameMode.Modes
         /// Registers as a MoveListener for all players and creates a container for all Splash objects.
         /// </summary>
         public override void InitRound()
-        {
+        {   
             foreach (var player in GameManager.Instance.Players)
             {
                 player.RegisterMoveListener(this);
@@ -51,15 +51,17 @@ namespace GameMode.Modes
             {
                 _paintTime[i] = Time.time;
             }
-
+            
+            InitArena();
             _splashContainer = new GameObject();
             _splashContainer.name = "Splash Container";
             _splashContainer.transform.SetParent(GameManager.Instance.DefaultArena.transform);
+            
         }
 
         public override void InitArena()
         {
-            throw new NotImplementedException();
+            GameObject arenaObJ = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
         }
 
         /// <summary>

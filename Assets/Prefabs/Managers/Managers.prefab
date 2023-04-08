@@ -313,6 +313,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5528608369377680929, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
+      propertyPath: _defaultArenaPrefab
+      value: 
+      objectReference: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
+    - target: {fileID: 5528608369377680929, guid: 495326fa667dcf748bbf41fd5e4c3694, type: 3}
       propertyPath: <Arena>k__BackingField
       value: 
       objectReference: {fileID: 0}
