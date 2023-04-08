@@ -54,7 +54,7 @@ namespace GameMode.Modes
 
             _splashContainer = new GameObject();
             _splashContainer.name = "Splash Container";
-            _splashContainer.transform.SetParent(GameManager.Instance.Arena.transform);
+            _splashContainer.transform.SetParent(GameManager.Instance.DefaultArena.transform);
         }
 
         public override void InitArena()
@@ -134,7 +134,7 @@ namespace GameMode.Modes
             Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
 
             //Get the arena's pixel range
-            var arena = GameManager.Instance.Arena;
+            var arena = GameManager.Instance.DefaultArena;
             var bottomLeft = Camera.main.WorldToScreenPoint(arena.BottomLeft);
             var topRight = Camera.main.WorldToScreenPoint(arena.TopRight);
             float total = (topRight.x - bottomLeft.x) * (topRight.y - bottomLeft.y);

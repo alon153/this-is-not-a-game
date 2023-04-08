@@ -27,7 +27,7 @@ namespace GameMode.Ikea
         {
             _partsParent = new GameObject();
             
-            var arena = GameManager.Instance.Arena;
+            var arena = GameManager.Instance.DefaultArena;
             var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
             var dispenserPos = (_partsPrefabs.Count % 2 == 0)
                 ? arena.TopMiddle

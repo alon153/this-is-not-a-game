@@ -47,7 +47,7 @@ namespace Managers
         #region Properties
 
         public List<PlayerController> Players => Instance._players;
-        public Arena Arena { get; private set; }
+        public Arena DefaultArena { get; private set; }
 
         #endregion
 
