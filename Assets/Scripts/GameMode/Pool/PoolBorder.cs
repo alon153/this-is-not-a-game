@@ -7,7 +7,7 @@ namespace GameMode.Pool
     public class PoolBorder : MonoBehaviour
     {
         [SerializeField] private float knockBackForce = 15f;
-
+    
         private void KnockBack(GameObject player)
         {   
             PlayerController playerController = player.GetComponent<PlayerController>();

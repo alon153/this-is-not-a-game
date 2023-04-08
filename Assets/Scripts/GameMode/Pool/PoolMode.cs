@@ -27,37 +27,45 @@ namespace GameMode.Pool
 
         private List<GameObject> _poolHoles = new List<GameObject>();
 
+        private GameObject _arenaBorders;
+
         #endregion
 
         #region GameModeBase Methods
         public override void InitRound()
         {   
-           
+            _poolHoles.Clear();
             GameObject parent = Object.Instantiate(poolHolesParent, poolHolesParent.transform.position, 
                 Quaternion.identity);
             foreach (Transform hole in parent.transform)
             {
-                var holeObj = hole.gameObject;
-                holeObj.SetActive(true);
-                _poolHoles.Add(holeObj);
+                var poolArenaObj = hole.gameObject;
+                poolArenaObj.SetActive(true);
+
+                if (poolArenaObj.CompareTag("PoolHole"))
+                     _poolHoles.Add(poolArenaObj);
+
+                else if (poolArenaObj.CompareTag("PoolBorders"))
+                    _arenaBorders = poolArenaObj;
             }
-            
-            // todo fix null bug here!!!
-            //TogglePoolHoles(true);
 
             foreach (PlayerController player in GameManager.Instance.Players)
-            {
                 player.RegisterFallListener(this);              
-            }
+            
         }
 
         public override void ClearRound()
         {
-            TogglePoolHoles(false);
             foreach (PlayerController player in GameManager.Instance.Players)
-            {
                 player.UnRegisterFallListener(this);              
-            }
+            
+            foreach (var hole in _poolHoles)
+                Object.Destroy(hole);
+            
+            _poolHoles.Clear();
+            Object.Destroy(_arenaBorders);
+            _arenaBorders = null;
+
         }
 
         public override void OnTimeOVer()
@@ -84,7 +92,7 @@ namespace GameMode.Pool
         #region Private Methods
         
         /// <summary>
-        /// toggles pool holes activation
+        /// toggles pool holes activation, not currently used. 
         /// </summary>
         /// <param name="activate">
         /// if true, holes will be activated. otherwise, holes will be Deactivated.  

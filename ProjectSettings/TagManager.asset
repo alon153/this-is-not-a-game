@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Object
   - Arena
+  - PoolHole
+  - PoolBorders
   layers:
   - Default
   - TransparentFX
