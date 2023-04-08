@@ -45,7 +45,7 @@ namespace Basics.Player
         
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
         private bool _canDash = true;
-        private bool _dashing;
+       
 
         private Vector2 _direction;
 
@@ -75,8 +75,9 @@ namespace Basics.Player
         {
             get => _direction;
             set => _direction = value.normalized;
-        }
-
+        } 
+        
+        private bool dashing { get; set; } = false;
         public Rigidbody2D Rigidbody { get; set; }
         
         public Color Color { get; private set; }
@@ -147,14 +148,14 @@ namespace Basics.Player
                 case InputActionPhase.Started:
                     _dashDirection = _direction.normalized;
                     
-                    _dashing = true;
+                    dashing = true;
                     _canDash = false;
 
                     TimeManager.Instance.DelayInvoke(() => { _canDash = true; }, _dashCooldown);
                     
                     TimeManager.Instance.DelayInvoke(() =>
                     {
-                        _dashing = false;
+                        dashing = false;
                     }, DashTime);
                     break;
             }
@@ -198,7 +199,7 @@ namespace Basics.Player
 
         public bool GetIsDashing()
         { 
-            return _dashing;
+            return dashing;
         }
 
         public void SetMovementAbility(bool canMove)
@@ -214,7 +215,7 @@ namespace Basics.Player
         {
             if (!_canMove) return;
             
-            if (_dashing)
+            if (dashing)
             {
                 Rigidbody.velocity = _dashDirection * DashSpeed;
                 return;

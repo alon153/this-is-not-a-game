@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Basics.Player
@@ -8,6 +10,7 @@ namespace Basics.Player
     {
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
+        public bool IsBashed { get; set; } = false;
 
         #region Private Fields
         
@@ -26,20 +29,44 @@ namespace Basics.Player
         
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Player") && _dashing)
+            if (other.gameObject.CompareTag("Player"))
+            {   
+                // was the player bashing or only pushing the other player
+                if (dashing)
+                {   
+                    // player has bashed another player so a knockback needed.
+                    dashing = false;
+                    bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
+                    KnockBackPlayer(other.gameObject, isMutual);
+                }
+
+                else
+                {
+                    other.gameObject.GetComponent<PlayerController>().SetPushingPlayer(this, false);
+                }
+
+            }
+        }
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Player"))
             {
-                _dashing = false;
-                bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
-                KnockBackPlayer(other.gameObject, isMutual);
-               
-                
+                var controller = other.gameObject.GetComponent<PlayerController>();
+
+                if (!controller.IsBashed)
+                    controller.SetPushingPlayer(null, false);
             }
         }
 
-
-        #region Public Metho
+        #region Public Methods
         public void Fall()
         {
+            foreach (var listener in _fallListeners)
+            {
+                listener.OnFall(this);    
+            }
+            
+            
             var vel = Rigidbody.velocity;
             Freeze();
             Rigidbody.drag = _fallDrag;
@@ -52,7 +79,8 @@ namespace Basics.Player
         #region Private Methods
         
         private IEnumerator Fall_Inner()
-        {
+        {   
+           
             float duration = 0f;
             float scaleFactor = 1f;
             var color = Renderer.color;
@@ -81,14 +109,7 @@ namespace Basics.Player
             Respawn();
         }
         
-        private IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb, PlayerController playerControl)
-        {
-            yield return new WaitForSeconds(_knockBackDelay);
-            playerRb.velocity = Vector2.zero;
-            playerControl.SetMovementAbility(true);
-            _playerKnockedBy = null;
-            _onDoneKickBack?.Invoke();
-        }
+        
         
         /// <summary>
         /// called when Player is knocking another player.
@@ -102,11 +123,12 @@ namespace Basics.Player
         /// </param>
         private void KnockBackPlayer(GameObject player, bool mutualCollision)
         {
-            StopAllCoroutines();
+            
             _onBeginKickBack?.Invoke();
             
-            Rigidbody2D otherPlayerRb = player.GetComponent<Rigidbody2D>();
             PlayerController otherPlayerController = player.GetComponent<PlayerController>();
+            Rigidbody2D otherPlayerRb = otherPlayerController.Rigidbody;
+            
             
             // calculate bash direction and force
             Vector2 knockDir = (player.transform.position - transform.position).normalized;
@@ -114,25 +136,63 @@ namespace Basics.Player
             
             // set bashed player 
             otherPlayerController.SetMovementAbility(false);
-            otherPlayerController.SetKnockingPlayer(this);
+            otherPlayerController.SetPushingPlayer(this, true);
             otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
-            StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb, 
-                otherPlayerController));
+            StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
         }
-        
+
+       
+
         #endregion
 
         #region Public Methods
-
-        public void SetKnockingPlayer(PlayerController playerKnocking)
+        
+        /// <summary>
+        /// sets the _playerKnockedBy to the last pushing player. 
+        /// </summary>
+        /// <param name="playerKnocking">
+        /// The player which pushed or bashed. 
+        /// </param>
+        /// <param name="wasBashed">
+        /// was it actually bashed or only pushed by player?
+        /// </param>
+        public void SetPushingPlayer(PlayerController playerKnocking, bool wasBashed = false)
         {
             _playerKnockedBy = playerKnocking;
+            IsBashed = wasBashed;
         }
 
         [CanBeNull]
         public PlayerController GetBashingPlayer()
         {
             return _playerKnockedBy;
+        }
+
+        /// <summary>
+        /// coroutine activated after a player is knocked by something. it resets its velocity to zero after
+        /// a given time.
+        /// </summary>
+        /// <param name="playerRb"></param>
+        /// <param name="playerControl"></param>
+        /// <returns></returns>
+       public IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb)
+        {   
+            StopAllCoroutines();
+            float time = 0f;
+            Vector2 initialVelocity = playerRb.velocity;
+            Vector2 noVelocity = Vector2.zero;
+            while (time < _knockBackDelay)
+            {
+                time += Time.deltaTime;
+                Vector2 curVelocity = Vector2.Lerp(initialVelocity, noVelocity, time / _knockBackDelay);
+                playerRb.velocity = curVelocity;
+                yield return null;
+            }
+            
+            playerRb.velocity = Vector2.zero;
+            SetMovementAbility(true);
+            _playerKnockedBy = null;
+            _onDoneKickBack?.Invoke(); 
         }
 
         #endregion

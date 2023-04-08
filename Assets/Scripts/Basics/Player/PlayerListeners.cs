@@ -7,6 +7,8 @@ namespace Basics.Player
     {
         private HashSet<IOnMoveListener> _moveListeners = new HashSet<IOnMoveListener>();
 
+        private HashSet<IOnFallListener> _fallListeners = new HashSet<IOnFallListener>();
+
         public void RegisterMoveListener(IOnMoveListener l)
         {
             if(!_moveListeners.Contains(l))
@@ -17,6 +19,18 @@ namespace Basics.Player
         {
             if(_moveListeners.Contains(l))
                 _moveListeners.Remove(l);
+        }
+
+        public void RegisterFallListener(IOnFallListener l)
+        {
+            if (!_fallListeners.Contains(l))
+                _fallListeners.Add(l);
+        }
+
+        public void UnRegisterFallListener(IOnFallListener l)
+        {
+            if (_fallListeners.Contains(l))
+                _fallListeners.Remove(l);
         }
     }
 }

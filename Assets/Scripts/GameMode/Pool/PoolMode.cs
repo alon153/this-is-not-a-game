@@ -4,14 +4,15 @@ using Basics.Player;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
-using Utilities.Listeners;
+using Utilities.Interfaces;
+using Utilities.Interfaces;
 using Object = UnityEngine.Object;
 
 namespace GameMode.Pool
 {   
     [Serializable]
     
-    public class PoolMode : GameModeBase, IOnFallIntoHoleListener
+    public class PoolMode : GameModeBase, IOnFallListener
     {   
         #region Serialized Fields
         
@@ -26,8 +27,6 @@ namespace GameMode.Pool
 
         private List<GameObject> _poolHoles = new List<GameObject>();
 
-        private UnityEvent<PlayerController> _onFallEvent = new UnityEvent<PlayerController>();
-        
         #endregion
 
         #region GameModeBase Methods
@@ -40,17 +39,25 @@ namespace GameMode.Pool
             {
                 var holeObj = hole.gameObject;
                 holeObj.SetActive(true);
-                holeObj.GetComponent<PoolHole>().SetUpPoolMode(this);
                 _poolHoles.Add(holeObj);
             }
             
             // todo fix null bug here!!!
             //TogglePoolHoles(true);
+
+            foreach (PlayerController player in GameManager.Instance.Players)
+            {
+                player.RegisterFallListener(this);              
+            }
         }
 
         public override void ClearRound()
         {
             TogglePoolHoles(false);
+            foreach (PlayerController player in GameManager.Instance.Players)
+            {
+                player.UnRegisterFallListener(this);              
+            }
         }
 
         public override void OnTimeOVer()
@@ -58,15 +65,18 @@ namespace GameMode.Pool
             GameManager.Instance.FreezePlayers(timed: false);
         }
         
-        public void OnFallIntoHall(PlayerController playerFalling)
+        /// <summary>
+        ///  called by adding player on fall listeners. checks if the player that fell was bashed
+        ///  by another player. if so it grants points to the player. 
+        /// </summary>
+        /// <param name="playerFalling">
+        /// the player that fell.
+        /// </param>
+        public void OnFall(PlayerController playerFalling)
         {
             PlayerController playerBashing = playerFalling.GetBashingPlayer();
             if (playerBashing != null)
-            {   
-               ScoreManager.Instance.SetPlayerScore(playerBashing.Index, scoreOnHit);
-            }
-            playerFalling.Freeze();
-            playerFalling.Fall();
+                ScoreManager.Instance.SetPlayerScore(playerBashing.Index, scoreOnHit);
         }
         
         #endregion
@@ -86,7 +96,5 @@ namespace GameMode.Pool
         }
 
         #endregion
-
-       
     }
 }
