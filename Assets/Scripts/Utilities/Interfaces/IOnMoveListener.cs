@@ -1,7 +1,7 @@
 ﻿using Basics.Player;
 using UnityEngine;
 
-namespace Utilities.Listeners
+namespace Utilities.Interfaces
 {
     public interface IOnMoveListener
     {

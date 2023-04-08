@@ -70,17 +70,19 @@ namespace Managers
         /// <param name="controller">
         /// The newly connected player
         /// </param>
-        public void RegisterPlayer(PlayerController controller)
+        /// <returns>The index of the player</returns>
+        public int RegisterPlayer(PlayerController controller)
         {
             if (_playerIds.Contains(controller.GetInstanceID()))
-                return;
+                return Players.FindIndex((playerController => playerController.GetInstanceID() == controller.GetInstanceID()));
 
-            controller.Index = _players.Count;
-            controller.Renderer.color = PlayerColors[controller.Index];
-            
+            int index = _players.Count;
+
             _players.Add(controller);
             _playerIds.Add(controller.GetInstanceID());
-            ScoreManager.Instance.SetNewPlayerScore(controller.Index);
+            ScoreManager.Instance.SetNewPlayerScore(index);
+
+            return index;
         }
 
         /// <summary>
