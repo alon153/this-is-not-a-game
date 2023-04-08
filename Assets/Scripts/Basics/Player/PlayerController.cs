@@ -42,6 +42,8 @@ namespace Basics.Player
         #endregion
 
         #region Non-Serialized Fields
+
+        private Color _color;
         
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
         private bool _canDash = true;
@@ -80,8 +82,15 @@ namespace Basics.Player
         private bool dashing { get; set; } = false;
         public Rigidbody2D Rigidbody { get; set; }
         
-        public Color Color { get; private set; }
-        
+        public Color Color { 
+            get => _color;
+            private set
+            {
+                _color = value;
+                Renderer.color = value;
+            }
+        }
+
         public PlayerAddon Addon { get; set; }
 
         #endregion
@@ -99,11 +108,14 @@ namespace Basics.Player
         private void Start()
         {
             Index = GameManager.Instance.RegisterPlayer(this);
-            Renderer.color = GameManager.Instance.PlayerColors[Index];
+            Color = GameManager.Instance.PlayerColors[Index];
         }
 
         private void Update()
         {
+            if (Interactable != null && !Interactable.CanInteract)
+                Interactable = null;
+            
             var pos = transform.position;
             if (pos != _lastPosition)
             {
@@ -162,6 +174,21 @@ namespace Basics.Player
         }
         
         public void OnAction(InputAction.CallbackContext context)
+        {
+            switch (context.phase)
+            {
+                case InputActionPhase.Started:
+                    if (Interactable != null)
+                    {
+                        Interactable.OnInteract(this);
+                        Interactable = null;
+                    }
+                    break;
+                    
+            }
+        }
+
+        public void OnToggleRound(InputAction.CallbackContext context)
         {
             switch (context.phase)
             {

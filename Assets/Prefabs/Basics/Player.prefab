@@ -57,6 +57,15 @@ MonoBehaviour:
   DashTime: 0.5
   _dashBonus: 4
   _dashCooldown: 0.5
+  _knockBackForce: 3
+  _mutualKnockBackForce: 1.5
+  _knockBackDelay: 0.15
+  _onBeginKickBack:
+    m_PersistentCalls:
+      m_Calls: []
+  _onDoneKickBack:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &916809306669561107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,6 +139,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c353a459-c03b-42d3-9677-5e77cd7ed211
     m_ActionName: Game/Action[/Keyboard/leftCtrl]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1687361226651586059}
+        m_TargetAssemblyTypeName: Basics.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnToggleRound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bfe516d9-3e89-4e68-8c86-9e8265473acc
+    m_ActionName: Game/ToogleRound[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game
@@ -174,7 +199,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 583492459
-  m_SortingLayer: 3
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -207,7 +232,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &1687361226651586058
 CircleCollider2D:
   m_ObjectHideFlags: 0

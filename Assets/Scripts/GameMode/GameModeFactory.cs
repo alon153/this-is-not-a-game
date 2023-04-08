@@ -68,6 +68,7 @@ namespace GameMode
             {
                 GameModes.Paint => _paintMode,
                 GameModes.Pool => _poolMode,
+                GameModes.Ikea => _ikeaMode,
                 _ => throw new Exception("No mode to create")
             };
         }

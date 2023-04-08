@@ -6,18 +6,21 @@ using Utilities.Interfaces;
 
 namespace GameMode.Ikea
 {
-    public class IkeaPart : MonoBehaviour, IInteractable
+    public class IkeaPart : InteractableObject
     {
         #region Serialized Fields
 
         [SerializeField] private Sprite _blueprintSprite;
         [SerializeField] private Sprite _partSprite;
+        [SerializeField] private Collider2D _collider;
 
         #endregion
         
         #region Non-Serialized Fields
 
+        private Rigidbody2D _rigidbody;
         private SpriteRenderer _renderer;
+        private Color _origColor;
         private bool _isBlueprint;
         private bool _isInPlace;
         
@@ -30,7 +33,13 @@ namespace GameMode.Ikea
         public Transform Holder
         {
             get => transform.parent;
-            private set => transform.SetParent(value);
+            private set
+            {
+                CanInteract = value == null;
+                _collider.enabled = value == null;
+                _rigidbody.isKinematic = value != null;
+                transform.SetParent(value);
+            }
         }
 
         public bool IsBlueprint
@@ -54,14 +63,22 @@ namespace GameMode.Ikea
         private void Awake()
         {
             _renderer = GetComponent<SpriteRenderer>();
+            _rigidbody = GetComponent<Rigidbody2D>();
+            _origColor = _renderer.color;
         }
         
         #endregion
 
-        #region IInteractable
-        
-        public void OnInteract(PlayerController player)
+        #region InteractableObject
+
+        protected override void TogglePrompt_Inner(bool showPrompt)
         {
+            _renderer.color = showPrompt ? Color.yellow : _origColor;
+        }
+
+        protected override void OnInteract_Inner(PlayerController player)
+        {
+            print("inner");
             PlayerAddon.CheckCompatability(player.Addon, GameModes.Ikea);
 
             IkeaPart playerPart = ((IkeaPlayerAddon) player.Addon).Part;
@@ -93,13 +110,13 @@ namespace GameMode.Ikea
                 }
                 
                 _renderer.color = player.Color;
-                transform.position = playerTrans.position;
+                transform.position = playerTrans.position + new Vector3(0,playerTrans.lossyScale.y/2,0);
                 transform.rotation = Quaternion.Euler(0,0,0);
                 Holder = playerTrans;
                 ((IkeaPlayerAddon) player.Addon).Part = this;
             }
         }
-        
+
         #endregion
         
     }
