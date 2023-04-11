@@ -47,6 +47,8 @@ namespace Basics.Player
 
         #region Non-Serialized Fields
 
+        private Vector3 _origScale;
+        
         private bool _ready;
         private Color _color;
 
@@ -119,6 +121,7 @@ namespace Basics.Player
             Renderer = GetComponent<SpriteRenderer>();
             
             _lastPosition = transform.position;
+            _originalScale = transform.localScale;
         }
 
         private void Start()
@@ -307,6 +310,7 @@ namespace Basics.Player
         {
             var color = Renderer.color;
             color.a = 1;
+            transform.localScale = _originalScale;
             Renderer.color = color;
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;

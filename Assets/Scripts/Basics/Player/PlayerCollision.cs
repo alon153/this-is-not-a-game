@@ -118,7 +118,7 @@ namespace Basics.Player
 
             color.a = 0f;
             Renderer.color = color;
-            transform.localScale = scale;
+            
             yield return null;
 
             Respawn();
