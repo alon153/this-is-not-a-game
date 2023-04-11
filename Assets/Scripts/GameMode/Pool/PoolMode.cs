@@ -75,6 +75,7 @@ namespace GameMode.Pool
         public override void OnTimeOVer()
         {
             GameManager.Instance.FreezePlayers(timed: false);
+            GameManager.Instance.EndRound();
         }
         
         /// <summary>
@@ -90,7 +91,7 @@ namespace GameMode.Pool
             if (playerBashing != null)
                 ScoreManager.Instance.SetPlayerScore(playerBashing.Index, scoreOnHit);
         }
-        
+
         #endregion
 
         #region Private Methods

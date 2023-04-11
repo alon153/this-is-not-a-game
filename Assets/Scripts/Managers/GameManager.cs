@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Basics;
 using GameMode;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UI;
+using UnityEngine.InputSystem;
 using Utilities;
 using PlayerController = Basics.Player.PlayerController;
 
@@ -23,24 +19,26 @@ namespace Managers
 
         [Header("Round Settings")] 
         [SerializeField] private int _roundLength;
-        [SerializeField] private int _numRounds;
+        [SerializeField] private int _numRounds = 10;
         
         [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
         [SerializeField] private bool _isSingleMode;
         [SerializeField] private GameModes _singleMode;
-        [SerializeField] private List<GameModes> _startWith;
+        [SerializeField] private List<GameModes> _modes;
 
         #endregion
 
         #region None-Serialized Fields
 
-        private List<PlayerController> _players = new();
+        private readonly List<PlayerController> _players = new();
+        private readonly List<bool> _readys = new List<bool>();
 
         private HashSet<int> _playerIds = new();
 
         private GameModeBase _gameMode;
         private int _roundsPlayed = 0;
+        private PlayerInputManager _inputManager;
 
         #endregion
 
@@ -80,9 +78,28 @@ namespace Managers
 
             _players.Add(controller);
             _playerIds.Add(controller.GetInstanceID());
+            
+            _readys.Add(false);
+            TimeManager.Instance.StopCountDown();
+
             ScoreManager.Instance.SetNewPlayerScore(index);
 
+            PlacePlayer(controller, index);
+
             return index;
+        }
+
+        private void PlacePlayer(PlayerController controller, int index)
+        {
+            var controllerTrans = controller.transform;
+            controllerTrans.position = index switch
+            {
+                0 => (GetCurArena().TopLeft + DefaultArena.Center) / 2,
+                1 => (DefaultArena.BottomRight + DefaultArena.Center) / 2,
+                2 => (DefaultArena.TopRight + DefaultArena.Center) / 2,
+                3 => (DefaultArena.BottomLeft + DefaultArena.Center) / 2,
+                _ => controllerTrans.position
+            };
         }
 
         /// <summary>
@@ -107,9 +124,14 @@ namespace Managers
                 return;
             }
             
-            UIManager.Instance.ActivateScoreDisplays();
-            _gameMode.InitRound();
-            TimeManager.Instance.StartCountDown(_roundLength);
+            UIManager.Instance.SetGameDesc(_gameMode.Name, _gameMode.Description);
+            TimeManager.Instance.StartCountDown(5, (() =>
+            {
+                UIManager.Instance.ToggleGameDesc(false);
+                _gameMode.InitRound();
+                TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
+                UnFreezePlayers();
+            }), UIManager.CountDownTimer.Main);
         }
         
         /// <summary>
@@ -135,6 +157,7 @@ namespace Managers
             _roundsPlayed++;
             _gameMode.ClearRound();
             _gameMode = null;
+            NextRound();
         }
 
         #endregion
@@ -143,7 +166,18 @@ namespace Managers
         
         private void EndGame()
         {
-            print("End");
+            print($"Player {ScoreManager.Instance.GetWinner()} wins!");
+        }
+
+        private void StartGame()
+        {
+            _inputManager.enabled = false;
+            foreach (var player in Players)
+            {
+                player.Ready = false;
+            }
+            UIManager.Instance.ActivateScoreDisplays();
+            NextRound();
         }
 
         /// <summary>
@@ -156,9 +190,10 @@ namespace Managers
             if (_isSingleMode)
                 _gameModeFactory.Init(_singleMode);
             else
-                _gameModeFactory.Init(_startWith);
-            
-        }        
+                _gameModeFactory.Init(_modes);
+            DefaultArena = Instantiate(_defaultArenaPrefab);
+            _inputManager = GetComponent<PlayerInputManager>();
+        }
 
         #endregion
 
@@ -177,11 +212,22 @@ namespace Managers
                 player.UnFreeze();
             }
         }
-
+        
         public Arena GetCurArena()
         {
-            return _gameMode.ModeArena;
+            return _gameMode == null? DefaultArena : _gameMode.ModeArena;
         }
-
+        
+        public void SetReady(int index, bool value)
+        {
+            if(index < 0 || index >= _readys.Count)
+                return;
+            _readys[index] = value;
+            
+            if(_readys.Contains(false))
+                TimeManager.Instance.StopCountDown();
+            else
+                TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
+        }
     }
 }

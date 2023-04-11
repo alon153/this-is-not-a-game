@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Utilities;
 
@@ -19,18 +20,7 @@ namespace Managers
         #endregion
 
         #region Mono-Beahviour Methods
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
-        
         #endregion
         
         #region Public Methods
@@ -47,6 +37,22 @@ namespace Managers
         public float GetPlayerScore(int playerId)
         {
             return _playerScores[playerId];
+        }
+
+        public int GetWinner()
+        {
+            int maxInd = -1;
+            float maxScore = 0;
+            for (int i = 0; i < _playerScores.Count; i++)
+            {
+                if (_playerScores[i] >= maxScore)
+                {
+                    maxScore = _playerScores[i];
+                    maxInd = i;
+                }
+            }
+
+            return maxInd;
         }
         
         /// <summary>

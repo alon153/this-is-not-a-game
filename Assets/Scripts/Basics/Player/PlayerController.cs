@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameMode;
 using GameMode.Ikea;
 using Managers;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -22,6 +23,9 @@ namespace Basics.Player
         #endregion
         
         #region Serialized Fields
+
+        [Header("UI")] 
+        [SerializeField] private TextMeshProUGUI _txtReady;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -43,12 +47,12 @@ namespace Basics.Player
 
         #region Non-Serialized Fields
 
+        private bool _ready;
         private Color _color;
-        
+
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
         private bool _canDash = true;
-       
-
+        
         private Vector2 _direction;
 
         private Vector2 _pushbackVector;
@@ -81,6 +85,18 @@ namespace Basics.Player
         
         private bool dashing { get; set; } = false;
         public Rigidbody2D Rigidbody { get; set; }
+
+        public bool Ready
+        {
+            get => _ready;
+            set
+            {
+                _ready = value;
+                _txtReady.enabled = value;
+                print($"got: {value}, enabled: {_txtReady.enabled}");
+                GameManager.Instance.SetReady(Index, value);
+            }
+        }
         
         public Color Color { 
             get => _color;
@@ -109,6 +125,7 @@ namespace Basics.Player
         {
             Index = GameManager.Instance.RegisterPlayer(this);
             Color = GameManager.Instance.PlayerColors[Index];
+            Ready = false;
         }
 
         private void Update()
@@ -188,12 +205,12 @@ namespace Basics.Player
             }
         }
 
-        public void OnToggleRound(InputAction.CallbackContext context)
+        public void OnToggleReady(InputAction.CallbackContext context)
         {
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    GameManager.Instance.NextRound();
+                    Ready = !Ready;
                     break;
             }
         }

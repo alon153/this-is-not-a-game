@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToogleRound",
+                    "name": "ToogleReady",
                     "type": "Button",
                     "id": "bfe516d9-3e89-4e68-8c86-9e8265473acc",
                     "expectedControlType": "Button",
@@ -226,7 +226,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "ToogleRound",
+                    "action": "ToogleReady",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -237,7 +237,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "ToogleRound",
+                    "action": "ToogleReady",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

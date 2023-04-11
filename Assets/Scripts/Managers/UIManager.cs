@@ -13,7 +13,14 @@ namespace Managers
         #region Serialized Fields
 
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
-        [SerializeField] private TextMeshProUGUI _timeText;
+        
+        [Header("Timers")]
+        [SerializeField] private TextMeshProUGUI _gameTimeText;
+        [SerializeField] private TextMeshProUGUI _mainTimeText;
+        
+        [Header("Game Description")]
+        [SerializeField] private TextMeshProUGUI _gameName;
+        [SerializeField] private TextMeshProUGUI _gameDesc;
 
         #endregion
         
@@ -48,7 +55,7 @@ namespace Managers
         {
             int minutes = totalSeconds / 60;
             int seconds = totalSeconds % 60;
-            return string.Format("Time: {0:00}:{1:00}", minutes, seconds);
+            return string.Format("{0:00}:{1:00}", minutes, seconds);
         }
         
         #region Public Methods
@@ -92,6 +99,19 @@ namespace Managers
             // todo: make this juicier! add a coroutine or something!
             _playerScoreDisplay[playerId].text = newScore.ToString();
         }
+
+        public void SetGameDesc(string gameName, string gameDesc)
+        {
+            _gameName.text = gameName;
+            _gameDesc.text = gameDesc;
+            ToggleGameDesc(true);
+        }
+
+        public void ToggleGameDesc(bool show)
+        {
+            _gameDesc.gameObject.SetActive(show);
+            _gameName.gameObject.SetActive(show);
+        }
         
         /// <summary>
         /// can be called at game end to restart all displays. 
@@ -110,16 +130,25 @@ namespace Managers
         /// <summary>
         /// Called by TimeManager to update the display of the time left
         /// </summary>
-        public void UpdateTime(float time)
+        public void UpdateTime(float time, CountDownTimer timer = CountDownTimer.Game)
         {
-          
-          _timeText.text = FormatTime((int) time);
+            TextMeshProUGUI timerText = timer switch
+            {
+                CountDownTimer.Main => _mainTimeText,
+                CountDownTimer.Game => _gameTimeText,
+            };
+            
+            timerText.text = FormatTime((int) time);
+            timerText.enabled = time > 0;
         }
 
 
         #endregion
 
-
-
+        public enum CountDownTimer
+        {
+            Game,
+            Main,
+        }
     }
 }
