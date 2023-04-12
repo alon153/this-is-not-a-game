@@ -32,4 +32,5 @@ MonoBehaviour:
     <Description>k__BackingField: Build the item with your pieces!
     _partsPrefabs:
     - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
+    - {fileID: 393630251795051260, guid: a103a33bb9a6dc64b995e14e6ab68746, type: 3}
     _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}

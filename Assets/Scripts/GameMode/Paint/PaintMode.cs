@@ -177,7 +177,7 @@ namespace GameMode.Modes
                 ScoreManager.Instance.SetPlayerScore(key, percentages[key]);
             }
             
-            GameManager.Instance.EndRound();
+            GameManager.Instance.ClearRound();
         }
 
         #endregion

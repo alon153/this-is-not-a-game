@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using Basics;
+using Basics.Player;
 using Managers;
 using UnityEngine;
+using Utilities.Interfaces;
 using Object = UnityEngine.Object;
 
 namespace GameMode.Ikea
 {
     [Serializable]
-    public class IkeaMode : GameModeBase
+    public class IkeaMode : GameModeBase, IOnPushedListener
     {
         #region Serialized Fields
 
@@ -16,52 +18,117 @@ namespace GameMode.Ikea
         [SerializeField] private PartDispenser _dispenserPrefab;
 
         #endregion
-        
+
         #region Non-Serialized Fields
 
-        private GameObject _partsParent;
-        
+        private IkeaPart[] parts;
+        private PartDispenser[] dispensers;
+
         #endregion
+
+        #region GameModeBase
 
         public override void InitRound()
         {
-            _partsParent = new GameObject();
-            
-            var arena = GameManager.Instance.DefaultArena;
-            var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
-            var dispenserPos = (_partsPrefabs.Count % 2 == 0)
-                ? arena.TopMiddle
-                : arena.TopMiddle - dispenserWidth / 2;
-            dispenserPos -= (dispenserWidth * Mathf.Floor(_partsPrefabs.Count / 2));
-            foreach (IkeaPart part in _partsPrefabs)
-            {
-                var dispenser = Object.Instantiate(_dispenserPrefab, dispenserPos, Quaternion.identity);
-                dispenser.transform.SetParent(_partsParent.transform);
-                dispenser.PartPrefab = part;
-
-                dispenserPos += dispenserWidth;
-            }
-
             foreach (var player in GameManager.Instance.Players)
             {
                 player.Addon = new IkeaPlayerAddon();
+                player.RegisterPushedListener(this);
             }
-            
+            InitArena();
         }
 
         public override void InitArena()
         {
-            throw new NotImplementedException();
+            var arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
+            var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
+            var dispenserPos = (_partsPrefabs.Count % 2 == 0)
+                ? arena.TopMiddle - dispenserWidth / 2
+                : arena.TopMiddle;
+            var padding = new Vector3(0.2f,0,0);
+            dispenserPos -= dispenserWidth * Mathf.Floor(_partsPrefabs.Count / 2) + padding * Mathf.Floor((_partsPrefabs.Count)/2 - 1);
+            foreach (IkeaPart part in _partsPrefabs)
+            {
+                var dispenser = Object.Instantiate(_dispenserPrefab, dispenserPos, Quaternion.identity);
+                dispenser.PartPrefab = part;
+
+                var transform = dispenser.transform;
+                var disPart = Object.Instantiate(part, transform.position, Quaternion.identity, transform);
+                
+                disPart.GetComponent<Collider2D>().enabled = false;
+                IkeaPart.BlueprintCount--; //don't count the items on the dispensers as blueprints
+
+                dispenserPos += dispenserWidth + padding;
+            }
         }
 
         public override void ClearRound()
         {
-            throw new NotImplementedException();
+            foreach (var player in GameManager.Instance.Players)
+            {
+                player.Addon = null;
+                player.UnRegisterPushedListener(this);
+            }
+            
+            parts ??= (IkeaPart[]) Object.FindObjectsOfType(typeof(IkeaPart));
+            dispensers ??= (PartDispenser[]) Object.FindObjectsOfType(typeof(PartDispenser));
+            
+            foreach (var part in parts)
+            {
+                Object.Destroy(part.gameObject);
+            }
+            
+            foreach (var dispenser in dispensers)
+            {
+                Object.Destroy(dispenser.gameObject);
+            }
         }
 
         public override void OnTimeOVer()
         {
-            throw new NotImplementedException();
+            EndRound();
         }
+
+        public override void EndRound()
+        {
+            parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
+            dispensers = (PartDispenser[]) Object.FindObjectsOfType (typeof(PartDispenser));
+
+            int[] scores = new int[GameManager.Instance.Players.Count];
+            foreach (var part in parts)
+            {
+                if(!part.IsInPlace) continue;
+                
+                int index = GameManager.Instance.PlayerColors.FindIndex((color => color == part.Color));
+                if (index != -1)
+                    scores[index]++;
+            }
+
+            for (int i=0; i<scores.Length; i++)
+            {
+                ScoreManager.Instance.SetPlayerScore(i, scores[i]);
+            }
+            
+            GameManager.Instance.ClearRound();
+        }
+
+        #endregion
+
+        #region IOnPushedListener        
+
+        public void OnPushed(PlayerController pushed, PlayerController pusher)
+        {
+            PlayerAddon.CheckCompatability(pushed.Addon, GameModes.Ikea);
+
+            IkeaPart playerPart = ((IkeaPlayerAddon) pushed.Addon).Part;
+            
+            if (playerPart == null)
+                return;
+
+            playerPart.Drop();
+            ((IkeaPlayerAddon) pushed.Addon).Part = null;
+        }
+        
+        #endregion
     }
 }

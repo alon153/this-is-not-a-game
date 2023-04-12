@@ -1,6 +1,7 @@
 ﻿using System;
 using Basics;
 using Basics.Player;
+using Managers;
 using UnityEngine;
 using Utilities.Interfaces;
 
@@ -18,6 +19,19 @@ namespace GameMode.Ikea
         
         #region Non-Serialized Fields
 
+        private static int BlueprintCount_Inner = 0; 
+        public static int BlueprintCount
+        {
+            get => BlueprintCount_Inner;
+            set
+            {
+                print(value);
+                BlueprintCount_Inner = value;
+                if(value <= 0)
+                    GameManager.Instance.EndRound();
+            }
+        }
+
         private Rigidbody2D _rigidbody;
         private SpriteRenderer _renderer;
         private Color _origColor;
@@ -29,6 +43,16 @@ namespace GameMode.Ikea
         #region Properties
         
         [field: SerializeField] public Type Type { get; private set; }
+
+        public Color Color
+        {
+            get => _origColor;
+            set
+            {
+                _origColor = value;
+                _renderer.color = value;
+            }
+        }
 
         public Transform Holder
         {
@@ -47,12 +71,36 @@ namespace GameMode.Ikea
             get => _isBlueprint;
             set
             {
-                if (_isBlueprint != value) _isInPlace = !value;
+                if (_isBlueprint != value) IsInPlace = !value;
+
+                if (_isBlueprint && !value)
+                    BlueprintCount--;
+                else if (!_isBlueprint && value)
+                    BlueprintCount++;
                 
                 _isBlueprint = value;
-                _renderer.sprite = value ? _blueprintSprite : _partSprite;
+                // _renderer.sprite = value ? _blueprintSprite : _partSprite;
+                _renderer.sprite = _partSprite;
+                if(_isBlueprint)
+                    Color = Color.white;
 
-                if (_isBlueprint) Holder = null;
+                if (_isBlueprint)
+                {
+                    Holder = null;
+                }
+
+                _collider.isTrigger = value || _isInPlace;
+            }
+        }
+
+        public bool IsInPlace
+        {
+            get => _isInPlace;
+            set
+            {
+                _isInPlace = value;
+                _rigidbody.isKinematic = value;
+                _collider.isTrigger = value || _isBlueprint;
             }
         }
         
@@ -65,6 +113,7 @@ namespace GameMode.Ikea
             _renderer = GetComponent<SpriteRenderer>();
             _rigidbody = GetComponent<Rigidbody2D>();
             _origColor = _renderer.color;
+            IsBlueprint = true;
         }
         
         #endregion
@@ -73,43 +122,44 @@ namespace GameMode.Ikea
 
         protected override void TogglePrompt_Inner(bool showPrompt)
         {
-            _renderer.color = showPrompt ? Color.yellow : _origColor;
+            _renderer.color = showPrompt ? Color.yellow : Color;
+        }
+
+        protected override bool CanPlayerInteract(PlayerController player)
+        {
+            PlayerAddon.CheckCompatability(player.Addon, GameModes.Ikea);
+
+            IkeaPart playerPart = ((IkeaPlayerAddon) player.Addon).Part;
+            return
+                !((_isBlueprint && (playerPart == null || playerPart.Type != Type)) || // is blueprint and player isn't holding a part or is holding a different part
+                  (!_isBlueprint && (_isInPlace || Holder != null))); // is part but is in place or is being held
         }
 
         protected override void OnInteract_Inner(PlayerController player)
         {
-            print("inner");
             PlayerAddon.CheckCompatability(player.Addon, GameModes.Ikea);
 
             IkeaPart playerPart = ((IkeaPlayerAddon) player.Addon).Part;
             
             if (_isBlueprint)
             {
-                if(playerPart == null || playerPart.Type != Type)
-                    return;
-
+                Destroy(playerPart.gameObject);
                 ((IkeaPlayerAddon) player.Addon).Part = null;
                 
+                Color = player.Color;
                 IsBlueprint = false;
-                _renderer.color = player.Color;
             }
-            else // Not a bluePrint
+            else
             {
-                if(Holder != null) // Already being held by someone
-                    return;
-
-                if(_isInPlace) // For now, a player can't pickup or switch a part that is in place
-                    return;
-                
                 var playerTrans = player.transform;
 
-                if (playerPart != null) // Player not holding a part
+                if (playerPart != null) // Player holding a part
                 {
                     playerPart.transform.position = transform.position;
                     playerPart.Holder = null;
                 }
                 
-                _renderer.color = player.Color;
+                Color = player.Color;
                 transform.position = playerTrans.position + new Vector3(0,playerTrans.lossyScale.y/2,0);
                 transform.rotation = Quaternion.Euler(0,0,0);
                 Holder = playerTrans;
@@ -118,7 +168,11 @@ namespace GameMode.Ikea
         }
 
         #endregion
-        
+
+        public void Drop()
+        {
+            Holder = null;
+        }
     }
     
     #region Enum

@@ -75,7 +75,7 @@ namespace GameMode.Pool
         public override void OnTimeOVer()
         {
             GameManager.Instance.FreezePlayers(timed: false);
-            GameManager.Instance.EndRound();
+            GameManager.Instance.ClearRound();
         }
         
         /// <summary>

@@ -38,11 +38,28 @@ namespace GameMode.Ikea
             _renderer.color = showPrompt ? Color.yellow : _origColor;
         }
 
+        protected override bool CanPlayerInteract(PlayerController player)
+        {
+            PlayerAddon.CheckCompatability(player.Addon, GameModes.Ikea);
+
+            IkeaPart playerPart = ((IkeaPlayerAddon) player.Addon).Part;
+            return playerPart == null || playerPart.Type != PartPrefab.Type;
+        }
+
         protected override void OnInteract_Inner(PlayerController player)
         {
             PlayerAddon.CheckCompatability(player.Addon, GameModes.Ikea);
             
+            IkeaPart playerPart = ((IkeaPlayerAddon) player.Addon).Part;
+            if (playerPart != null)
+            {
+                Destroy(playerPart.gameObject);
+                ((IkeaPlayerAddon) player.Addon).Part = null;
+            }
+            
             IkeaPart part = Instantiate(PartPrefab, transform.position, Quaternion.identity);
+            part.IsBlueprint = false;
+            part.IsInPlace = false;
             part.OnInteract(player);
         }
 

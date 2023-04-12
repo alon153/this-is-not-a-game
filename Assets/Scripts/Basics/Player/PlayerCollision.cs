@@ -138,12 +138,15 @@ namespace Basics.Player
         /// </param>
         private void KnockBackPlayer(GameObject player, bool mutualCollision)
         {
-            
             _onBeginKickBack?.Invoke();
             
-            PlayerController otherPlayerController = player.GetComponent<PlayerController>();
+            PlayerController otherPlayerController = player.GetComponent<PlayerController>();   
             Rigidbody2D otherPlayerRb = otherPlayerController.Rigidbody;
-            
+
+            foreach (var l in _pushedListeners)
+            {
+                l.OnPushed(otherPlayerController, this);
+            }
             
             // calculate bash direction and force
             Vector2 knockDir = (player.transform.position - transform.position).normalized;
