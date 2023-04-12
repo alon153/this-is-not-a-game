@@ -32,15 +32,9 @@ namespace Basics.Player
         [CanBeNull] private PlayerController _playerKnockedBy;
 
         #endregion
-        
-        private void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag("Arena"))
-            {
-                Fall();
-            }
-        }
-        
+
+        #region Event Functions
+
         private void OnCollisionEnter2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
@@ -71,6 +65,8 @@ namespace Basics.Player
                     controller.SetPushingPlayer(null, false);
             }
         }
+
+        #endregion
 
         #region Public Methods
 

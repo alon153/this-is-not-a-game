@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Utilities.Interfaces;
 using Random = UnityEngine.Random;
 
 namespace Basics
@@ -28,6 +29,15 @@ namespace Basics
             Renderer = GetComponent<SpriteRenderer>();
             _spriteMask = GetComponent<SpriteMask>();
             _spriteMask.sprite = Renderer.sprite;
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            IFallable fallable = other.gameObject.GetComponent<IFallable>();
+            if(fallable == null)
+                return;
+            
+            fallable.Fall();
         }
 
         public Vector3 GetRespawnPosition(GameObject obj)

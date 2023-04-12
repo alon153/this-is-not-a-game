@@ -7,7 +7,7 @@ using Utilities.Interfaces;
 
 namespace GameMode.Ikea
 {
-    public class IkeaPart : InteractableObject
+    public class IkeaPart : InteractableObject, IFallable
     {
         #region Serialized Fields
 
@@ -118,6 +118,15 @@ namespace GameMode.Ikea
         
         #endregion
 
+        #region Public Methods
+
+        public void Drop()
+        {
+            Holder = null;
+        }
+
+        #endregion
+
         #region InteractableObject
 
         protected override void TogglePrompt_Inner(bool showPrompt)
@@ -169,10 +178,15 @@ namespace GameMode.Ikea
 
         #endregion
 
-        public void Drop()
+        #region IFallable
+
+        public void Fall()
         {
-            Holder = null;
+            if(Holder == null)
+                Destroy(gameObject);
         }
+
+        #endregion
     }
     
     #region Enum

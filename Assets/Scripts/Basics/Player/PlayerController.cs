@@ -12,7 +12,7 @@ using Utilities.Interfaces;
 
 namespace Basics.Player
 {
-    public partial class PlayerController : MonoBehaviour
+    public partial class PlayerController : MonoBehaviour, IFallable
     {
         #region Constants
 
