@@ -12,6 +12,7 @@ namespace GameMode
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
 
+
     public abstract void InitRound();
     public abstract void InitArena();
     public abstract void ClearRound();

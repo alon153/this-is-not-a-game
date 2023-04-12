@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Basics;
 using GameMode;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Utilities;
 using PlayerController = Basics.Player.PlayerController;
@@ -36,6 +38,7 @@ namespace Managers
 
         private HashSet<int> _playerIds = new();
 
+       
         private GameModeBase _gameMode;
         private int _roundsPlayed = 0;
         private PlayerInputManager _inputManager;
@@ -47,6 +50,8 @@ namespace Managers
         #region Properties
 
         public List<PlayerController> Players => Instance._players;
+        
+        public UnityAction GameModeUpdateAction { get; set;}
 
         public Arena CurrArena
         {
@@ -67,6 +72,12 @@ namespace Managers
         {
             base.Awake();
             Init();
+        }
+
+        private void Update()
+        {
+            if (!GameModeUpdateAction.Equals(null))
+                GameModeUpdateAction.Invoke();
         }
 
         #endregion

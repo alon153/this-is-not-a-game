@@ -16,9 +16,9 @@ namespace Basics.Player
     {
         #region Constants
 
-        private const int DEFAULT_INDEX = -1;
+        private const int DefaultIndex = -1;
         
-        private const float DEC_THRESHOLD = 0.2f;
+        private const float DecThreshold = 0.2f;
 
         #endregion
         
@@ -74,7 +74,7 @@ namespace Basics.Player
 
         #region Properties
 
-        public int Index { get; private set; } = DEFAULT_INDEX;
+        public int Index { get; private set; } = DefaultIndex;
 
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
@@ -300,7 +300,7 @@ namespace Basics.Player
                     _deceleration * Time.fixedDeltaTime);
             }
 
-            if (_direction.magnitude == 0 && Rigidbody.velocity.magnitude < DEC_THRESHOLD)
+            if (_direction.magnitude == 0 && Rigidbody.velocity.magnitude < DecThreshold)
             {
                 Rigidbody.velocity *= Vector2.zero;
             }

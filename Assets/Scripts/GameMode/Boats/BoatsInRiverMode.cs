@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Basics;
 using GameMode;
 using Managers;
 using Unity.VisualScripting.FullSerializer;
@@ -91,19 +92,21 @@ namespace GameMode.Boats
             _spawnStep = CalcStep();
             InitArena();
             _started = true;
-            Debug.Log("got here");
+            GameManager.Instance.GameModeUpdateAction += Update;
         }
 
         public override void InitArena()
         {
-             GameObject arena = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
+             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
+             GameManager.Instance.CurrArena = arena;
             _arenaMaxCoord = ModeArena.TopRight;
             _arenaMinCoord = ModeArena.TopLeft;
         }
 
         public override void ClearRound()
-        {
-
+        {   
+            // todo check if this is working 
+            GameManager.Instance.GameModeUpdateAction -= Update;
         }
 
         public override void OnTimeOVer()
