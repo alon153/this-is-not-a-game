@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameMode.Boats;
 using GameMode.Ikea;
 using GameMode.Modes;
 using GameMode.Pool;
@@ -19,6 +20,8 @@ namespace GameMode
         [SerializeField] private PoolMode _poolMode;
 
         [SerializeField] private IkeaMode _ikeaMode;
+
+        [SerializeField] private BoatsInRiverMode _boatsInRiverMode;
 
         #endregion
         
@@ -69,6 +72,7 @@ namespace GameMode
                 GameModes.Paint => _paintMode,
                 GameModes.Pool => _poolMode,
                 GameModes.Ikea => _ikeaMode,
+                GameModes.Boats => _boatsInRiverMode,
                 _ => throw new Exception("No mode to create")
             };
         }

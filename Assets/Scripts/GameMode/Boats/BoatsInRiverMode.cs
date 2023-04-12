@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameMode;
 using Managers;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -38,6 +39,8 @@ namespace GameMode.Boats
 
         private float _spawnStep = 0f;
 
+        private bool _started = false;
+
         #endregion
 
         #region Constants
@@ -61,15 +64,20 @@ namespace GameMode.Boats
         }
         
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            _timePassed += Time.deltaTime;
-            if (_timePassed >= _curInterval)
-            {
-                _timePassed = 0f;
-                _timeProgress = TimeManager.Instance.TimeLeft / TimeManager.Instance.RoundDuration;
-                SpawnNewObstacles();
-                _curInterval = CalcNextInterval();
+            if (_started)
+            {   
+                
+                _timePassed += Time.deltaTime;
+                Debug.Log("time passed: " + _timePassed + ", total: " + _curInterval);
+                if (_timePassed >= _curInterval)
+                {
+                    _timePassed = 0f;
+                    _timeProgress = TimeManager.Instance.TimeLeft / TimeManager.Instance.RoundDuration;
+                    SpawnNewObstacles();
+                    _curInterval = CalcNextInterval();
+                }
             }
         }
 
@@ -80,20 +88,17 @@ namespace GameMode.Boats
         public override void InitRound()
         {
             _curInterval = maxSpawnInterval;
-            _arenaMaxCoord = ModeArena.TopRight;
-            _arenaMinCoord = ModeArena.TopLeft;
             _spawnStep = CalcStep();
-
-
-
+            InitArena();
+            _started = true;
+            Debug.Log("got here");
         }
 
         public override void InitArena()
         {
              GameObject arena = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
-            
-            
-            
+            _arenaMaxCoord = ModeArena.TopRight;
+            _arenaMinCoord = ModeArena.TopLeft;
         }
 
         public override void ClearRound()

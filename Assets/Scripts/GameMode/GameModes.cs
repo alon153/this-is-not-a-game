@@ -6,5 +6,6 @@
         Ikea,
         Pool,
         Paint,
+        Boats,
     }
 }

@@ -33,3 +33,14 @@ MonoBehaviour:
     _partsPrefabs:
     - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
     _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
+  _boatsInRiverMode:
+    <ModeArena>k__BackingField: {fileID: 6212155300372548924, guid: e0d5ff220ef1f6142897689c529b45ac, type: 3}
+    <Name>k__BackingField: This is not a game, this is a River!
+    <Description>k__BackingField: Don't fall to the waterfall!
+    obstaclesPrefab:
+    - {fileID: 1603014564259002338, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
+    - {fileID: 4842740244645305803, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
+    - {fileID: 4179058687714096668, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
+    maxSpawnInterval: 3
+    minSpawnInterval: 0.5
+    obstacleSpawnMultiplier: 10
