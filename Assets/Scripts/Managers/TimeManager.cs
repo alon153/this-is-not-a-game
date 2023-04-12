@@ -16,6 +16,10 @@ namespace Managers
 
         private Coroutine _countDownCoroutine;
 
+        public float RoundDuration { get; private set; }
+
+        public float TimeRemained { get; private set; }
+
         #endregion
         
         #region Event Functions
@@ -41,7 +45,9 @@ namespace Managers
         {
             if(_countDownCoroutine != null)
                 StopCoroutine(_countDownCoroutine);
-                
+
+            RoundDuration = duration;
+            TimeRemained = duration;
             _countDownCoroutine = StartCoroutine(CountDown_Inner(duration));
         }
 
@@ -78,13 +84,12 @@ namespace Managers
             UIManager.Instance.UpdateTime(duration);
             yield return null;
             
-            float timeLeft = duration;
-            while (timeLeft > 0)
+            TimeRemained = duration;
+            while (TimeRemained > 0)
             {
-                UIManager.Instance.UpdateTime(Mathf.Ceil(timeLeft));
+                UIManager.Instance.UpdateTime(Mathf.Ceil(TimeRemained));
                 yield return null;
-                
-                timeLeft -= Time.deltaTime;
+                TimeRemained -= Time.deltaTime;
             }
             
             UIManager.Instance.UpdateTime(0);

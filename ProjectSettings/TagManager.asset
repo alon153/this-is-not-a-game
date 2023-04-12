@@ -8,6 +8,7 @@ TagManager:
   - Arena
   - PoolHole
   - PoolBorders
+  - Water
   layers:
   - Default
   - TransparentFX
