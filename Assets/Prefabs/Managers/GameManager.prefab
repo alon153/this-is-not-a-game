@@ -51,9 +51,11 @@ MonoBehaviour:
   - {r: 1, g: 0.28571314, b: 0, a: 1}
   - {r: 0.5036434, g: 1, b: 0.1745283, a: 1}
   - {r: 1, g: 0.9822532, b: 0.4198113, a: 1}
+  _roundLength: 30
+  _numRounds: 1
   _gameModeFactory: {fileID: 11400000, guid: 3ef258ded0f37ef4d9df8858d3f7d37c, type: 2}
   _isSingleMode: 1
-  _singleMode: 3
+  _singleMode: 1
   _startWith: 
 --- !u!114 &5528608369377680934
 MonoBehaviour:
@@ -67,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 3
   m_MaxPlayerCount: 4
   m_AllowJoining: 1
   m_JoinBehavior: 1

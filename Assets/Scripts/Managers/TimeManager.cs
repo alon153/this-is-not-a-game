@@ -15,10 +15,7 @@ namespace Managers
         private readonly Dictionary<Guid, (Action action, float time)> _fixedActions = new();
 
         private Coroutine _countDownCoroutine;
-
-        public float RoundDuration { get; private set; }
-
-        public float TimeRemained { get; private set; }
+        private UIManager.CountDownTimer _currTimer;
 
         #endregion
         
@@ -41,14 +38,21 @@ namespace Managers
 
         #region Public Methods
 
-        public void StartCountDown(int duration)
+        public void StartCountDown(int duration, Action onEnd, UIManager.CountDownTimer timer = UIManager.CountDownTimer.Game)
         {
             if(_countDownCoroutine != null)
                 StopCoroutine(_countDownCoroutine);
+                
+            _countDownCoroutine = StartCoroutine(CountDown_Inner(duration, onEnd, timer));
+        }
 
-            RoundDuration = duration;
-            TimeRemained = duration;
-            _countDownCoroutine = StartCoroutine(CountDown_Inner(duration));
+        public void StopCountDown()
+        {
+            if(_countDownCoroutine == null)
+                return;
+            
+            StopCoroutine(_countDownCoroutine);
+            UIManager.Instance.UpdateTime(0,_currTimer);
         }
 
         public Guid DelayInvoke(Action action, float delayTime)
@@ -79,23 +83,25 @@ namespace Managers
 
         #region Private Methods
 
-        private IEnumerator CountDown_Inner(int duration)
+        private IEnumerator CountDown_Inner(int duration, Action onEnd, UIManager.CountDownTimer timer = UIManager.CountDownTimer.Game)
         {
-            UIManager.Instance.UpdateTime(duration);
+            _currTimer = timer;
+            UIManager.Instance.UpdateTime(duration, timer);
             yield return null;
             
-            TimeRemained = duration;
-            while (TimeRemained > 0)
+            float timeLeft = duration;
+            while (timeLeft > 0)
             {
-                UIManager.Instance.UpdateTime(Mathf.Ceil(TimeRemained));
+                UIManager.Instance.UpdateTime(Mathf.Ceil(timeLeft), timer);
                 yield return null;
-                TimeRemained -= Time.deltaTime;
+                
+                timeLeft -= Time.deltaTime;
             }
             
-            UIManager.Instance.UpdateTime(0);
+            UIManager.Instance.UpdateTime(0, timer);
             yield return null;
             
-            GameManager.Instance.OnTimeOver();
+            onEnd.Invoke();
         }
 
         private bool Cancel_Inner(Guid id, bool invoke)

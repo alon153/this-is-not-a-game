@@ -75,8 +75,6 @@ namespace GameMode.Modes
             {
                 player.UnRegisterMoveListener(this);
             }
-            
-            GameManager.Instance.UnFreezePlayers();
         }
         
         public override void OnTimeOVer()
