@@ -85,6 +85,21 @@ namespace Managers
             UIManager.Instance.SetScoreToPlayerDisplay(playerId, _playerScores[playerId]);
         }
 
+        /// <summary>
+        /// Adds scores for multiple players
+        /// </summary>
+        /// <param name="scores">Pairings of playerId (keys) and score to add (value)</param>
+        /// <param name="shouldAdd">
+        /// if true, the points will be added to score. if false, the points will be subtracted from player score.
+        /// </param>
+        public void SetPlayerScores(Dictionary<int,float> scores, bool shouldAdd = true)
+        {
+            foreach (var pair in scores)
+            {
+                SetPlayerScore(pair.Key, pair.Value, shouldAdd);
+            }
+        }
+
         public void ResetScore()
         {
             _playerScores.Clear();

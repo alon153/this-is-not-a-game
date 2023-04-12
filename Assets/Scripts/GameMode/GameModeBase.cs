@@ -1,5 +1,6 @@
 using Basics;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameMode
@@ -15,6 +16,7 @@ namespace GameMode
     public abstract void InitArena();
     public abstract void ClearRound();
     public abstract void OnTimeOVer();
+    public virtual Dictionary<int,float> CalculateScore() { throw new NotImplementedException(); }
     public virtual void EndRound(){ throw new NotImplementedException(); }
   }
 }

@@ -94,22 +94,28 @@ namespace GameMode.Ikea
             parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
             dispensers = (PartDispenser[]) Object.FindObjectsOfType (typeof(PartDispenser));
 
-            int[] scores = new int[GameManager.Instance.Players.Count];
+            ScoreManager.Instance.SetPlayerScores(CalculateScore());
+            
+            GameManager.Instance.ClearRound();
+        }
+
+        public override Dictionary<int,float> CalculateScore()
+        {
+            Dictionary<int, float> scores = new();
             foreach (var part in parts)
             {
                 if(!part.IsInPlace) continue;
                 
                 int index = GameManager.Instance.PlayerColors.FindIndex((color => color == part.Color));
-                if (index != -1)
-                    scores[index]++;
+                if (index == -1) continue;
+
+                if (!scores.ContainsKey(index))
+                    scores[index] = 0;
+                
+                scores[index]++;
             }
 
-            for (int i=0; i<scores.Length; i++)
-            {
-                ScoreManager.Instance.SetPlayerScore(i, scores[i]);
-            }
-            
-            GameManager.Instance.ClearRound();
+            return scores;
         }
 
         #endregion

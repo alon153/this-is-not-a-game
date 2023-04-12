@@ -25,6 +25,7 @@ namespace GameMode.Pool
         #region Non Serialized Fields
 
         private List<GameObject> _poolHoles = new List<GameObject>();
+        private Dictionary<int, float> _hits = new Dictionary<int, float>();
 
         private GameObject _arenaBorders;
 
@@ -75,9 +76,21 @@ namespace GameMode.Pool
         public override void OnTimeOVer()
         {
             GameManager.Instance.FreezePlayers(timed: false);
+            ScoreManager.Instance.SetPlayerScores(CalculateScore());
             GameManager.Instance.ClearRound();
         }
-        
+
+        public override Dictionary<int, float> CalculateScore()
+        {
+            Dictionary<int, float> scores = new Dictionary<int, float>();
+            foreach (var pair in _hits)
+            {
+                scores[pair.Key] = _hits[pair.Key] * scoreOnHit;
+            }
+
+            return scores;
+        }
+
         /// <summary>
         ///  called by adding player on fall listeners. checks if the player that fell was bashed
         ///  by another player. if so it grants points to the player. 
@@ -89,7 +102,11 @@ namespace GameMode.Pool
         {
             PlayerController playerBashing = playerFalling.GetBashingPlayer();
             if (playerBashing != null)
-                ScoreManager.Instance.SetPlayerScore(playerBashing.Index, scoreOnHit);
+            {
+                if (!_hits.ContainsKey(playerBashing.Index))
+                    _hits[playerBashing.Index] = 0;
+                _hits[playerBashing.Index]++;
+            }
         }
 
         #endregion
