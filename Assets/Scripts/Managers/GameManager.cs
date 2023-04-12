@@ -13,7 +13,7 @@ namespace Managers
     {
         #region Serialized Fields
 
-        [SerializeField] private Arena _defaultArenaPrefab;
+        [field: SerializeField] private Arena DefaultArenaPrefab;
         
         [field: SerializeField] public List<Color> PlayerColors { get; private set; }
 
@@ -40,12 +40,24 @@ namespace Managers
         private int _roundsPlayed = 0;
         private PlayerInputManager _inputManager;
 
+        private Arena _currArena;
+        
         #endregion
 
         #region Properties
 
         public List<PlayerController> Players => Instance._players;
-        public Arena DefaultArena { get; private set; }
+
+        public Arena CurrArena
+        {
+            get => _currArena;
+            set
+            {
+                if(_currArena != null)
+                    Destroy(_currArena.gameObject);
+                _currArena = value;
+            }
+        }
 
         #endregion
 
@@ -94,10 +106,10 @@ namespace Managers
             var controllerTrans = controller.transform;
             controllerTrans.position = index switch
             {
-                0 => (GetCurArena().TopLeft + DefaultArena.Center) / 2,
-                1 => (DefaultArena.BottomRight + DefaultArena.Center) / 2,
-                2 => (DefaultArena.TopRight + DefaultArena.Center) / 2,
-                3 => (DefaultArena.BottomLeft + DefaultArena.Center) / 2,
+                0 => (CurrArena.TopLeft + CurrArena.Center) / 2,
+                1 => (CurrArena.BottomRight + CurrArena.Center) / 2,
+                2 => (CurrArena.TopRight + CurrArena.Center) / 2,
+                3 => (CurrArena.BottomLeft + CurrArena.Center) / 2,
                 _ => controllerTrans.position
             };
         }
@@ -200,7 +212,7 @@ namespace Managers
                 _gameModeFactory.Init(_singleMode);
             else
                 _gameModeFactory.Init(_modes);
-            DefaultArena = Instantiate(_defaultArenaPrefab);
+            CurrArena = Instantiate(DefaultArenaPrefab);
             _inputManager = GetComponent<PlayerInputManager>();
         }
 
@@ -221,12 +233,7 @@ namespace Managers
                 player.UnFreeze();
             }
         }
-        
-        public Arena GetCurArena()
-        {
-            return _gameMode == null? DefaultArena : _gameMode.ModeArena;
-        }
-        
+
         public void SetReady(int index, bool value)
         {
             if(index < 0 || index >= _readys.Count)

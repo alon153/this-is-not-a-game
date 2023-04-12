@@ -319,7 +319,7 @@ namespace Basics.Player
 
         private void Respawn()
         {
-            transform.position = GameManager.Instance.GetCurArena().GetRespawnPosition(gameObject);
+            transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
             Reset();
         }
 

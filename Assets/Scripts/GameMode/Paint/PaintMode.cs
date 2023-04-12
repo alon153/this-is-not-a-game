@@ -54,15 +54,16 @@ namespace GameMode.Modes
             }
             
             InitArena();
-            _splashContainer = new GameObject();
-            _splashContainer.name = "Splash Container";
-            _splashContainer.transform.SetParent(GameManager.Instance.DefaultArena.transform);
-            
         }
 
         public override void InitArena()
         {
-            GameObject arenaObJ = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
+            Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
+            _splashContainer = new GameObject();
+            _splashContainer.name = "Splash Container";
+            _splashContainer.transform.SetParent(arena.transform);
+
+            GameManager.Instance.CurrArena = arena;
         }
 
         /// <summary>
@@ -152,7 +153,7 @@ namespace GameMode.Modes
             Texture2D tex = ScreenCapture.CaptureScreenshotAsTexture();
 
             //Get the arena's pixel range
-            var arena = GameManager.Instance.DefaultArena;
+            var arena = GameManager.Instance.CurrArena;
             var bottomLeft = Camera.main.WorldToScreenPoint(arena.BottomLeft);
             var topRight = Camera.main.WorldToScreenPoint(arena.TopRight);
             float total = (topRight.x - bottomLeft.x) * (topRight.y - bottomLeft.y);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Basics;
 using Basics.Player;
 using Managers;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace GameMode.Pool
         public override void InitArena()
         {
             _poolHoles.Clear();
-            GameObject arena = Object.Instantiate(ModeArena.gameObject, Vector3.zero, Quaternion.identity);
+            Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
             foreach (Transform parentArenaObj in arena.transform)
             {
                 foreach (Transform arenaObj in parentArenaObj.transform)
@@ -57,6 +58,8 @@ namespace GameMode.Pool
                         _arenaBorders = poolArenaObj;
                 }
             }
+
+            GameManager.Instance.CurrArena = arena;
         }
 
         public override void ClearRound()

@@ -60,6 +60,8 @@ namespace GameMode.Ikea
 
                 dispenserPos += dispenserWidth + padding;
             }
+
+            GameManager.Instance.CurrArena = arena;
         }
 
         public override void ClearRound()

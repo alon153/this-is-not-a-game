@@ -9,19 +9,36 @@ namespace GameMode.Modes
         #region Serialized Fields
         
         public SpriteRenderer Renderer { get; private set; }
-        
+
         #endregion
+
+        private static int _count;
+        private static int Count
+        {
+            get => _count;
+            set
+            {
+                string state = _count > value ? "down" : "up";
+                print($"{state} : {value}");
+                _count = value;
+            }
+        }
 
         #region Event Functions
 
         private void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();
+            Count++;
         }
 
-        private void OnBecameInvisible()
+        private void Update()
         {
-            Destroy(gameObject);
+            if (!Renderer.isVisible)
+            {
+                Count--;
+                Destroy(gameObject);
+            }
         }
 
         #endregion
