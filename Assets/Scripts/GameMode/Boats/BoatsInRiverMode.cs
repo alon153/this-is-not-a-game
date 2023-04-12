@@ -75,7 +75,8 @@ namespace GameMode.Boats
                 if (_timePassed >= _curInterval)
                 {
                     _timePassed = 0f;
-                    _timeProgress = TimeManager.Instance.TimeLeft / TimeManager.Instance.RoundDuration;
+                    _timeProgress = (TimeManager.Instance.RoundDuration - TimeManager.Instance.TimeLeft)
+                                    / TimeManager.Instance.RoundDuration;
                     SpawnNewObstacles();
                     _curInterval = CalcNextInterval();
                 }
