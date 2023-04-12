@@ -16,9 +16,11 @@ namespace Managers
 
         private Coroutine _countDownCoroutine;
         private UIManager.CountDownTimer _currTimer;
+        public float TimeLeft { get; private set; }
+        public float RoundDuration { get; private set; }
 
         #endregion
-        
+
         #region Event Functions
       
 
@@ -88,14 +90,17 @@ namespace Managers
             _currTimer = timer;
             UIManager.Instance.UpdateTime(duration, timer);
             yield return null;
+
+            RoundDuration = duration;
+            TimeLeft = duration;
             
-            float timeLeft = duration;
-            while (timeLeft > 0)
+            while (TimeLeft > 0)
             {
-                UIManager.Instance.UpdateTime(Mathf.Ceil(timeLeft), timer);
+                UIManager.Instance.UpdateTime(Mathf.Ceil(TimeLeft), timer);
                 yield return null;
                 
-                timeLeft -= Time.deltaTime;
+                TimeLeft -= Time.deltaTime;
+                
             }
             
             UIManager.Instance.UpdateTime(0, timer);
