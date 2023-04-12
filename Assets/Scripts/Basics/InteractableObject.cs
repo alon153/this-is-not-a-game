@@ -35,11 +35,15 @@ namespace Utilities.Interfaces
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if(_playerTriggers.Contains(other.gameObject.GetInstanceID()))
-                    return;
-                
                 PlayerController player = other.GetComponent<PlayerController>();
-                if(player.Interactable != null)
+                if (_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                {
+                    if (!CanPlayerInteract(player))
+                        _playerTriggers.Remove(other.gameObject.GetInstanceID());
+                    return;
+                }
+                
+                if(player.Interactable != null || !CanPlayerInteract(player))
                     return;
 
                 _playerTriggers.Add(other.gameObject.GetInstanceID());
@@ -68,7 +72,7 @@ namespace Utilities.Interfaces
 
         public void OnInteract(PlayerController player)
         {
-            if(CanInteract)
+            if(CanInteract && CanPlayerInteract(player))
                 OnInteract_Inner(player);
         }
 
@@ -88,7 +92,9 @@ namespace Utilities.Interfaces
         protected abstract void TogglePrompt_Inner(bool showPrompt);
 
         protected abstract void OnInteract_Inner(PlayerController player);
-        
+
+        protected abstract bool CanPlayerInteract(PlayerController player);
+
         #endregion
     }
 }

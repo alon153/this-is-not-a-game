@@ -151,6 +151,15 @@ namespace Managers
         /// </summary>
         public void EndRound()
         {
+            TimeManager.Instance.StopCountDown();
+            _gameMode?.EndRound();
+        }
+
+        /// <summary>
+        /// Updates number of rounds played and clears the round that has ended.
+        /// </summary>
+        public void ClearRound()
+        {
             if(_gameMode == null)
                 return;
 

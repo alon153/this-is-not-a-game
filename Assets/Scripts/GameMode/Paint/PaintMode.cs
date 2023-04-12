@@ -17,13 +17,13 @@ namespace GameMode.Modes
     public class PaintMode : GameModeBase, IOnMoveListener
     {
         #region Serialized Fields
-
-        [Tooltip("The lengths of the intervals (in seconds) between each coloring of the arena")]
+        
         [SerializeField] private float _paintIntervals = 0.05f;
         [SerializeField] private Sprite _paintingSprite;
         [SerializeField] private Splash _paintPrefab;
         [SerializeField] private float _threshold = 0.02f;
         [SerializeField] private float _coloringOffset = 0.5f;
+        [SerializeField] private int _totalPoints = 10;
 
         #endregion
 
@@ -31,6 +31,7 @@ namespace GameMode.Modes
         
         private float[] _paintTime;
         private GameObject _splashContainer;
+        private Dictionary<int, float> _percentages = new Dictionary<int, float>();
 
         #endregion
 
@@ -81,6 +82,23 @@ namespace GameMode.Modes
         {
             GameManager.Instance.FreezePlayers(timed: false);
             CountColors();
+        }
+
+        public override Dictionary<int, float> CalculateScore()
+        {
+            Dictionary<int, float> scores = new Dictionary<int, float>();
+            foreach (var index in _percentages.Keys)
+            {
+                scores[index] = (int)_percentages[index]*_totalPoints;
+            }
+
+            return scores;
+        }
+
+        public override void EndRound()
+        {
+            ScoreManager.Instance.SetPlayerScores(CalculateScore());
+            GameManager.Instance.ClearRound();
         }
 
         #endregion
@@ -140,10 +158,9 @@ namespace GameMode.Modes
             float total = (topRight.x - bottomLeft.x) * (topRight.y - bottomLeft.y);
             
             //Count how many pixels are colored with each color
-            Dictionary<int, int> percentages = new Dictionary<int, int>();
             foreach (var key in colors.Keys)
             {
-                percentages[key] = 0;
+                _percentages[key] = 0;
             }
             
             for (int x = (int) bottomLeft.x; x <= topRight.x; x++)
@@ -167,17 +184,16 @@ namespace GameMode.Modes
                 }
 
                 if (min != -1 &&  minDist <= thresh)
-                    percentages[min]++;
+                    _percentages[min]++;
             }
 
-            var keys = percentages.Keys.ToList();
+            var keys = _percentages.Keys.ToList();
             foreach (var key in keys)
             {
-                percentages[key] = (int) (percentages[key] * 100/total);
-                ScoreManager.Instance.SetPlayerScore(key, percentages[key]);
+                _percentages[key] /= total;
             }
             
-            GameManager.Instance.EndRound();
+            EndRound();
         }
 
         #endregion
