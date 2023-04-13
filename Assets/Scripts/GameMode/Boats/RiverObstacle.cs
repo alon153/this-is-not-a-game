@@ -7,14 +7,13 @@ namespace GameMode.Boats
     public class RiverObstacle : MonoBehaviour
     {
         #region Non Serialized fields
-
-        private Rigidbody2D _obstacleRigidbody2D;
+        public Rigidbody2D ObstacleRigidbody2D { get; private set; }
         
         private float _timeToFade = 1f;
 
         #endregion
 
-        #region Constans
+        #region Constants
         
         private const int MaxAlpha = 1;
 
@@ -24,19 +23,23 @@ namespace GameMode.Boats
 
         private void Start()
         {
-            _obstacleRigidbody2D = GetComponent<Rigidbody2D>();
+            ObstacleRigidbody2D = GetComponent<Rigidbody2D>();
         }
 
         public void SetDrag(float newDrag)
         {
-            _obstacleRigidbody2D.drag = newDrag;
+            ObstacleRigidbody2D.drag = newDrag;
         }
 
         public void SetGravity(float newGravity)
         {
-            _obstacleRigidbody2D.gravityScale = newGravity;
+            ObstacleRigidbody2D.gravityScale = newGravity;
         }
-
+        
+        /// <summary>
+        /// Coroutine is called when an obstacle in the boats game mode has
+        /// fallen from the game arena. the object is scaled and fades out and finally destroys.
+        /// </summary>
         private IEnumerator FadeAndScaleOnFall(SpriteRenderer objRend, Transform objTrans)
         {
             float timePassed = 0;

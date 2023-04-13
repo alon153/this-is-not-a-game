@@ -50,6 +50,7 @@ MonoBehaviour:
   _respawnBlockers:
     serializedVersion: 2
     m_Bits: 384
+  _spriteMask: {fileID: 0}
 --- !u!212 &6661921919638177007
 SpriteRenderer:
   m_ObjectHideFlags: 0

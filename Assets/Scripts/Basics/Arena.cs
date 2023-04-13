@@ -1,4 +1,5 @@
 ﻿using System;
+using Managers;
 using UnityEngine;
 using UnityEngine.Events;
 using Utilities.Interfaces;
@@ -33,7 +34,9 @@ namespace Basics
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other)
-        {
+        {   
+            
+            // todo bug here!! called when arena object is destroyed thus player is falling. 
             IFallable fallable = other.gameObject.GetComponent<IFallable>();
             if(fallable == null)
                 return;

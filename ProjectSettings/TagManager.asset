@@ -10,6 +10,7 @@ TagManager:
   - PoolBorders
   - Water
   - spawnLocation
+  - WaterObstacle
   layers:
   - Default
   - TransparentFX
