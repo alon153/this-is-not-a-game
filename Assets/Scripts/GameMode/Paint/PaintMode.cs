@@ -79,7 +79,7 @@ namespace GameMode.Modes
             }
         }
         
-        public override void OnTimeOVer()
+        public override void OnTimeOver()
         {
             GameManager.Instance.FreezePlayers(timed: false);
             CountColors();

@@ -23,6 +23,8 @@ namespace GameMode.Boats
         [SerializeField] private float minSpawnInterval = 0.5f;
 
         [SerializeField] private float obstacleSpawnMultiplier = 10f;
+
+        [SerializeField] private float score = 30f;
         
 
         #endregion
@@ -130,15 +132,30 @@ namespace GameMode.Boats
             ModeArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
-        public override void OnTimeOVer()
+        public override Dictionary<int, float> CalculateScore()
         {
+            Dictionary<int, float> scoreForPlayers = new Dictionary<int, float>();
+            
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
+            {
+                if (_isInGame[i])
+                    scoreForPlayers[i] = score;
+                else
+                    scoreForPlayers[i] = 0;
+            }
 
+            return scoreForPlayers;
+        }
+
+        public override void OnTimeOver()
+        {
+            GameManager.Instance.FreezePlayers(timed: false);
+            ScoreManager.Instance.SetPlayerScores(CalculateScore());
+            GameManager.Instance.ClearRound();
         }
         
         #endregion
 
-       
-        
         private float CalcNextInterval()
         {
             float interval = Mathf.Lerp(maxSpawnInterval, minSpawnInterval, _timeProgress);
@@ -155,7 +172,7 @@ namespace GameMode.Boats
             // calc amount of objects to spawn in this round
             float roundProgress = Mathf.Lerp(MinProgress, MaxProgress, _timeProgress);
             int spawnAmount = Mathf.CeilToInt(roundProgress * obstacleSpawnMultiplier);
-            Debug.Log("now spawning " + spawnAmount + " objects");
+            
 
             HashSet<Vector3> spawnSet = new HashSet<Vector3>();
 
@@ -193,6 +210,8 @@ namespace GameMode.Boats
 
         private void DisqualifyPlayer(int playerId)
         {   
+            
+            Debug.Log("player fell");
             // find the player that fell
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {   
@@ -207,7 +226,7 @@ namespace GameMode.Boats
 
             if (AllPlayersFell())
             {
-                
+                OnTimeOver();
             }
             
             

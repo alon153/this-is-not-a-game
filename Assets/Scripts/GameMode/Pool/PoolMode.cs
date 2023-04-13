@@ -76,7 +76,7 @@ namespace GameMode.Pool
 
         }
 
-        public override void OnTimeOVer()
+        public override void OnTimeOver()
         {
             GameManager.Instance.FreezePlayers(timed: false);
             ScoreManager.Instance.SetPlayerScores(CalculateScore());

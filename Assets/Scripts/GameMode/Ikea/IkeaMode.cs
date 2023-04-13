@@ -86,7 +86,7 @@ namespace GameMode.Ikea
             }
         }
 
-        public override void OnTimeOVer()
+        public override void OnTimeOver()
         {
             EndRound();
         }

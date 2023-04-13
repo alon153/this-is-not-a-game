@@ -13,8 +13,6 @@ namespace GameMode.Boats
     [Serializable]
     public class BoatsInRiverArena : Arena
     {
-        
-
         protected override void OnTriggerExit2D(Collider2D other)
         {
             IFallable fallable = other.gameObject.GetComponent<IFallable>();
@@ -25,8 +23,9 @@ namespace GameMode.Boats
 
                 if (other.CompareTag("Player"))
                 {   
+                    // todo debugg this 
                     var playerId = other.gameObject.GetComponent<PlayerController>().GetInstanceID();
-                    OnPlayerDisqualified.Invoke(playerId);
+                    OnPlayerDisqualified(playerId);
                 }
             }
         }

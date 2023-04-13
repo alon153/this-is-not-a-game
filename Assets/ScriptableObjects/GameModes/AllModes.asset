@@ -21,6 +21,7 @@ MonoBehaviour:
     _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
     _threshold: 0.2
     _coloringOffset: 0.05
+    _totalPoints: 10
   _poolMode:
     <ModeArena>k__BackingField: {fileID: 5357777095989818182, guid: 6d774cf085ced544ab612a022d7bfdde, type: 3}
     <Name>k__BackingField: This is not a game, this is a pool table
@@ -35,7 +36,7 @@ MonoBehaviour:
     - {fileID: 393630251795051260, guid: a103a33bb9a6dc64b995e14e6ab68746, type: 3}
     _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
   _boatsInRiverMode:
-    <ModeArena>k__BackingField: {fileID: 6212155300372548924, guid: e0d5ff220ef1f6142897689c529b45ac, type: 3}
+    <ModeArena>k__BackingField: {fileID: -7533193524849556626, guid: e0d5ff220ef1f6142897689c529b45ac, type: 3}
     <Name>k__BackingField: This is not a game, this is a River!
     <Description>k__BackingField: Don't fall to the waterfall!
     obstaclesPrefab:
@@ -45,3 +46,4 @@ MonoBehaviour:
     maxSpawnInterval: 3
     minSpawnInterval: 0.5
     obstacleSpawnMultiplier: 10
+    score: 30

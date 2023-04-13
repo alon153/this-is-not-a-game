@@ -75,8 +75,7 @@ namespace Managers
 
         private void Update()
         {
-            if (!GameModeUpdateAction.Equals(null))
-                GameModeUpdateAction.Invoke();
+            GameModeUpdateAction?.Invoke();
         }
 
         #endregion
@@ -165,7 +164,7 @@ namespace Managers
             if(_gameMode == null)
                 return;
             
-            _gameMode.OnTimeOVer();
+            _gameMode.OnTimeOver();
         }
 
         /// <summary>

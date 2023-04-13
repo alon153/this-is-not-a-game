@@ -685,8 +685,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: BotesInTheRiverArena
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
+--- !u!1 &6212155300372548864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6661921919638177006, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
+  m_PrefabInstance: {fileID: 740249388473387502}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-7533193524849556626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6212155300372548864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3ec901446b8104189b85bd7cd7276a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _respawnBlockers:
+    serializedVersion: 2
+    m_Bits: 384
+  _spriteMask: {fileID: 0}
 --- !u!4 &6212155300372548926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6661921919638176976, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
