@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using Utilities.Interfaces;
 using Random = UnityEngine.Random;
 
@@ -11,8 +12,8 @@ namespace Basics
         [SerializeField] private LayerMask _respawnBlockers;
         [SerializeField] private SpriteMask _spriteMask;
 
+        public UnityAction<int> OnPlayerDisqualified;
         public SpriteRenderer Renderer { get; private set; }
-
         public Vector3 Dimensions => new Vector3(transform.lossyScale.x, transform.lossyScale.y, 0);
         public Vector3 BottomLeft => transform.position - Dimensions / 2;
         public Vector3 TopRight => transform.position + Dimensions / 2;
@@ -31,7 +32,7 @@ namespace Basics
             _spriteMask.sprite = Renderer.sprite;
         }
 
-        private void OnTriggerExit2D(Collider2D other)
+        protected virtual void OnTriggerExit2D(Collider2D other)
         {
             IFallable fallable = other.gameObject.GetComponent<IFallable>();
             if(fallable == null)

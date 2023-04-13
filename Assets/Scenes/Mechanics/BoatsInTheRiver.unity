@@ -278,5 +278,9 @@ PrefabInstance:
       propertyPath: _roundLength
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: DefaultArenaPrefab
+      value: 
+      objectReference: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}

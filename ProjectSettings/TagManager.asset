@@ -9,11 +9,12 @@ TagManager:
   - PoolHole
   - PoolBorders
   - Water
+  - spawnLocation
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Border
   - Water
   - UI
   - Arena

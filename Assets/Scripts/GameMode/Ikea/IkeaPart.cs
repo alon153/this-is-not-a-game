@@ -179,15 +179,13 @@ namespace GameMode.Ikea
         #endregion
 
         #region IFallable
-
-        public void Fall()
+        public void Fall(bool shouldRespawn = true)
         {
             if(Holder == null)
                 Destroy(gameObject);
         }
-
-        #endregion
     }
+    #endregion
     
     #region Enum
 

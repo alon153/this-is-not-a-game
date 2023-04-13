@@ -38,7 +38,6 @@ namespace Managers
 
         private HashSet<int> _playerIds = new();
 
-       
         private GameModeBase _gameMode;
         private int _roundsPlayed = 0;
         private PlayerInputManager _inputManager;

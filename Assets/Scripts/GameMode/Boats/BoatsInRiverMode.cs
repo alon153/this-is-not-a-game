@@ -23,6 +23,7 @@ namespace GameMode.Boats
         [SerializeField] private float minSpawnInterval = 0.5f;
 
         [SerializeField] private float obstacleSpawnMultiplier = 10f;
+        
 
         #endregion
 
@@ -41,6 +42,10 @@ namespace GameMode.Boats
         private float _spawnStep = 0f;
 
         private bool _started = false;
+
+        private List<Vector3> _playerPositions = new List<Vector3>();
+
+        private List<bool> _isInGame;
 
         #endregion
 
@@ -71,7 +76,6 @@ namespace GameMode.Boats
             {   
                 
                 _timePassed += Time.deltaTime;
-                Debug.Log("time passed: " + _timePassed + ", total: " + _curInterval);
                 if (_timePassed >= _curInterval)
                 {
                     _timePassed = 0f;
@@ -88,12 +92,19 @@ namespace GameMode.Boats
         #region GameModeBase Methods
 
         public override void InitRound()
-        {
-            _curInterval = maxSpawnInterval;
-            _spawnStep = CalcStep();
-            InitArena();
-            _started = true;
+        {   
             GameManager.Instance.GameModeUpdateAction += Update;
+            _curInterval = maxSpawnInterval;
+            InitArena();
+            ModeArena.OnPlayerDisqualified += DisqualifyPlayer; 
+            _isInGame = new List<bool>();
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
+            {
+                GameManager.Instance.Players[i].transform.position = _playerPositions[i];
+                _isInGame.Add(true);
+            }
+
+            _started = true;
         }
 
         public override void InitArena()
@@ -102,12 +113,21 @@ namespace GameMode.Boats
              GameManager.Instance.CurrArena = arena;
             _arenaMaxCoord = ModeArena.TopRight;
             _arenaMinCoord = ModeArena.TopLeft;
+            
+            _playerPositions.Clear();
+            foreach (Transform child in ModeArena.transform)
+            {
+                if (child.CompareTag("spawnLocation"))
+                    _playerPositions.Add(child.position);
+            } 
+        
         }
 
         public override void ClearRound()
         {   
             // todo check if this is working 
             GameManager.Instance.GameModeUpdateAction -= Update;
+            ModeArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
         public override void OnTimeOVer()
@@ -117,18 +137,14 @@ namespace GameMode.Boats
         
         #endregion
 
+       
+        
         private float CalcNextInterval()
         {
             float interval = Mathf.Lerp(maxSpawnInterval, minSpawnInterval, _timeProgress);
-            Debug.Log("cur interval is: " + _curInterval);
             return interval;
         }
 
-        private float CalcStep()
-        {
-            return 0.5f;
-        }
-        
         /// <summary>
         /// Method is called whenever an interval has ended on Update().
         /// Calculates how much objects needs to spawned this time then makes a list of random locations to spawn
@@ -150,8 +166,7 @@ namespace GameMode.Boats
             // calc spawn locations
             while (spawnSet.Count < spawnAmount)
             {
-                float spawnXCor = _arenaMinCoord.x +  Random.Range(0, (_arenaMaxCoord.x - _arenaMinCoord.y)
-                                                                       / _spawnStep + 1);
+                float spawnXCor = Random.Range(_arenaMinCoord.x, _arenaMaxCoord.x);
                 spawnSet.Add(new Vector3(spawnXCor, spawnYCor, spawnZCor));
             }
             List<Vector3> spawnLocations = new List<Vector3>(spawnSet);
@@ -164,8 +179,43 @@ namespace GameMode.Boats
                 GameObject obstacle =
                     Object.Instantiate(obstaclesPrefab[obstacleIdx], pos, Quaternion.identity);
             }
-
-
         }
+
+        private bool AllPlayersFell()
+        {
+            foreach (var player in _isInGame)
+            {
+                if (player)
+                    return false;
+            }
+            return true;
+        }
+
+        private void DisqualifyPlayer(int playerId)
+        {   
+            // find the player that fell
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
+            {   
+                //player detected
+                // todo what should be done with layers that fell? 
+                if (GameManager.Instance.Players[i].GetInstanceID() == playerId)
+                {
+                    _isInGame[i] = false;
+                    break;
+                }
+            }
+
+            if (AllPlayersFell())
+            {
+                
+            }
+            
+            
+        }
+        
+        
+        
+       
     }
+    
 }

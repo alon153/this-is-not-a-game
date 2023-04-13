@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using JetBrains.Annotations;
+using Managers;
 using Unity.VisualScripting;
 using UnityEngine;
 using Utilities.Interfaces;
@@ -70,7 +71,7 @@ namespace Basics.Player
 
         #region Public Methods
 
-        public void Fall()
+        public void Fall(bool shouldRespawn = true)
         {
             foreach (var listener in _fallListeners)
             {
@@ -82,14 +83,14 @@ namespace Basics.Player
             Freeze();
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
-            StartCoroutine(Fall_Inner());
+            StartCoroutine(Fall_Inner(shouldRespawn));
         }
 
         #endregion
         
         #region Private Methods
         
-        private IEnumerator Fall_Inner()
+        private IEnumerator Fall_Inner(bool shouldRespawn)
         {   
            
             float duration = 0f;
@@ -116,8 +117,10 @@ namespace Basics.Player
             Renderer.color = color;
             
             yield return null;
+            
+            if (shouldRespawn)
+                Respawn();
 
-            Respawn();
         }
         
         

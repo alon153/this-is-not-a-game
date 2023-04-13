@@ -2,6 +2,6 @@
 {
     public interface IFallable
     {
-        void Fall();
+        void Fall(bool shouldRespawn = true);
     }
 }
