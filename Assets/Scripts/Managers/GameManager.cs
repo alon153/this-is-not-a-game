@@ -147,7 +147,7 @@ namespace Managers
             UIManager.Instance.SetGameDesc(_gameMode.Name, _gameMode.Description);
             TimeManager.Instance.StartCountDown(5, (() =>
             {
-                UIManager.Instance.ToggleGameDesc(false);
+                UIManager.Instance.HideAllMessages();
                 _gameMode.InitRound();
                 TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
                 UnFreezePlayers();
@@ -183,6 +183,7 @@ namespace Managers
         private void EndGame()
         {
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
+            UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
         }
 
         private void StartGame()

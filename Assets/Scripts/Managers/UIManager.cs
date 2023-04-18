@@ -14,6 +14,9 @@ namespace Managers
 
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         
+        [Header("General Texts")]
+        [SerializeField] private TextMeshProUGUI _centerText;
+        
         [Header("Timers")]
         [SerializeField] private TextMeshProUGUI _gameTimeText;
         [SerializeField] private TextMeshProUGUI _mainTimeText;
@@ -112,7 +115,15 @@ namespace Managers
             _gameDesc.gameObject.SetActive(show);
             _gameName.gameObject.SetActive(show);
         }
-        
+
+        public void ToggleCenterText(bool show) => _centerText.gameObject.SetActive(show);
+
+        public void HideAllMessages()
+        {
+            ToggleCenterText(false);
+            ToggleGameDesc(false);
+        }
+
         /// <summary>
         /// can be called at game end to restart all displays. 
         /// </summary>
@@ -149,6 +160,13 @@ namespace Managers
         {
             Game,
             Main,
+        }
+
+        public void ShowWinner(int winner)
+        {
+            _centerText.color = GameManager.Instance.PlayerColors[winner];
+            _centerText.text = $"Player {winner + 1} wins!";
+            ToggleCenterText(true);
         }
     }
 }
