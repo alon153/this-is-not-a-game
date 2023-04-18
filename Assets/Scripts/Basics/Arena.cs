@@ -34,14 +34,15 @@ namespace Basics
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other)
-        {   
-            
-            // todo bug here!! called when arena object is destroyed thus player is falling. 
-            IFallable fallable = other.gameObject.GetComponent<IFallable>();
-            if(fallable == null)
-                return;
-            
-            fallable.Fall();
+        {
+            if (GameManager.Instance.CurrArena.GetInstanceID() == this.GetInstanceID())
+            {
+                IFallable fallable = other.gameObject.GetComponent<IFallable>();
+                if (fallable == null)
+                    return;
+
+                fallable.Fall();
+            }
         }
 
         public Vector3 GetRespawnPosition(GameObject obj)

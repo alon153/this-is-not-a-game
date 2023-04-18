@@ -57,9 +57,10 @@ namespace Managers
             get => _currArena;
             set
             {
-                if(_currArena != null)
-                    Destroy(_currArena.gameObject);
+                var arenaObj = _currArena ? _currArena.gameObject : null; 
                 _currArena = value;
+                    if (arenaObj)
+                        Destroy(arenaObj);
             }
         }
 

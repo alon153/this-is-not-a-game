@@ -16,7 +16,7 @@ namespace GameMode
     public abstract void InitArena();
     public abstract void ClearRound();
     public abstract void OnTimeOver();
-    public virtual Dictionary<int,float> CalculateScore() { throw new NotImplementedException(); }
+    public abstract Dictionary<int, float> CalculateScore();
     public virtual void EndRound(){ throw new NotImplementedException(); }
   }
 }
