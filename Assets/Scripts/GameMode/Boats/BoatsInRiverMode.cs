@@ -68,8 +68,7 @@ namespace GameMode.Boats
         private void Update()
         {
             if (_started)
-            {   
-                
+            {
                 _timePassed += Time.deltaTime;
                 if (_timePassed >= _curInterval)
                 {   
@@ -87,11 +86,10 @@ namespace GameMode.Boats
 
         #region GameModeBase Methods
 
-        public override void InitRound()
+        protected override void InitRound_Inner()
         {   
             GameManager.Instance.GameModeUpdateAction += Update;
             _curInterval = maxSpawnInterval;
-            InitArena();
             GameManager.Instance.CurrArena.OnPlayerDisqualified += DisqualifyPlayer; 
             _isInGame = new List<bool>();
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
@@ -103,7 +101,7 @@ namespace GameMode.Boats
             _started = true;
         }
 
-        public override void InitArena()
+        protected override void InitArena_Inner()
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
              _playerPositions.Clear();
@@ -116,7 +114,7 @@ namespace GameMode.Boats
             _arenaMinCoord = GameManager.Instance.CurrArena.TopLeft;
         }
 
-        public override void ClearRound()
+        protected override void ClearRound_Inner()
         {
             for (int i = 0; i < _obstaclesInGame.Length; i++)
                 Object.Destroy(_obstaclesInGame[i].gameObject);
@@ -125,7 +123,7 @@ namespace GameMode.Boats
             GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
-        public override Dictionary<int, float> CalculateScore()
+        protected override Dictionary<int, float> CalculateScore_Inner()
         {
             Dictionary<int, float> scoreForPlayers = new Dictionary<int, float>();
             
@@ -140,15 +138,13 @@ namespace GameMode.Boats
             return scoreForPlayers;
         }
 
-        public override void OnTimeOver()
+        protected override void OnTimeOver_Inner()
         {
             RiverObstacle[] obstaclesInGame = Object.FindObjectsOfType<RiverObstacle>();
             for (int i = 0; i < obstaclesInGame.Length; i++)
                 obstaclesInGame[i].ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
 
             GameManager.Instance.FreezePlayers(timed: false);
-            ScoreManager.Instance.SetPlayerScores(CalculateScore());
-            GameManager.Instance.ClearRound();
         }
         
         #endregion
@@ -231,8 +227,7 @@ namespace GameMode.Boats
             }
 
             if (AllPlayersFell())
-                OnTimeOver();
-            
+                GameManager.Instance.EndRound();
         }
     }
 }

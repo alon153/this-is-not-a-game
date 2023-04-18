@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c879b16f3744cdb8e6f6d35fecf6c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arenaPrefab: {fileID: 6661921919638176978, guid: 6083a1e241fa32c49bc96d6666a4d27d, type: 3}
+  DefaultArenaPrefab: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
   <PlayerColors>k__BackingField:
   - {r: 0, g: 0.73947906, b: 1, a: 1}
   - {r: 1, g: 0.28571314, b: 0, a: 1}
@@ -56,7 +56,7 @@ MonoBehaviour:
   _gameModeFactory: {fileID: 11400000, guid: 3ef258ded0f37ef4d9df8858d3f7d37c, type: 2}
   _isSingleMode: 1
   _singleMode: 1
-  _startWith: 
+  _modes: 
 --- !u!114 &5528608369377680934
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ namespace GameMode.Modes
         /// <summary>
         /// Registers as a MoveListener for all players and creates a container for all Splash objects.
         /// </summary>
-        public override void InitRound()
+        protected override void InitRound_Inner()
         {   
             foreach (var player in GameManager.Instance.Players)
             {
@@ -52,11 +52,9 @@ namespace GameMode.Modes
             {
                 _paintTime[i] = Time.time;
             }
-            
-            InitArena();
         }
 
-        public override void InitArena()
+        protected override void InitArena_Inner()
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
             _splashContainer = new GameObject();
@@ -69,7 +67,7 @@ namespace GameMode.Modes
         /// <summary>
         /// Destroy the splash container and unregisters as MoveListener
         /// </summary>
-        public override void ClearRound()
+        protected override void ClearRound_Inner()
         {
             Object.Destroy(_splashContainer.gameObject);
             
@@ -79,27 +77,26 @@ namespace GameMode.Modes
             }
         }
         
-        public override void OnTimeOver()
+        protected override void OnTimeOver_Inner()
         {
             GameManager.Instance.FreezePlayers(timed: false);
             CountColors();
         }
 
-        public override Dictionary<int, float> CalculateScore()
+        protected override Dictionary<int, float> CalculateScore_Inner()
         {
             Dictionary<int, float> scores = new Dictionary<int, float>();
             foreach (var index in _percentages.Keys)
             {
-                scores[index] = (int)_percentages[index]*_totalPoints;
+                scores[index] = (int) (_percentages[index] * _totalPoints);
             }
 
             return scores;
         }
 
-        public override void EndRound()
+        public override void OnTimerOver()
         {
-            ScoreManager.Instance.SetPlayerScores(CalculateScore());
-            GameManager.Instance.ClearRound();
+            OnTimeOver_Inner();
         }
 
         #endregion
