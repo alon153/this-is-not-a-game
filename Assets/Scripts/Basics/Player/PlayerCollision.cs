@@ -30,7 +30,9 @@ namespace Basics.Player
         #region Private Fields
         
         // this will only have a value when this player is knocked by another. 
-        [CanBeNull] private PlayerController _playerKnockedBy;
+        [CanBeNull] public PlayerController _playerKnockedBy;
+        
+        private Coroutine _resetMoveCoroutine = null;
 
         #endregion
 
@@ -43,14 +45,16 @@ namespace Basics.Player
                 // was the player bashing or only pushing the other player
                 if (dashing)
                 {   
+                   
                     // player has bashed another player so a knockback needed.
-                    dashing = false;
                     bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
+                    TimeManager.Instance.DelayInvoke((() => dashing = false), 0.1f);
                     KnockBackPlayer(other.gameObject, isMutual);
                 }
 
                 else
-                {
+                {   
+                    
                     other.gameObject.GetComponent<PlayerController>().SetPushingPlayer(this, false);
                 }
 
@@ -64,6 +68,8 @@ namespace Basics.Player
 
                 if (!controller.IsBashed)
                     controller.SetPushingPlayer(null, false);
+                
+               
             }
         }
 
@@ -97,14 +103,12 @@ namespace Basics.Player
             float scaleFactor = 1f;
             var color = Renderer.color;
             var scale = transform.localScale;
-            yield return null;
-            
+
             while (duration < FallTime)
             {
                 //fade out
                 color.a = 1 - duration / FallTime;
                 Renderer.color = color;
-                
                 //shrink
                 scaleFactor = 1 - 0.5f * duration / FallTime;
                 transform.localScale = scale * scaleFactor;
@@ -117,6 +121,7 @@ namespace Basics.Player
             Renderer.color = color;
             
             yield return null;
+          
             
             if (shouldRespawn)
                 Respawn();
@@ -137,8 +142,8 @@ namespace Basics.Player
         /// </param>
         private void KnockBackPlayer(GameObject player, bool mutualCollision)
         {
-            _onBeginKickBack?.Invoke();
             
+            Debug.Log("player: " + this.Index + "is mutual:" + mutualCollision);
             PlayerController otherPlayerController = player.GetComponent<PlayerController>();   
             Rigidbody2D otherPlayerRb = otherPlayerController.Rigidbody;
 
@@ -155,7 +160,10 @@ namespace Basics.Player
             otherPlayerController.SetMovementAbility(false);
             otherPlayerController.SetPushingPlayer(this, true);
             otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
-            StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
+            if (_resetMoveCoroutine != null)
+                StopCoroutine(_resetMoveCoroutine); 
+                
+            _resetMoveCoroutine = StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
         }
 
        
@@ -194,7 +202,7 @@ namespace Basics.Player
         /// <returns></returns>
        public IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb)
         {   
-            StopAllCoroutines();
+            
             float time = 0f;
             Vector2 initialVelocity = playerRb.velocity;
             Vector2 noVelocity = Vector2.zero;
@@ -209,7 +217,8 @@ namespace Basics.Player
             playerRb.velocity = Vector2.zero;
             SetMovementAbility(true);
             _playerKnockedBy = null;
-            _onDoneKickBack?.Invoke(); 
+            _resetMoveCoroutine = null;
+
         }
 
         #endregion

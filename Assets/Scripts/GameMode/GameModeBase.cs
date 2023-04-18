@@ -32,8 +32,8 @@ namespace GameMode
 
     public virtual void InitRound()
     {
-      InitRound_Inner();
       InitArena_Inner();
+      InitRound_Inner();
     }
     public virtual void OnTimerOver()
     {

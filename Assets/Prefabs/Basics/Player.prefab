@@ -287,23 +287,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <FallTime>k__BackingField: 0.5
   _fallDrag: 6
+  _playerKnockedBy: {fileID: 0}
   _txtReady: {fileID: 7125283966448459805}
   _speed: 7
   _maxSpeed: 8
   _acceleration: 7
   _deceleration: 5
-  DashTime: 0.5
+  DashTime: 0.2
   _dashBonus: 4
   _dashCooldown: 0.5
-  _knockBackForce: 3
-  _mutualKnockBackForce: 1.5
+  _knockBackForce: 20
+  _mutualKnockBackForce: 10
   _knockBackDelay: 0.15
-  _onBeginKickBack:
-    m_PersistentCalls:
-      m_Calls: []
-  _onDoneKickBack:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &916809306669561107
 MonoBehaviour:
   m_ObjectHideFlags: 0

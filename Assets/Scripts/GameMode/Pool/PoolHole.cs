@@ -42,8 +42,11 @@ namespace GameMode.Pool
         {
             if (other.CompareTag("Player"))
             { 
-                
+                Debug.Log("player fell in the hole, id: " + other.GetInstanceID());
                 PlayerController playerController = other.GetComponent<PlayerController>();
+                
+                Debug.Log("is player pushed? : " + playerController.IsBashed);
+                Debug.Log("player pushed by: " + playerController._playerKnockedBy);
                 // player falls inside the hole, will probably change later
                 playerController.Fall();
             }

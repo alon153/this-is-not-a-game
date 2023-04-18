@@ -37,12 +37,10 @@ namespace Basics.Player
         [field: SerializeField] public float DashTime = 0.5f;
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
-        [SerializeField] private float _knockBackForce = 3f;
+        [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
         [SerializeField] private float _knockBackDelay = 0.15f;
-        [SerializeField] private UnityEvent _onBeginKickBack;
-        [SerializeField] private UnityEvent _onDoneKickBack;
-
+       
         #endregion
 
         #region Non-Serialized Fields
@@ -68,7 +66,6 @@ namespace Basics.Player
         private Vector3 _originalScale;
 
         private Vector3 _lastPosition;
-
 
         #endregion
 
