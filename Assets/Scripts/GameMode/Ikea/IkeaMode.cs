@@ -28,17 +28,17 @@ namespace GameMode.Ikea
 
         #region GameModeBase
 
-        public override void InitRound()
+        protected override void InitRound_Inner()
         {
             foreach (var player in GameManager.Instance.Players)
             {
                 player.Addon = new IkeaPlayerAddon();
                 player.RegisterPushedListener(this);
             }
-            InitArena();
+            InitArena_Inner();
         }
 
-        public override void InitArena()
+        protected override void InitArena_Inner()
         {
             var arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
             var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
@@ -64,7 +64,7 @@ namespace GameMode.Ikea
             GameManager.Instance.CurrArena = arena;
         }
 
-        public override void ClearRound()
+        protected override void ClearRound_Inner()
         {
             foreach (var player in GameManager.Instance.Players)
             {
@@ -86,23 +86,13 @@ namespace GameMode.Ikea
             }
         }
 
-        public override void OnTimeOver()
-        {
-            EndRound();
-        }
-
-        public override void EndRound()
+        protected override void OnTimeOver_Inner() { }
+        
+        protected override Dictionary<int,float> CalculateScore_Inner()
         {
             parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
             dispensers = (PartDispenser[]) Object.FindObjectsOfType (typeof(PartDispenser));
-
-            ScoreManager.Instance.SetPlayerScores(CalculateScore());
             
-            GameManager.Instance.ClearRound();
-        }
-
-        public override Dictionary<int,float> CalculateScore()
-        {
             Dictionary<int, float> scores = new();
             foreach (var part in parts)
             {

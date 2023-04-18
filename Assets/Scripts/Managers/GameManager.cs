@@ -129,10 +129,8 @@ namespace Managers
         /// </summary>
         public void NextRound()
         {
-            if(_gameMode != null)
-                return;
-            
-            if (_roundsPlayed >= _numRounds)
+            _roundsPlayed++;
+            if (_roundsPlayed > _numRounds)
             {
                 EndGame();
                 return;
@@ -164,7 +162,7 @@ namespace Managers
             if(_gameMode == null)
                 return;
             
-            _gameMode.OnTimeOver();
+            _gameMode?.OnTimerOver();
         }
 
         /// <summary>
@@ -173,21 +171,8 @@ namespace Managers
         public void EndRound()
         {
             TimeManager.Instance.StopCountDown();
+            
             _gameMode?.EndRound();
-        }
-
-        /// <summary>
-        /// Updates number of rounds played and clears the round that has ended.
-        /// </summary>
-        public void ClearRound()
-        {
-            if(_gameMode == null)
-                return;
-
-            _roundsPlayed++;
-            _gameMode.ClearRound();
-            _gameMode = null;
-            NextRound();
         }
 
         #endregion

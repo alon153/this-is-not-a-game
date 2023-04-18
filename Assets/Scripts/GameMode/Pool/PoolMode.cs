@@ -33,15 +33,14 @@ namespace GameMode.Pool
         #endregion
 
         #region GameModeBase Methods
-        public override void InitRound()
+        protected override void InitRound_Inner()
         {
-            InitArena();
             foreach (PlayerController player in GameManager.Instance.Players)
                 player.RegisterFallListener(this);              
             
         }
 
-        public override void InitArena()
+        protected override void InitArena_Inner()
         {
             _poolHoles.Clear();
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
@@ -62,7 +61,7 @@ namespace GameMode.Pool
             GameManager.Instance.CurrArena = arena;
         }
 
-        public override void ClearRound()
+        protected override void ClearRound_Inner()
         {
             foreach (PlayerController player in GameManager.Instance.Players)
                 player.UnRegisterFallListener(this);              
@@ -76,14 +75,9 @@ namespace GameMode.Pool
 
         }
 
-        public override void OnTimeOver()
-        {
-            GameManager.Instance.FreezePlayers(timed: false);
-            ScoreManager.Instance.SetPlayerScores(CalculateScore());
-            GameManager.Instance.ClearRound();
-        }
+        protected override void OnTimeOver_Inner() { }
 
-        public override Dictionary<int, float> CalculateScore()
+        protected override Dictionary<int, float> CalculateScore_Inner()
         {
             Dictionary<int, float> scores = new Dictionary<int, float>();
             foreach (var pair in _hits)

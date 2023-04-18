@@ -25,7 +25,6 @@ namespace GameMode.Ikea
             get => BlueprintCount_Inner;
             set
             {
-                print(value);
                 BlueprintCount_Inner = value;
                 if(value <= 0)
                     GameManager.Instance.EndRound();
