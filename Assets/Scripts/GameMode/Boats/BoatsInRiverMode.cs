@@ -123,6 +123,11 @@ namespace GameMode.Boats
             GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
+        protected override void OnTimeOver_Inner()
+        {
+            
+        }
+
         protected override Dictionary<int, float> CalculateScore_Inner()
         {
             Dictionary<int, float> scoreForPlayers = new Dictionary<int, float>();
@@ -138,15 +143,12 @@ namespace GameMode.Boats
             return scoreForPlayers;
         }
 
-        protected override void OnTimeOver_Inner()
+        protected override void EndRound_Inner()
         {
-            RiverObstacle[] obstaclesInGame = Object.FindObjectsOfType<RiverObstacle>();
-            for (int i = 0; i < obstaclesInGame.Length; i++)
-                obstaclesInGame[i].ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
-
+            FreezeAllObstacles();
             GameManager.Instance.FreezePlayers(timed: false);
         }
-        
+
         #endregion
         
         
@@ -202,6 +204,13 @@ namespace GameMode.Boats
             }
             return true;
         }
+
+        private void FreezeAllObstacles()
+        {
+            RiverObstacle[] obstaclesInGame = Object.FindObjectsOfType<RiverObstacle>();
+            for (int i = 0; i < obstaclesInGame.Length; i++)
+                obstaclesInGame[i].ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
         
         /// <summary>
         /// Gets a playerId and gets it out of the game.
@@ -218,7 +227,6 @@ namespace GameMode.Boats
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {   
                 //player detected
-                // todo what should be done with players that fell? 
                 if (GameManager.Instance.Players[i].GetInstanceID() == playerId)
                 {
                     _isInGame[i] = false;
