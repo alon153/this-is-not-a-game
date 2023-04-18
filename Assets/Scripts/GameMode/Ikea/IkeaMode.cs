@@ -35,7 +35,6 @@ namespace GameMode.Ikea
                 player.Addon = new IkeaPlayerAddon();
                 player.RegisterPushedListener(this);
             }
-            InitArena_Inner();
         }
 
         protected override void InitArena_Inner()
