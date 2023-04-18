@@ -88,7 +88,7 @@ namespace GameMode.Modes
             Dictionary<int, float> scores = new Dictionary<int, float>();
             foreach (var index in _percentages.Keys)
             {
-                scores[index] = (int) (_percentages[index] * _totalPoints);
+                scores[index] = (int) (_percentages[index] * _totalPoints*10);
             }
 
             return scores;

@@ -16,6 +16,7 @@ namespace GameMode.Ikea
 
         [SerializeField] private List<IkeaPart> _partsPrefabs;
         [SerializeField] private PartDispenser _dispenserPrefab;
+        [SerializeField] private float _pointsPerPart = 10;
 
         #endregion
 
@@ -103,7 +104,7 @@ namespace GameMode.Ikea
                 if (!scores.ContainsKey(index))
                     scores[index] = 0;
                 
-                scores[index]++;
+                scores[index]+=_pointsPerPart;
             }
 
             return scores;

@@ -73,7 +73,7 @@ namespace GameMode
                 GameModes.Pool => _poolMode,
                 GameModes.Ikea => _ikeaMode,
                 GameModes.Boats => _boatsInRiverMode,
-                _ => throw new Exception("No mode to create")
+                _ => null
             };
         }
 

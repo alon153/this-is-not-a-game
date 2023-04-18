@@ -19,7 +19,6 @@ namespace GameMode.Modes
             set
             {
                 string state = _count > value ? "down" : "up";
-                print($"{state} : {value}");
                 _count = value;
             }
         }
