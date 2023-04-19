@@ -38,7 +38,7 @@ namespace Managers
 
         private HashSet<int> _playerIds = new();
 
-        private GameModeBase _gameMode;
+      
         private int _roundsPlayed = 0;
         private PlayerInputManager _inputManager;
 
@@ -50,7 +50,8 @@ namespace Managers
 
         public List<PlayerController> Players => Instance._players;
         
-        public UnityAction GameModeUpdateAction { get; set;}
+        public UnityAction GameModeUpdateAction { get; set;}  
+        public GameModeBase GameMode { get; private set; }
 
         public Arena CurrArena
         {
@@ -137,18 +138,18 @@ namespace Managers
                 return;
             }
             
-            _gameMode = _gameModeFactory.GetGameMode();
-            if(_gameMode == null)
+            GameMode = _gameModeFactory.GetGameMode();
+            if(GameMode == null)
             {
                 EndGame();
                 return;
             }
             
-            UIManager.Instance.SetGameDesc(_gameMode.Name, _gameMode.Description);
+            UIManager.Instance.SetGameDesc(GameMode.Name, GameMode.Description);
             TimeManager.Instance.StartCountDown(5, (() =>
             {
                 UIManager.Instance.HideAllMessages();
-                _gameMode.InitRound();
+                GameMode.InitRound();
                 TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
                 UnFreezePlayers();
             }), UIManager.CountDownTimer.Main);
@@ -160,10 +161,10 @@ namespace Managers
         /// </summary>
         public void OnTimeOver()
         {
-            if(_gameMode == null)
+            if(GameMode == null)
                 return;
             
-            _gameMode?.OnTimerOver();
+            GameMode?.OnTimerOver();
         }
 
         /// <summary>
@@ -173,7 +174,7 @@ namespace Managers
         {
             TimeManager.Instance.StopCountDown();
             
-            _gameMode?.EndRound();
+            GameMode?.EndRound();
         }
 
         #endregion

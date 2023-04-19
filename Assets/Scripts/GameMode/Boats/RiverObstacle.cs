@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using Managers;
 
 namespace GameMode.Boats
 {
@@ -19,6 +20,12 @@ namespace GameMode.Boats
 
         private const int MinAlpha = 0;
             
+        #endregion
+
+        #region Properties
+
+        public bool IsInMode { get; set; } = true;
+
         #endregion
 
         private void Start()
@@ -65,7 +72,7 @@ namespace GameMode.Boats
 
         private void OnTriggerExit2D(Collider2D other)
         {
-            if (other.CompareTag("Arena"))
+            if (other.CompareTag("Arena") && IsInMode)
             {
                 StartCoroutine(FadeAndScaleOnFall(GetComponent<SpriteRenderer>(),
                     GetComponent<Transform>()));

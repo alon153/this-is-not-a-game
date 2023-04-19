@@ -122,9 +122,12 @@ namespace GameMode.Boats
 
         protected override void ClearRound_Inner()
         {
-           Object.Destroy(_obstaclesParent);
-           GameManager.Instance.GameModeUpdateAction -= Update;
-           GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
+            foreach (Transform obstacle in _obstaclesParent.transform)
+                Object.Destroy(obstacle.gameObject);
+            Object.Destroy(_obstaclesParent);
+            
+            GameManager.Instance.GameModeUpdateAction -= Update;
+            GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
         protected override void OnTimeOver_Inner()
