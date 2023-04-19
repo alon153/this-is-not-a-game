@@ -40,6 +40,8 @@ namespace GameMode.Boats
         private float _timePassed = 0f;
 
         private float _timeProgress = 0f;
+
+        private GameObject _obstaclesParent;
         
         // has the round started? 
         private bool _started = false;
@@ -97,6 +99,8 @@ namespace GameMode.Boats
                 GameManager.Instance.Players[i].transform.position = _playerPositions[i];
                 _isInGame.Add(true);
             }
+            
+            
 
             _started = true;
         }
@@ -108,6 +112,8 @@ namespace GameMode.Boats
              foreach (Transform child in arena.transform){
                 if (child.CompareTag("spawnLocation"))
                     _playerPositions.Add(child.position);
+                if (child.CompareTag("WaterObstacle"))
+                    _obstaclesParent = child.gameObject;
              } 
              GameManager.Instance.CurrArena = arena;
             _arenaMaxCoord = GameManager.Instance.CurrArena.TopRight;
@@ -116,11 +122,9 @@ namespace GameMode.Boats
 
         protected override void ClearRound_Inner()
         {
-            for (int i = 0; i < _obstaclesInGame.Length; i++)
-                Object.Destroy(_obstaclesInGame[i].gameObject);
-
-            GameManager.Instance.GameModeUpdateAction -= Update;
-            GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
+           Object.Destroy(_obstaclesParent);
+           GameManager.Instance.GameModeUpdateAction -= Update;
+           GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
 
         protected override void OnTimeOver_Inner()
@@ -192,6 +196,7 @@ namespace GameMode.Boats
                 int obstacleIdx = Random.Range(0, obstaclesPrefab.Count);
                 GameObject obstacle =
                     Object.Instantiate(obstaclesPrefab[obstacleIdx], pos, Quaternion.identity);
+                obstacle.transform.parent = _obstaclesParent.transform;
             }
         }
 
@@ -207,9 +212,8 @@ namespace GameMode.Boats
 
         private void FreezeAllObstacles()
         {
-            RiverObstacle[] obstaclesInGame = Object.FindObjectsOfType<RiverObstacle>();
-            for (int i = 0; i < obstaclesInGame.Length; i++)
-                obstaclesInGame[i].ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+            //foreach (Transform child in _obstaclesParent.transform)
+                //child.GetComponent<RiverObstacle>().ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         
         /// <summary>

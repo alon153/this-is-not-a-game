@@ -15,17 +15,19 @@ namespace GameMode.Boats
     {
         protected override void OnTriggerExit2D(Collider2D other)
         {
-            IFallable fallable = other.gameObject.GetComponent<IFallable>();
-            if(fallable != null)
+            if (GameManager.Instance.CurrArena.GetInstanceID() == this.GetInstanceID())
             {
-                // player has fell from arena, so shouldn't respawn
-                fallable.Fall(false);
+                IFallable fallable = other.gameObject.GetComponent<IFallable>();
+                if (fallable != null)
+                {
+                    // player has fell from arena, so shouldn't respawn
+                    fallable.Fall(false);
 
-                if (other.CompareTag("Player"))
-                {   
-                    // todo debugg this 
-                    var playerId = other.gameObject.GetComponent<PlayerController>().GetInstanceID();
-                    OnPlayerDisqualified(playerId);
+                    if (other.CompareTag("Player"))
+                    {
+                       var playerId = other.gameObject.GetComponent<PlayerController>().GetInstanceID();
+                        OnPlayerDisqualified(playerId);
+                    }
                 }
             }
         }
