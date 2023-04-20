@@ -43,12 +43,15 @@ namespace Managers
         private PlayerInputManager _inputManager;
 
         private Arena _currArena;
-        
+        private GameState _state = GameState.Lobby;
+
         #endregion
 
         #region Properties
 
         public List<PlayerController> Players => Instance._players;
+
+        public GameState CurrentState => _state;
         
         public UnityAction GameModeUpdateAction { get; set;}  
         public GameModeBase GameMode { get; private set; }
@@ -194,6 +197,8 @@ namespace Managers
             {
                 player.Ready = false;
             }
+
+            _state = GameState.Playing;
             UIManager.Instance.ActivateScoreDisplays();
             NextRound();
         }
@@ -233,6 +238,9 @@ namespace Managers
 
         public void SetReady(int index, bool value)
         {
+            if(_state != GameState.Lobby)
+                return;
+            
             if(index < 0 || index >= _readys.Count)
                 return;
             _readys[index] = value;
@@ -242,5 +250,10 @@ namespace Managers
             else
                 TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
         }
+    }
+
+    public enum GameState
+    {
+        Lobby, Playing
     }
 }

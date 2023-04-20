@@ -210,7 +210,8 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    Ready = !Ready;
+                    if(GameManager.Instance.CurrentState == GameState.Lobby)
+                        Ready = !Ready;
                     break;
             }
         }
