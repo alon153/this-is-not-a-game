@@ -65,6 +65,11 @@ namespace Managers
                 _currArena = value;
                     if (arenaObj)
                         Destroy(arenaObj);
+
+                foreach (var player in Players)
+                {
+                    if (_currArena.OutOfArena(player.transform.position)) player.Fall();
+                }
             }
         }
 

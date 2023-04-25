@@ -67,5 +67,10 @@ namespace Basics
 
             return respawnPos;
         }
+
+        public bool OutOfArena(Vector3 pos) => pos.x < BottomLeft.x 
+                                               || pos.x > TopRight.x 
+                                               || pos.y < BottomLeft.y 
+                                               || pos.y > TopRight.y;
     }
 }
