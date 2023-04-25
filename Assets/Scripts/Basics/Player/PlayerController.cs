@@ -252,6 +252,13 @@ namespace Basics.Player
             _canMove = canMove;
         }
         
+        public void Respawn()
+        {
+            transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
+            Reset();
+        }
+
+        
         #endregion
 
         #region Private Methods
@@ -315,12 +322,7 @@ namespace Basics.Player
             UnFreeze();
         }
 
-        private void Respawn()
-        {
-            transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
-            Reset();
-        }
-
+       
         #endregion
     }
 }

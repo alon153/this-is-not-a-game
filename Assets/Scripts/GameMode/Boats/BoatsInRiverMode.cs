@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Basics;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -64,7 +65,8 @@ namespace GameMode.Boats
         private const int MinProgress = 0;
 
         #endregion
-      
+
+       
 
         // Update is called once per frame
         private void Update()
@@ -122,8 +124,15 @@ namespace GameMode.Boats
 
         protected override void ClearRound_Inner()
         {
+            for (int i = 0; i < GameManager.Instance.Players.Count; i++)
+            {
+                if (!_isInGame[i])
+                    GameManager.Instance.Players[i].Respawn();
+            }
+
             foreach (Transform obstacle in _obstaclesParent.transform)
-                Object.Destroy(obstacle.gameObject);
+                obstacle.GetComponent<RiverObstacle>().IsInMode = false;
+            
             Object.Destroy(_obstaclesParent);
             
             GameManager.Instance.GameModeUpdateAction -= Update;
