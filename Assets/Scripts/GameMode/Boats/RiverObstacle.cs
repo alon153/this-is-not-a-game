@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
 using System.Collections;
-using Managers;
-using Object = System.Object;
+using JetBrains.Annotations;
 
 namespace GameMode.Boats
 {
@@ -13,6 +11,14 @@ namespace GameMode.Boats
         private SpriteRenderer _spriteRenderer;
 
         private float _timeToFade = 1f;
+
+        private bool _inDeactivation;
+
+        private bool _inRiver;
+
+        private Color _obsColor;
+
+        [CanBeNull] public Coroutine _fadeCoroutine = null;
 
         #endregion
 
@@ -25,6 +31,11 @@ namespace GameMode.Boats
         #endregion
 
         #region Properties
+        
+        /// <summary>
+        /// Flag used to control whether obstacle should do on triggerExit content or not.
+        /// it will be switched to false when   
+        /// </summary>
         public bool IsInMode { get; set; } = true;
         public Rigidbody2D ObstacleRigidbody2D { get; private set; }
 
@@ -34,6 +45,7 @@ namespace GameMode.Boats
         {
             ObstacleRigidbody2D = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _obsColor = _spriteRenderer.color;
         }
 
         public void SetDrag(float newDrag)
@@ -48,18 +60,24 @@ namespace GameMode.Boats
 
         public void FreezeObstacle()
         {   
-            if (isActiveAndEnabled)
+            if (gameObject.activeSelf)
                 ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
 
         public void DeactivateObstacleOnRound()
         {
-            StartCoroutine(DeactivateObstacleInner());
+            if (gameObject.activeSelf && !_inDeactivation)
+                _fadeCoroutine = StartCoroutine(DeactivateObstacleInner());
         }
 
-        public void DeactivateObstacleOnRoundEnd()
+        public void StopFadeCoroutine()
         {
-            this.gameObject.SetActive(false);
+            StopCoroutine(_fadeCoroutine);
+            _fadeCoroutine = null;
+            
+            transform.localScale = Vector3.one;
+            _spriteRenderer.color = _obsColor;
+
         }
         
         /// <summary>
@@ -68,6 +86,7 @@ namespace GameMode.Boats
         /// </summary>
         private IEnumerator DeactivateObstacleInner()
         {
+            _inDeactivation = true;
             float timePassed = 0;
             var color = _spriteRenderer.color;
             var initScale = transform.localScale;
@@ -85,14 +104,19 @@ namespace GameMode.Boats
                 timePassed += Time.deltaTime;
                 yield return null;
             }
-            
+            _inDeactivation = false;
+            _inRiver = false;
             gameObject.SetActive(false);
+           
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.CompareTag("Arena") && IsInMode)
+            {
+                _inRiver = true;
                 BoatsInRiverMode.ObstaclesPool.Release(this);
+            }
         }
     }
     

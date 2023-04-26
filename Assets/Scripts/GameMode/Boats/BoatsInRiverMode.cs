@@ -1,11 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Basics;
 using Managers;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -19,9 +18,11 @@ namespace GameMode.Boats
         [Tooltip("Drag all the prefabs that are used as obstacles for this round.\n Can be found on " +
                  "Prefabs/Modes/Boats)")]
         [SerializeField] private List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
-
+        
+        [Range(50, 100)]
         [SerializeField] private int defaultObstaclesCapacity = 100;
-
+        
+        [Range(100, 300)]
         [SerializeField] private int maxObstacleCapacity = 300;
         
         [Tooltip("Initial Interval, it will go lower as round time progress.")]
@@ -45,16 +46,16 @@ namespace GameMode.Boats
         
         private Vector3 _arenaMaxCoord;
 
-        private float _curInterval = 0f;
+        private float _curInterval;
 
-        private float _timePassed = 0f;
+        private float _timePassed;
 
-        private float _timeProgress = 0f;
+        private float _timeProgress;
 
         private GameObject _obstaclesParent;
         
         // has the round started? 
-        private bool _started = false;
+        private bool _started;
 
         // initial player positions for the round.
         private List<Vector3> _playerPositions = new List<Vector3>();
@@ -62,7 +63,7 @@ namespace GameMode.Boats
         // every time a player falls 
         private List<bool> _isInGame;
 
-        private List<RiverObstacle> _obstacles = new List<RiverObstacle>();
+        private Dictionary<int, RiverObstacle> _obstacles = new Dictionary<int, RiverObstacle>();
 
         private Queue<Vector3> _spawnLocations = new Queue<Vector3>();
         
@@ -122,7 +123,6 @@ namespace GameMode.Boats
                  maxObstacleCapacity);
 
             _started = true;
-           
         }
 
         protected override void InitArena_Inner()
@@ -147,11 +147,9 @@ namespace GameMode.Boats
                 if (!_isInGame[i])
                     GameManager.Instance.Players[i].Respawn();
             }
-
-            foreach (RiverObstacle obstacle in _obstacles)
-                obstacle.DeactivateObstacleOnRoundEnd();
             
-            ObstaclesPool.Dispose();
+            _obstacles.Clear();
+            ObstaclesPool.Clear();
             GameManager.Instance.GameModeUpdateAction -= Update;
             GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
@@ -180,7 +178,6 @@ namespace GameMode.Boats
         {
             FreezeAllObstacles();
             GameManager.Instance.FreezePlayers(timed: false);
-           
         }
 
         #endregion
@@ -194,6 +191,20 @@ namespace GameMode.Boats
             float interval = Mathf.Lerp(maxSpawnInterval, minSpawnInterval, _timeProgress);
             return interval;
         }
+        
+        /// <summary>
+        /// calculates the amount of objects to spawn as round progress.
+        /// if the spawn amount makes the active obstacles to surpass the maximum of the object pool it normalizes
+        /// the count. 
+        /// </summary>
+        /// <returns>how many obstacles should be spawned in this interval</returns>
+        private int CalcSpawnAmount(float roundProgress)
+        {
+            int spawnAmount = Mathf.CeilToInt(roundProgress * obstacleSpawnMultiplier);
+            if (spawnAmount + ObstaclesPool.CountAll > maxObstacleCapacity)
+                spawnAmount = maxObstacleCapacity - ObstaclesPool.CountAll;
+            return spawnAmount;
+        }
 
         /// <summary>
         /// Method is called whenever an interval has ended on Update().
@@ -204,7 +215,7 @@ namespace GameMode.Boats
         {   
             // calc amount of objects to spawn in this round
             float roundProgress = Mathf.Lerp(MinProgress, MaxProgress, _timeProgress);
-            int spawnAmount = Mathf.CeilToInt(roundProgress * obstacleSpawnMultiplier);
+            int spawnAmount = CalcSpawnAmount(roundProgress);
 
             HashSet<Vector3> spawnSet = new HashSet<Vector3>();
 
@@ -236,7 +247,11 @@ namespace GameMode.Boats
         private void FreezeAllObstacles()
         {
             foreach (var obstacle in _obstacles)
-                obstacle.FreezeObstacle();
+            {
+                obstacle.Value.FreezeObstacle();
+                // This obstacle is no longer in game mode. 
+                obstacle.Value.IsInMode = false;
+            }
         }
         
         /// <summary>
@@ -275,12 +290,14 @@ namespace GameMode.Boats
             int idx = Random.Range(MinPrefabIndex, _maxPrefabIndex);
             var newObstacle = Object.Instantiate(obstaclesPrefab[idx], 
                 _obstaclesParent.transform, true);
-            _obstacles.Add(newObstacle);
+            _obstacles.Add(newObstacle.GetInstanceID(), newObstacle);
             return newObstacle;
         }
 
         private void OnTakeObjectFromPool(RiverObstacle obstacle)
-        {
+        {   
+            if (obstacle._fadeCoroutine != null)
+                obstacle.StopFadeCoroutine();
             // set the location of the object
             obstacle.transform.position = _spawnLocations.Dequeue();
             obstacle.gameObject.SetActive(true);
@@ -293,6 +310,8 @@ namespace GameMode.Boats
 
         private void OnDestroyObstacle(RiverObstacle obstacle)
         {
+            obstacle.IsInMode = false;
+            _obstacles.Remove(obstacle.GetInstanceID());
             Object.Destroy(obstacle.gameObject);
         }
         
