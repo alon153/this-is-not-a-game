@@ -4,6 +4,8 @@ using Basics;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -16,7 +18,11 @@ namespace GameMode.Boats
         
         [Tooltip("Drag all the prefabs that are used as obstacles for this round.\n Can be found on " +
                  "Prefabs/Modes/Boats)")]
-        [SerializeField] private List<GameObject> obstaclesPrefab = new List<GameObject>();
+        [SerializeField] private List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
+
+        [SerializeField] private int defaultObstaclesCapacity = 100;
+
+        [SerializeField] private int maxObstacleCapacity = 300;
         
         [Tooltip("Initial Interval, it will go lower as round time progress.")]
         [SerializeField] private float maxSpawnInterval = 3f;
@@ -29,6 +35,9 @@ namespace GameMode.Boats
         [SerializeField] private float score = 30f;
 
         #endregion
+        
+        // used to clear and freeze all obstacles still on screen when round ends. 
+        public static ObjectPool<RiverObstacle> ObstaclesPool;
 
         #region Non-Serialized Fields
 
@@ -46,27 +55,30 @@ namespace GameMode.Boats
         
         // has the round started? 
         private bool _started = false;
-        
+
         // initial player positions for the round.
         private List<Vector3> _playerPositions = new List<Vector3>();
         
         // every time a player falls 
         private List<bool> _isInGame;
+
+        private List<RiverObstacle> _obstacles = new List<RiverObstacle>();
+
+        private Queue<Vector3> _spawnLocations = new Queue<Vector3>();
         
-        // used to clear and freeze all obstacles still on screen when round ends. 
-        private RiverObstacle[] _obstaclesInGame;
+        private int _maxPrefabIndex;
 
         #endregion
 
-        #region Constants
-        
+        #region Constants & Read Onlys
+
         private const int MaxProgress = 1;
 
         private const int MinProgress = 0;
 
+        private const int MinPrefabIndex = 0;
+        
         #endregion
-
-       
 
         // Update is called once per frame
         private void Update()
@@ -92,6 +104,7 @@ namespace GameMode.Boats
 
         protected override void InitRound_Inner()
         {   
+            // set up player and round logic.
             GameManager.Instance.GameModeUpdateAction += Update;
             _curInterval = maxSpawnInterval;
             GameManager.Instance.CurrArena.OnPlayerDisqualified += DisqualifyPlayer; 
@@ -102,9 +115,14 @@ namespace GameMode.Boats
                 _isInGame.Add(true);
             }
             
-            
+            // set up obstacles pooling
+            _maxPrefabIndex = obstaclesPrefab.Count;
+            ObstaclesPool = new ObjectPool<RiverObstacle>(CreateObstacle,OnTakeObjectFromPool,
+                 OnReturnObstacleToPool, OnDestroyObstacle, true, defaultObstaclesCapacity,
+                 maxObstacleCapacity);
 
             _started = true;
+           
         }
 
         protected override void InitArena_Inner()
@@ -130,11 +148,10 @@ namespace GameMode.Boats
                     GameManager.Instance.Players[i].Respawn();
             }
 
-            foreach (Transform obstacle in _obstaclesParent.transform)
-                obstacle.GetComponent<RiverObstacle>().IsInMode = false;
+            foreach (RiverObstacle obstacle in _obstacles)
+                obstacle.DeactivateObstacleOnRoundEnd();
             
-            Object.Destroy(_obstaclesParent);
-            
+            ObstaclesPool.Dispose();
             GameManager.Instance.GameModeUpdateAction -= Update;
             GameManager.Instance.CurrArena.OnPlayerDisqualified -= DisqualifyPlayer; 
         }
@@ -163,6 +180,7 @@ namespace GameMode.Boats
         {
             FreezeAllObstacles();
             GameManager.Instance.FreezePlayers(timed: false);
+           
         }
 
         #endregion
@@ -199,17 +217,10 @@ namespace GameMode.Boats
                 float spawnXCor = Random.Range(_arenaMinCoord.x, _arenaMaxCoord.x);
                 spawnSet.Add(new Vector3(spawnXCor, spawnYCor, spawnZCor));
             }
-            List<Vector3> spawnLocations = new List<Vector3>(spawnSet);
-            
-            
-            // finally spawn the new objects
-            foreach (var pos in spawnLocations)
-            {
-                int obstacleIdx = Random.Range(0, obstaclesPrefab.Count);
-                GameObject obstacle =
-                    Object.Instantiate(obstaclesPrefab[obstacleIdx], pos, Quaternion.identity);
-                obstacle.transform.parent = _obstaclesParent.transform;
-            }
+
+            _spawnLocations = new Queue<Vector3>(spawnSet);
+            for (int i = 0; i < spawnAmount; i++)
+                ObstaclesPool.Get();
         }
 
         private bool AllPlayersFell()
@@ -224,8 +235,8 @@ namespace GameMode.Boats
 
         private void FreezeAllObstacles()
         {
-            //foreach (Transform child in _obstaclesParent.transform)
-                //child.GetComponent<RiverObstacle>().ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+            foreach (var obstacle in _obstacles)
+                obstacle.FreezeObstacle();
         }
         
         /// <summary>
@@ -253,5 +264,41 @@ namespace GameMode.Boats
             if (AllPlayersFell())
                 GameManager.Instance.EndRound();
         }
+        
+        #region Object Pooling methods
+        
+        /// <summary>
+        /// used as a new pool item creation method for the pooling object. 
+        /// </summary>
+        private RiverObstacle CreateObstacle()
+        {
+            int idx = Random.Range(MinPrefabIndex, _maxPrefabIndex);
+            var newObstacle = Object.Instantiate(obstaclesPrefab[idx], 
+                _obstaclesParent.transform, true);
+            _obstacles.Add(newObstacle);
+            return newObstacle;
+        }
+
+        private void OnTakeObjectFromPool(RiverObstacle obstacle)
+        {
+            // set the location of the object
+            obstacle.transform.position = _spawnLocations.Dequeue();
+            obstacle.gameObject.SetActive(true);
+        }
+
+        private void OnReturnObstacleToPool(RiverObstacle obstacle)
+        {
+            obstacle.DeactivateObstacleOnRound();
+        }
+
+        private void OnDestroyObstacle(RiverObstacle obstacle)
+        {
+            Object.Destroy(obstacle.gameObject);
+        }
+        
+        #endregion
+        
+        
+        
     }
 }

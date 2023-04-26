@@ -2,14 +2,16 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Managers;
+using Object = System.Object;
 
 namespace GameMode.Boats
 {
     public class RiverObstacle : MonoBehaviour
     {
         #region Non Serialized fields
-        public Rigidbody2D ObstacleRigidbody2D { get; private set; }
-        
+
+        private SpriteRenderer _spriteRenderer;
+
         private float _timeToFade = 1f;
 
         #endregion
@@ -23,14 +25,15 @@ namespace GameMode.Boats
         #endregion
 
         #region Properties
-
         public bool IsInMode { get; set; } = true;
+        public Rigidbody2D ObstacleRigidbody2D { get; private set; }
 
         #endregion
 
         private void Start()
         {
             ObstacleRigidbody2D = GetComponent<Rigidbody2D>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         public void SetDrag(float newDrag)
@@ -42,16 +45,32 @@ namespace GameMode.Boats
         {
             ObstacleRigidbody2D.gravityScale = newGravity;
         }
+
+        public void FreezeObstacle()
+        {   
+            if (isActiveAndEnabled)
+                ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+        }
+
+        public void DeactivateObstacleOnRound()
+        {
+            StartCoroutine(DeactivateObstacleInner());
+        }
+
+        public void DeactivateObstacleOnRoundEnd()
+        {
+            this.gameObject.SetActive(false);
+        }
         
         /// <summary>
         /// Coroutine is called when an obstacle in the boats game mode has
         /// fallen from the game arena. the object is scaled and fades out and finally destroys.
         /// </summary>
-        private IEnumerator FadeAndScaleOnFall(SpriteRenderer objRend, Transform objTrans)
+        private IEnumerator DeactivateObstacleInner()
         {
             float timePassed = 0;
-            var color = objRend.color;
-            var initScale = objTrans.localScale;
+            var color = _spriteRenderer.color;
+            var initScale = transform.localScale;
             
             while (timePassed < _timeToFade)
             {
@@ -60,23 +79,20 @@ namespace GameMode.Boats
                 var newColor = new Color(color.r, color.g, color.b, alpha);
                 var curScale = Vector3.Lerp(initScale, Vector3.zero, progress);
 
-                objRend.color = newColor;
-                objTrans.localScale = curScale;
+                _spriteRenderer.color = newColor;
+                transform.localScale = curScale;
                 
                 timePassed += Time.deltaTime;
                 yield return null;
             }
             
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
 
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.CompareTag("Arena") && IsInMode)
-            {
-                StartCoroutine(FadeAndScaleOnFall(GetComponent<SpriteRenderer>(),
-                    GetComponent<Transform>()));
-            }
+                BoatsInRiverMode.ObstaclesPool.Release(this);
         }
     }
     

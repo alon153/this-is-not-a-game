@@ -41,9 +41,11 @@ MonoBehaviour:
     <Name>k__BackingField: This is not a game, this is a River!
     <Description>k__BackingField: Don't fall to the waterfall!
     obstaclesPrefab:
-    - {fileID: 1603014564259002338, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
-    - {fileID: 4842740244645305803, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
-    - {fileID: 4179058687714096668, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
+    - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
+    - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
+    - {fileID: 3324010259797466655, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
+    defaultObstaclesCapacity: 100
+    maxObstacleCapacity: 300
     maxSpawnInterval: 3
     minSpawnInterval: 0.5
     obstacleSpawnMultiplier: 10
