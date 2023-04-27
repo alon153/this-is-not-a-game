@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Utilities;
 using Utilities.Interfaces;
 
 namespace Basics.Player
@@ -66,6 +67,7 @@ namespace Basics.Player
         private Vector3 _originalScale;
 
         private Vector3 _lastPosition;
+        private Color _origColor;
 
         #endregion
 
@@ -73,6 +75,15 @@ namespace Basics.Player
 
         public int Index { get; private set; } = DefaultIndex;
 
+        private bool CanDash
+        {
+            get => _canDash;
+            set
+            {
+                _canDash = value;
+                Renderer.color = _canDash ? _origColor : _origColor.AddOffset(Vector3.one * -0.1f);
+            }
+        }
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
 
@@ -92,7 +103,6 @@ namespace Basics.Player
             {
                 _ready = value;
                 _txtReady.enabled = value;
-                print($"got: {value}, enabled: {_txtReady.enabled}");
                 GameManager.Instance.SetReady(Index, value);
             }
         }
@@ -125,6 +135,7 @@ namespace Basics.Player
         {
             Index = GameManager.Instance.RegisterPlayer(this);
             Color = GameManager.Instance.PlayerColors[Index];
+            _origColor = Color;
             Ready = false;
         }
 
@@ -175,12 +186,15 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if(!CanDash)
+                        return;
+                    
                     _dashDirection = _direction.normalized;
                     
                     dashing = true;
-                    _canDash = false;
+                    CanDash = false;
 
-                    TimeManager.Instance.DelayInvoke(() => { _canDash = true; }, _dashCooldown);
+                    TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
                     
                     TimeManager.Instance.DelayInvoke(() =>
                     {
