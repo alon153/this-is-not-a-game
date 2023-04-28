@@ -7,5 +7,6 @@
         Pool,
         Paint,
         Boats,
+        Lasers,
     }
 }

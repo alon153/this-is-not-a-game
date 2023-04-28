@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Basics;
 using Managers;
@@ -71,7 +70,7 @@ namespace GameMode.Boats
 
         #endregion
 
-        #region Constants & Read Onlys
+        #region Constants
 
         private const int MaxProgress = 1;
 
