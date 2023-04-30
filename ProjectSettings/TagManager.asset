@@ -11,7 +11,7 @@ TagManager:
   - Water
   - spawnLocation
   - WaterObstacle
-  - BigDiamondPos
+  - DiamondPos
   layers:
   - Default
   - TransparentFX

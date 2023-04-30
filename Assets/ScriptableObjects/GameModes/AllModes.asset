@@ -50,3 +50,13 @@ MonoBehaviour:
     minSpawnInterval: 1
     obstacleSpawnMultiplier: 6
     score: 30
+  _lasersMode:
+    <ModeArena>k__BackingField: {fileID: 867240760813302188, guid: f4db37c616d3ae84488c8dab83a5f8ce, type: 3}
+    <Name>k__BackingField: This is not a game! It's a spy movie!
+    <Description>k__BackingField: Collect diamonds while evading lasers!
+    freezeTime: 2
+    diamondPrefabs:
+    - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
+    diamondCount: 12
+    shouldContinueSpawn: 1
+    timeToSpawnNewDiamond: 1
