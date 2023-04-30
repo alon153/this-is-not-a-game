@@ -27,6 +27,7 @@ namespace Basics.Player
 
         [Header("UI")] 
         [SerializeField] private TextMeshProUGUI _txtReady;
+        [SerializeField] private TextMeshProUGUI _txtInteract;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -69,10 +70,13 @@ namespace Basics.Player
         private Vector3 _lastPosition;
         private Color _origColor;
 
+        private PlayerInput _input;
+
         #endregion
 
         #region Properties
 
+        public Gamepad Gamepad { get; private set; } = null;
         public int Index { get; private set; } = DefaultIndex;
 
         private bool CanDash
@@ -126,7 +130,11 @@ namespace Basics.Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             Renderer = GetComponent<SpriteRenderer>();
+            _input = GetComponent<PlayerInput>();
             
+            if (_input.currentControlScheme == "Gamepad")
+                Gamepad = _input.devices[0] as Gamepad;
+
             _lastPosition = transform.position;
             _originalScale = transform.localScale;
         }
@@ -137,6 +145,7 @@ namespace Basics.Player
             Color = GameManager.Instance.PlayerColors[Index];
             _origColor = Color;
             Ready = false;
+            _txtInteract.enabled = false;
         }
 
         private void Update()
@@ -212,6 +221,14 @@ namespace Basics.Player
                     if (Interactable != null)
                     {
                         Interactable.OnInteract(this);
+                        if(Interactable && !Interactable.IsHold)
+                            Interactable = null;
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    if (Interactable != null)
+                    {
+                        Interactable.OnInteract(this, false);
                         Interactable = null;
                     }
                     break;
@@ -233,6 +250,12 @@ namespace Basics.Player
         #endregion
 
         #region Public Methods
+
+        private void ToggleInteractText(bool show, string text = "Press A")
+        {
+            _txtInteract.text = text;
+            _txtInteract.enabled = show;
+        }
 
         public void Freeze(bool timed=true, float time = 2)
         {

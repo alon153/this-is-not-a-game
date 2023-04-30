@@ -24,6 +24,10 @@ namespace Basics.Player
                 if ((_interactable == null && value == null) ||
                     (_interactable != null && value != null)) return;
                 _interactable = value;
+                if(_interactable != null)
+                    ToggleInteractText(true, _interactable.IsHold ? "Hold A" : "Press A");
+                else
+                    ToggleInteractText(false);
             }
         }
 
