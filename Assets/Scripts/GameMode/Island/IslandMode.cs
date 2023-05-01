@@ -45,6 +45,7 @@ namespace GameMode.Island
             {
                 player.Addon = new IslandPlayerAddon();
                 player.RegisterMoveListener(this);
+                player.RegisterPushedListener(this);
             }
 
             _treasureLayer = LayerMask.NameToLayer("Treasure");
@@ -76,6 +77,7 @@ namespace GameMode.Island
                 player.Addon = null;
                 player.Gamepad.SetMotorSpeeds(0,0);
                 player.UnRegisterMoveListener(this);
+                player.UnRegisterPushedListener(this);
             }
         }
 
@@ -99,8 +101,6 @@ namespace GameMode.Island
 
         public void OnPushed(PlayerController pushed, PlayerController pusher)
         {
-            //TODO: check this out with another player...
-            return;
             if(pushed.Interactable == null)
                 return;
             
