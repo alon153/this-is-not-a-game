@@ -25,6 +25,8 @@ namespace Basics.Player
         
         #region Serialized Fields
 
+        [SerializeField] private Material _bloomMaterialOrigin;
+
         [Header("UI")] 
         [SerializeField] private TextMeshProUGUI _txtReady;
         [SerializeField] private TextMeshProUGUI _txtInteract;
@@ -72,6 +74,8 @@ namespace Basics.Player
 
         private PlayerInput _input;
 
+        private Material _bloomMat;
+
         #endregion
 
         #region Properties
@@ -85,7 +89,8 @@ namespace Basics.Player
             set
             {
                 _canDash = value;
-                Renderer.color = _canDash ? _origColor : _origColor.AddOffset(Vector3.one * -0.1f);
+                // Renderer.color = _canDash ? _origColor : _origColor.AddOffset(Vector3.one * -0.1f);
+                Renderer.material.SetFloat("_ColorFactor",value ? 1 : 0.2f);
             }
         }
         private Vector2 DesiredVelocity => _direction * _speed;
@@ -116,7 +121,7 @@ namespace Basics.Player
             private set
             {
                 _color = value;
-                Renderer.color = value;
+                Renderer.material.SetColor("_Color",value.Intensify(1.5f));
             }
         }
 
@@ -131,6 +136,9 @@ namespace Basics.Player
             Rigidbody = GetComponent<Rigidbody2D>();
             Renderer = GetComponent<SpriteRenderer>();
             _input = GetComponent<PlayerInput>();
+
+            _bloomMat = new Material(_bloomMaterialOrigin);
+            Renderer.material = _bloomMat;
             
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;

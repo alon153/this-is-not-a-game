@@ -289,6 +289,7 @@ MonoBehaviour:
   <FallTime>k__BackingField: 0.5
   _fallDrag: 6
   _playerKnockedBy: {fileID: 0}
+  _bloomMaterialOrigin: {fileID: 2100000, guid: dfefce0141b44bf45ae88b46388372c8, type: 2}
   _txtReady: {fileID: 7125283966448459805}
   _txtInteract: {fileID: 7780490974589913635}
   _speed: 7

@@ -24,6 +24,11 @@ namespace Utilities
             return new Color(v.x, v.y, v.z, v.w);
         }
 
+        public static Color Intensify(this Color c, float intensity)
+        {
+            return (c.ToVector3() * intensity).ToColor();
+        }
+
         public static Color AddOffset(this Color c, Vector3 offset)
         {
             return (c.ToVector3() + offset).ToColor();
