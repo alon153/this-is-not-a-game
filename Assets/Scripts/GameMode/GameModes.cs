@@ -7,5 +7,7 @@
         Pool,
         Paint,
         Boats,
+        Lasers,
+        Island,
     }
 }

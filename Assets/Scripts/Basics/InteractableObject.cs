@@ -18,12 +18,13 @@ namespace Utilities.Interfaces
         #region Properties
 
         public bool CanInteract { get; protected set; } = true;
+        public bool IsHold { get; protected set; } = false;
 
         #endregion
 
         #region Event Functions
 
-        protected void Update()
+        protected virtual void Update()
         {
             if(_showingPrompt && (!CanInteract || _playerTriggers.Count == 0))
                 TogglePrompt(false);
@@ -39,7 +40,9 @@ namespace Utilities.Interfaces
                 if (_playerTriggers.Contains(other.gameObject.GetInstanceID()))
                 {
                     if (!CanPlayerInteract(player))
+                    {
                         _playerTriggers.Remove(other.gameObject.GetInstanceID());
+                    }
                     return;
                 }
                 
@@ -70,10 +73,15 @@ namespace Utilities.Interfaces
 
         #region Public Methods
 
-        public void OnInteract(PlayerController player)
+        public void OnInteract(PlayerController player, bool pressed=true)
         {
-            if(CanInteract && CanPlayerInteract(player))
-                OnInteract_Inner(player);
+            if (CanInteract && CanPlayerInteract(player))
+            {
+                if (pressed)
+                    OnInteract_Inner(player);
+                else
+                    OnStopInteract_Inner(player);
+            }
         }
 
         public void TogglePrompt(bool showPrompt)
@@ -84,6 +92,8 @@ namespace Utilities.Interfaces
                 _showingPrompt = showPrompt;
             }
         }
+
+        protected virtual void OnStopInteract_Inner(PlayerController player) { }
 
         #endregion
         

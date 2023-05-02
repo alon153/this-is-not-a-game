@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using GameMode.Boats;
 using GameMode.Ikea;
+using GameMode.Lasers;
+using GameMode.Island;
 using GameMode.Modes;
 using GameMode.Pool;
 using UnityEngine;
@@ -22,6 +24,10 @@ namespace GameMode
         [SerializeField] private IkeaMode _ikeaMode;
 
         [SerializeField] private BoatsInRiverMode _boatsInRiverMode;
+
+        [SerializeField] private LasersMode _lasersMode;
+
+        [SerializeField] private IslandMode _islandMode;
 
         #endregion
         
@@ -73,6 +79,8 @@ namespace GameMode
                 GameModes.Pool => _poolMode,
                 GameModes.Ikea => _ikeaMode,
                 GameModes.Boats => _boatsInRiverMode,
+                GameModes.Lasers => _lasersMode,
+                GameModes.Island => _islandMode,
                 _ => null
             };
         }
