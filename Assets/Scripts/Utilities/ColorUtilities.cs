@@ -26,7 +26,7 @@ namespace Utilities
 
         public static Color Intensify(this Color c, float intensity)
         {
-            return (c.ToVector3() * intensity).ToColor();
+            return (c.ToVector3() * Mathf.Pow(2,intensity)).ToColor();
         }
 
         public static Color AddOffset(this Color c, Vector3 offset)

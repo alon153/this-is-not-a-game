@@ -303,6 +303,7 @@ MonoBehaviour:
   _dashCooldown: 1
   _knockBackForce: 30
   _mutualKnockBackForce: 20
+  _bloomIntensity: 1.5
   _knockBackDelay: 0.2
 --- !u!114 &916809306669561107
 MonoBehaviour:

@@ -345,6 +345,46 @@ PrefabInstance:
       propertyPath: _modes.Array.data[5]
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[0].b
+      value: 0.7490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[0].g
+      value: 0.5568628
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[1].g
+      value: 0.07058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[1].r
+      value: 0.7529412
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[2].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[2].g
+      value: 0.7490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[2].r
+      value: 0.11764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[3].b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[3].g
+      value: 0.73333335
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: <PlayerColors>k__BackingField.Array.data[3].r
+      value: 0.7490196
+      objectReference: {fileID: 0}
     - target: {fileID: 637388553983696491, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -44,6 +44,7 @@ namespace Basics.Player
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
+        [SerializeField] private float _bloomIntensity = 2f;
         [Tooltip("The time a player is knocked back")][SerializeField] private float _knockBackDelay = 0.15f;
        
         #endregion
@@ -121,7 +122,7 @@ namespace Basics.Player
             private set
             {
                 _color = value;
-                Renderer.material.SetColor("_Color",value.Intensify(1.5f));
+                Renderer.material.SetColor("_Color",value.Intensify(_bloomIntensity));
             }
         }
 
