@@ -30,6 +30,7 @@ namespace Basics.Player
         [Header("UI")] 
         [SerializeField] private TextMeshProUGUI _txtReady;
         [SerializeField] private TextMeshProUGUI _txtInteract;
+        [SerializeField] private TextMeshProUGUI _txtStun;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -89,7 +90,6 @@ namespace Basics.Player
             set
             {
                 _canDash = value;
-                // Renderer.color = _canDash ? _origColor : _origColor.AddOffset(Vector3.one * -0.1f);
                 Renderer.material.SetFloat("_ColorFactor",value ? 1 : 0.2f);
             }
         }
@@ -154,6 +154,7 @@ namespace Basics.Player
             _origColor = Color;
             Ready = false;
             _txtInteract.enabled = false;
+            _txtStun.enabled = false;
         }
 
         private void Update()
@@ -265,7 +266,7 @@ namespace Basics.Player
             _txtInteract.enabled = show;
         }
 
-        public void Freeze(bool timed=true, float time = 2)
+        public void Freeze(bool timed=true, float time = 2, bool stunned=false)
         {
             if (_freezeId != Guid.Empty) {
                 TimeManager.Instance.CancelInvoke(_freezeId);
@@ -276,6 +277,9 @@ namespace Basics.Player
             
             if(timed)
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
+
+            if (stunned)
+                _txtStun.enabled = true;
         }
 
         public void UnFreeze()
@@ -285,6 +289,7 @@ namespace Basics.Player
                 _freezeId = Guid.Empty;
             }
             _frozen = false;
+            _txtStun.enabled = false;
         }
 
         public bool GetIsDashing()
@@ -297,10 +302,11 @@ namespace Basics.Player
             _canMove = canMove;
         }
         
-        public void Respawn()
+        public void Respawn(bool stun=false)
         {
             transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
             Reset();
+            Freeze(true,1,true);
         }
 
         

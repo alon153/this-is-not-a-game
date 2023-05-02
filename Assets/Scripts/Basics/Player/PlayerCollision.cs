@@ -128,7 +128,7 @@ namespace Basics.Player
           
             
             if (shouldRespawn)
-                Respawn();
+                Respawn(true);
 
         }
         
