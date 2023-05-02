@@ -1,4 +1,5 @@
 ﻿using System;
+using Basics;
 using Basics.Player;
 using Managers;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace GameMode.Lasers
                 {
                     if (player.gameObject.GetInstanceID().Equals(other.gameObject.GetInstanceID()))
                     {   
-                        // todo: is there a better way to do it or there's something i do not understand?
+                        PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
                         LaserPlayerAddon playerAddon = (LaserPlayerAddon) player.Addon;
                         playerAddon.DiamondsCollected += 1;
                     }

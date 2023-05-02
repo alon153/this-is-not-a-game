@@ -60,3 +60,5 @@ MonoBehaviour:
     diamondCount: 12
     shouldContinueSpawn: 1
     timeToSpawnNewDiamond: 1
+    diamondsDropOnLaser: 2
+    onHitSpreadRadius: 2
