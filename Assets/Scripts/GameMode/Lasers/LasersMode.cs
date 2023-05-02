@@ -384,7 +384,7 @@ namespace GameMode.Lasers
                 ((LaserPlayerAddon) player.Addon).DiamondsCollected -= diamondsToDrop;
             }
 
-            player.Freeze(true, freezeTime);
+            player.Freeze(true, freezeTime, true);
            
         }
         #endregion
