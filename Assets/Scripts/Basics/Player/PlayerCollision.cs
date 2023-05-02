@@ -168,6 +168,7 @@ namespace Basics.Player
                 StopCoroutine(_resetMoveCoroutine); 
                 
             _resetMoveCoroutine = StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
+            Rigidbody.velocity = Vector2.zero;
         }
 
        

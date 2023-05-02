@@ -43,7 +43,7 @@ namespace Basics.Player
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
-        [SerializeField] private float _knockBackDelay = 0.15f;
+        [Tooltip("The time a player is knocked back")][SerializeField] private float _knockBackDelay = 0.15f;
        
         #endregion
 
