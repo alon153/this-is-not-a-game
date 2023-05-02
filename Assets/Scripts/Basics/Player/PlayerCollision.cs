@@ -24,6 +24,10 @@ namespace Basics.Player
                 if ((_interactable == null && value == null) ||
                     (_interactable != null && value != null)) return;
                 _interactable = value;
+                if(_interactable != null)
+                    ToggleInteractText(true, _interactable.IsHold ? "Hold A" : "Press A");
+                else
+                    ToggleInteractText(false);
             }
         }
 
@@ -124,7 +128,7 @@ namespace Basics.Player
           
             
             if (shouldRespawn)
-                Respawn();
+                Respawn(true);
 
         }
         
@@ -164,6 +168,7 @@ namespace Basics.Player
                 StopCoroutine(_resetMoveCoroutine); 
                 
             _resetMoveCoroutine = StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
+            Rigidbody.velocity = Vector2.zero;
         }
 
        

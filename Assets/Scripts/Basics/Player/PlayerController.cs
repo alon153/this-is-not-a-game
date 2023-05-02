@@ -25,8 +25,12 @@ namespace Basics.Player
         
         #region Serialized Fields
 
+        [SerializeField] private Material _bloomMaterialOrigin;
+
         [Header("UI")] 
         [SerializeField] private TextMeshProUGUI _txtReady;
+        [SerializeField] private TextMeshProUGUI _txtInteract;
+        [SerializeField] private TextMeshProUGUI _txtStun;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -40,7 +44,7 @@ namespace Basics.Player
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
-        [SerializeField] private float _knockBackDelay = 0.15f;
+        [Tooltip("The time a player is knocked back")][SerializeField] private float _knockBackDelay = 0.15f;
        
         #endregion
 
@@ -69,10 +73,15 @@ namespace Basics.Player
         private Vector3 _lastPosition;
         private Color _origColor;
 
+        private PlayerInput _input;
+
+        private Material _bloomMat;
+
         #endregion
 
         #region Properties
 
+        public Gamepad Gamepad { get; private set; } = null;
         public int Index { get; private set; } = DefaultIndex;
 
         private bool CanDash
@@ -81,7 +90,7 @@ namespace Basics.Player
             set
             {
                 _canDash = value;
-                Renderer.color = _canDash ? _origColor : _origColor.AddOffset(Vector3.one * -0.1f);
+                Renderer.material.SetFloat("_ColorFactor",value ? 1 : 0.2f);
             }
         }
         private Vector2 DesiredVelocity => _direction * _speed;
@@ -112,7 +121,7 @@ namespace Basics.Player
             private set
             {
                 _color = value;
-                Renderer.color = value;
+                Renderer.material.SetColor("_Color",value.Intensify(1.5f));
             }
         }
 
@@ -126,7 +135,14 @@ namespace Basics.Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             Renderer = GetComponent<SpriteRenderer>();
+            _input = GetComponent<PlayerInput>();
+
+            _bloomMat = new Material(_bloomMaterialOrigin);
+            Renderer.material = _bloomMat;
             
+            if (_input.currentControlScheme == "Gamepad")
+                Gamepad = _input.devices[0] as Gamepad;
+
             _lastPosition = transform.position;
             _originalScale = transform.localScale;
         }
@@ -137,6 +153,8 @@ namespace Basics.Player
             Color = GameManager.Instance.PlayerColors[Index];
             _origColor = Color;
             Ready = false;
+            _txtInteract.enabled = false;
+            _txtStun.enabled = false;
         }
 
         private void Update()
@@ -212,6 +230,14 @@ namespace Basics.Player
                     if (Interactable != null)
                     {
                         Interactable.OnInteract(this);
+                        if(Interactable && !Interactable.IsHold)
+                            Interactable = null;
+                    }
+                    break;
+                case InputActionPhase.Canceled:
+                    if (Interactable != null)
+                    {
+                        Interactable.OnInteract(this, false);
                         Interactable = null;
                     }
                     break;
@@ -234,7 +260,13 @@ namespace Basics.Player
 
         #region Public Methods
 
-        public void Freeze(bool timed=true, float time = 2)
+        private void ToggleInteractText(bool show, string text = "Press A")
+        {
+            _txtInteract.text = text;
+            _txtInteract.enabled = show;
+        }
+
+        public void Freeze(bool timed=true, float time = 2, bool stunned=false)
         {
             if (_freezeId != Guid.Empty) {
                 TimeManager.Instance.CancelInvoke(_freezeId);
@@ -245,6 +277,9 @@ namespace Basics.Player
             
             if(timed)
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
+
+            if (stunned)
+                _txtStun.enabled = true;
         }
 
         public void UnFreeze()
@@ -254,6 +289,7 @@ namespace Basics.Player
                 _freezeId = Guid.Empty;
             }
             _frozen = false;
+            _txtStun.enabled = false;
         }
 
         public bool GetIsDashing()
@@ -266,10 +302,11 @@ namespace Basics.Player
             _canMove = canMove;
         }
         
-        public void Respawn()
+        public void Respawn(bool stun=false)
         {
             transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
             Reset();
+            Freeze(true,1,true);
         }
 
         

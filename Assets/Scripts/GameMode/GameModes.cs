@@ -8,5 +8,6 @@
         Paint,
         Boats,
         Lasers,
+        Island,
     }
 }

@@ -50,15 +50,28 @@ MonoBehaviour:
     minSpawnInterval: 1
     obstacleSpawnMultiplier: 6
     score: 30
-  _lasersMode:
-    <ModeArena>k__BackingField: {fileID: 867240760813302188, guid: f4db37c616d3ae84488c8dab83a5f8ce, type: 3}
-    <Name>k__BackingField: This is not a game! It's a spy movie!
-    <Description>k__BackingField: Collect diamonds while evading lasers!
-    freezeTime: 2
-    diamondPrefabs:
-    - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
-    diamondCount: 12
-    shouldContinueSpawn: 1
-    timeToSpawnNewDiamond: 1
-    diamondsDropOnLaser: 2
-    onHitSpreadRadius: 2
+  _islandMode:
+    <ModeArena>k__BackingField: {fileID: 3760426630872900372, guid: 8b2c367c774d94944a233110ac446458, type: 3}
+    <Name>k__BackingField: This is not a game, this is a desert island!
+    <Description>k__BackingField: Find the hidden treasure!
+    _numTreasures: 5
+    _treasureValues:
+    - score: 0
+      count: 3
+    - score: 5
+      count: 10
+    - score: 20
+      count: 3
+    _digTimes:
+    - minTime: 1
+      maxTime: 2
+      count: 2
+    - minTime: 4
+      maxTime: 7
+      count: 5
+    - minTime: 10
+      maxTime: 12
+      count: 2
+    _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
+    _vibrationRadius: 2
+    _vibrationMaxForce: 0.1
