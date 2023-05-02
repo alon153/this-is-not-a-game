@@ -47,16 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DefaultArenaPrefab: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
   <PlayerColors>k__BackingField:
-  - {r: 0, g: 0.73947906, b: 1, a: 1}
-  - {r: 1, g: 0.28571314, b: 0, a: 1}
-  - {r: 0.5036434, g: 1, b: 0.1745283, a: 1}
-  - {r: 1, g: 0.9822532, b: 0.4198113, a: 1}
+  - {r: 0, g: 0.5568628, b: 0.7490196, a: 1}
+  - {r: 0.7529412, g: 0.07058824, b: 0, a: 1}
+  - {r: 0.11764706, g: 0.7490196, b: 0, a: 1}
+  - {r: 0.7490196, g: 0.73333335, b: 0, a: 1}
   _roundLength: 30
-  _numRounds: 1
+  _numRounds: 10
   _gameModeFactory: {fileID: 11400000, guid: 3ef258ded0f37ef4d9df8858d3f7d37c, type: 2}
-  _isSingleMode: 1
+  _isSingleMode: 0
   _singleMode: 1
-  _modes: 
+  _modes: 010000000500000002000000040000000300000006000000
 --- !u!114 &5528608369377680934
 MonoBehaviour:
   m_ObjectHideFlags: 0
