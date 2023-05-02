@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Basics;
 using Basics.Player;
@@ -16,11 +17,11 @@ namespace GameMode.Lasers
     {
         #region Serialized Fields
         
-        [Header("Lasers\n")]
+        [Header("\nLasers")]
         [Tooltip("When hit by laser, how much time the player freezes?")]
         [SerializeField] private float freezeTime = 2;
 
-        [Header("Diamonds\n")]
+        [Header("\nDiamonds")]
         [SerializeField] private DiamondCollectible[] diamondPrefabs;
         
         [Tooltip("How many (regular) diamonds will be spawned initially")]
@@ -172,8 +173,7 @@ namespace GameMode.Lasers
             // all initial diamonds are already in the pool. so 
             // a new one needs to be created.
             if (_collectedInitialDiamonds.Count == Empty)
-            {  
-                
+            {
                 int idx = Random.Range(MinIndex, diamondPrefabs.Length);
                 var newDiamond = Object.Instantiate(diamondPrefabs[idx]);
                 newDiamond.OnDiamondPickedUp += DiamondPickedUp;
@@ -241,16 +241,19 @@ namespace GameMode.Lasers
         private Vector3 GetRandomArenaPosition()
         {
             var arena = GameManager.Instance.CurrArena;
-            Vector3 randomVector = Vector3.zero;
+            Vector3 randomPosition = Vector3.zero;
             bool locationValid = false;
             while (!locationValid)
             {   
                 // generate random position in a radius from player.
                 if (_playerPosition != null)
-                {
-                    float angle = Random.Range(0f, Mathf.PI * 2f);
-                   randomVector = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) * 
+                { 
+                   float angle = Random.Range(0f, Mathf.PI * 2f);
+                   randomPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) * 
                                   Random.Range(0f,onHitSpreadRadius);
+                   
+                   // check that new position is in arena
+                   if (!IsInArena(randomPosition)) break;
                 }
                 
                 // generate a position in random location.
@@ -258,20 +261,20 @@ namespace GameMode.Lasers
                 {
                     float xCoord = Random.Range(arena.BottomLeft.x, arena.BottomRight.x);
                     float yCoord = Random.Range(arena.BottomLeft.y, arena.TopLeft.y);
-                    randomVector = new Vector3(xCoord, yCoord, 1);
+                    randomPosition = new Vector3(xCoord, yCoord, 1);
                 }
 
                 foreach (var position in _postCollectionDiamondPos)
                 {
-                    if (position.Equals(randomVector))
+                    if (position.Equals(randomPosition))
                         break;
                 }
 
                 locationValid = true;
             }
             
-            _postCollectionDiamondPos.Add(randomVector);
-            return randomVector;
+            _postCollectionDiamondPos.Add(randomPosition);
+            return randomPosition;
         }
         
         /// <summary>
@@ -374,6 +377,7 @@ namespace GameMode.Lasers
                     for (int i = 0; i < diamondsToDrop; i++)
                     {
                         var diamond = _collectedInitialDiamonds.Dequeue();
+                        _initialDiamondsNotCollected[diamond.GetInstanceID()] = diamond;
                         diamond.transform.position = GetRandomArenaPosition();
                         diamond.gameObject.SetActive(true);
                     }
@@ -386,6 +390,24 @@ namespace GameMode.Lasers
 
             player.Freeze(true, freezeTime, true);
            
+        }
+        
+        /// <summary>
+        /// gets a position and returns true if it's in the game arena,
+        /// false otherwise. 
+        /// </summary>
+        private bool IsInArena(Vector3 position)
+        {
+            float x = position.x;
+            float y = position.y;
+            
+            var currentArena = GameManager.Instance.CurrArena;
+            bool outOfx = x < currentArena.BottomLeft.x ||
+                          x > currentArena.BottomRight.x;
+
+            bool outOfy = y < currentArena.BottomRight.y ||
+                          y > currentArena.TopRight.y;
+            return !outOfx && !outOfy;
         }
         #endregion
     }
