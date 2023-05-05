@@ -8,6 +8,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utilities;
 using Utilities.Interfaces;
 
@@ -45,6 +46,8 @@ namespace Basics.Player
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
         [SerializeField] private float _bloomIntensity = 2f;
+        [Tooltip("How much time will a player be pushed after dash is finished")]
+        [SerializeField] private float _postDashPushTime = 0.1f;
         [Tooltip("The time a player is knocked back")][SerializeField] private float _knockBackDelay = 0.15f;
        
         #endregion
@@ -58,6 +61,7 @@ namespace Basics.Player
 
         private Vector3 _dashDirection; // used so we can keep tracking the input direction without changing dash direction
         private bool _canDash = true;
+        private bool _isInPostDash = false;
         
         private Vector2 _direction;
 
@@ -218,7 +222,13 @@ namespace Basics.Player
                     TimeManager.Instance.DelayInvoke(() =>
                     {
                         dashing = false;
+                        _isInPostDash = true;
                     }, DashTime);
+
+                    TimeManager.Instance.DelayInvoke(() =>
+                    {
+                        _isInPostDash = false;
+                    }, _postDashPushTime);
                     break;
             }
         }

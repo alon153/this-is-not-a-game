@@ -47,13 +47,20 @@ namespace Basics.Player
             if (other.gameObject.CompareTag("Player"))
             {   
                 // was the player bashing or only pushing the other player
-                if (dashing)
+                if (dashing || _isInPostDash)
                 {   
-                   
+                    
                     // player has bashed another player so a knockback needed.
                     bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
                     TimeManager.Instance.DelayInvoke((() => dashing = false), 0.1f);
                     KnockBackPlayer(other.gameObject, isMutual);
+                    dashing = false;
+
+                    if (!isMutual)
+                    {
+                        // todo should i do something in here?
+                        // stop the dash!
+                    }
                 }
 
                 else
