@@ -158,8 +158,6 @@ namespace GameMode.Island
             treasure.transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(treasure.gameObject);
             treasure.Score = GetTreasureValue(valCount);
             treasure.DiggingTime = GetDigTime(digTimeCount);
-            
-            Debug.Log($"Generated Treasure with score={treasure.Score}, time={treasure.DiggingTime}");
         }
 
         private void SetCounts()

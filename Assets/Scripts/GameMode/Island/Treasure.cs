@@ -70,7 +70,7 @@ namespace GameMode.Island
 
         public void Release()
         {
-            if (_digger.Interactable.gameObject.GetInstanceID() == gameObject.GetInstanceID())
+            if (_digger != null && _digger.Interactable.gameObject.GetInstanceID() == gameObject.GetInstanceID())
             {
                 _digger.Interactable = null;
                 _digger.Gamepad.SetMotorSpeeds(0,0);
@@ -99,8 +99,10 @@ namespace GameMode.Island
             PlayerAddon.CheckCompatability(_digger.Addon, GameModes.Island);
             ((IslandPlayerAddon) _digger.Addon).Score += Mathf.Max(Score, 0);
             print($"{((IslandPlayerAddon) _digger.Addon).Score},{Score}");
-            if(Pool != null)
+            if (Pool != null)
+            {
                 Pool.Release(this);
+            }
             else
             {
                 Release();

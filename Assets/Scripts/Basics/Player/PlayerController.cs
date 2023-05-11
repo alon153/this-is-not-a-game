@@ -81,6 +81,8 @@ namespace Basics.Player
         private PlayerInput _input;
 
         private Material _bloomMat;
+        private Guid _dashingId;
+        private Guid _postDashId;
 
         #endregion
 
@@ -107,7 +109,7 @@ namespace Basics.Player
             set => _direction = value.normalized;
         } 
         
-        private bool dashing { get; set; } = false;
+        private bool Dashing { get; set; } = false;
         public Rigidbody2D Rigidbody { get; set; }
 
         public bool Ready
@@ -214,21 +216,20 @@ namespace Basics.Player
                     
                     _dashDirection = _direction.normalized;
                     
-                    dashing = true;
+                    Dashing = true;
                     CanDash = false;
 
                     TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
-                    
-                    TimeManager.Instance.DelayInvoke(() =>
-                    {
-                        dashing = false;
-                        _isInPostDash = true;
-                    }, DashTime);
 
-                    TimeManager.Instance.DelayInvoke(() =>
+                    _dashingId = TimeManager.Instance.DelayInvoke(() =>
                     {
-                        _isInPostDash = false;
-                    }, _postDashPushTime);
+                        Dashing = false;
+                        _isInPostDash = true;
+                        _postDashId = TimeManager.Instance.DelayInvoke(() =>
+                        {
+                            _isInPostDash = false;
+                        }, _postDashPushTime);
+                    }, DashTime);
                     break;
             }
         }
@@ -288,6 +289,8 @@ namespace Basics.Player
             
             if(timed)
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
+            else
+                UnFreeze();
 
             if (stunned)
                 _txtStun.enabled = true;
@@ -305,7 +308,7 @@ namespace Basics.Player
 
         public bool GetIsDashing()
         { 
-            return dashing;
+            return Dashing;
         }
 
         public void SetMovementAbility(bool canMove)
@@ -313,11 +316,11 @@ namespace Basics.Player
             _canMove = canMove;
         }
         
-        public void Respawn(bool stun=false)
+        public void Respawn(bool stun = false)
         {
             transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(gameObject);
             Reset();
-            Freeze(true,1,true);
+            Freeze(stun,1,stun);
         }
 
         
@@ -325,11 +328,27 @@ namespace Basics.Player
 
         #region Private Methods
 
+        private void CancelDash()
+        {
+            Dashing = false;
+            _isInPostDash = false;
+            if (_dashingId != Guid.Empty)
+            {
+                TimeManager.Instance.CancelInvoke(_dashingId);
+                _dashingId = Guid.Empty;
+            }
+            if (_postDashId != Guid.Empty)
+            {
+                TimeManager.Instance.CancelInvoke(_postDashId);
+                _postDashId = Guid.Empty;
+            }
+        }
+
         private void MoveCharacter()
         {
             if (!_canMove) return;
             
-            if (dashing)
+            if (Dashing)
             {
                 Rigidbody.velocity = _dashDirection * DashSpeed;
                 return;

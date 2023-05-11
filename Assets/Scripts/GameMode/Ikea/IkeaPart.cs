@@ -178,7 +178,7 @@ namespace GameMode.Ikea
         #endregion
 
         #region IFallable
-        public void Fall(bool shouldRespawn = true)
+        public void Fall(bool shouldRespawn = true, bool stun = false)
         {
             if(Holder == null)
                 Destroy(gameObject);

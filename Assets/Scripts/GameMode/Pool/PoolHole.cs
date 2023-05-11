@@ -48,7 +48,7 @@ namespace GameMode.Pool
                 Debug.Log("is player pushed? : " + playerController.IsBashed);
                 Debug.Log("player pushed by: " + playerController._playerKnockedBy);
                 // player falls inside the hole, will probably change later
-                playerController.Fall();
+                playerController.Fall(stun: false);
             }
         }
 

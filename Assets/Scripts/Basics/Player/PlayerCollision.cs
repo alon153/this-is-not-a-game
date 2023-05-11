@@ -47,20 +47,14 @@ namespace Basics.Player
             if (other.gameObject.CompareTag("Player"))
             {   
                 // was the player bashing or only pushing the other player
-                if (dashing || _isInPostDash)
+                if (Dashing || _isInPostDash)
                 {   
                     
                     // player has bashed another player so a knockback needed.
                     bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
-                    TimeManager.Instance.DelayInvoke((() => dashing = false), 0.1f);
+                    TimeManager.Instance.DelayInvoke((() => Dashing = false), 0.1f);
                     KnockBackPlayer(other.gameObject, isMutual);
-                    dashing = false;
-
-                    if (!isMutual)
-                    {
-                        // todo should i do something in here?
-                        // stop the dash!
-                    }
+                    CancelDash();
                 }
 
                 else
@@ -88,7 +82,7 @@ namespace Basics.Player
 
         #region Public Methods
 
-        public void Fall(bool shouldRespawn = true)
+        public void Fall(bool shouldRespawn = true, bool stun = true)
         {
             foreach (var listener in _fallListeners)
             {
@@ -100,14 +94,14 @@ namespace Basics.Player
             Freeze();
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
-            StartCoroutine(Fall_Inner(shouldRespawn));
+            StartCoroutine(Fall_Inner(shouldRespawn,stun));
         }
 
         #endregion
         
         #region Private Methods
         
-        private IEnumerator Fall_Inner(bool shouldRespawn)
+        private IEnumerator Fall_Inner(bool shouldRespawn, bool stun=true)
         {   
            
             float duration = 0f;
@@ -135,7 +129,7 @@ namespace Basics.Player
           
             
             if (shouldRespawn)
-                Respawn(true);
+                Respawn(stun);
 
         }
         
