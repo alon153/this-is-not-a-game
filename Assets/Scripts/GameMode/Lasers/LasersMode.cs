@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Basics;
 using Basics.Player;
@@ -304,19 +305,26 @@ namespace GameMode.Lasers
         /// </param>
         private void DiamondPickedUp(DiamondCollectible diamondPicked)
         {   
+            
             // it is from the pool so it needs to go back.
             if (_allDiamondsCollected)
+            {
+                Debug.Log("picked up from pool");
                 _diamondPool.Release(diamondPicked);
+            }
 
             else
-            {
+            {   
+                
                 diamondPicked.gameObject.SetActive(false);
                 _initialDiamondsNotCollected.Remove(diamondPicked.GetInstanceID());
                 _collectedInitialDiamonds.Enqueue(diamondPicked);
                 _diamondsCollected++;
+                Debug.Log("pool no set up yet, diamonds collected: " + _diamondsCollected);
                 if (diamondCount == _diamondsCollected)
-                { 
-                  // all initial diamonds collected so instantiate the pool
+                {
+                    Debug.Log("all initial diamonds collected");
+                    // all initial diamonds collected so instantiate the pool
                     if (shouldContinueSpawn) _allDiamondsCollected = true;
                     _diamondPool = new ObjectPool<DiamondCollectible>(CreateDiamond, OnTakeDiamondFromPool,
                         OnReturnDiamondToPool, OnDestroyDiamond, true);
@@ -334,13 +342,13 @@ namespace GameMode.Lasers
             if (_initialDiamondsNotCollected.Count != Empty)
             {
                 foreach (var pair in _initialDiamondsNotCollected)
-                    Object.Destroy(pair.Value);
+                    Object.Destroy(pair.Value.gameObject);
             }
 
             if (_collectedInitialDiamonds.Count != Empty)
             {
                 for (int i = 0; i < _collectedInitialDiamonds.Count; i++)
-                    Object.Destroy(_collectedInitialDiamonds.Dequeue());
+                    Object.Destroy(_collectedInitialDiamonds.Dequeue().gameObject);
             }
 
             _diamondPool?.Clear();

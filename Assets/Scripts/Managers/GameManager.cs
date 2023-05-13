@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using Basics;
 using GameMode;
 using UnityEngine;
@@ -28,6 +29,12 @@ namespace Managers
         [SerializeField] private bool _isSingleMode;
         [SerializeField] private GameModes _singleMode;
         [SerializeField] private List<GameModes> _modes;
+
+        [Header("Debugging")] 
+        
+        [Tooltip("enable this check box if you want the game modes to appear in the order they are in list and " +
+                 "not randomly")]
+        [SerializeField] private bool _isGameModeByOrder = false;
 
         #endregion
 
@@ -146,7 +153,7 @@ namespace Managers
                 return;
             }
             
-            GameMode = _gameModeFactory.GetGameMode();
+            GameMode = _gameModeFactory.GetGameMode(_isGameModeByOrder);
             if(GameMode == null)
             {
                 EndGame();

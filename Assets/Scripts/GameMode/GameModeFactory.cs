@@ -36,6 +36,7 @@ namespace GameMode
         private List<GameModes> _availableModes;
         private List<GameModes> _playedModes;
         private Queue<GameModes> _startWith;
+       
         
         #endregion
 
@@ -70,9 +71,9 @@ namespace GameMode
             _playedModes = new List<GameModes>();
         }
 
-        public GameModeBase GetGameMode()
+        public GameModeBase GetGameMode(bool isRandom)
         {
-            GameModes mode = GetModeEnum();
+            GameModes mode = GetModeEnum(isRandom);
             return mode switch
             {
                 GameModes.Paint => _paintMode,
@@ -89,7 +90,8 @@ namespace GameMode
 
         #region Private Methods
         
-        private GameModes GetModeEnum()
+        
+        private GameModes GetModeEnum(bool isByOrder)
         {
             GameModes mode = GameModes.Null;
 
@@ -99,7 +101,7 @@ namespace GameMode
             }
             else if(_availableModes.Count > 0)
             {
-                int index = Random.Range(0, _availableModes.Count);
+                var index = isByOrder ? 0 : Random.Range(0, _availableModes.Count);
                 mode = _availableModes[index];
                 _availableModes.RemoveAt(index);
             }
