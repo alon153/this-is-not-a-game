@@ -155,8 +155,8 @@ namespace Basics.Player
         private void Start()
         {
             Index = GameManager.Instance.RegisterPlayer(this);
-            Color = GameManager.Instance.PlayerColors[Index];
-            _origColor = Color;
+            _origColor = GameManager.Instance.PlayerColors[Index];
+            Color = _origColor;
             Ready = false;
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
@@ -392,10 +392,9 @@ namespace Basics.Player
 
         private void Reset()
         {
-            var color = Renderer.BloomedColor;
-            color.a = 1;
             transform.localScale = _originalScale;
-            Renderer.SetGlobalColor(color);
+            Renderer.SetGlobalColor(_origColor);
+            Renderer.SetActive(true);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
             UnFreeze();

@@ -60,5 +60,11 @@ namespace Basics.Player
             get => Regular.color;
             set => Regular.color = value;
         }
+
+        public void SetActive(bool active)
+        {
+            Bloomed.gameObject.SetActive(active);
+            Regular.gameObject.SetActive(active);
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Basics.Player
     {
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
+        [SerializeField] private ParticleSystem _fallParticles;
         public bool IsBashed { get; set; } = false;
 
         private InteractableObject _interactable;
@@ -94,43 +95,19 @@ namespace Basics.Player
             Freeze();
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
-            StartCoroutine(Fall_Inner(shouldRespawn,stun));
+            Fall_Inner(shouldRespawn, stun);
         }
 
         #endregion
         
         #region Private Methods
         
-        private IEnumerator Fall_Inner(bool shouldRespawn, bool stun=true)
+        private void Fall_Inner(bool shouldRespawn, bool stun=true)
         {   
-           
-            float duration = 0f;
-            float scaleFactor = 1f;
-            var color = Renderer.BloomedColor;
-            var scale = transform.localScale;
-
-            while (duration < FallTime)
-            {
-                //fade out
-                color.a = 1 - duration / FallTime;
-                Renderer.SetGlobalColor(color);
-                //shrink
-                scaleFactor = 1 - 0.5f * duration / FallTime;
-                transform.localScale = scale * scaleFactor;
-
-                duration += Time.deltaTime;
-                yield return null;
-            }
-
-            color.a = 0f;
-            Renderer.SetGlobalColor(color);
-            
-            yield return null;
-          
-            
+            Renderer.SetActive(false);
+            _fallParticles.Play();
             if (shouldRespawn)
-                Respawn(stun);
-
+                TimeManager.Instance.DelayInvoke((() => { Respawn();}), FallTime);
         }
         
         
@@ -207,8 +184,7 @@ namespace Basics.Player
         /// <param name="playerControl"></param>
         /// <returns></returns>
        public IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb)
-        {   
-            
+        {
             float time = 0f;
             Vector2 initialVelocity = playerRb.velocity;
             Vector2 noVelocity = Vector2.zero;
