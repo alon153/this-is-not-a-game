@@ -117,7 +117,7 @@ namespace GameMode.Modes
         {
             if (Time.time >= _paintTime[player.Index])
             {
-                var sprite = _paintingSprite == null ? player.Renderer.sprite : _paintingSprite;
+                var sprite = _paintingSprite == null ? player.Renderer.RegularSprite : _paintingSprite;
                 var color = player.Color;
                 DrawSprite(player.transform.position, sprite, color.AddOffset(_coloringOffset));
                 _paintTime[player.Index] = Time.time + _paintIntervals;

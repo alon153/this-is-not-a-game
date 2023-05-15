@@ -45,7 +45,6 @@ namespace Basics.Player
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
-        [SerializeField] private float _bloomIntensity = 2f;
         [Tooltip("How much time will a player be pushed after dash is finished")]
         [SerializeField] private float _postDashPushTime = 0.1f;
         [Tooltip("The time a player is knocked back")][SerializeField] private float _knockBackDelay = 0.15f;
@@ -72,7 +71,8 @@ namespace Basics.Player
         
         private bool _canMove = true;
 
-        public SpriteRenderer Renderer { get; private set; }
+        [field: SerializeField] public PlayerRenderer Renderer { get; private set; }
+
         private Vector3 _originalScale;
 
         private Vector3 _lastPosition;
@@ -97,7 +97,7 @@ namespace Basics.Player
             set
             {
                 _canDash = value;
-                Renderer.material.SetFloat("_ColorFactor",value ? 1 : 0.2f);
+                Renderer.ToggleBloom(value);
             }
         }
         private Vector2 DesiredVelocity => _direction * _speed;
@@ -128,7 +128,7 @@ namespace Basics.Player
             private set
             {
                 _color = value;
-                Renderer.material.SetColor("_Color",value.Intensify(_bloomIntensity));
+                Renderer.SetGlobalColor(value);
             }
         }
 
@@ -141,11 +141,9 @@ namespace Basics.Player
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody2D>();
-            Renderer = GetComponent<SpriteRenderer>();
             _input = GetComponent<PlayerInput>();
-
-            _bloomMat = new Material(_bloomMaterialOrigin);
-            Renderer.material = _bloomMat;
+            
+            Renderer.BloomMaterial = new Material(_bloomMaterialOrigin);
             
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;
@@ -394,16 +392,15 @@ namespace Basics.Player
 
         private void Reset()
         {
-            var color = Renderer.color;
+            var color = Renderer.BloomedColor;
             color.a = 1;
             transform.localScale = _originalScale;
-            Renderer.color = color;
+            Renderer.SetGlobalColor(color);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
             UnFreeze();
         }
 
-       
         #endregion
     }
 }

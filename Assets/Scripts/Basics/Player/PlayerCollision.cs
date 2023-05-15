@@ -106,14 +106,14 @@ namespace Basics.Player
            
             float duration = 0f;
             float scaleFactor = 1f;
-            var color = Renderer.color;
+            var color = Renderer.BloomedColor;
             var scale = transform.localScale;
 
             while (duration < FallTime)
             {
                 //fade out
                 color.a = 1 - duration / FallTime;
-                Renderer.color = color;
+                Renderer.SetGlobalColor(color);
                 //shrink
                 scaleFactor = 1 - 0.5f * duration / FallTime;
                 transform.localScale = scale * scaleFactor;
@@ -123,7 +123,7 @@ namespace Basics.Player
             }
 
             color.a = 0f;
-            Renderer.color = color;
+            Renderer.SetGlobalColor(color);
             
             yield return null;
           
