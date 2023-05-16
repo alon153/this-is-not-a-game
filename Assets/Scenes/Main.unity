@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _modes.Array.size
@@ -360,6 +360,10 @@ PrefabInstance:
     - target: {fileID: 4665763576627650138, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _musicVolume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5824387399839706205, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
