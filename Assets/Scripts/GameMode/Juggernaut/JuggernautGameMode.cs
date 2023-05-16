@@ -40,10 +40,10 @@ namespace GameMode.Juggernaut
         #region GameModeBase
         protected override void InitRound_Inner()
         {
+            _isAPlayerHoldingTotem = false;
             GameManager.Instance.GameModeUpdateAction += JuggernautModeUpdate;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = new JuggernautPlayerAddOn();
-
         }
 
         protected override void InitArena_Inner()
