@@ -21,6 +21,9 @@ namespace GameMode.Lasers
         [Header("\nLasers")]
         [Tooltip("When hit by laser, how much time the player freezes?")]
         [SerializeField] private float freezeTime = 2;
+        
+        [Tooltip("When hit by laser, how much force is applied")]
+        [SerializeField] private float laserKnockBackForce = 1.5f;
 
         [Header("\nDiamonds")]
         [SerializeField] private DiamondCollectible[] diamondPrefabs;
@@ -395,9 +398,11 @@ namespace GameMode.Lasers
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
                 ((LaserPlayerAddon) player.Addon).DiamondsCollected -= diamondsToDrop;
             }
-
+            
+            // save current velocity since it will be zeroed by freeze().
+            Vector2 velocityBeforeFreeze = -player.Rigidbody.velocity;
             player.Freeze(true, freezeTime, true);
-            player.PlayerByItemKnockBack(null);
+            player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
            
         }
         

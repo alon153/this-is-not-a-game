@@ -203,11 +203,10 @@ namespace Basics.Player
 
         }
 
-        public void PlayerByItemKnockBack(float? force)
+        public void PlayerByItemKnockBack(float? force, Vector2? dir)
         {
             // calculate bash direction and force
-            Vector2 knockDir = Rigidbody.velocity.normalized;
-          
+            var knockDir = dir ?? -Rigidbody.velocity;
             // set bashed player
             var curForce = force ?? _knockBackForce;
             Rigidbody.AddForce(knockDir * curForce, ForceMode2D.Impulse);
