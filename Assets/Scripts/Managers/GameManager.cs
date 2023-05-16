@@ -269,7 +269,15 @@ namespace Managers
             else
                 TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
         }
+
+        public int GetRoundLength()
+        {
+            return _roundLength;
+        }
+        
     }
+    
+   
 
     public enum GameState
     {

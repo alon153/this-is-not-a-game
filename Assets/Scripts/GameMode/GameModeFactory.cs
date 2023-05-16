@@ -5,6 +5,7 @@ using GameMode.Boats;
 using GameMode.Ikea;
 using GameMode.Lasers;
 using GameMode.Island;
+using GameMode.Juggernaut;
 using GameMode.Modes;
 using GameMode.Pool;
 using UnityEngine;
@@ -28,6 +29,8 @@ namespace GameMode
         [SerializeField] private LasersMode _lasersMode;
 
         [SerializeField] private IslandMode _islandMode;
+
+        [SerializeField] private JuggernautGameMode _juggernautMode;
 
         #endregion
         
@@ -82,6 +85,7 @@ namespace GameMode
                 GameModes.Boats => _boatsInRiverMode,
                 GameModes.Lasers => _lasersMode,
                 GameModes.Island => _islandMode,
+                GameModes.Juggernaut => _juggernautMode,
                 _ => null
             };
         }
