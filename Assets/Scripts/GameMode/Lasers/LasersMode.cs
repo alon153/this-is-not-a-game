@@ -397,6 +397,7 @@ namespace GameMode.Lasers
             }
 
             player.Freeze(true, freezeTime, true);
+            player.PlayerByItemKnockBack(null);
            
         }
         

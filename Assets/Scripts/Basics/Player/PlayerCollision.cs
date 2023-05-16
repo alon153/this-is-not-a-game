@@ -53,7 +53,7 @@ namespace Basics.Player
                     // player has bashed another player so a knockback needed.
                     bool isMutual = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
                     TimeManager.Instance.DelayInvoke((() => Dashing = false), 0.1f);
-                    KnockBackPlayer(other.gameObject, isMutual);
+                    PlayerByPlayerKnockBack(other.gameObject, isMutual);
                     CancelDash();
                 }
 
@@ -145,7 +145,7 @@ namespace Basics.Player
         /// <param name="mutualCollision">
         /// true if both players bashed each other, false otherwise. 
         /// </param>
-        private void KnockBackPlayer(GameObject player, bool mutualCollision)
+        private void PlayerByPlayerKnockBack(GameObject player, bool mutualCollision)
         {
             
             Debug.Log("player: " + this.Index + "is mutual:" + mutualCollision);
@@ -227,6 +227,20 @@ namespace Basics.Player
 
         }
 
+        public void PlayerByItemKnockBack(float? force)
+        {
+            // calculate bash direction and force
+            Vector2 knockDir = Rigidbody.velocity.normalized;
+          
+            // set bashed player
+            var curForce = force ?? _knockBackForce;
+            Rigidbody.AddForce(knockDir * curForce, ForceMode2D.Impulse);
+            if (_resetMoveCoroutine != null)
+                StopCoroutine(_resetMoveCoroutine); 
+                
+            _resetMoveCoroutine = StartCoroutine(ResetMovementAfterKnockBack(Rigidbody));
+            Rigidbody.velocity = Vector2.zero;
+        }
         #endregion
     }
 }
