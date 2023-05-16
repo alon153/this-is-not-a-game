@@ -14,11 +14,16 @@ PluginImporter:
   - first:
       Any: 
     second:
+<<<<<<< HEAD
       enabled: 0
+=======
+      enabled: 1
+>>>>>>> 60b7789 (Added turquoise yellow and dash Y)
       settings: {}
   - first:
       Editor: Editor
     second:
+<<<<<<< HEAD
       enabled: 1
       settings:
         CPU: x86_64
@@ -28,6 +33,11 @@ PluginImporter:
     second:
       enabled: 1
       settings: {}
+=======
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+>>>>>>> 60b7789 (Added turquoise yellow and dash Y)
   userData: 
   assetBundleName: 
   assetBundleVariant: 
