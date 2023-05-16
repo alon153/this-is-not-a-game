@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using Audio;
 using Basics;
 using GameMode;
 using UnityEngine;
@@ -88,6 +89,11 @@ namespace Managers
         {
             base.Awake();
             Init();
+        }
+
+        private void Start()
+        {
+            AudioManager.SetMusic(MusicSounds.Lobby);
         }
 
         private void Update()
@@ -209,7 +215,8 @@ namespace Managers
             {
                 player.Ready = false;
             }
-
+            
+            AudioManager.SetMusic(MusicSounds.Game);
             _state = GameState.Playing;
             UIManager.Instance.ActivateScoreDisplays();
             NextRound();

@@ -135,6 +135,12 @@ namespace Managers
             var keys = actions.Keys.ToList();
             foreach (var key in keys)
             {
+                if (!actions.ContainsKey(key))
+                {
+                    toDelete.Add(key);
+                    continue;
+                }
+                
                 var val = actions[key];
                 if (time >= val.time)
                 {
