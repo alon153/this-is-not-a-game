@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b6ab26a0-ee78-4edc-a599-7074ceafbbee}">
+		<property name="assetPath">
+			<value>Music/game1.flac</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>113.26922916666666</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ca117902-401d-4215-a1ac-56fa91d3975e}</destination>
+		</relationship>
+	</object>
+</objects>

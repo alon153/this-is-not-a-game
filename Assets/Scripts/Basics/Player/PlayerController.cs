@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using GameMode;
 using GameMode.Ikea;
 using Managers;
@@ -14,7 +15,7 @@ using Utilities.Interfaces;
 
 namespace Basics.Player
 {
-    public partial class PlayerController : MonoBehaviour, IFallable
+    public partial class PlayerController : MonoBehaviour, IFallable, IAudible<PlayerSounds>
     {
         #region Constants
 
@@ -209,25 +210,13 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if(!CanDash)
-                        return;
-                    
-                    _dashDirection = _direction.normalized;
-                    
-                    Dashing = true;
-                    CanDash = false;
-
-                    TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
-
-                    _dashingId = TimeManager.Instance.DelayInvoke(() =>
+                    if (!CanDash)
                     {
-                        Dashing = false;
-                        _isInPostDash = true;
-                        _postDashId = TimeManager.Instance.DelayInvoke(() =>
-                        {
-                            _isInPostDash = false;
-                        }, _postDashPushTime);
-                    }, DashTime);
+                        ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
+                        return;
+                    }
+
+                    Dash();
                     break;
             }
         }
@@ -326,6 +315,27 @@ namespace Basics.Player
 
         #region Private Methods
 
+        private void Dash()
+        {
+            _dashDirection = _direction.normalized;
+                    
+            Dashing = true;
+            CanDash = false;
+
+            TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
+            ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.Dash);
+
+            _dashingId = TimeManager.Instance.DelayInvoke(() =>
+            {
+                Dashing = false;
+                _isInPostDash = true;
+                _postDashId = TimeManager.Instance.DelayInvoke(() =>
+                {
+                    _isInPostDash = false;
+                }, _postDashPushTime);
+            }, DashTime);
+        }
+
         private void CancelDash()
         {
             Dashing = false;
@@ -401,5 +411,10 @@ namespace Basics.Player
         }
 
         #endregion
+
+        public SoundType GetSoundType()
+        {
+            return SoundType.Player;
+        }
     }
 }

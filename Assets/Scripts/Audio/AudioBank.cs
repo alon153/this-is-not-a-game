@@ -7,7 +7,7 @@ using Object = System.Object;
 
 namespace Audio
 {
-    [CreateAssetMenu(fileName = "Audio Bank", menuName = "Entangled/Audio/Audio Bank", order = 0)]
+    [CreateAssetMenu(fileName = "Audio Bank", menuName = "ScriptableObjects/Audio/Audio Bank", order = 0)]
     public class AudioBank : ScriptableObject
     {
         #region Serialized Fields
@@ -106,7 +106,7 @@ namespace Audio
     public enum PlayerSounds
     {
         Dash = 0,
-        Pushed,
+        DashCooldown,
     }
     
     
