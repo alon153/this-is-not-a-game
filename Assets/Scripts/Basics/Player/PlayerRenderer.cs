@@ -11,11 +11,34 @@ namespace Basics.Player
         [field: SerializeField] public SpriteRenderer Regular { get; private set; }
         [SerializeField] private float _bloomIntensity;
 
-        public Animator Animator { get; set; }
+        private bool _faceBack = true;
 
+        public bool FaceBack
+        {
+            get => _faceBack;
+            set
+            {
+                Bloomed.sortingOrder = value ? -1 : 1;
+                _faceBack = value;
+            }
+        }
+
+        public Animator Animator
+        {
+            get
+            {
+                if (_animator == null)
+                    _animator = Regular.gameObject.GetComponent<Animator>();
+                return _animator;
+            }
+            set => _animator = value;
+        }
+
+        private Animator _animator;
+        private bool _facingFront = true;
         private static readonly int ColorFactor = Shader.PropertyToID("_ColorFactor");
         private static readonly int Color1 = Shader.PropertyToID("_Color");
-        
+
         public Material BloomMaterial
         {
             get => Bloomed.material;
@@ -42,13 +65,13 @@ namespace Basics.Player
 
         public void ToggleBloom(bool bloomOn)
         {
-            BloomMaterial.SetFloat(ColorFactor, bloomOn ? 1 : 0.2f);
+            BloomMaterial.SetFloat(ColorFactor, bloomOn ? 1 : 0.1f);
         }
 
         public void SetGlobalColor(Color c)
         {
             Bloomed.material.SetColor(Color1,c.Intensify(_bloomIntensity));
-            Regular.color = c;
+            // Regular.color = c;
         }
 
         public Color BloomedColor

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5a1e4183ead581b4bbe1c072b4a9d6c8
+guid: 1e2b29e4ab96533478f9b2d804c8e8a9
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -14,16 +14,11 @@ PluginImporter:
   - first:
       Any: 
     second:
-<<<<<<< HEAD
       enabled: 0
-=======
-      enabled: 1
->>>>>>> 60b7789 (Added turquoise yellow and dash Y)
       settings: {}
   - first:
       Editor: Editor
     second:
-<<<<<<< HEAD
       enabled: 1
       settings:
         CPU: x86_64
@@ -33,11 +28,6 @@ PluginImporter:
     second:
       enabled: 1
       settings: {}
-=======
-      enabled: 0
-      settings:
-        DefaultValueInitialized: true
->>>>>>> 60b7789 (Added turquoise yellow and dash Y)
   userData: 
   assetBundleName: 
   assetBundleVariant: 

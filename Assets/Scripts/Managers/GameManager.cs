@@ -65,7 +65,7 @@ namespace Managers
         public GameModeBase GameMode { get; private set; }
 
         public Color PlayerColor(int i) => PlayerDatas[i]._bloomColor;
-        public Animator PlayerAnimator(int i) => PlayerDatas[i]._animator;
+        public AnimatorOverrideController PlayerAnimatorOverride(int i) => PlayerDatas[i]._animatorOverride;
 
         public Arena CurrArena
         {
@@ -282,7 +282,7 @@ namespace Managers
     [Serializable]
     public class PlayerData
     {
-        public Animator _animator;
+        public AnimatorOverrideController _animatorOverride;
         public Color _bloomColor;
     }
 }

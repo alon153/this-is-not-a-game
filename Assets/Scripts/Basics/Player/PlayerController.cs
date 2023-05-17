@@ -136,6 +136,9 @@ namespace Basics.Player
                     Renderer.Animator.SetBool(Moving, value.magnitude != 0);
                 
                 _direction = value.normalized;
+                bool facingBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;
+                if (facingBack != Renderer.FaceBack)
+                    Renderer.FaceBack = facingBack;
                 Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
                 Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
             }
@@ -198,7 +201,7 @@ namespace Basics.Player
         {
             Index = GameManager.Instance.RegisterPlayer(this);
             _origColor = GameManager.Instance.PlayerColor(Index);
-            Renderer.Animator = GameManager.Instance.PlayerAnimator(Index);
+            Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
             Color = _origColor;
             Ready = false;
             _txtInteract.enabled = false;
@@ -252,6 +255,8 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if(Direction == Vector2.zero) return;
+                    
                     if (!CanDash)
                     {
                         ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
@@ -366,10 +371,12 @@ namespace Basics.Player
 
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
             ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.Dash);
+            Renderer.FaceBack = true;
 
             _dashingId = TimeManager.Instance.DelayInvoke(() =>
             {
                 Dashing = false;
+                Renderer.FaceBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;;
                 _isInPostDash = true;
                 _postDashId = TimeManager.Instance.DelayInvoke(() =>
                 {
@@ -446,6 +453,8 @@ namespace Basics.Player
         {
             transform.localScale = _originalScale;
             Renderer.SetGlobalColor(_origColor);
+            Renderer.Regular.flipX = false;
+            Renderer.Bloomed.flipX = false;
             Renderer.SetActive(true);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;

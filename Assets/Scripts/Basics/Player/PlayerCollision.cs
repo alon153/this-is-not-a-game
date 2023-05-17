@@ -76,8 +76,6 @@ namespace Basics.Player
 
                 if (!controller.IsBashed)
                     controller.SetPushingPlayer(null, false);
-                
-               
             }
         }
 
@@ -107,13 +105,17 @@ namespace Basics.Player
         private void Fall_Inner(bool shouldRespawn, bool stun=true)
         {
             Renderer.Animator.SetTrigger(Dead);
-            _afterFallAnimation = () =>
-            {
-                Renderer.SetActive(false);
-                _fallParticles.Play();
-                if (shouldRespawn)
-                    TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
-            };
+            Renderer.SetActive(false);
+            _fallParticles.Play();
+            if (shouldRespawn)
+                TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
+            // _afterFallAnimation = () =>
+            // {
+            //     Renderer.SetActive(false);
+            //     _fallParticles.Play();
+            //     if (shouldRespawn)
+            //         TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
+            // };
         }
 
         /// <summary>
@@ -209,10 +211,10 @@ namespace Basics.Player
 
         public void AfterDeathAnimation()
         {
-            if(_afterFallAnimation == null) return;
-            
-            _afterFallAnimation.Invoke();
-            _afterFallAnimation = null;
+            // if(_afterFallAnimation == null) return;
+            //
+            // _afterFallAnimation.Invoke();
+            // _afterFallAnimation = null;
         }
 
         public void PlayerByItemKnockBack(float? force, Vector2? dir)
