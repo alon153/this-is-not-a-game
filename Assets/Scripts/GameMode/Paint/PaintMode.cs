@@ -108,7 +108,7 @@ namespace GameMode.Modes
             Dictionary<int, Color> colors = new Dictionary<int, Color>();
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {
-                colors[i] = GameManager.Instance.PlayerColors[i].AddOffset(_coloringOffset);
+                colors[i] = GameManager.Instance.PlayerColor(i).AddOffset(_coloringOffset);
             }
             GameManager.Instance.StartCoroutine(CountColors_Inner(colors, _threshold));
         }

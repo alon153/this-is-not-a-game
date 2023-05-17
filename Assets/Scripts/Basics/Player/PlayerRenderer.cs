@@ -10,10 +10,12 @@ namespace Basics.Player
         [field: SerializeField] public SpriteRenderer Bloomed { get; private set; }
         [field: SerializeField] public SpriteRenderer Regular { get; private set; }
         [SerializeField] private float _bloomIntensity;
-        
+
+        public Animator Animator { get; set; }
+
         private static readonly int ColorFactor = Shader.PropertyToID("_ColorFactor");
         private static readonly int Color1 = Shader.PropertyToID("_Color");
-
+        
         public Material BloomMaterial
         {
             get => Bloomed.material;

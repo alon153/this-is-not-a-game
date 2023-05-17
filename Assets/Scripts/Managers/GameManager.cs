@@ -18,8 +18,8 @@ namespace Managers
         #region Serialized Fields
 
         [field: SerializeField] private Arena DefaultArenaPrefab;
-        
-        [field: SerializeField] public List<Color> PlayerColors { get; private set; }
+
+        [field: SerializeField] private List<PlayerData> PlayerDatas;
 
         [Header("Round Settings")] 
         [SerializeField] private int _roundLength;
@@ -63,6 +63,9 @@ namespace Managers
         
         public UnityAction GameModeUpdateAction { get; set;}  
         public GameModeBase GameMode { get; private set; }
+
+        public Color PlayerColor(int i) => PlayerDatas[i]._bloomColor;
+        public Animator PlayerAnimator(int i) => PlayerDatas[i]._animator;
 
         public Arena CurrArena
         {
@@ -274,5 +277,12 @@ namespace Managers
     public enum GameState
     {
         Lobby, Playing
+    }
+
+    [Serializable]
+    public class PlayerData
+    {
+        public Animator _animator;
+        public Color _bloomColor;
     }
 }
