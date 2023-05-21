@@ -72,6 +72,7 @@ namespace GameMode.Lasers
                     {   
                         Debug.Log("player hit laser beam");
                         OnLaserHit.Invoke(player);
+                        break;
                     }
                 }
             }

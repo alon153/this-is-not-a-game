@@ -125,7 +125,7 @@ namespace Basics.Player
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
 
-        private Vector2 Direction
+        public Vector2 Direction
         {
             get => _direction;
             set
@@ -278,6 +278,11 @@ namespace Basics.Player
                         Interactable.OnInteract(this);
                         if(Interactable && !Interactable.IsHold)
                             Interactable = null;
+                    }
+                    
+                    else if (Addon is PlayerActionAddOn)
+                    {
+                        ((PlayerActionAddOn) Addon).OnAction(this);
                     }
                     break;
                 case InputActionPhase.Canceled:

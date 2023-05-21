@@ -22,7 +22,9 @@ namespace GameMode.Juggernaut
         [SerializeField] private Projectile projectilePrefab;
 
         [Tooltip("how many hits can a player take before dropping the totem")]
-        [SerializeField] private int hitAmount = 60;
+        [SerializeField] private int juggernautHealth = 100;
+
+        [SerializeField] private int damagePerHit = 5;
 
         [Tooltip("speed given to projectile while shooting")]
         [SerializeField] private float projectileSpeed = 10f;
@@ -60,7 +62,8 @@ namespace GameMode.Juggernaut
             _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
                 OnReturnProjectileToPool, OnDestroyProjectile, true);
             foreach (var player in GameManager.Instance.Players)
-                player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileDestroyTime);
+                player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
+                    projectileDestroyTime, juggernautHealth, damagePerHit, OnTotemDropped);
         }
 
         protected override void InitArena_Inner()
@@ -111,7 +114,7 @@ namespace GameMode.Juggernaut
             Debug.Log("totem was picked up by player: " + player.Index);
         }
 
-        private void OnTotemDropped(PlayerController player)
+        private void OnTotemDropped()
         {
             _totem.gameObject.SetActive(true);
             
