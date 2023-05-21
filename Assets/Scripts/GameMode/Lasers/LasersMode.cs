@@ -93,6 +93,7 @@ namespace GameMode.Lasers
         
         protected override void InitRound_Inner()
         {
+            _diamondsCollected = None;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = new LaserPlayerAddon();
             

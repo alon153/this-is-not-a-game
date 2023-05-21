@@ -4,6 +4,8 @@ using Managers;
 using UnityEngine;
 using Basics;
 using Basics.Player;
+using UnityEngine.Pool;
+using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
 
 
@@ -15,26 +17,38 @@ namespace GameMode.Juggernaut
         
         #region Serialized Fields  
         
-        [SerializeField] private Totem totemPrefab;
+        [SerializeField] private Totem totemPrefab; 
+        
+        [SerializeField] private Projectile projectilePrefab;
 
         [Tooltip("how many hits can a player take before dropping the totem")]
         [SerializeField] private int hitAmount = 60;
-        
-        [Tooltip("How many hits does bashing a player from the arena counts")]
-        [SerializeField] private int hitsPerDeath = 15;
-        
+
+        [Tooltip("speed given to projectile while shooting")]
+        [SerializeField] private float projectileSpeed = 10f;
+
+        [SerializeField] private float projectileDestroyTime = 3f;
+
+        [SerializeField] private float totemDropRadius = 1.5f;
+
+        [SerializeField] private float shotCooldown = 0.5f;
+
         [SerializeField] private int totalRoundScore = 100;
         
         #endregion
 
         #region Non-Serialized Fields
-
+        
+        // totem
         private Totem _totem;
 
         private bool _isAPlayerHoldingTotem = false;
 
         private PlayerController _currTotemHolder = null;
         
+        // shooting
+        private ObjectPool<Projectile> _projectilePool;      
+      
         #endregion
 
         #region GameModeBase
@@ -42,8 +56,11 @@ namespace GameMode.Juggernaut
         {
             _isAPlayerHoldingTotem = false;
             GameManager.Instance.GameModeUpdateAction += JuggernautModeUpdate;
+            
+            _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
+                OnReturnProjectileToPool, OnDestroyProjectile, true);
             foreach (var player in GameManager.Instance.Players)
-                player.Addon = new JuggernautPlayerAddOn();
+                player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileDestroyTime);
         }
 
         protected override void InitArena_Inner()
@@ -87,15 +104,28 @@ namespace GameMode.Juggernaut
         {
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
+            
+            PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
+            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).YieldsTotem = true;
             _isAPlayerHoldingTotem = true;
             Debug.Log("totem was picked up by player: " + player.Index);
+        }
+
+        private void OnTotemDropped(PlayerController player)
+        {
+            _totem.gameObject.SetActive(true);
+            
+            // drop the totem in a random position around player that dropped it. 
+            float angle = Random.Range(0f, Mathf.PI * 2f);
+            _totem.gameObject.transform.position = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) * 
+                                                   Random.Range(0f,totemDropRadius);
+            _currTotemHolder = null;
         }
 
         private void JuggernautModeUpdate()
         {
             if (_isAPlayerHoldingTotem)
             {   
-                Debug.Log("got here: " + _isAPlayerHoldingTotem);
                 PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                 ((JuggernautPlayerAddOn) _currTotemHolder.Addon).TotalTimeYieldingTotem += Time.deltaTime;
             }
@@ -104,8 +134,28 @@ namespace GameMode.Juggernaut
         #endregion
         
         #region Public Methods
-        
-        
+
+        private Projectile CreateProjectile()
+        {
+            var projectile = Object.Instantiate(projectilePrefab);
+            return projectile;
+        }
+
+        private void OnTakeProjectileFromPool(Projectile projectile)
+        {
+            projectile.gameObject.SetActive(true);
+        }
+
+        private void OnReturnProjectileToPool(Projectile projectile)
+        {
+            projectile.gameObject.SetActive(false);
+        }
+
+        private void OnDestroyProjectile(Projectile projectile)
+        {
+            Object.Destroy(projectile.gameObject);
+        }
+
         #endregion
         
     }
