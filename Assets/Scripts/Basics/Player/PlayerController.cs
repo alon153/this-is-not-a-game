@@ -69,8 +69,10 @@ namespace Basics.Player
 
         private bool _frozen = false;
         private Guid _freezeId = Guid.Empty;
+        private bool _stunned;
         
         private bool _canMove = true;
+        private bool _dashing;
 
         [field: SerializeField] public PlayerRenderer Renderer { get; private set; }
 
@@ -84,6 +86,12 @@ namespace Basics.Player
         private Material _bloomMat;
         private Guid _dashingId;
         private Guid _postDashId;
+        
+        private static readonly int Moving = Animator.StringToHash("Moving");
+        private static readonly int Stunned1 = Animator.StringToHash("Stunned");
+        private static readonly int Dashing1 = Animator.StringToHash("Dashing");
+        private static readonly int MoveX = Animator.StringToHash("moveX");
+        private static readonly int MoveY = Animator.StringToHash("moveY");
 
         #endregion
 
@@ -101,16 +109,52 @@ namespace Basics.Player
                 Renderer.ToggleBloom(value);
             }
         }
+
+        public bool Stunned
+        {
+            get => _stunned;
+            private set
+            {
+                bool shouldChange = _stunned != value;
+                if(shouldChange)
+                    Renderer.Animator.SetBool(Stunned1,value);
+                _stunned = value;
+            }
+        }
+        
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
 
         private Vector2 Direction
         {
             get => _direction;
-            set => _direction = value.normalized;
-        } 
-        
-        private bool Dashing { get; set; } = false;
+            set
+            {
+                bool shouldChangeAnimation = (_direction.magnitude == 0 && value.magnitude != 0) ||
+                                             (_direction.magnitude != 0 && value.magnitude == 0);
+                if (shouldChangeAnimation)
+                    Renderer.Animator.SetBool(Moving, value.magnitude != 0);
+                
+                _direction = value.normalized;
+                bool facingBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;
+                if (facingBack != Renderer.FaceBack)
+                    Renderer.FaceBack = facingBack;
+                Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
+                Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
+            }
+        }
+
+        private bool Dashing
+        {
+            get => _dashing;
+            set
+            {
+                bool shouldChange = _dashing != value;
+                if(shouldChange)
+                    Renderer.Animator.SetBool(Dashing1,value);
+                _dashing = value;
+            }
+        }
         public Rigidbody2D Rigidbody { get; set; }
 
         public bool Ready
@@ -156,7 +200,8 @@ namespace Basics.Player
         private void Start()
         {
             Index = GameManager.Instance.RegisterPlayer(this);
-            _origColor = GameManager.Instance.PlayerColors[Index];
+            _origColor = GameManager.Instance.PlayerColor(Index);
+            Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
             Color = _origColor;
             Ready = false;
             _txtInteract.enabled = false;
@@ -210,6 +255,8 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if(Direction == Vector2.zero) return;
+                    
                     if (!CanDash)
                     {
                         ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
@@ -324,10 +371,12 @@ namespace Basics.Player
 
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
             ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.Dash);
+            Renderer.FaceBack = true;
 
             _dashingId = TimeManager.Instance.DelayInvoke(() =>
             {
                 Dashing = false;
+                Renderer.FaceBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;;
                 _isInPostDash = true;
                 _postDashId = TimeManager.Instance.DelayInvoke(() =>
                 {
@@ -404,6 +453,8 @@ namespace Basics.Player
         {
             transform.localScale = _originalScale;
             Renderer.SetGlobalColor(_origColor);
+            Renderer.Regular.flipX = false;
+            Renderer.Bloomed.flipX = false;
             Renderer.SetActive(true);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;

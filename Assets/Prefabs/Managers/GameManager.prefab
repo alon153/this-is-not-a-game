@@ -46,17 +46,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultArenaPrefab: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
-  <PlayerColors>k__BackingField:
-  - {r: 0, g: 0.5568628, b: 0.7490196, a: 1}
-  - {r: 0.7529412, g: 0.07058824, b: 0, a: 1}
-  - {r: 0.11764706, g: 0.7490196, b: 0, a: 1}
-  - {r: 0.7490196, g: 0.73333335, b: 0, a: 1}
+  PlayerDatas:
+  - _animatorOverride: {fileID: 22100000, guid: d953a5aaf24497048ab1a7e8755985f6, type: 2}
+    _bloomColor: {r: 0.21674442, g: 0.086863644, b: 0.3018868, a: 1}
+  - _animatorOverride: {fileID: 22100000, guid: 56ec269a8ba65c94fa89e716a8263c5f, type: 2}
+    _bloomColor: {r: 0.3019608, g: 0.18928023, b: 0.086274505, a: 1}
+  - _animatorOverride: {fileID: 22100000, guid: dabf95d7b3c1a3a448259a0e0ed27c07, type: 2}
+    _bloomColor: {r: 0.086274505, g: 0.3019608, b: 0.23311234, a: 1}
+  - _animatorOverride: {fileID: 22100000, guid: cfd739ab0ab450245a48db752090ed0c, type: 2}
+    _bloomColor: {r: 0.3019608, g: 0.29315972, b: 0.086274505, a: 1}
   _roundLength: 30
   _numRounds: 10
   _gameModeFactory: {fileID: 11400000, guid: 3ef258ded0f37ef4d9df8858d3f7d37c, type: 2}
   _isSingleMode: 0
   _singleMode: 1
   _modes: 010000000500000002000000040000000300000006000000
+  _isGameModeByOrder: 0
 --- !u!114 &5528608369377680934
 MonoBehaviour:
   m_ObjectHideFlags: 0

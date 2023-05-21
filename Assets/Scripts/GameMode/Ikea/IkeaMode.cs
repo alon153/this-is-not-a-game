@@ -97,8 +97,16 @@ namespace GameMode.Ikea
             foreach (var part in parts)
             {
                 if(!part.IsInPlace) continue;
-                
-                int index = GameManager.Instance.PlayerColors.FindIndex((color => color == part.Color));
+
+                int index = -1;
+                for (int i = 0; i < GameManager.Instance.Players.Count; i++)
+                {
+                    if (GameManager.Instance.PlayerColor(i) == part.Color)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
                 if (index == -1) continue;
 
                 if (!scores.ContainsKey(index))

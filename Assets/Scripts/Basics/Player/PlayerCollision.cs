@@ -16,6 +16,7 @@ namespace Basics.Player
         public bool IsBashed { get; set; } = false;
 
         private InteractableObject _interactable;
+        private Action _afterFallAnimation;
 
         public InteractableObject Interactable
         {
@@ -38,6 +39,7 @@ namespace Basics.Player
         [CanBeNull] public PlayerController _playerKnockedBy;
         
         private Coroutine _resetMoveCoroutine = null;
+        private static readonly int Dead = Animator.StringToHash("Dead");
 
         #endregion
 
@@ -74,8 +76,6 @@ namespace Basics.Player
 
                 if (!controller.IsBashed)
                     controller.SetPushingPlayer(null, false);
-                
-               
             }
         }
 
@@ -103,15 +103,21 @@ namespace Basics.Player
         #region Private Methods
         
         private void Fall_Inner(bool shouldRespawn, bool stun=true)
-        {   
+        {
+            Renderer.Animator.SetTrigger(Dead);
             Renderer.SetActive(false);
             _fallParticles.Play();
             if (shouldRespawn)
-                TimeManager.Instance.DelayInvoke((() => { Respawn();}), FallTime);
+                TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
+            // _afterFallAnimation = () =>
+            // {
+            //     Renderer.SetActive(false);
+            //     _fallParticles.Play();
+            //     if (shouldRespawn)
+            //         TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
+            // };
         }
-        
-        
-        
+
         /// <summary>
         /// called when Player is knocking another player.
         /// Note: this method is called by the player BASHING, not the player BASHED!
@@ -201,6 +207,14 @@ namespace Basics.Player
             _playerKnockedBy = null;
             _resetMoveCoroutine = null;
 
+        }
+
+        public void AfterDeathAnimation()
+        {
+            // if(_afterFallAnimation == null) return;
+            //
+            // _afterFallAnimation.Invoke();
+            // _afterFallAnimation = null;
         }
 
         public void PlayerByItemKnockBack(float? force, Vector2? dir)

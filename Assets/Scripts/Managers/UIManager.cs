@@ -79,7 +79,7 @@ namespace Managers
             }
             
             
-            playerScoreTexts[_activeScoreDisplays].color = GameManager.Instance.PlayerColors[playerId];
+            playerScoreTexts[_activeScoreDisplays].color = GameManager.Instance.PlayerColor(playerId);
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
             _activeScoreDisplays += NewPlayerRegistered;
         }
@@ -164,7 +164,7 @@ namespace Managers
 
         public void ShowWinner(int winner)
         {
-            _centerText.color = GameManager.Instance.PlayerColors[winner];
+            _centerText.color = GameManager.Instance.PlayerColor(winner);
             _centerText.text = $"Player {winner + 1} wins!";
             ToggleCenterText(true);
         }
