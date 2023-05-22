@@ -71,9 +71,9 @@ namespace GameMode.Ikea
                 player.Addon = null;
                 player.UnRegisterPushedListener(this);
             }
-            
-            parts ??= (IkeaPart[]) Object.FindObjectsOfType(typeof(IkeaPart));
-            dispensers ??= (PartDispenser[]) Object.FindObjectsOfType(typeof(PartDispenser));
+
+            parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
+            dispensers = (PartDispenser[]) Object.FindObjectsOfType (typeof(PartDispenser));
             
             foreach (var part in parts)
             {

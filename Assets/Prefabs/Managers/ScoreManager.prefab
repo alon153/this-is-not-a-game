@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df80a1ccf7ae1b44a0741a345c97755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _floatingPointsPrefab: {fileID: 1855062998228716727, guid: 149fa85a8395f1d4eb8e773818ed4a5a, type: 3}

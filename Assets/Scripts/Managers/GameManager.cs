@@ -21,9 +21,10 @@ namespace Managers
 
         [field: SerializeField] private List<PlayerData> PlayerDatas;
 
-        [Header("Round Settings")] 
+        [Header("Round Settings")]
         [SerializeField] private int _roundLength;
         [SerializeField] private int _numRounds = 10;
+        [field: SerializeField] public bool Zap { get; private set; }= false;
         
         [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
@@ -149,6 +150,14 @@ namespace Managers
             };
         }
 
+        public void StartRound()
+        {
+            UIManager.Instance.HideAllMessages();
+            GameMode.InitRound();
+            TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
+            UnFreezePlayers();
+        }
+
         /// <summary>
         /// If the number of rounds played exceeded the number of rounds set for the whole game -> End game
         /// Else -> Generate a new game mode and start it
@@ -168,15 +177,20 @@ namespace Managers
                 EndGame();
                 return;
             }
-            
-            UIManager.Instance.SetGameDesc(GameMode.Name, GameMode.Description);
-            TimeManager.Instance.StartCountDown(5, (() =>
+
+            if (Zap)
             {
-                UIManager.Instance.HideAllMessages();
-                GameMode.InitRound();
-                TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
-                UnFreezePlayers();
-            }), UIManager.CountDownTimer.Main);
+                StartRound();
+                TimeManager.Instance.DelayInvoke((() =>
+                {
+                    UIManager.Instance.ToggleFlash(false);
+                }), 0.1f);
+            }
+            else
+            {
+                UIManager.Instance.SetGameDesc(GameMode.Name, GameMode.Description);
+                TimeManager.Instance.StartCountDown(5, StartRound, UIManager.CountDownTimer.Main);
+            }
         }
         
         /// <summary>
