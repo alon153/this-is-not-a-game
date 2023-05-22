@@ -77,6 +77,11 @@ namespace GameMode.Modes
             }
         }
         
+        protected override void EndRound_Inner()
+        {
+            ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
+        }
+        
         protected override void OnTimeOver_Inner()
         {
             GameManager.Instance.FreezePlayers(timed: false);

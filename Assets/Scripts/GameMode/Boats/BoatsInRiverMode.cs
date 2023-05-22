@@ -177,6 +177,7 @@ namespace GameMode.Boats
         {
             FreezeAllObstacles();
             GameManager.Instance.FreezePlayers(timed: false);
+            ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
         }
 
         #endregion

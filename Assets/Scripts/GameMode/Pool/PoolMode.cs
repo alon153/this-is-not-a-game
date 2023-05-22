@@ -103,6 +103,7 @@ namespace GameMode.Pool
                 if (!_hits.ContainsKey(playerBashing.Index))
                     _hits[playerBashing.Index] = 0;
                 _hits[playerBashing.Index]++;
+                ScoreManager.Instance.SetPlayerScore(playerBashing.Index,scoreOnHit);
             }
         }
 

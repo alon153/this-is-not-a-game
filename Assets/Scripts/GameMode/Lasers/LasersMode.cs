@@ -154,6 +154,7 @@ namespace GameMode.Lasers
         protected override void EndRound_Inner()
         {
             GameManager.Instance.FreezePlayers(timed: false);
+            ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
         }
 
         protected override Dictionary<int, float> CalculateScore_Inner()

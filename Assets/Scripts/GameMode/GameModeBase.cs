@@ -44,7 +44,7 @@ namespace GameMode
     public virtual void EndRound()
     {
       EndRound_Inner();
-      ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
+      // ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
       ClearRound_Inner();
       GameManager.Instance.NextRound();
     }

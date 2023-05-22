@@ -13,6 +13,7 @@ TagManager:
   - WaterObstacle
   - DiamondPos
   - Lasers
+  - Treasure
   layers:
   - Default
   - TransparentFX
@@ -67,4 +68,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 583492459
+    locked: 0
+  - name: Points
+    uniqueID: 3730049909
     locked: 0

@@ -55,6 +55,7 @@ MonoBehaviour:
     <Name>k__BackingField: This is not a game! It's a spy movie!
     <Description>k__BackingField: collected diamonds and evade lasers!
     freezeTime: 2
+    laserKnockBackForce: 1.5
     diamondPrefabs:
     - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
     diamondCount: 12

@@ -14,6 +14,7 @@ namespace GameMode.Ikea
         [SerializeField] private Sprite _blueprintSprite;
         [SerializeField] private Sprite _partSprite;
         [SerializeField] private Collider2D _collider;
+        [SerializeField] private float _pointsPerPart = 10;
 
         #endregion
         
@@ -156,6 +157,7 @@ namespace GameMode.Ikea
                 
                 Color = player.Color;
                 IsBlueprint = false;
+                ScoreManager.Instance.SetPlayerScore(player.Index,_pointsPerPart);
             }
             else
             {

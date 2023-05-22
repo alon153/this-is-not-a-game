@@ -87,7 +87,7 @@ namespace GameMode.Ikea
         }
 
         protected override void OnTimeOver_Inner() { }
-        
+
         protected override Dictionary<int,float> CalculateScore_Inner()
         {
             parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
