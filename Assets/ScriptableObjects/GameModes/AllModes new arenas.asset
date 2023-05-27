@@ -67,7 +67,7 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
     <Description>k__BackingField: Find the hidden treasure!
-    _numTreasures: 10
+    _numTreasures: 1
     _treasureValues:
     - score: 0
       count: 3

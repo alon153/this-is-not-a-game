@@ -75,7 +75,7 @@ namespace GameMode.Island
             foreach (var player in GameManager.Instance.Players)
             {
                 player.Addon = null;
-                player.Gamepad.SetMotorSpeeds(0,0);
+                player.Gamepad?.SetMotorSpeeds(0,0);
                 player.UnRegisterMoveListener(this);
                 player.UnRegisterPushedListener(this);
             }
@@ -118,7 +118,7 @@ namespace GameMode.Island
             var collisions = Physics2D.OverlapCircleAll(playerPos, _vibrationRadius, _treasureLayer);
             if (collisions.Length == 0)
             {
-                player.Gamepad.SetMotorSpeeds(0,0);
+                player.Gamepad?.SetMotorSpeeds(0,0);
                 return;
             }
 
@@ -137,13 +137,13 @@ namespace GameMode.Island
 
             if (minIndex == -1)
             {
-                player.Gamepad.SetMotorSpeeds(0,0);
+                player.Gamepad?.SetMotorSpeeds(0,0);
                 return;
             }
 
             minDistance = Mathf.Clamp(minDistance, 0, _vibrationRadius);
             float vibration = (1 - Mathf.Pow(minDistance / _vibrationRadius,2)) * _vibrationMaxForce;
-            player.Gamepad.SetMotorSpeeds(vibration,vibration);
+            player.Gamepad?.SetMotorSpeeds(vibration,vibration);
         }
 
         #endregion
@@ -185,11 +185,9 @@ namespace GameMode.Island
         private float GetTreasureValue(int count)
         {
             int countLeft = count;
-            Debug.Log(countLeft);
             for (int i = 0; i < _treasureValues.Count; i++)
             {
                 countLeft -= _treasureValues[i].count;
-                Debug.Log(countLeft);
                 if (countLeft <= 0)
                     return _treasureValues[i].score;
             }

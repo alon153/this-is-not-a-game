@@ -221,8 +221,17 @@ namespace Managers
         
         private void EndGame()
         {
+            if (Zap)
+            {
+                StartRound();
+                TimeManager.Instance.DelayInvoke((() =>
+                {
+                    UIManager.Instance.ToggleFlash(false);
+                }), 0.1f);
+            }
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
+            CurrArena = Instantiate(DefaultArenaPrefab);
         }
 
         private void StartGame()

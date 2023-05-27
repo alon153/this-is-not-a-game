@@ -74,7 +74,7 @@ namespace GameMode.Island
             if (_digger != null && _digger.Interactable.gameObject.GetInstanceID() == gameObject.GetInstanceID())
             {
                 _digger.Interactable = null;
-                _digger.Gamepad.SetMotorSpeeds(0,0);
+                _digger.Gamepad?.SetMotorSpeeds(0,0);
                 _digger.UnFreeze();
                 _digger = null;
             }

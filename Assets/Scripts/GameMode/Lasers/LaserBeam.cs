@@ -69,8 +69,7 @@ namespace GameMode.Lasers
                 foreach (var player in GameManager.Instance.Players)
                 {
                     if (player.gameObject.GetInstanceID().Equals(other.gameObject.GetInstanceID()))
-                    {   
-                        Debug.Log("player hit laser beam");
+                    {
                         OnLaserHit.Invoke(player);
                     }
                 }

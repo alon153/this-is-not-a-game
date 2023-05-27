@@ -26,9 +26,9 @@ namespace Utilities.Interfaces
 
         protected virtual void Update()
         {
-            if(_showingPrompt && (!CanInteract || _playerTriggers.Count == 0))
+            if (_showingPrompt && (!CanInteract || _playerTriggers.Count == 0))
                 TogglePrompt(false);
-            else if(!_showingPrompt && (CanInteract && _playerTriggers.Count > 0))
+            else if (!_showingPrompt && (CanInteract && _playerTriggers.Count > 0))
                 TogglePrompt(true);
         }
 
@@ -43,10 +43,11 @@ namespace Utilities.Interfaces
                     {
                         _playerTriggers.Remove(other.gameObject.GetInstanceID());
                     }
+
                     return;
                 }
-                
-                if(player.Interactable != null || !CanPlayerInteract(player))
+
+                if (player.Interactable != null || !CanPlayerInteract(player))
                     return;
 
                 _playerTriggers.Add(other.gameObject.GetInstanceID());
@@ -58,11 +59,11 @@ namespace Utilities.Interfaces
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if(!_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                if (!_playerTriggers.Contains(other.gameObject.GetInstanceID()))
                     return;
 
                 _playerTriggers.Remove(other.gameObject.GetInstanceID());
-                
+
                 PlayerController player = other.GetComponent<PlayerController>();
                 if (player.Interactable != null && player.Interactable.GetInstanceID() == GetInstanceID())
                     player.Interactable = null;
@@ -73,7 +74,7 @@ namespace Utilities.Interfaces
 
         #region Public Methods
 
-        public void OnInteract(PlayerController player, bool pressed=true)
+        public void OnInteract(PlayerController player, bool pressed = true)
         {
             if (CanInteract && CanPlayerInteract(player))
             {
@@ -93,12 +94,14 @@ namespace Utilities.Interfaces
             }
         }
 
-        protected virtual void OnStopInteract_Inner(PlayerController player) { }
+        protected virtual void OnStopInteract_Inner(PlayerController player)
+        {
+        }
 
         #endregion
-        
+
         #region Abstract Methods
-        
+
         protected abstract void TogglePrompt_Inner(bool showPrompt);
 
         protected abstract void OnInteract_Inner(PlayerController player);
