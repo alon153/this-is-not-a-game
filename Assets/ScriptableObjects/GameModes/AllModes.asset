@@ -88,16 +88,21 @@ MonoBehaviour:
     _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
     _vibrationRadius: 2
     _vibrationMaxForce: 0.1
+  _rhythmMode:
+    <ModeArena>k__BackingField: {fileID: 0}
+    <Name>k__BackingField: 
+    <Description>k__BackingField: 
   _juggernautMode:
     <ModeArena>k__BackingField: {fileID: 336873983815163952, guid: 248eb40ecd1e66044b317388b581ae27, type: 3}
     <Name>k__BackingField: This is not a Game! This is a juggernaut hunt!
     <Description>k__BackingField: If you have the Totem, run! If not, hunt the wielder!
     totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
     projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
-    juggernautHealth: 100
-    damagePerHit: 5
+    juggernautLives: 5
     projectileSpeed: 30
     projectileDestroyTime: 3
-    totemDropRadius: 1.5
+    totemDropRadius: 3
     shotCooldown: 0.5
     totalRoundScore: 100
+    lifeGridPrefab: {fileID: 6928619715556353303, guid: e7b437c40a49f0b40a97868d874d96d0, type: 3}
+    lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

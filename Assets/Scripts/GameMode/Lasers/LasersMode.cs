@@ -331,17 +331,11 @@ namespace GameMode.Lasers
         /// </summary>
         private void DestroyAllDiamonds()
         {
-            if (_initialDiamondsNotCollected.Count != Empty)
-            {
-                foreach (var pair in _initialDiamondsNotCollected)
+            foreach (var pair in _initialDiamondsNotCollected)
                     Object.Destroy(pair.Value.gameObject);
-            }
-
-            if (_collectedInitialDiamonds.Count != Empty)
-            {
-                for (int i = 0; i < _collectedInitialDiamonds.Count; i++)
+           
+            for (int i = 0; i < _collectedInitialDiamonds.Count; i++)
                     Object.Destroy(_collectedInitialDiamonds.Dequeue().gameObject);
-            }
 
             _diamondPool?.Clear();
         }
@@ -401,16 +395,7 @@ namespace GameMode.Lasers
         /// </summary>
         private bool IsInArena(Vector3 position)
         {
-            float x = position.x;
-            float y = position.y;
-
-            var currentArena = GameManager.Instance.CurrArena;
-            bool outOfx = x < currentArena.BottomLeft.x ||
-                          x > currentArena.BottomRight.x;
-
-            bool outOfy = y < currentArena.BottomRight.y ||
-                          y > currentArena.TopRight.y;
-            return !outOfx && !outOfy;
+            return !ModeArena.OutOfArena(position);
         }
 
         #endregion

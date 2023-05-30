@@ -21,21 +21,24 @@ namespace GameMode.Juggernaut
 
         private readonly float _projectileDestroyTime;
 
-        private float _shotSpeed;
+        private readonly float _shotSpeed;
         
         // health
-        private float _maxHealth;
+        private readonly float _maxLives;
         
-        private float _curHealth;
-
-        private readonly float _damagePerHit;
+        private float _curLives;
 
         public UnityAction OnTotemDropped;
+        
+        // health ui
+        private readonly JuggernautLifeGrid _juggernautLifeGrid; 
+        
+        private bool _yieldsTotem = false;
 
         #endregion
         
         #region Properties
-        public bool YieldsTotem { get; set; } = false;
+       
 
         public float TotalTimeYieldingTotem { get; set; } = 0f;
 
@@ -48,18 +51,18 @@ namespace GameMode.Juggernaut
 
         #endregion
 
-        public JuggernautPlayerAddOn(ObjectPool<Projectile> projectilePool, float coolDown, float shotSpeed, float projectileDestroyTime
-            , float maxHealth, float damagePerHit, UnityAction totemDroppedAction)
+        public JuggernautPlayerAddOn(ObjectPool<Projectile> projectilePool, float coolDown, float shotSpeed,
+            float projectileDestroyTime, float maxLives, UnityAction totemDroppedAction, 
+            JuggernautLifeGrid playerLifeGrid)
         {
             _projectilePool = projectilePool;
             _coolDown = coolDown;
             _projectileDestroyTime = projectileDestroyTime;
-            _maxHealth = maxHealth;
-            _curHealth = maxHealth;
-            _damagePerHit = damagePerHit;
+            _maxLives = maxLives;
+            _curLives = maxLives;
             _shotSpeed = shotSpeed;
             OnTotemDropped += totemDroppedAction;
-            
+            _juggernautLifeGrid = playerLifeGrid;
         }
 
         public override GameModes GameMode()
@@ -86,7 +89,7 @@ namespace GameMode.Juggernaut
         /// </param>
         private void Shoot(float speed, Vector2 direction, Vector3 position)
         {
-            if (YieldsTotem || !_canShoot) return;
+            if (_yieldsTotem || !_canShoot) return;
            
             var projectile = _projectilePool.Get();
             projectile.gameObject.transform.position = position;
@@ -94,12 +97,24 @@ namespace GameMode.Juggernaut
             velocity *= speed;
             projectile.rigidBody.velocity = velocity;
             _canShoot = false;
+            
             TimeManager.Instance.DelayInvoke(() => _canShoot = true, _coolDown);
             TimeManager.Instance.DelayInvoke(() =>
             {
                 if (projectile.isActiveAndEnabled)
                     _projectilePool.Release(projectile);
             }, _projectileDestroyTime);
+        }
+        
+        private void ReduceHealth()
+        {
+            _curLives -= 1;
+           
+            _juggernautLifeGrid.EliminateLife();
+            
+            if (_curLives <= ZeroHealth)
+                OnTotemDropped.Invoke();
+            
         }
         
         
@@ -114,18 +129,37 @@ namespace GameMode.Juggernaut
         /// </param>
         public void OnHit(Projectile projectile, PlayerController player)
         {
-            if (!YieldsTotem) return;
+            // the player isn't the juggernaut
+            if (!_yieldsTotem) return;
+            
+            Debug.Log("player hit");
+            // the player is juggernaut so we hot a hit.
             
             _projectilePool.Release(projectile);
-            _curHealth -= _damagePerHit;
+            
+            CheckCompatability(player.Addon, GameModes.Juggernaut);
+            ((JuggernautPlayerAddOn) player.Addon).ReduceHealth();
+        }
 
-            if (_curHealth <= ZeroHealth)
+
+
+        public void RemoveTotemFromPlayer()
+        {
+            if (!_yieldsTotem)
             {
-                _curHealth = _maxHealth;
-                OnTotemDropped.Invoke();
+                Debug.LogWarning("player is not holding the totem but you tried to remove it from him.");
+                return;
             }
+            
+            _juggernautLifeGrid.DisableAllLifeGrid();
+            _yieldsTotem = false;
+            _curLives = _maxLives;
+        }
 
-
+        public void AddTotemToPlayer()
+        {
+            _yieldsTotem = true;
+            _juggernautLifeGrid.EnableLifeGrid();
         }
     }
 }

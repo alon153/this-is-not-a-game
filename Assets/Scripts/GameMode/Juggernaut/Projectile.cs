@@ -12,11 +12,7 @@ namespace GameMode.Juggernaut
         public Rigidbody2D rigidBody;
 
         // Start is called before the first frame update
-        private void Start()
-        {
-            //rigidBody = GetComponent<Rigidbody2D>();
-        }
-
+       
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))

@@ -92,7 +92,6 @@ namespace Basics.Player
             
             
             var vel = Rigidbody.velocity;
-            Freeze();
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
             Fall_Inner(shouldRespawn, stun);
@@ -108,7 +107,7 @@ namespace Basics.Player
             Renderer.SetActive(false);
             _fallParticles.Play();
             if (shouldRespawn)
-                TimeManager.Instance.DelayInvoke((() => { Respawn(); }), FallTime);
+                TimeManager.Instance.DelayInvoke((() => { Respawn(true); }), FallTime);
             // _afterFallAnimation = () =>
             // {
             //     Renderer.SetActive(false);

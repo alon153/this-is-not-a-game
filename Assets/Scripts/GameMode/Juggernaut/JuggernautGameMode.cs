@@ -22,9 +22,7 @@ namespace GameMode.Juggernaut
         [SerializeField] private Projectile projectilePrefab;
 
         [Tooltip("how many hits can a player take before dropping the totem")]
-        [SerializeField] private int juggernautHealth = 100;
-
-        [SerializeField] private int damagePerHit = 5;
+        [SerializeField] private int juggernautLives = 5;
 
         [Tooltip("speed given to projectile while shooting")]
         [SerializeField] private float projectileSpeed = 10f;
@@ -36,6 +34,10 @@ namespace GameMode.Juggernaut
         [SerializeField] private float shotCooldown = 0.5f;
 
         [SerializeField] private int totalRoundScore = 100;
+
+        [SerializeField] private JuggernautLifeGrid lifeGridPrefab;
+
+        [SerializeField] private GameObject lifePrefab;
         
         #endregion
 
@@ -61,9 +63,8 @@ namespace GameMode.Juggernaut
             
             _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
                 OnReturnProjectileToPool, OnDestroyProjectile, true);
-            foreach (var player in GameManager.Instance.Players)
-                player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
-                    projectileDestroyTime, juggernautHealth, damagePerHit, OnTotemDropped);
+           
+            SetUpPlayerAddOn();
         }
 
         protected override void InitArena_Inner()
@@ -103,25 +104,52 @@ namespace GameMode.Juggernaut
         
         #region Private Methods
 
+        private void SetUpPlayerAddOn()
+        {
+            foreach (var player in GameManager.Instance.Players)
+            {
+                JuggernautLifeGrid newLifeGrid = null;
+                
+                // find the canvas object in the player
+                foreach (Transform obj in player.transform)
+                {
+                    if (obj.gameObject.CompareTag("PlayerCanvas"))
+                    {
+                        newLifeGrid = Object.Instantiate(lifeGridPrefab, obj.transform, false);
+                        newLifeGrid.SetLifeGrid(juggernautLives, lifePrefab);
+                       
+                        break;
+                    }
+                    
+                }
+                
+                player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
+                    projectileDestroyTime, juggernautLives, OnTotemDropped, newLifeGrid);
+            }
+        }
+
         private void OnTotemPickedUp(PlayerController player)
         {
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
             
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
-            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).YieldsTotem = true;
+            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
             _isAPlayerHoldingTotem = true;
-            Debug.Log("totem was picked up by player: " + player.Index);
+            
         }
 
         private void OnTotemDropped()
         {
             _totem.gameObject.SetActive(true);
             
-            // drop the totem in a random position around player that dropped it. 
-            float angle = Random.Range(0f, Mathf.PI * 2f);
-            _totem.gameObject.transform.position = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) * 
-                                                   Random.Range(0f,totemDropRadius);
+            // remove totem from current player
+            PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
+            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
+            _isAPlayerHoldingTotem = false;
+
+            _totem.gameObject.transform.position = GenerateTotemPosition();
+            
             _currTotemHolder = null;
         }
 
@@ -133,11 +161,27 @@ namespace GameMode.Juggernaut
                 ((JuggernautPlayerAddOn) _currTotemHolder.Addon).TotalTimeYieldingTotem += Time.deltaTime;
             }
         }
+        
+        private Vector3 GenerateTotemPosition()
+        {
+            bool valid = false;
+            var position = new Vector3();
+            while (valid == false)
+            {   
+                // drop the totem in a random position around player that dropped it. 
+                float angle = Random.Range(0f, Mathf.PI * 2f);
+                position = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) *
+                           Random.Range(0f, totemDropRadius);
+
+                valid = !ModeArena.OutOfArena(position);
+
+            }
+            return position;
+        }
 
         #endregion
         
-        #region Public Methods
-
+        #region Projectile Pooling
         private Projectile CreateProjectile()
         {
             var projectile = Object.Instantiate(projectilePrefab);

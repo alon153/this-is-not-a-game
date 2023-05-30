@@ -15,6 +15,7 @@ TagManager:
   - Lasers
   - Treasure
   - RingTrigger
+  - PlayerCanvas
   layers:
   - Default
   - TransparentFX
