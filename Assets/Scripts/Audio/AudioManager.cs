@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
 using Audio;
 using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
+using Managers;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
@@ -23,6 +26,7 @@ public class AudioManager : MonoBehaviour
     #region Non-Serialized Fields
 
     private static AudioManager _instance;
+    private HashSet<IOnBeatListener> _beatListeners = new();
 
     private List<EventInstance> _instances = new();
     private EventInstance _musicEventInstance;
@@ -33,11 +37,13 @@ public class AudioManager : MonoBehaviour
     private Bus _musicBus;
     private Bus _sfxBus;
 
+    private EVENT_CALLBACK cb;
+
     #endregion
 
     #region Properties
 
-    public static string PrecisionParameter { get; private set; } = "PrecisionMP";
+    public static float Tempo { get; private set; }
 
     #endregion
 
@@ -71,6 +77,20 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public static void RegisterBeatListener(IOnBeatListener l)
+    {
+        if(_instance._beatListeners.Contains(l))
+            return;
+        _instance._beatListeners.Add(l);
+    }
+    
+    public static void UnRegisterBeatListener(IOnBeatListener l)
+    {
+        if(!_instance._beatListeners.Contains(l))
+            return;
+        _instance._beatListeners.Remove(l);
+    }
 
     public static void PlayOneShot(SoundType type, int val)
     {
@@ -111,51 +131,14 @@ public class AudioManager : MonoBehaviour
     }
 
     #endregion
-    
-    // public class MarkerDemo : MonoBehaviour 
-    // {
-    //     FMOD.Studio.EventInstance instance;
-    //     FMOD.Studio.EVENT_CALLBACK cb;
-    //
-    //     void Start()
-    //     {
-    //         instance = FMOD_StudioSystem.instance.GetEvent("event:/Music/Complex/Situation_Oriental");
-    //
-    //
-    //         cb = new FMOD.Studio.EVENT_CALLBACK(StudioEventCallback);
-    //         instance.setCallback(cb, FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER | FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
-    //         instance.start();
-    //     }
-    //
-    //     public FMOD.RESULT StudioEventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr eventInstance, IntPtr parameters)
-    //     {
-    //         if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_MARKER)
-    //         {
-    //             FMOD.Studio.TIMELINE_MARKER_PROPERTIES marker = (FMOD.Studio.TIMELINE_MARKER_PROPERTIES)Marshal.PtrToStructure(parameters, typeof(FMOD.Studio.TIMELINE_MARKER_PROPERTIES));
-    //             IntPtr namePtr = marker.name;
-    //             int nameLen = 0;
-    //             while (Marshal.ReadByte(namePtr, nameLen) != 0) ++nameLen;
-    //             byte[] buffer = new byte[nameLen];
-    //             Marshal.Copy(namePtr, buffer, 0, buffer.Length);
-    //             string name = Encoding.UTF8.GetString(buffer, 0, nameLen);
-    //             if (name == "HIGH")
-    //             {
-    //                 UnityEngine.Debug.Log("Reached high intensity marker");
-    //             }
-    //         }
-    //         if (type == FMOD.Studio.EVENT_CALLBACK_TYPE.TIMELINE_BEAT)
-    //         {
-    //             FMOD.Studio.TIMELINE_BEAT_PROPERTIES beat = (FMOD.Studio.TIMELINE_BEAT_PROPERTIES)Marshal.PtrToStructure(parameters, typeof(FMOD.Studio.TIMELINE_BEAT_PROPERTIES));
-    //         }
-    //         return FMOD.RESULT.OK;
-    //     }
-    // }
 
     #region Private Methods
 
     private void InitializeMusicEventInstance(EventReference reference)
     {
         _musicEventInstance = CreateEventInstance_Inner(reference);
+        cb = new FMOD.Studio.EVENT_CALLBACK(OnBeatCallback);
+        _musicEventInstance.setCallback(cb, EVENT_CALLBACK_TYPE.NESTED_TIMELINE_BEAT);
         _musicEventInstance.start();
     }
 
@@ -175,6 +158,20 @@ public class AudioManager : MonoBehaviour
         }
     }
     
+    public FMOD.RESULT OnBeatCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr eventInstance, IntPtr parameters)
+    {
+        if (type == EVENT_CALLBACK_TYPE.NESTED_TIMELINE_BEAT)
+        {
+            TIMELINE_BEAT_PROPERTIES beat = ((TIMELINE_NESTED_BEAT_PROPERTIES)Marshal.PtrToStructure(parameters, typeof(TIMELINE_NESTED_BEAT_PROPERTIES))).properties;
+            Tempo = beat.tempo;
+            foreach (var l in _beatListeners)
+            {
+                l.OnBeat(beat.beat);
+            }
+        }
+        return FMOD.RESULT.OK;
+    }
+
     #endregion
 }
 

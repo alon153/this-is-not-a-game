@@ -14,6 +14,7 @@ TagManager:
   - DiamondPos
   - Lasers
   - Treasure
+  - RingTrigger
   layers:
   - Default
   - TransparentFX
@@ -54,6 +55,9 @@ TagManager:
   - name: Arena
     uniqueID: 3800773413
     locked: 0
+  - name: Panel
+    uniqueID: 1473177393
+    locked: 0
   - name: Splash
     uniqueID: 1089671697
     locked: 0
@@ -68,7 +72,4 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 583492459
-    locked: 0
-  - name: Points
-    uniqueID: 3730049909
     locked: 0

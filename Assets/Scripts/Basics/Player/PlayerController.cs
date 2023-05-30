@@ -281,22 +281,12 @@ namespace Basics.Player
             {
                 case InputActionPhase.Started:
                     if (Interactable != null)
-                    {
                         Interactable.OnInteract(this);
-                        if (Interactable)
-                        {
-                            if (!Interactable.IsHold)
-                                Interactable = null;
-                        }
-                    }
 
                     break;
                 case InputActionPhase.Canceled:
                     if (Interactable != null)
-                    {
                         Interactable.OnInteract(this, false);
-                        // Interactable = null;
-                    }
 
                     break;
             }

@@ -9,5 +9,6 @@
         Boats,
         Lasers,
         Island,
+        Rhythm,
     }
 }

@@ -12,7 +12,7 @@ namespace Managers
     {
 
         #region Serialized Fields
-
+        
         [Header("General Texts")]
         [SerializeField] private TextMeshProUGUI _centerText;
         

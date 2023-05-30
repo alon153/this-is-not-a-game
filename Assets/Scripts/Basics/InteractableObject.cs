@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Basics.Player;
-using Managers;
 using UnityEngine;
 
-namespace Utilities.Interfaces
+namespace Basics
 {
     public abstract class InteractableObject : MonoBehaviour
     {

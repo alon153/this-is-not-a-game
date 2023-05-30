@@ -88,3 +88,7 @@ MonoBehaviour:
     _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
     _vibrationRadius: 2
     _vibrationMaxForce: 0.1
+  _rhythmMode:
+    <ModeArena>k__BackingField: {fileID: 9220391167725276860, guid: 62801317b7e5c204293fc9d3f7f66c41, type: 3}
+    <Name>k__BackingField: This is not a game, this is a beat
+    <Description>k__BackingField: Press the pads at the right time!

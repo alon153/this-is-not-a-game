@@ -67,7 +67,7 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
     <Description>k__BackingField: Find the hidden treasure!
-    _numTreasures: 1
+    _numTreasures: 7
     _treasureValues:
     - score: 0
       count: 3
@@ -88,3 +88,7 @@ MonoBehaviour:
     _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
     _vibrationRadius: 2
     _vibrationMaxForce: 0.1
+  _rhythmMode:
+    <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
+    <Name>k__BackingField: This is not a game this is a beat!
+    <Description>k__BackingField: Press the pads on beat!

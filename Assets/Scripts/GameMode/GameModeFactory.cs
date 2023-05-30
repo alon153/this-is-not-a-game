@@ -7,6 +7,7 @@ using GameMode.Lasers;
 using GameMode.Island;
 using GameMode.Modes;
 using GameMode.Pool;
+using GameMode.Rhythm;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,8 @@ namespace GameMode
         [SerializeField] private LasersMode _lasersMode;
 
         [SerializeField] private IslandMode _islandMode;
+        
+        [SerializeField] private RhythmMode _rhythmMode;
 
         #endregion
         
@@ -82,6 +85,7 @@ namespace GameMode
                 GameModes.Boats => _boatsInRiverMode,
                 GameModes.Lasers => _lasersMode,
                 GameModes.Island => _islandMode,
+                GameModes.Rhythm => _rhythmMode,
                 _ => null
             };
         }

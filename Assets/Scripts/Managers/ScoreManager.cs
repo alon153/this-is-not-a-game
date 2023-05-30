@@ -87,7 +87,7 @@ namespace Managers
                         PlayerController player = GameManager.Instance.Players[playerId];
                         FloatingPoints fp = Instantiate(_floatingPointsPrefab, player.transform.position, Quaternion.identity);
                         fp.Color = player.Color;
-                        fp.Text = $"+{score}";
+                        fp.Text = score >= 0 ? $"+{score}" : $"{score}";
                         fp.Float();
                     }
                     break;

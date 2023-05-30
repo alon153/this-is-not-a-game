@@ -11,8 +11,7 @@ namespace Basics
     public class Arena : MonoBehaviour
     {
         [SerializeField] private LayerMask _respawnBlockers;
-        [SerializeField] private SpriteMask _spriteMask;
-
+        
         public UnityAction<int> OnPlayerDisqualified;
         public SpriteRenderer Renderer { get; private set; }
         public Vector3 Dimensions => new Vector3(transform.lossyScale.x, transform.lossyScale.y, 0);
@@ -29,8 +28,6 @@ namespace Basics
         private void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();
-            _spriteMask = GetComponent<SpriteMask>();
-            _spriteMask.sprite = Renderer.sprite;
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other)
