@@ -326,8 +326,6 @@ namespace Basics.Player
 
             if (timed)
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
-            else
-                UnFreeze();
 
             if (stunned)
                 _txtStun.enabled = true;

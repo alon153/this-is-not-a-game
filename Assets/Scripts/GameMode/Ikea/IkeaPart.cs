@@ -174,6 +174,8 @@ namespace GameMode.Ikea
                 transform.rotation = Quaternion.Euler(0,0,0);
                 Holder = playerTrans;
                 ((IkeaPlayerAddon) player.Addon).Part = this;
+
+                CanInteract = false;
             }
         }
 

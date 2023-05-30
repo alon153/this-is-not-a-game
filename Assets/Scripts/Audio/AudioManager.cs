@@ -156,6 +156,9 @@ public class AudioManager : MonoBehaviour
             instance.stop(STOP_MODE.IMMEDIATE);
             instance.release();
         }
+
+        _musicEventInstance.stop(STOP_MODE.IMMEDIATE);
+        _musicEventInstance.release();
     }
     
     public FMOD.RESULT OnBeatCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr eventInstance, IntPtr parameters)

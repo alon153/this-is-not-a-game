@@ -102,6 +102,8 @@ namespace GameMode.Island
             float score = Mathf.Max(Score, 0);
             ((IslandPlayerAddon) _digger.Addon).Score += score; 
             ScoreManager.Instance.SetPlayerScore(_digger.Index, score);
+            _digger.Gamepad?.SetMotorSpeeds(0,0);
+            _digger.UnFreeze();
             
             _digger = null;
             if (Pool != null)

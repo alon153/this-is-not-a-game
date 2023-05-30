@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Basics.Player;
 using UnityEngine;
 
@@ -9,13 +10,30 @@ namespace Basics
         #region Non-Serializable Fields
 
         private bool _showingPrompt = false;
-        private readonly HashSet<int> _playerTriggers = new HashSet<int>();
+        private readonly Dictionary<int, PlayerController> _playerTriggers = new();
+        private bool _canInteract = true;
 
         #endregion
 
         #region Properties
 
-        public bool CanInteract { get; protected set; } = true;
+        public bool CanInteract
+        {
+            get => _canInteract;
+            protected set
+            {
+                if (_canInteract != value)
+                {
+                    foreach (var id in _playerTriggers.Keys)
+                    {
+                        _playerTriggers[id].Interactable = value ? this : null;
+                    }
+                }
+
+                _canInteract = value;
+            }
+        }
+
         public bool IsHold { get; protected set; } = false;
 
         #endregion
@@ -24,9 +42,13 @@ namespace Basics
 
         protected virtual void Update()
         {
-            if (_showingPrompt && (!CanInteract || _playerTriggers.Count == 0))
+            var playersCanInteract = _playerTriggers.Values.Any(
+                (player => player.Interactable != null
+                           && player.Interactable.GetInstanceID() == GetInstanceID())
+            );
+            if (_showingPrompt && (!CanInteract || !playersCanInteract))
                 TogglePrompt(false);
-            else if (!_showingPrompt && (CanInteract && _playerTriggers.Count > 0))
+            else if (!_showingPrompt && (CanInteract && playersCanInteract))
                 TogglePrompt(true);
         }
 
@@ -35,21 +57,18 @@ namespace Basics
             if (other.gameObject.CompareTag("Player"))
             {
                 PlayerController player = other.GetComponent<PlayerController>();
-                if (_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                if (!_playerTriggers.ContainsKey(other.gameObject.GetInstanceID()))
                 {
-                    if (!CanPlayerInteract(player))
-                    {
-                        _playerTriggers.Remove(other.gameObject.GetInstanceID());
-                    }
-
-                    return;
+                    _playerTriggers[other.gameObject.GetInstanceID()] = player;
                 }
 
-                if (player.Interactable != null || !CanPlayerInteract(player))
-                    return;
+                if (player.Interactable == null)
+                    player.Interactable = this;
 
-                _playerTriggers.Add(other.gameObject.GetInstanceID());
-                player.Interactable = this;
+                if (player.Interactable != null
+                    && player.Interactable.GetInstanceID() == GetInstanceID()
+                    && (!CanInteract || !CanPlayerInteract(player)))
+                    player.Interactable = null;
             }
         }
 
@@ -57,7 +76,7 @@ namespace Basics
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if (!_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                if (!_playerTriggers.ContainsKey(other.gameObject.GetInstanceID()))
                     return;
 
                 _playerTriggers.Remove(other.gameObject.GetInstanceID());
