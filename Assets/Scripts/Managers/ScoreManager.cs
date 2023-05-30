@@ -1,11 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Basics.Player;
+using GameMode;
+using UnityEngine;
 using Utilities;
 
 namespace Managers
 {
     public class ScoreManager : SingletonPersistent<ScoreManager>
     {
+
+        #region Serialized Fields
+
+        [SerializeField] private FloatingPoints _floatingPointsPrefab;        
+
+        #endregion
         
         #region Non-Serialized Fields
         
@@ -67,12 +76,20 @@ namespace Managers
         /// <param name="shouldAdd">
         /// if true, the points will be added to score. if false, the points will be subtracted from player score.   
         /// </param>
-        public void SetPlayerScore(int playerId, float score, bool shouldAdd=true)
+        public void SetPlayerScore(int playerId, float score, bool shouldAdd=true, bool showFloat=true)
         {
             switch (shouldAdd)
             {
                 case true:
                     _playerScores[playerId] += score;
+                    if (showFloat)
+                    {
+                        PlayerController player = GameManager.Instance.Players[playerId];
+                        FloatingPoints fp = Instantiate(_floatingPointsPrefab, player.transform.position, Quaternion.identity);
+                        fp.Color = player.Color;
+                        fp.Text = score >= 0 ? $"+{score}" : $"{score}";
+                        fp.Float();
+                    }
                     break;
                 
                 case false:
@@ -92,11 +109,11 @@ namespace Managers
         /// <param name="shouldAdd">
         /// if true, the points will be added to score. if false, the points will be subtracted from player score.
         /// </param>
-        public void SetPlayerScores(Dictionary<int,float> scores, bool shouldAdd = true)
+        public void SetPlayerScores(Dictionary<int,float> scores, bool shouldAdd = true, bool showFloat = true)
         {
             foreach (var pair in scores)
             {
-                SetPlayerScore(pair.Key, pair.Value, shouldAdd);
+                SetPlayerScore(pair.Key, pair.Value, shouldAdd, showFloat);
             }
         }
 

@@ -13,6 +13,8 @@ TagManager:
   - WaterObstacle
   - DiamondPos
   - Lasers
+  - Treasure
+  - RingTrigger
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,7 @@ TagManager:
   - Arena
   - Object
   - Player
-  - 
+  - Hole
   - 
   - 
   - 
@@ -52,6 +54,9 @@ TagManager:
     locked: 0
   - name: Arena
     uniqueID: 3800773413
+    locked: 0
+  - name: Panel
+    uniqueID: 1473177393
     locked: 0
   - name: Splash
     uniqueID: 1089671697

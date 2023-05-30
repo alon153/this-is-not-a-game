@@ -64,7 +64,7 @@ FMOD/Metadata/ProfilerSession
 UserSettings/AndroidLogcatSettings.asset
 
 .idea/.idea.this-is-not-a-game/.idea/workspace.xml
-UserSettings/Layouts/default-2021.dwlt
+UserSettings/
 ProjectSettings/ProjectSettings.asset
 ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json
 Assets/Plugins/FMOD/platforms/win/lib/x86_64/fmodstudioL.dll.meta

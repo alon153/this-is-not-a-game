@@ -1,23 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Basics.Player;
-using Managers;
 using UnityEngine;
 
-namespace Utilities.Interfaces
+namespace Basics
 {
     public abstract class InteractableObject : MonoBehaviour
     {
         #region Non-Serializable Fields
 
         private bool _showingPrompt = false;
-        private readonly HashSet<int> _playerTriggers = new HashSet<int>();
+        private readonly Dictionary<int, PlayerController> _playerTriggers = new();
+        private bool _canInteract = true;
 
         #endregion
 
         #region Properties
 
-        public bool CanInteract { get; protected set; } = true;
+        public bool CanInteract
+        {
+            get => _canInteract;
+            protected set
+            {
+                if (_canInteract != value)
+                {
+                    foreach (var id in _playerTriggers.Keys)
+                    {
+                        _playerTriggers[id].Interactable = value ? this : null;
+                    }
+                }
+
+                _canInteract = value;
+            }
+        }
+
         public bool IsHold { get; protected set; } = false;
 
         #endregion
@@ -26,9 +42,13 @@ namespace Utilities.Interfaces
 
         protected virtual void Update()
         {
-            if(_showingPrompt && (!CanInteract || _playerTriggers.Count == 0))
+            var playersCanInteract = _playerTriggers.Values.Any(
+                (player => player.Interactable != null
+                           && player.Interactable.GetInstanceID() == GetInstanceID())
+            );
+            if (_showingPrompt && (!CanInteract || !playersCanInteract))
                 TogglePrompt(false);
-            else if(!_showingPrompt && (CanInteract && _playerTriggers.Count > 0))
+            else if (!_showingPrompt && (CanInteract && playersCanInteract))
                 TogglePrompt(true);
         }
 
@@ -37,20 +57,18 @@ namespace Utilities.Interfaces
             if (other.gameObject.CompareTag("Player"))
             {
                 PlayerController player = other.GetComponent<PlayerController>();
-                if (_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                if (!_playerTriggers.ContainsKey(other.gameObject.GetInstanceID()))
                 {
-                    if (!CanPlayerInteract(player))
-                    {
-                        _playerTriggers.Remove(other.gameObject.GetInstanceID());
-                    }
-                    return;
+                    _playerTriggers[other.gameObject.GetInstanceID()] = player;
                 }
-                
-                if(player.Interactable != null || !CanPlayerInteract(player))
-                    return;
 
-                _playerTriggers.Add(other.gameObject.GetInstanceID());
-                player.Interactable = this;
+                if (player.Interactable == null)
+                    player.Interactable = this;
+
+                if (player.Interactable != null
+                    && player.Interactable.GetInstanceID() == GetInstanceID()
+                    && (!CanInteract || !CanPlayerInteract(player)))
+                    player.Interactable = null;
             }
         }
 
@@ -58,11 +76,11 @@ namespace Utilities.Interfaces
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                if(!_playerTriggers.Contains(other.gameObject.GetInstanceID()))
+                if (!_playerTriggers.ContainsKey(other.gameObject.GetInstanceID()))
                     return;
 
                 _playerTriggers.Remove(other.gameObject.GetInstanceID());
-                
+
                 PlayerController player = other.GetComponent<PlayerController>();
                 if (player.Interactable != null && player.Interactable.GetInstanceID() == GetInstanceID())
                     player.Interactable = null;
@@ -73,7 +91,7 @@ namespace Utilities.Interfaces
 
         #region Public Methods
 
-        public void OnInteract(PlayerController player, bool pressed=true)
+        public void OnInteract(PlayerController player, bool pressed = true)
         {
             if (CanInteract && CanPlayerInteract(player))
             {
@@ -93,12 +111,14 @@ namespace Utilities.Interfaces
             }
         }
 
-        protected virtual void OnStopInteract_Inner(PlayerController player) { }
+        protected virtual void OnStopInteract_Inner(PlayerController player)
+        {
+        }
 
         #endregion
-        
+
         #region Abstract Methods
-        
+
         protected abstract void TogglePrompt_Inner(bool showPrompt);
 
         protected abstract void OnInteract_Inner(PlayerController player);

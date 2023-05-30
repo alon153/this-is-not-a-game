@@ -1,6 +1,7 @@
 ﻿using System;
 using Basics;
 using Basics.Player;
+using Managers;
 using UnityEngine;
 using UnityEngine.Pool;
 using Utilities.Interfaces;
@@ -73,8 +74,9 @@ namespace GameMode.Island
             if (_digger != null && _digger.Interactable.gameObject.GetInstanceID() == gameObject.GetInstanceID())
             {
                 _digger.Interactable = null;
-                _digger.Gamepad.SetMotorSpeeds(0,0);
+                _digger.Gamepad?.SetMotorSpeeds(0,0);
                 _digger.UnFreeze();
+                _digger = null;
             }
             CanInteract = false;
             gameObject.SetActive(false);
@@ -97,8 +99,13 @@ namespace GameMode.Island
                 return;
             
             PlayerAddon.CheckCompatability(_digger.Addon, GameModes.Island);
-            ((IslandPlayerAddon) _digger.Addon).Score += Mathf.Max(Score, 0);
-            print($"{((IslandPlayerAddon) _digger.Addon).Score},{Score}");
+            float score = Mathf.Max(Score, 0);
+            ((IslandPlayerAddon) _digger.Addon).Score += score; 
+            ScoreManager.Instance.SetPlayerScore(_digger.Index, score);
+            _digger.Gamepad?.SetMotorSpeeds(0,0);
+            _digger.UnFreeze();
+            
+            _digger = null;
             if (Pool != null)
             {
                 Pool.Release(this);

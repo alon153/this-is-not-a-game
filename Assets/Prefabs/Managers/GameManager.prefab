@@ -57,10 +57,11 @@ MonoBehaviour:
     _bloomColor: {r: 0.3019608, g: 0.29315972, b: 0.086274505, a: 1}
   _roundLength: 30
   _numRounds: 10
+  <Zap>k__BackingField: 1
   _gameModeFactory: {fileID: 11400000, guid: 3ef258ded0f37ef4d9df8858d3f7d37c, type: 2}
   _isSingleMode: 0
-  _singleMode: 1
-  _modes: 010000000500000002000000040000000300000006000000
+  _singleMode: 2
+  _modes: 010000000200000003000000050000000400000006000000
   _isGameModeByOrder: 0
 --- !u!114 &5528608369377680934
 MonoBehaviour:

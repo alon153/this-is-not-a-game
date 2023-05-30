@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Utilities;
 
 namespace Managers
@@ -11,8 +12,6 @@ namespace Managers
     {
 
         #region Serialized Fields
-
-        [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         
         [Header("General Texts")]
         [SerializeField] private TextMeshProUGUI _centerText;
@@ -24,6 +23,10 @@ namespace Managers
         [Header("Game Description")]
         [SerializeField] private TextMeshProUGUI _gameName;
         [SerializeField] private TextMeshProUGUI _gameDesc;
+        
+        [Header ("Misc")]
+        [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
+        [SerializeField] private Image _flash;
 
         #endregion
         
@@ -62,7 +65,9 @@ namespace Managers
         }
         
         #region Public Methods
-        
+
+        public void ToggleFlash(bool show) => _flash.gameObject.SetActive(show);
+
         /// <summary>
         /// Called when a new player is registered to game. Function attributes a text display to player score.
         /// </summary>

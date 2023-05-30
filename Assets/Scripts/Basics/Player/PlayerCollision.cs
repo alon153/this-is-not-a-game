@@ -130,8 +130,6 @@ namespace Basics.Player
         /// </param>
         private void PlayerByPlayerKnockBack(GameObject player, bool mutualCollision)
         {
-            
-            Debug.Log("player: " + this.Index + "is mutual:" + mutualCollision);
             PlayerController otherPlayerController = player.GetComponent<PlayerController>();   
             Rigidbody2D otherPlayerRb = otherPlayerController.Rigidbody;
 

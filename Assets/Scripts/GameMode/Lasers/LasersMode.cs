@@ -10,53 +10,52 @@ using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace GameMode.Lasers
-{   
+{
     [Serializable]
     public class LasersMode : GameModeBase
     {
         #region Serialized Fields
-        
-        [Header("\nLasers")]
-        [Tooltip("When hit by laser, how much time the player freezes?")]
-        [SerializeField] private float freezeTime = 2;
-        
-        [Tooltip("When hit by laser, how much force is applied")]
-        [SerializeField] private float laserKnockBackForce = 1.5f;
 
-        [Header("\nDiamonds")]
-        [SerializeField] private DiamondCollectible[] diamondPrefabs;
-        
-        [Tooltip("How many (regular) diamonds will be spawned initially")]
-        [Range(10,30)]
-        [SerializeField] private int diamondCount = 12;
-        
+        [Header("\nLasers")] [Tooltip("When hit by laser, how much time the player freezes?")] [SerializeField]
+        private float freezeTime = 2;
+
+        [Tooltip("When hit by laser, how much force is applied")] [SerializeField]
+        private float laserKnockBackForce = 1.5f;
+
+        [Header("\nDiamonds")] [SerializeField]
+        private DiamondCollectible[] diamondPrefabs;
+
+        [Tooltip("How many (regular) diamonds will be spawned initially")] [Range(10, 30)] [SerializeField]
+        private int diamondCount = 12;
+
         [Tooltip("check this box if you want more diamonds to continue spawning after all diamonds are collected")]
-        [SerializeField] private bool shouldContinueSpawn = true;
-        
-        [Tooltip("timer for new diamond to be summoned")]
-        [SerializeField] private float timeToSpawnNewDiamond = 1;
+        [SerializeField]
+        private bool shouldContinueSpawn = true;
 
-        [Tooltip("How many diamonds will the player drop when hitting a laser?")]
-        [SerializeField] private int diamondsDropOnLaser = 2;
-        
-        [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")]
-        [SerializeField] private float onHitSpreadRadius = 3f;
+        [Tooltip("timer for new diamond to be summoned")] [SerializeField]
+        private float timeToSpawnNewDiamond = 1;
+
+        [Tooltip("How many diamonds will the player drop when hitting a laser?")] [SerializeField]
+        private int diamondsDropOnLaser = 2;
+
+        [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")] [SerializeField]
+        private float onHitSpreadRadius = 3f;
 
         #endregion
 
         #region Non-Serialzed Fields
-        
+
         // this dictionary is holding reference for newly created diamonds which have not yet been collected. 
-        private Dictionary< int ,DiamondCollectible> _initialDiamondsNotCollected = 
+        private Dictionary<int, DiamondCollectible> _initialDiamondsNotCollected =
             new Dictionary<int, DiamondCollectible>();
-        
+
         // this queue is for diamonds initially created and then collected. they will go here to be used for pooling 
         // later.
         private Queue<DiamondCollectible> _collectedInitialDiamonds = new Queue<DiamondCollectible>();
-        
+
         // this list contains the locations of diamonds spawned after all start diamonds has been collected.
         private List<Vector3> _postCollectionDiamondPos = new List<Vector3>();
-        
+
         private ObjectPool<DiamondCollectible> _diamondPool = null;
 
         private bool _allDiamondsCollected;
@@ -72,11 +71,11 @@ namespace GameMode.Lasers
         private Vector3? _playerPosition;
 
         #endregion
-        
+
         #region Properties
 
         #endregion
-        
+
         #region Constants
 
         private const int MinIndex = 0;
@@ -88,29 +87,28 @@ namespace GameMode.Lasers
         private const int None = 0;
 
         #endregion
-        
+
         #region GameModeBase Methods
-        
+
         protected override void InitRound_Inner()
         {
             _diamondsCollected = None;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = new LaserPlayerAddon();
-            
+
             GameManager.Instance.GameModeUpdateAction += LaserModeUpdate;
             _allDiamondsCollected = false;
-
         }
 
         protected override void InitArena_Inner()
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
-            
+
             // get all diamond positions and then started creating diamonds in the locations
             foreach (Transform child in arena.transform)
             {
                 if (child.CompareTag("DiamondPos"))
-                {   
+                {
                     var idx = Random.Range(MinIndex, diamondPrefabs.Length);
                     DiamondCollectible newDiamond = Object.Instantiate(diamondPrefabs[idx], child.transform.position,
                         quaternion.identity);
@@ -125,8 +123,7 @@ namespace GameMode.Lasers
                     {
                         laserObj.GetComponent<LaserBeam>().OnLaserHit += OnPlayerHitByLaser;
                         laserObj.gameObject.SetActive(true);
-                    } 
-                        
+                    }
                 }
             }
 
@@ -140,7 +137,7 @@ namespace GameMode.Lasers
             GameManager.Instance.GameModeUpdateAction -= LaserModeUpdate;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = null;
-            
+
             Object.Destroy(_laserParent);
         }
 
@@ -148,25 +145,26 @@ namespace GameMode.Lasers
         {
             _inRound = false;
         }
-        
+
 
         protected override void EndRound_Inner()
         {
             GameManager.Instance.FreezePlayers(timed: false);
+            ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
         }
 
         protected override Dictionary<int, float> CalculateScore_Inner()
         {
             Dictionary<int, float> scores = new Dictionary<int, float>();
             foreach (var player in GameManager.Instance.Players)
-            {   
+            {
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
-                scores.Add(player.Index, ((LaserPlayerAddon) player.Addon).DiamondsCollected);              
+                scores.Add(player.Index, ((LaserPlayerAddon) player.Addon).DiamondsCollected);
             }
 
             return scores;
         }
-        
+
         #endregion
 
         #region Diamond Pooling
@@ -190,12 +188,12 @@ namespace GameMode.Lasers
         private void OnTakeDiamondFromPool(DiamondCollectible diamond)
         {
             // spawning diamonds in random locations
-            diamond.transform.position =  GetRandomArenaPosition();
+            diamond.transform.position = GetRandomArenaPosition();
             diamond.gameObject.SetActive(true);
         }
 
         private void OnReturnDiamondToPool(DiamondCollectible diamond)
-        {   
+        {
             // remove the location from active locations
             if (_allDiamondsCollected)
                 RemoveFromPositions(diamond.transform.position);
@@ -207,14 +205,14 @@ namespace GameMode.Lasers
         {
             if (_allDiamondsCollected)
                 RemoveFromPositions(diamond.transform.position);
-            
+
             Object.Destroy(diamond.gameObject);
         }
 
         #endregion
-        
+
         #region Private Methods
-        
+
         /// <summary>
         /// Removes a given position from the list that contains location of diamonds
         /// that are currently on the field.
@@ -232,8 +230,8 @@ namespace GameMode.Lasers
                     break;
                 }
             }
-        }        
-        
+        }
+
         /// <summary>
         /// method returns a randomly generated spawn location for a new diamond from the
         /// diamond pool.
@@ -247,18 +245,18 @@ namespace GameMode.Lasers
             Vector3 randomPosition = Vector3.zero;
             bool locationValid = false;
             while (!locationValid)
-            {   
+            {
                 // generate random position in a radius from player.
                 if (_playerPosition != null)
-                { 
-                   float angle = Random.Range(0f, Mathf.PI * 2f);
-                   randomPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) * 
-                                  Random.Range(0f,onHitSpreadRadius);
-                   
-                   // check that new position is in arena
-                   if (!IsInArena(randomPosition)) break;
+                {
+                    float angle = Random.Range(0f, Mathf.PI * 2f);
+                    randomPosition = new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1) *
+                                     Random.Range(0f, onHitSpreadRadius);
+
+                    // check that new position is in arena
+                    if (!IsInArena(randomPosition)) break;
                 }
-                
+
                 // generate a position in random location.
                 else
                 {
@@ -275,18 +273,17 @@ namespace GameMode.Lasers
 
                 locationValid = true;
             }
-            
+
             _postCollectionDiamondPos.Add(randomPosition);
             return randomPosition;
         }
-        
+
         /// <summary>
         /// Method serves as this game mode's update. it will be called in the game manager's update while this
         /// mode is active.
         /// </summary>
         private void LaserModeUpdate()
-        {   
-           
+        {
             if (!_allDiamondsCollected || !_inRound) return;
             _diamondSpawnTimer += Time.deltaTime;
             if (_diamondSpawnTimer >= timeToSpawnNewDiamond)
@@ -295,7 +292,7 @@ namespace GameMode.Lasers
                 _diamondPool.Get();
             }
         }
-        
+
         /// <summary>
         /// method is called as an invoked event for when a diamond is picked up.
         /// if the diamond is in the pool it returns it to the diamond pool. otherwise
@@ -306,26 +303,19 @@ namespace GameMode.Lasers
         /// the diamond that was picked up and invoked the event. 
         /// </param>
         private void DiamondPickedUp(DiamondCollectible diamondPicked)
-        {   
-            
+        {
             // it is from the pool so it needs to go back.
             if (_allDiamondsCollected)
-            {
-                Debug.Log("picked up from pool");
                 _diamondPool.Release(diamondPicked);
-            }
 
             else
-            {   
-                
+            {
                 diamondPicked.gameObject.SetActive(false);
                 _initialDiamondsNotCollected.Remove(diamondPicked.GetInstanceID());
                 _collectedInitialDiamonds.Enqueue(diamondPicked);
                 _diamondsCollected++;
-                Debug.Log("pool no set up yet, diamonds collected: " + _diamondsCollected);
                 if (diamondCount == _diamondsCollected)
                 {
-                    Debug.Log("all initial diamonds collected");
                     // all initial diamonds collected so instantiate the pool
                     if (shouldContinueSpawn) _allDiamondsCollected = true;
                     _diamondPool = new ObjectPool<DiamondCollectible>(CreateDiamond, OnTakeDiamondFromPool,
@@ -333,7 +323,7 @@ namespace GameMode.Lasers
                 }
             }
         }
-        
+
         /// <summary>
         /// Method will be called when clearing a round.
         /// it will iterate through all the databases of this class that contains
@@ -355,25 +345,25 @@ namespace GameMode.Lasers
 
             _diamondPool?.Clear();
         }
-        
+
         /// <summary>
         /// method will be invoked as an event from the laser object.
         /// will freeze the player and remove diamonds.
         /// </summary>
         /// <param name="player"></param>
         private void OnPlayerHitByLaser(PlayerController player)
-        {   
-            
+        {
             // adjust diamonds that need to reduce. 
             PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
-            int diamondsToDrop = diamondsDropOnLaser > ((LaserPlayerAddon) player.Addon).DiamondsCollected ?
-                ((LaserPlayerAddon) player.Addon).DiamondsCollected : diamondsDropOnLaser;
+            int diamondsToDrop = diamondsDropOnLaser > ((LaserPlayerAddon) player.Addon).DiamondsCollected
+                ? ((LaserPlayerAddon) player.Addon).DiamondsCollected
+                : diamondsDropOnLaser;
 
             // reduce diamonds from the player and spawn them on field.
             if (diamondsToDrop > None)
             {
                 _playerPosition = player.transform.position;
-               
+
                 // take from object pool
                 if (_allDiamondsCollected)
                 {
@@ -383,7 +373,7 @@ namespace GameMode.Lasers
 
                 // diamond pool is not yet set so take from queue.
                 else
-                {   
+                {
                     for (int i = 0; i < diamondsToDrop; i++)
                     {
                         var diamond = _collectedInitialDiamonds.Dequeue();
@@ -392,19 +382,19 @@ namespace GameMode.Lasers
                         diamond.gameObject.SetActive(true);
                     }
                 }
+
                 _playerPosition = null;
-                
+
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
                 ((LaserPlayerAddon) player.Addon).DiamondsCollected -= diamondsToDrop;
             }
-            
+
             // save current velocity since it will be zeroed by freeze().
             Vector2 velocityBeforeFreeze = -player.Rigidbody.velocity;
             player.Freeze(true, freezeTime, true);
             player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
-           
         }
-        
+
         /// <summary>
         /// gets a position and returns true if it's in the game arena,
         /// false otherwise. 
@@ -413,7 +403,7 @@ namespace GameMode.Lasers
         {
             float x = position.x;
             float y = position.y;
-            
+
             var currentArena = GameManager.Instance.CurrArena;
             bool outOfx = x < currentArena.BottomLeft.x ||
                           x > currentArena.BottomRight.x;
@@ -422,6 +412,7 @@ namespace GameMode.Lasers
                           y > currentArena.TopRight.y;
             return !outOfx && !outOfy;
         }
+
         #endregion
     }
 }

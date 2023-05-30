@@ -71,9 +71,9 @@ namespace GameMode.Ikea
                 player.Addon = null;
                 player.UnRegisterPushedListener(this);
             }
-            
-            parts ??= (IkeaPart[]) Object.FindObjectsOfType(typeof(IkeaPart));
-            dispensers ??= (PartDispenser[]) Object.FindObjectsOfType(typeof(PartDispenser));
+
+            parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));
+            dispensers = (PartDispenser[]) Object.FindObjectsOfType (typeof(PartDispenser));
             
             foreach (var part in parts)
             {
@@ -87,7 +87,7 @@ namespace GameMode.Ikea
         }
 
         protected override void OnTimeOver_Inner() { }
-        
+
         protected override Dictionary<int,float> CalculateScore_Inner()
         {
             parts = (IkeaPart[]) Object.FindObjectsOfType (typeof(IkeaPart));

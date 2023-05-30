@@ -8,6 +8,7 @@ using GameMode.Island;
 using GameMode.Juggernaut;
 using GameMode.Modes;
 using GameMode.Pool;
+using GameMode.Rhythm;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -29,6 +30,8 @@ namespace GameMode
         [SerializeField] private LasersMode _lasersMode;
 
         [SerializeField] private IslandMode _islandMode;
+        
+        [SerializeField] private RhythmMode _rhythmMode;
 
         [SerializeField] private JuggernautGameMode _juggernautMode;
 
@@ -86,6 +89,8 @@ namespace GameMode
                 GameModes.Lasers => _lasersMode,
                 GameModes.Island => _islandMode,
                 GameModes.Juggernaut => _juggernautMode,
+                GameModes.Rhythm => _rhythmMode,
+                
                 _ => null
             };
         }

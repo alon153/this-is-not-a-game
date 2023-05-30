@@ -10,5 +10,6 @@
         Lasers,
         Island,
         Juggernaut,
+        Rhythm,
     }
 }
