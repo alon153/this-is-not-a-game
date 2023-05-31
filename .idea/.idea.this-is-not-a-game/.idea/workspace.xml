@@ -6,17 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/projectile.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/projectile.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Mechanics/Juggernaut.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Mechanics/Juggernaut.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Projectile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Projectile.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +33,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BAE255E3-E08E-46F7-BC2F-BD23DDE96338/2a/87db19f3/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerChild.cs" root0="FORCE_HIGHLIGHTING" />
@@ -69,9 +66,11 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Projectile.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" />
+      <option value="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2NbNWtVmqlXkbF3dy7zreWEhftu" />
@@ -80,7 +79,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34987745" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -122,7 +121,10 @@
       <workItem from="1679928871640" duration="6189000" />
       <workItem from="1685453237118" duration="841000" />
       <workItem from="1685454670353" duration="7448000" />
-      <workItem from="1685468954602" duration="2862000" />
+      <workItem from="1685468954602" duration="3622000" />
+      <workItem from="1685529874052" duration="565000" />
+      <workItem from="1685530548057" duration="5472000" />
+      <workItem from="1685536340416" duration="2926000" />
     </task>
     <servers />
   </component>

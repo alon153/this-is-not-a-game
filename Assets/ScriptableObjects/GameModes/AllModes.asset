@@ -104,5 +104,5 @@ MonoBehaviour:
     totemDropRadius: 3
     shotCooldown: 0.5
     totalRoundScore: 100
-    lifeGridPrefab: {fileID: 6928619715556353303, guid: e7b437c40a49f0b40a97868d874d96d0, type: 3}
+    canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
     lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

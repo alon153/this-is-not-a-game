@@ -5,6 +5,7 @@ using UnityEngine;
 using Basics;
 using Basics.Player;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
 
@@ -35,10 +36,10 @@ namespace GameMode.Juggernaut
 
         [SerializeField] private int totalRoundScore = 100;
 
-        [SerializeField] private JuggernautLifeGrid lifeGridPrefab;
-
-        [SerializeField] private GameObject lifePrefab;
+        [SerializeField] private JuggerCanvasAddOn canvasAddOnPrefab;
         
+        [SerializeField] private GameObject lifePrefab;
+
         #endregion
 
         #region Non-Serialized Fields
@@ -51,14 +52,17 @@ namespace GameMode.Juggernaut
         private PlayerController _currTotemHolder = null;
         
         // shooting
-        private ObjectPool<Projectile> _projectilePool;      
-      
+        private ObjectPool<Projectile> _projectilePool;
+
+        private List<JuggerCanvasAddOn> _playerCanvasAddOns = new List<JuggerCanvasAddOn>();
+
         #endregion
 
         #region GameModeBase
         protected override void InitRound_Inner()
         {
             _isAPlayerHoldingTotem = false;
+            _playerCanvasAddOns.Clear();
             GameManager.Instance.GameModeUpdateAction += JuggernautModeUpdate;
             
             _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
@@ -78,8 +82,11 @@ namespace GameMode.Juggernaut
         protected override void ClearRound_Inner()
         {
             Object.Destroy(_totem.gameObject);
-            foreach (var player in GameManager.Instance.Players)
-                player.Addon = null;
+            for (int i = 0; i < _playerCanvasAddOns.Count; ++i)
+            {
+                Object.Destroy(_playerCanvasAddOns[i].gameObject);
+                GameManager.Instance.Players[i].Addon = null;
+            }
         }
 
         protected override void OnTimeOver_Inner()
@@ -89,12 +96,14 @@ namespace GameMode.Juggernaut
 
         protected override Dictionary<int, float> CalculateScore_Inner()
         {
+            Debug.Log("GOT HERE");
             Dictionary<int, float> scores = new Dictionary<int, float>();
             int roundLen = GameManager.Instance.GetRoundLength();
             foreach (var player in GameManager.Instance.Players)
             {   
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Juggernaut);
                 var timeWithTotem = ((JuggernautPlayerAddOn) player.Addon).TotalTimeYieldingTotem / roundLen;
+                
                 scores.Add(player.Index, timeWithTotem * totalRoundScore);    
             }
 
@@ -108,23 +117,25 @@ namespace GameMode.Juggernaut
         {
             foreach (var player in GameManager.Instance.Players)
             {
-                JuggernautLifeGrid newLifeGrid = null;
+                JuggerCanvasAddOn canvasAddOn = null;
                 
                 // find the canvas object in the player
                 foreach (Transform obj in player.transform)
                 {
                     if (obj.gameObject.CompareTag("PlayerCanvas"))
-                    {
-                        newLifeGrid = Object.Instantiate(lifeGridPrefab, obj.transform, false);
-                        newLifeGrid.SetLifeGrid(juggernautLives, lifePrefab);
-                       
+                    {   
+                        canvasAddOn = Object.Instantiate(canvasAddOnPrefab, obj.transform, false);
+                        //canvasAddOn.arrowColor = player.Color;
+                        canvasAddOn.lifeObject = lifePrefab;
+                        canvasAddOn.lives = juggernautLives;
+                        _playerCanvasAddOns.Add(canvasAddOn);
                         break;
                     }
                     
                 }
                 
                 player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
-                    projectileDestroyTime, juggernautLives, OnTotemDropped, newLifeGrid);
+                    projectileDestroyTime, juggernautLives, OnTotemDropped, canvasAddOn);
             }
         }
 
@@ -159,6 +170,16 @@ namespace GameMode.Juggernaut
             {   
                 PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                 ((JuggernautPlayerAddOn) _currTotemHolder.Addon).TotalTimeYieldingTotem += Time.deltaTime;
+            }
+
+            foreach (var player in GameManager.Instance.Players)
+            {
+                PlayerAddon.CheckCompatability(player.Addon, GameModes.Juggernaut);
+                JuggernautPlayerAddOn curAddon = (JuggernautPlayerAddOn) player.Addon;
+                
+                // player is a shooter so change it's direction 
+                if (!curAddon.YieldsTotem)
+                    curAddon.SetArrowDir(player.Direction);
             }
         }
         
@@ -202,8 +223,12 @@ namespace GameMode.Juggernaut
         {
             Object.Destroy(projectile.gameObject);
         }
-
         #endregion
+        
+        public enum PlayerState
+        {
+            Shooter, Juggernaut 
+        }
         
     }
 }

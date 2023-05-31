@@ -31,15 +31,15 @@ namespace GameMode.Juggernaut
         public UnityAction OnTotemDropped;
         
         // health ui
-        private readonly JuggernautLifeGrid _juggernautLifeGrid; 
+        private readonly JuggerCanvasAddOn _juggernautCanvasAddOn; 
         
         private bool _yieldsTotem = false;
 
         #endregion
         
         #region Properties
-       
-
+        public bool YieldsTotem => _yieldsTotem;
+        
         public float TotalTimeYieldingTotem { get; set; } = 0f;
 
         #endregion
@@ -53,7 +53,7 @@ namespace GameMode.Juggernaut
 
         public JuggernautPlayerAddOn(ObjectPool<Projectile> projectilePool, float coolDown, float shotSpeed,
             float projectileDestroyTime, float maxLives, UnityAction totemDroppedAction, 
-            JuggernautLifeGrid playerLifeGrid)
+            JuggerCanvasAddOn playerLifeGrid)
         {
             _projectilePool = projectilePool;
             _coolDown = coolDown;
@@ -62,7 +62,7 @@ namespace GameMode.Juggernaut
             _curLives = maxLives;
             _shotSpeed = shotSpeed;
             OnTotemDropped += totemDroppedAction;
-            _juggernautLifeGrid = playerLifeGrid;
+            _juggernautCanvasAddOn = playerLifeGrid;
         }
 
         public override GameModes GameMode()
@@ -110,7 +110,7 @@ namespace GameMode.Juggernaut
         {
             _curLives -= 1;
            
-            _juggernautLifeGrid.EliminateLife();
+            _juggernautCanvasAddOn.EliminateLife();
             
             if (_curLives <= ZeroHealth)
                 OnTotemDropped.Invoke();
@@ -151,15 +151,22 @@ namespace GameMode.Juggernaut
                 return;
             }
             
-            _juggernautLifeGrid.DisableAllLifeGrid();
+            SetJuggerCanvas(JuggernautGameMode.PlayerState.Shooter);
             _yieldsTotem = false;
             _curLives = _maxLives;
+            
         }
 
         public void AddTotemToPlayer()
-        {
+        {   
+            SetJuggerCanvas(JuggernautGameMode.PlayerState.Juggernaut);
             _yieldsTotem = true;
-            _juggernautLifeGrid.EnableLifeGrid();
+           
         }
+
+        public void SetArrowDir(Vector2 playerDir) => _juggernautCanvasAddOn.SetArrowDirection(playerDir);
+
+        public void SetJuggerCanvas(JuggernautGameMode.PlayerState state) =>
+            _juggernautCanvasAddOn.SetAddOnCanvas(state);
     }
 }

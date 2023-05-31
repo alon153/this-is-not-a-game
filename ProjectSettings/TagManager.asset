@@ -16,6 +16,8 @@ TagManager:
   - Treasure
   - RingTrigger
   - PlayerCanvas
+  - LifeGrid
+  - Arrow
   layers:
   - Default
   - TransparentFX
