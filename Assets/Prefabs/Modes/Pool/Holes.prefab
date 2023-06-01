@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 7643970745100840505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.02, y: -3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.14444591, y: 0.14444591, z: 0.14444591}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8513011440100596911}
@@ -42,25 +42,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1336457607819809091}
     m_Modifications:
-    - target: {fileID: 1175317495833686722, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
-      propertyPath: topBorderActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1175317495833686722, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
-      propertyPath: rightBorderActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686723, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686723, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.04
+      value: 10.07
       objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686723, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.01
+      value: 6.61
       objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686723, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_LocalPosition.z
@@ -96,7 +88,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686750, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_Name
-      value: PoolHoleTopRight
+      value: TopRight
       objectReference: {fileID: 0}
     - target: {fileID: 1175317495833686750, guid: f4d8e956f4e8a5747a6f040cf8405479, type: 3}
       propertyPath: m_IsActive
