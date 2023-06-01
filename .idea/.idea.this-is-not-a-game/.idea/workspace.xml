@@ -6,15 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Mechanics/Juggernaut.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Mechanics/Juggernaut.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2021.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
