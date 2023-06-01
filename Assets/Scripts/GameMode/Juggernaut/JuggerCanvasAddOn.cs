@@ -16,7 +16,8 @@ namespace GameMode.Juggernaut
         
         [HideInInspector]
         public GameObject lifeObject;
-        
+
+       
         #endregion
 
         #region Private fields

@@ -10,6 +10,12 @@ namespace GameMode.Juggernaut
 {
     public class JuggernautPlayerAddOn : PlayerActionAddOn
     {
+        #region Public Fields
+        
+        public UnityAction OnTotemDropped;
+
+        #endregion
+        
         #region Private Fields
 
         // shooting
@@ -28,8 +34,6 @@ namespace GameMode.Juggernaut
         
         private float _curLives;
 
-        public UnityAction OnTotemDropped;
-        
         // health ui
         private readonly JuggerCanvasAddOn _juggernautCanvasAddOn; 
         

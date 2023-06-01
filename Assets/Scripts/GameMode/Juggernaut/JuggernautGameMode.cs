@@ -5,7 +5,6 @@ using UnityEngine;
 using Basics;
 using Basics.Player;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
 
@@ -33,8 +32,9 @@ namespace GameMode.Juggernaut
         [SerializeField] private float totemDropRadius = 1.5f;
 
         [SerializeField] private float shotCooldown = 0.5f;
-
-        [SerializeField] private int totalRoundScore = 100;
+        
+        [Tooltip("How many points will be added per frame to the totem holder")]
+        [SerializeField] private float scorePerFrameHolding = 0.01f;
 
         [SerializeField] private JuggerCanvasAddOn canvasAddOnPrefab;
         
@@ -96,7 +96,7 @@ namespace GameMode.Juggernaut
 
         protected override Dictionary<int, float> CalculateScore_Inner()
         {
-            Debug.Log("GOT HERE");
+            
             Dictionary<int, float> scores = new Dictionary<int, float>();
             int roundLen = GameManager.Instance.GetRoundLength();
             foreach (var player in GameManager.Instance.Players)
@@ -104,7 +104,7 @@ namespace GameMode.Juggernaut
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Juggernaut);
                 var timeWithTotem = ((JuggernautPlayerAddOn) player.Addon).TotalTimeYieldingTotem / roundLen;
                 
-                scores.Add(player.Index, timeWithTotem * totalRoundScore);    
+                   
             }
 
             return scores;
@@ -170,6 +170,8 @@ namespace GameMode.Juggernaut
             {   
                 PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                 ((JuggernautPlayerAddOn) _currTotemHolder.Addon).TotalTimeYieldingTotem += Time.deltaTime;
+                
+                ScoreManager.Instance.SetPlayerScore(_currTotemHolder.Index, scorePerFrameHolding);
             }
 
             foreach (var player in GameManager.Instance.Players)
