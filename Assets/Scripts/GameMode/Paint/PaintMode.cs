@@ -19,7 +19,7 @@ namespace GameMode.Modes
         #region Serialized Fields
         
         [SerializeField] private float _paintIntervals = 0.05f;
-        [SerializeField] private Sprite _paintingSprite;
+        [SerializeField] private List<Sprite> _paintingSprites;
         [SerializeField] private Splash _paintPrefab;
         [SerializeField] private float _threshold = 0.02f;
         [SerializeField] private float _coloringOffset = 0.5f;
@@ -122,18 +122,19 @@ namespace GameMode.Modes
         {
             if (Time.time >= _paintTime[player.Index])
             {
-                var sprite = _paintingSprite == null ? player.Renderer.RegularSprite : _paintingSprite;
-                var color = player.Color;
-                DrawSprite(player.transform.position, sprite, color.AddOffset(_coloringOffset));
+                bool hasSprite = _paintingSprites != null && _paintingSprites.Count > player.Index; 
+                
+                var sprite = hasSprite ? _paintingSprites[player.Index] : player.Renderer.RegularSprite;
+                
+                DrawSprite(player.transform.position, sprite);
                 _paintTime[player.Index] = Time.time + _paintIntervals;
             }
         }
 
-        private void DrawSprite(Vector3 center, Sprite sprite, Color color=default)
+        private void DrawSprite(Vector3 center, Sprite sprite)
         {
             var splash = Object.Instantiate(_paintPrefab, center, Quaternion.identity, _splashContainer.transform);
             splash.Renderer.sprite = sprite;
-            splash.Renderer.color = color;
         }
         
         /// <summary>

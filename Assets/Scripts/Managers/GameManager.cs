@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using Audio;
 using Basics;
+using Basics.Player;
 using GameMode;
 using UnityEngine;
 using UnityEngine.Events;
@@ -20,11 +21,13 @@ namespace Managers
         [field: SerializeField] private Arena DefaultArenaPrefab;
 
         [field: SerializeField] private List<PlayerData> PlayerDatas;
+        [SerializeField] private Sprite _defaultPlayerSprite;
 
         [Header("Round Settings")]
         [SerializeField] private int _roundLength;
         [SerializeField] private int _numRounds = 10;
         [field: SerializeField] public bool Zap { get; private set; }= false;
+        [SerializeField] private float _zapLength = 0.5f;
         
         [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
@@ -184,7 +187,7 @@ namespace Managers
                 TimeManager.Instance.DelayInvoke((() =>
                 {
                     UIManager.Instance.ToggleFlash(false);
-                }), 0.1f);
+                }), _zapLength);
             }
             else
             {
@@ -227,7 +230,7 @@ namespace Managers
                 TimeManager.Instance.DelayInvoke((() =>
                 {
                     UIManager.Instance.ToggleFlash(false);
-                }), 0.1f);
+                }), _zapLength);
             }
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
@@ -299,6 +302,12 @@ namespace Managers
         public int GetRoundLength()
         {
             return _roundLength;
+        }
+
+        public void SetDefaultSprite(PlayerController player)
+        {
+            player.Renderer.RegularSprite = _defaultPlayerSprite;
+            player.Renderer.RegularColor = PlayerDatas[player.Index]._bloomColor;
         }
         
     }

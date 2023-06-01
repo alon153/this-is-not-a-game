@@ -88,7 +88,7 @@ namespace Basics.Player
 
         public void SetActive(bool active)
         {
-            Bloomed.gameObject.SetActive(active);
+            // Bloomed.gameObject.SetActive(active);
             Regular.gameObject.SetActive(active);
         }
     }

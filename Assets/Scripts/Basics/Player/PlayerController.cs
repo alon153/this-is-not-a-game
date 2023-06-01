@@ -120,8 +120,8 @@ namespace Basics.Player
             private set
             {
                 bool shouldChange = _stunned != value;
-                if (shouldChange)
-                    Renderer.Animator.SetBool(Stunned1, value);
+                // if (shouldChange)
+                //     Renderer.Animator.SetBool(Stunned1, value);
                 _stunned = value;
             }
         }
@@ -136,15 +136,18 @@ namespace Basics.Player
             {
                 bool shouldChangeAnimation = (_direction.magnitude == 0 && value.magnitude != 0) ||
                                              (_direction.magnitude != 0 && value.magnitude == 0);
-                if (shouldChangeAnimation)
-                    Renderer.Animator.SetBool(Moving, value.magnitude != 0);
+                // if (shouldChangeAnimation)
+                //     Renderer.Animator.SetBool(Moving, value.magnitude != 0);
 
                 _direction = value.normalized;
                 bool facingBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;
-                if (facingBack != Renderer.FaceBack)
-                    Renderer.FaceBack = facingBack;
-                Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
-                Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
+                // if (facingBack != Renderer.FaceBack)
+                //     Renderer.FaceBack = facingBack;
+                // Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
+                // Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
+                bool facingRight = _direction.x > 0;
+                if (facingRight != Renderer.Regular.flipX && Mathf.Abs(_direction.x) >= 0.1f)
+                    Renderer.Regular.flipX = facingRight;
             }
         }
 
@@ -154,8 +157,8 @@ namespace Basics.Player
             set
             {
                 bool shouldChange = _dashing != value;
-                if (shouldChange)
-                    Renderer.Animator.SetBool(Dashing1, value);
+                // if (shouldChange)
+                //     Renderer.Animator.SetBool(Dashing1, value);
                 _dashing = value;
             }
         }
@@ -207,8 +210,9 @@ namespace Basics.Player
         {
             Index = GameManager.Instance.RegisterPlayer(this);
             _origColor = GameManager.Instance.PlayerColor(Index);
-            Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
+            // Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
             Color = _origColor;
+            GameManager.Instance.SetDefaultSprite(this);
             Ready = false;
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
