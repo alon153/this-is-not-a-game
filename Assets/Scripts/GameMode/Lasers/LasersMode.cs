@@ -52,6 +52,9 @@ namespace GameMode.Lasers
         // this queue is for diamonds initially created and then collected. they will go here to be used for pooling 
         // later.
         private Queue<DiamondCollectible> _collectedInitialDiamonds = new Queue<DiamondCollectible>();
+        
+        // a reference to initial diamonds the has benn used by the object pool
+        private List<DiamondCollectible> _initialDiamondsPooled = new List<DiamondCollectible>();
 
         // this list contains the locations of diamonds spawned after all start diamonds has been collected.
         private List<Vector3> _postCollectionDiamondPos = new List<Vector3>();
@@ -173,16 +176,20 @@ namespace GameMode.Lasers
         {
             // all initial diamonds are already in the pool. so 
             // a new one needs to be created.
+            DiamondCollectible newDiamond;
             if (_collectedInitialDiamonds.Count == Empty)
             {
                 int idx = Random.Range(MinIndex, diamondPrefabs.Length);
-                var newDiamond = Object.Instantiate(diamondPrefabs[idx]);
+                newDiamond = Object.Instantiate(diamondPrefabs[idx]);
                 newDiamond.OnDiamondPickedUp += DiamondPickedUp;
                 return newDiamond;
             }
+            
+            newDiamond = _collectedInitialDiamonds.Dequeue();
+            // otherwise, there is an inactive diamond that can be used.
+            _initialDiamondsPooled.Add(newDiamond);
+            return newDiamond;
 
-            // otherwise, there is an inactive diamond that can be used. 
-            return _collectedInitialDiamonds.Dequeue();
         }
 
         private void OnTakeDiamondFromPool(DiamondCollectible diamond)
@@ -315,8 +322,8 @@ namespace GameMode.Lasers
                 _collectedInitialDiamonds.Enqueue(diamondPicked);
                 _diamondsCollected++;
                 if (diamondCount == _diamondsCollected)
-                {
-                    // all initial diamonds collected so instantiate the pool
+                {   
+                   // all initial diamonds collected so instantiate the pool
                     if (shouldContinueSpawn) _allDiamondsCollected = true;
                     _diamondPool = new ObjectPool<DiamondCollectible>(CreateDiamond, OnTakeDiamondFromPool,
                         OnReturnDiamondToPool, OnDestroyDiamond, true);
@@ -330,14 +337,20 @@ namespace GameMode.Lasers
         /// Diamonds and will destroy it. 
         /// </summary>
         private void DestroyAllDiamonds()
-        {
+        {   
+            
             foreach (var pair in _initialDiamondsNotCollected)
                     Object.Destroy(pair.Value.gameObject);
            
             for (int i = 0; i < _collectedInitialDiamonds.Count; i++)
                     Object.Destroy(_collectedInitialDiamonds.Dequeue().gameObject);
 
+            for (int i = 0; i < _initialDiamondsPooled.Count; i++)
+                Object.Destroy(_initialDiamondsPooled[i].gameObject);
+            
+
             _diamondPool?.Clear();
+           
         }
 
         /// <summary>
@@ -393,10 +406,7 @@ namespace GameMode.Lasers
         /// gets a position and returns true if it's in the game arena,
         /// false otherwise. 
         /// </summary>
-        private bool IsInArena(Vector3 position)
-        {
-            return !ModeArena.OutOfArena(position);
-        }
+        private bool IsInArena(Vector3 position) => !ModeArena.OutOfArena(position);
 
         #endregion
     }

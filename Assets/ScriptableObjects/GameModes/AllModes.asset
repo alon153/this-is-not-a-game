@@ -60,7 +60,7 @@ MonoBehaviour:
     - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
     diamondCount: 12
     shouldContinueSpawn: 1
-    timeToSpawnNewDiamond: 1
+    timeToSpawnNewDiamond: 3
     diamondsDropOnLaser: 2
     onHitSpreadRadius: 3
   _islandMode:
