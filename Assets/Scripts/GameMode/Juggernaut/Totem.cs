@@ -19,14 +19,15 @@ namespace GameMode.Juggernaut
         private float _time = 0f;
         
         private readonly Color _pickUpEnabledColor = Color.yellow;
-        
-        private readonly Color _pickUpDisabledColor = new Color(190,162,255,255);
+
+        private Color _pickUpDisabledColor;
 
         private SpriteRenderer _spriteRenderer;
 
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _pickUpDisabledColor = _spriteRenderer.color;
         }
 
         private void Update()
