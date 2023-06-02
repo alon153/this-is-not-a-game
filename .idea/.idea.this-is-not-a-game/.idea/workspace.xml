@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes new arenas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes new arenas.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,9 +64,10 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" />
       <option value="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2NbNWtVmqlXkbF3dy7zreWEhftu" />
@@ -116,6 +122,7 @@
       <workItem from="1685529874052" duration="565000" />
       <workItem from="1685530548057" duration="5472000" />
       <workItem from="1685536340416" duration="2926000" />
+      <workItem from="1685694147436" duration="2251000" />
     </task>
     <servers />
   </component>

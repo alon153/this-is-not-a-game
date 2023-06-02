@@ -17,22 +17,27 @@ namespace GameMode.Juggernaut
         
         #region Serialized Fields  
         
-        [SerializeField] private Totem totemPrefab; 
-        
-        [SerializeField] private Projectile projectilePrefab;
+        [Header("Totem")]
+        [SerializeField] private Totem totemPrefab;
 
+        [SerializeField] private float totemDisableTime = 3f;
+        
+        [SerializeField] private float totemDropRadius = 1.5f;
+        
+        [Header("\nProjectile")]
+        [SerializeField] private Projectile projectilePrefab;
+        
+        [Tooltip("speed given to projectile while shooting")]
+        [SerializeField] private float projectileSpeed = 10f;
+        
+        [SerializeField] private float projectileDestroyTime = 3f;
+        
+        [SerializeField] private float shotCooldown = 0.5f;
+        
+        [Header("\nGameMode ui")]
         [Tooltip("how many hits can a player take before dropping the totem")]
         [SerializeField] private int juggernautLives = 5;
 
-        [Tooltip("speed given to projectile while shooting")]
-        [SerializeField] private float projectileSpeed = 10f;
-
-        [SerializeField] private float projectileDestroyTime = 3f;
-
-        [SerializeField] private float totemDropRadius = 1.5f;
-
-        [SerializeField] private float shotCooldown = 0.5f;
-        
         [Tooltip("How many points will be added per frame to the totem holder")]
         [SerializeField] private float scorePerFrameHolding = 0.01f;
 
@@ -75,8 +80,11 @@ namespace GameMode.Juggernaut
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
             GameManager.Instance.CurrArena = arena;
+            
+            // totem instantiation.
             _totem = Object.Instantiate(totemPrefab, arena.Center, Quaternion.identity);
             _totem.OnTotemPickedUp += OnTotemPickedUp;
+            _totem.coolDownTime = totemDisableTime;
         }
 
         protected override void ClearRound_Inner()
@@ -103,8 +111,6 @@ namespace GameMode.Juggernaut
             {   
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Juggernaut);
                 var timeWithTotem = ((JuggernautPlayerAddOn) player.Addon).TotalTimeYieldingTotem / roundLen;
-                
-                   
             }
 
             return scores;

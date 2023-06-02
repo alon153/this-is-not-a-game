@@ -128,17 +128,18 @@ MonoBehaviour:
     <Description>k__BackingField: Press the pads on beat!
     <CharacterSprites>k__BackingField: []
   _juggernautMode:
-    <ModeArena>k__BackingField: {fileID: 0}
+    <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: 
     <Description>k__BackingField: 
     <CharacterSprites>k__BackingField: []
-    totemPrefab: {fileID: 0}
-    projectilePrefab: {fileID: 0}
-    juggernautLives: 5
+    totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
+    totemDisableTime: 3
+    totemDropRadius: 1.5
+    projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
     projectileSpeed: 10
     projectileDestroyTime: 3
-    totemDropRadius: 1.5
     shotCooldown: 0.5
-    totalRoundScore: 100
-    canvasAddOnPrefab: {fileID: 0}
-    lifePrefab: {fileID: 0}
+    juggernautLives: 5
+    scorePerFrameHolding: 0.01
+    canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
+    lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

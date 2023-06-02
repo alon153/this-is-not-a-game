@@ -11,11 +11,43 @@ namespace GameMode.Juggernaut
     public class Totem : MonoBehaviour
     {   
         public UnityAction<PlayerController> OnTotemPickedUp { set; get; }
+
+        public float coolDownTime = 2f;
         
+        private bool _canPickUp = false;
+
+        private float _time = 0f;
         
+        private readonly Color _pickUpEnabledColor = Color.yellow;
+        
+        private readonly Color _pickUpDisabledColor = new Color(190,162,255,255);
+
+        private SpriteRenderer _spriteRenderer;
+
+        private void Start()
+        {
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        private void Update()
+        {
+            if (isActiveAndEnabled)
+            {   
+               _time += Time.deltaTime;
+                if (_time >= coolDownTime)
+                {    
+                    
+                    _spriteRenderer.color = _pickUpEnabledColor;
+                    _canPickUp = true;
+                    _time = 0;
+                }
+            }
+        }
+
+
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.CompareTag("Player"))
+            if (other.CompareTag("Player") && _canPickUp)
             {
                 foreach (var player in GameManager.Instance.Players)
                 {
@@ -26,6 +58,15 @@ namespace GameMode.Juggernaut
                     }
                 }
             }
+            
+            else 
+                Debug.Log("can't pick up totem");
+        }
+        private void OnDisable()
+        {
+            _canPickUp = false;
+            _time = 0;
+            _spriteRenderer.color = _pickUpDisabledColor;
         }
     }
 }

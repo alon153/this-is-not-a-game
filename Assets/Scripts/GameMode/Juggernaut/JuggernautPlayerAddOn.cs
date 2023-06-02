@@ -49,10 +49,9 @@ namespace GameMode.Juggernaut
         #endregion
 
         #region Constants
-
+        
         private const int ZeroHealth = 0;
         
-
         #endregion
 
         public JuggernautPlayerAddOn(ObjectPool<Projectile> projectilePool, float coolDown, float shotSpeed,
