@@ -64,6 +64,7 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
     - {fileID: 21300000, guid: 445782942a0198945a0e53c75576ac3d, type: 3}
     - {fileID: 21300000, guid: 711ce4e08e9a27c4699bc690d4361efa, type: 3}
+    _yOffset: 1
     obstaclesPrefab:
     - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
     - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
@@ -72,7 +73,7 @@ MonoBehaviour:
     maxObstacleCapacity: 100
     maxSpawnInterval: 3
     minSpawnInterval: 1
-    obstacleSpawnMultiplier: 6
+    obstacleSpawnMultiplier: 3
     score: 30
   _lasersMode:
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}

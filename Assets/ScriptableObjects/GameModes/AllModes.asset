@@ -16,8 +16,9 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 5596075538407626734, guid: 60e827da81b50ee4d82a42b5b7c9b5d3, type: 3}
     <Name>k__BackingField: This is not a game, this is a painting
     <Description>k__BackingField: More paint, more points!
+    <CharacterSprites>k__BackingField: []
     _paintIntervals: 0.05
-    _paintingSprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
+    _paintingSprites: []
     _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
     _threshold: 0.2
     _coloringOffset: 0.05
@@ -26,11 +27,13 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 5357777095989818182, guid: 6d774cf085ced544ab612a022d7bfdde, type: 3}
     <Name>k__BackingField: This is not a game, this is a pool table
     <Description>k__BackingField: Push others into pockets!
+    <CharacterSprites>k__BackingField: []
     scoreOnHit: 10
   _ikeaMode:
     <ModeArena>k__BackingField: {fileID: 8762798985053022016, guid: 32feeff5395a37a4a9f37a84898a9e7b, type: 3}
     <Name>k__BackingField: This is not a game, this is an IKEA item!
     <Description>k__BackingField: Build the item with your pieces!
+    <CharacterSprites>k__BackingField: []
     _partsPrefabs:
     - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
     - {fileID: 393630251795051260, guid: a103a33bb9a6dc64b995e14e6ab68746, type: 3}
@@ -40,10 +43,12 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: -7533193524849556626, guid: e0d5ff220ef1f6142897689c529b45ac, type: 3}
     <Name>k__BackingField: This is not a game, this is a River!
     <Description>k__BackingField: Don't fall to the waterfall!
+    <CharacterSprites>k__BackingField: []
+    _yOffset: 1
     obstaclesPrefab:
     - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
     - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
-    - {fileID: 3324010259797466655, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
+    - {fileID: 4021010878070243310, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
     defaultObstaclesCapacity: 80
     maxObstacleCapacity: 100
     maxSpawnInterval: 3
@@ -54,6 +59,7 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 867240760813302188, guid: f4db37c616d3ae84488c8dab83a5f8ce, type: 3}
     <Name>k__BackingField: This is not a game! It's a spy movie!
     <Description>k__BackingField: collected diamonds and evade lasers!
+    <CharacterSprites>k__BackingField: []
     freezeTime: 2
     laserKnockBackForce: 1.5
     diamondPrefabs:
@@ -67,6 +73,7 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 3760426630872900372, guid: 8b2c367c774d94944a233110ac446458, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
     <Description>k__BackingField: Find the hidden treasure!
+    <CharacterSprites>k__BackingField: []
     _numTreasures: 10
     _treasureValues:
     - score: 0
@@ -92,10 +99,12 @@ MonoBehaviour:
     <ModeArena>k__BackingField: {fileID: 0}
     <Name>k__BackingField: 
     <Description>k__BackingField: 
+    <CharacterSprites>k__BackingField: []
   _juggernautMode:
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: This is not a Game! This is a juggernaut hunt!
     <Description>k__BackingField: If you have the Totem, run! If not, hunt the wielder!
+    <CharacterSprites>k__BackingField: []
     totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
     projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
     juggernautLives: 5

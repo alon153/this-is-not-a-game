@@ -11,23 +11,26 @@ namespace Basics
     public class Arena : MonoBehaviour
     {
         [SerializeField] private LayerMask _respawnBlockers;
+        [SerializeField] private Transform _perimeter;
         
         public UnityAction<int> OnPlayerDisqualified;
         public SpriteRenderer Renderer { get; private set; }
-        public Vector3 Dimensions => new Vector3(transform.lossyScale.x, transform.lossyScale.y, 0);
-        public Vector3 BottomLeft => transform.position - Dimensions / 2;
-        public Vector3 TopRight => transform.position + Dimensions / 2;
+        public Vector3 Dimensions => new Vector3(_perimeter.lossyScale.x, _perimeter.lossyScale.y, 0);
+        public Vector3 BottomLeft => _perimeter.position - Dimensions / 2;
+        public Vector3 TopRight => _perimeter.position + Dimensions / 2;
         public Vector3 TopLeft => BottomLeft + new Vector3(0,Dimensions.y,0);
         public Vector3 BottomRight => TopRight - new Vector3(0,Dimensions.y,0);
         public Vector3 TopMiddle => (TopLeft + TopRight) / 2;
         public Vector3 BottomMiddle => (BottomLeft + BottomRight) / 2;
         public Vector3 RightMiddle => (TopRight + BottomRight) / 2;
         public Vector3 LeftMiddle => (TopLeft + BottomLeft) / 2;
-        public Vector3 Center => transform.position;
+        public Vector3 Center => _perimeter.position;
 
         private void Awake()
         {
             Renderer = GetComponent<SpriteRenderer>();
+            if (_perimeter == null)
+                _perimeter = transform;
         }
 
         protected virtual void OnTriggerExit2D(Collider2D other)
@@ -44,8 +47,8 @@ namespace Basics
 
         public Vector3 GetRespawnPosition(GameObject obj)
         {
-            var pos = transform.position;
-            var scale = transform.lossyScale;
+            var pos = _perimeter.position;
+            var scale = _perimeter.lossyScale;
             var objScale = obj.transform.lossyScale;
             var margin = new Vector2(scale.x - objScale.x, scale.y - objScale.y) / 2;
             

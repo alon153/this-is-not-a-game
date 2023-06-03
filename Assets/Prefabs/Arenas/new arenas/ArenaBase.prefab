@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 787163318850632746}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4310632610202632271}
   - component: {fileID: 6675129328128533793}
   - component: {fileID: 6382371297938721284}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1693223295423561253}
   - component: {fileID: 7357389066307302927}
   - component: {fileID: 6675222948810999820}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 4929934730471084686}
   - component: {fileID: 1112451443915653968}
   - component: {fileID: 2963746097046823831}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 7781364328128709797}
   - component: {fileID: 1535162225210475679}
   - component: {fileID: 1015958137563800257}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -617,6 +617,7 @@ MonoBehaviour:
   _respawnBlockers:
     serializedVersion: 2
     m_Bits: 384
+  _perimeter: {fileID: 0}
 --- !u!212 &6661921919638177007
 SpriteRenderer:
   m_ObjectHideFlags: 0
