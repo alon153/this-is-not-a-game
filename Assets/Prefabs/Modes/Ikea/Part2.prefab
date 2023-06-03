@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 393630251795051263}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 613070064742822320}
@@ -75,9 +75,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -121838311
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3ada923a53f734c438078adf04a9fb49, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 700e8357e3fca9942a99d3a254cb7f5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,9 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7f5283e174019b7758544ac614c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blueprintSprite: {fileID: 21300000, guid: 3ada923a53f734c438078adf04a9fb49, type: 3}
-  _partSprite: {fileID: 21300000, guid: 3ada923a53f734c438078adf04a9fb49, type: 3}
-  _collider: {fileID: 62365429733827488}
+  _blueprintSprite: {fileID: 21300000, guid: ee87f4011a6f63145b0bfc7c65fe8195, type: 3}
+  _partSprite: {fileID: 21300000, guid: 700e8357e3fca9942a99d3a254cb7f5b, type: 3}
+  _collider: {fileID: 6684466204844348140}
+  _pointsPerPart: 10
   <Type>k__BackingField: 1
 --- !u!50 &6600808679564999064
 Rigidbody2D:
@@ -138,18 +139,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.03428501}
+  m_Offset: {x: -0.0022277534, y: 0.010513037}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.09, y: 2.6}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.1028135, y: 3.6025186}
+  m_Size: {x: 0.69, y: 1.14}
   m_EdgeRadius: 0
 --- !u!1 &7645343284107135754
 GameObject:
@@ -160,7 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 613070064742822320}
-  - component: {fileID: 62365429733827488}
+  - component: {fileID: 6684466204844348140}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -183,8 +184,8 @@ Transform:
   m_Father: {fileID: 393630251795051258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &62365429733827488
-CircleCollider2D:
+--- !u!70 &6684466204844348140
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -196,6 +197,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0034011155, y: -0.034009665}
-  serializedVersion: 2
-  m_Radius: 1.1019697
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0

@@ -16,7 +16,8 @@ namespace GameMode.Juggernaut
         
         [HideInInspector]
         public GameObject lifeObject;
-        
+
+       
         #endregion
 
         #region Private fields
@@ -64,8 +65,6 @@ namespace GameMode.Juggernaut
             // Rotate the arrow object around the Z-axis
             float angle = Vector2.SignedAngle(Vector2.down, playerDir);
             _arrowObject.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-
-            
         }
 
         public void EliminateLife()

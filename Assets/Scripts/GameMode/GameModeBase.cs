@@ -14,6 +14,7 @@ namespace GameMode
     [field:SerializeField] public Arena ModeArena { get; private set;}
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
 
     #endregion
 
@@ -32,9 +33,11 @@ namespace GameMode
 
     public virtual void InitRound()
     {
+      SetPlayerSprites();
       InitArena_Inner();
       InitRound_Inner();
     }
+
     public virtual void OnTimerOver()
     {
       OnTimeOver_Inner();
@@ -50,6 +53,27 @@ namespace GameMode
       ClearRound_Inner();
       GameManager.Instance.NextRound();
     }
+
+    #endregion
+
+    #region Private Methods
+
+    private void SetPlayerSprites()
+    {
+      var players = GameManager.Instance.Players;
+      for (int i = 0; i < players.Count; i++)
+      {
+        if (CharacterSprites == null || CharacterSprites.Count < players.Count)
+        {
+          GameManager.Instance.SetDefaultSprite(players[i]);
+        }
+        else
+        {
+          players[i].Renderer.RegularSprite = CharacterSprites[i];
+          players[i].Renderer.RegularColor = Color.white;
+        }
+      }
+    }    
 
     #endregion
   }

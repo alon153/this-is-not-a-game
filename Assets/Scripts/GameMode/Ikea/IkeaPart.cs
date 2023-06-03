@@ -82,7 +82,7 @@ namespace GameMode.Ikea
                 // _renderer.sprite = value ? _blueprintSprite : _partSprite;
                 _renderer.sprite = _partSprite;
                 if(_isBlueprint)
-                    Color = Color.white;
+                    _renderer.sprite = _blueprintSprite;
 
                 if (_isBlueprint)
                 {

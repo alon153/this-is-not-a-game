@@ -105,7 +105,7 @@ namespace Managers
         public void SetScoreToPlayerDisplay(int playerId, float newScore)
         {
             // todo: make this juicier! add a coroutine or something!
-            _playerScoreDisplay[playerId].text = newScore.ToString();
+            _playerScoreDisplay[playerId].text = newScore.ToString("0.00");
         }
 
         public void SetGameDesc(string gameName, string gameDesc)
