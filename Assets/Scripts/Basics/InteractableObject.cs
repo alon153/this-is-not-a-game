@@ -83,7 +83,10 @@ namespace Basics
 
                 PlayerController player = other.GetComponent<PlayerController>();
                 if (player.Interactable != null && player.Interactable.GetInstanceID() == GetInstanceID())
-                    player.Interactable = null;
+                {
+                    OnStopInteract_Inner(player);
+                    player.Interactable = null;   
+                }
             }
         }
 

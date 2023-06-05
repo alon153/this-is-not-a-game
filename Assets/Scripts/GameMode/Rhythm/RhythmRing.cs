@@ -16,6 +16,8 @@ public class RhythmRing : MonoBehaviour
     private float _time;
     private float _sizePerSecond;
     private RingTrigger _ringTrigger;
+    private float _beatAt = 0;
+    private float _beatFactor = 0;
 
     private SpriteRenderer _renderer;
 
@@ -70,9 +72,24 @@ public class RhythmRing : MonoBehaviour
 
     public void StartRing()
     {
+        if (_beatAt == 0)
+        {
+            _beatAt = Time.time;
+            return;
+        }
+        
+        if (_beatFactor == 0)
+        {
+            _time = 4 * (AudioManager.Tempo / 60);
+            _beatFactor = (Time.time - _beatAt) / _time;
+            print(_beatFactor);
+            _time *= _beatFactor;
+            _beatAt = Time.time;
+            return;
+        }
+
         Run = true;
-        _time = 4 * (AudioManager.Tempo / 60);
-        _sizePerSecond = _originalScale.magnitude / _time;
+        _sizePerSecond = 1 / _time;
     }
 
     public void ResetRing()

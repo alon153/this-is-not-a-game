@@ -64,7 +64,7 @@ namespace GameMode.Rhythm
         {
             if (_rings.ContainsKey(beat))
             {
-                print("reset on beat");
+                print($"reset on beat {beat}");
                 var ring = _rings[beat];
                 ring.ResetRing();
                 ring.StartRing();

@@ -59,6 +59,11 @@ namespace Utilities
 
         public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false, Action onEnd=null)
         {
+            if (title != "")
+                _title.text = title;
+            if (instructions != null)
+                _instructions.sprite = instructions;
+            
             if (immediate)
             {
                 _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, _rectOrigY);

@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RythmPanel (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2196838524489314226, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2196838524489314228, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -87,6 +91,10 @@ PrefabInstance:
     - target: {fileID: 2196838524489314226, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
       propertyPath: m_Name
       value: RythmPanel (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196838524489314226, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2196838524489314228, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
       propertyPath: m_RootOrder
@@ -238,6 +246,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 787163318850632746, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176976, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -304,6 +316,10 @@ PrefabInstance:
     - target: {fileID: 2196838524489314226, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
       propertyPath: m_Name
       value: RythmPanel (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196838524489314226, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2196838524489314228, guid: abb0b87abc0b5d74b95a5f8e2e0ff09c, type: 3}
       propertyPath: m_RootOrder
