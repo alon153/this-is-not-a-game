@@ -19,11 +19,7 @@ namespace Managers
         [Header("Timers")]
         [SerializeField] private TextMeshProUGUI _gameTimeText;
         [SerializeField] private TextMeshProUGUI _mainTimeText;
-        
-        [Header("Game Description")]
-        [SerializeField] private TextMeshProUGUI _gameName;
-        [SerializeField] private TextMeshProUGUI _gameDesc;
-        
+
         [Header ("Misc")]
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         [SerializeField] private Image _flash;
@@ -38,6 +34,8 @@ namespace Managers
 
         private int _maxScoreDisplays;
 
+        private TransitionWindow _transitionWindow;
+
         #endregion
 
         #region Constants
@@ -51,20 +49,41 @@ namespace Managers
 
         #region MonoBehaviour Methods
 
+        public override void Awake()
+        {
+            base.Awake();
+            _transitionWindow = GetComponentInChildren<TransitionWindow>();
+        }
+
         private void Start()
         {
             _maxScoreDisplays = playerScoreTexts.Length;
+            _transitionWindow.HideWindow(true);
         }
         #endregion
-        
+
+        #region Private Methods
+
         private string FormatTime(int totalSeconds)
         {
             int minutes = totalSeconds / 60;
             int seconds = totalSeconds % 60;
             return string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        
+
+        #endregion
+
         #region Public Methods
+        
+        public void ShowInstructions(string title, Sprite instructions, Action onEnd=null)
+        {
+            _transitionWindow.ShowWindow(title, instructions, onEnd: onEnd);
+        }
+        
+        public void HideInstructions()
+        {
+            _transitionWindow.HideWindow();
+        }
 
         public void ToggleFlash(bool show) => _flash.gameObject.SetActive(show);
 
@@ -108,25 +127,12 @@ namespace Managers
             _playerScoreDisplay[playerId].text = newScore.ToString("0.00");
         }
 
-        public void SetGameDesc(string gameName, string gameDesc)
-        {
-            _gameName.text = gameName;
-            _gameDesc.text = gameDesc;
-            ToggleGameDesc(true);
-        }
-
-        public void ToggleGameDesc(bool show)
-        {
-            _gameDesc.gameObject.SetActive(show);
-            _gameName.gameObject.SetActive(show);
-        }
-
         public void ToggleCenterText(bool show) => _centerText.gameObject.SetActive(show);
 
         public void HideAllMessages()
         {
             ToggleCenterText(false);
-            ToggleGameDesc(false);
+            HideInstructions();
         }
 
         /// <summary>
@@ -165,6 +171,7 @@ namespace Managers
         {
             Game,
             Main,
+            Transition,
         }
 
         public void ShowWinner(int winner)

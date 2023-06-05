@@ -23,11 +23,12 @@ namespace Managers
         [field: SerializeField] private List<PlayerData> PlayerDatas;
         [SerializeField] private Sprite _defaultPlayerSprite;
 
-        [Header("Round Settings")]
+        [Header("Round Settings")] 
         [SerializeField] private int _roundLength;
         [SerializeField] private int _numRounds = 10;
         [field: SerializeField] public bool Zap { get; private set; }= false;
         [SerializeField] private float _zapLength = 0.5f;
+        [field: SerializeField] public float InstructionsTime { get; private set; } = 3f;
         
         [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
@@ -156,7 +157,6 @@ namespace Managers
         public void StartRound()
         {
             UIManager.Instance.HideAllMessages();
-            GameMode.InitRound();
             TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
             UnFreezePlayers();
         }
@@ -167,33 +167,35 @@ namespace Managers
         /// </summary>
         public void NextRound()
         {
+            UIManager.Instance.ToggleFlash(true);
+
+            GameMode?.ClearRound();
+
             _roundsPlayed++;
             if (_roundsPlayed > _numRounds)
             {
                 EndGame();
-                return;
-            }
-            
-            GameMode = _gameModeFactory.GetGameMode(_isGameModeByOrder);
-            if(GameMode == null)
-            {
-                EndGame();
-                return;
-            }
-
-            if (Zap)
-            {
-                StartRound();
-                TimeManager.Instance.DelayInvoke((() =>
-                {
-                    UIManager.Instance.ToggleFlash(false);
-                }), _zapLength);
             }
             else
             {
-                UIManager.Instance.SetGameDesc(GameMode.Name, GameMode.Description);
-                TimeManager.Instance.StartCountDown(5, StartRound, UIManager.CountDownTimer.Main);
+                GameMode = _gameModeFactory.GetGameMode(_isGameModeByOrder);
+                if(GameMode == null)
+                    EndGame();
+                else
+                {
+                    FreezePlayers(false);
+                    GameMode.InitRound();
+                    if(InstructionsTime > 0)
+                        UIManager.Instance.ShowInstructions(GameMode.Description, _defaultPlayerSprite, StartRound);
+                    else
+                        StartRound();
+                }
             }
+            
+            TimeManager.Instance.DelayInvoke((() =>
+            {
+                UIManager.Instance.ToggleFlash(false);
+            }), _zapLength);
         }
         
         /// <summary>
@@ -224,17 +226,9 @@ namespace Managers
         
         private void EndGame()
         {
-            if (Zap)
-            {
-                StartRound();
-                TimeManager.Instance.DelayInvoke((() =>
-                {
-                    UIManager.Instance.ToggleFlash(false);
-                }), _zapLength);
-            }
+            CurrArena = Instantiate(DefaultArenaPrefab);
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
-            CurrArena = Instantiate(DefaultArenaPrefab);
         }
 
         private void StartGame()
