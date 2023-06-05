@@ -31,6 +31,11 @@ namespace GameMode
 
     #region Public Methods
 
+    public void ClearRound()
+    {
+      ClearRound_Inner();
+    }
+
     public virtual void InitRound()
     {
       SetPlayerSprites();
@@ -48,9 +53,6 @@ namespace GameMode
     {
       EndRound_Inner();
       // ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
-      if(GameManager.Instance.Zap)
-        UIManager.Instance.ToggleFlash(true);
-      ClearRound_Inner();
       GameManager.Instance.NextRound();
     }
 
