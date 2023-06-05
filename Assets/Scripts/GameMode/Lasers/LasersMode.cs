@@ -16,35 +16,38 @@ namespace GameMode.Lasers
     {
         #region Serialized Fields
 
-        [Header("\nLasers")] [Tooltip("When hit by laser, how much time the player freezes?")] [SerializeField]
-        private float freezeTime = 2;
+        [Header("\nLasers")] 
+        [Tooltip("When hit by laser, how much time the player freezes?")] 
+        [SerializeField] private float freezeTime = 2;
 
-        [Tooltip("When hit by laser, how much force is applied")] [SerializeField]
-        private float laserKnockBackForce = 1.5f;
+        [Tooltip("When hit by laser, how much force is applied")] 
+        [SerializeField] private float laserKnockBackForce = 1.5f;
 
-        [Header("\nDiamonds")] [SerializeField]
-        private DiamondCollectible[] diamondPrefabs;
+        [Header("\nDiamonds")]
+        [SerializeField] private DiamondCollectible[] diamondPrefabs;
 
-        [Tooltip("How many (regular) diamonds will be spawned initially")] [Range(10, 30)] [SerializeField]
-        private int diamondCount = 12;
+        [Tooltip("How many (regular) diamonds will be spawned initially")]
+        [Range(10, 30)] 
+        [SerializeField] private int diamondCount = 12;
 
         [Tooltip("check this box if you want more diamonds to continue spawning after all diamonds are collected")]
-        [SerializeField]
-        private bool shouldContinueSpawn = true;
+        [SerializeField] private bool shouldContinueSpawn = true;
 
-        [Tooltip("timer for new diamond to be summoned")] [SerializeField]
-        private float timeToSpawnNewDiamond = 1;
+        [Tooltip("timer for new diamond to be summoned")] 
+        [SerializeField] private float timeToSpawnNewDiamond = 1;
 
-        [Tooltip("How many diamonds will the player drop when hitting a laser?")] [SerializeField]
-        private int diamondsDropOnLaser = 2;
+        [Tooltip("How many diamonds will the player drop when hitting a laser?")] 
+        [SerializeField] private int diamondsDropOnLaser = 2;
 
-        [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")] [SerializeField]
-        private float onHitSpreadRadius = 3f;
+        [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")]
+        [SerializeField] private float onHitSpreadRadius = 3f;
 
         #endregion
 
         #region Non-Serialzed Fields
-
+        
+        private GameObject _diamondParent;
+        
         // this dictionary is holding reference for newly created diamonds which have not yet been collected. 
         private Dictionary<int, DiamondCollectible> _initialDiamondsNotCollected =
             new Dictionary<int, DiamondCollectible>();
@@ -99,6 +102,7 @@ namespace GameMode.Lasers
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = new LaserPlayerAddon();
 
+
             GameManager.Instance.GameModeUpdateAction += LaserModeUpdate;
             _allDiamondsCollected = false;
             _initialDiamondsPooled.Clear();
@@ -107,6 +111,11 @@ namespace GameMode.Lasers
         protected override void InitArena_Inner()
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
+            foreach (Transform child in arena.transform)
+            {
+                if (child.CompareTag("DiamondParent"))
+                    _diamondParent = child.gameObject;
+            }
 
             // get all diamond positions and then started creating diamonds in the locations
             foreach (Transform child in arena.transform)
@@ -116,6 +125,7 @@ namespace GameMode.Lasers
                     var idx = Random.Range(MinIndex, diamondPrefabs.Length);
                     DiamondCollectible newDiamond = Object.Instantiate(diamondPrefabs[idx], child.transform.position,
                         quaternion.identity);
+                    newDiamond.transform.parent = _diamondParent.transform;
                     _initialDiamondsNotCollected.Add(newDiamond.GetInstanceID(), newDiamond);
                     newDiamond.OnDiamondPickedUp += DiamondPickedUp;
                 }
@@ -179,7 +189,7 @@ namespace GameMode.Lasers
             if (_collectedInitialDiamonds.Count == Empty)
             {
                 int idx = Random.Range(MinIndex, diamondPrefabs.Length);
-                newDiamond = Object.Instantiate(diamondPrefabs[idx]);
+                newDiamond = Object.Instantiate(diamondPrefabs[idx], _diamondParent.transform, true);
                 newDiamond.OnDiamondPickedUp += DiamondPickedUp;
                 return newDiamond;
             }
@@ -337,7 +347,7 @@ namespace GameMode.Lasers
         /// </summary>
         private void DestroyAllDiamonds()
         {   
-            
+            /*
             foreach (var pair in _initialDiamondsNotCollected)
                     Object.Destroy(pair.Value.gameObject);
            
@@ -349,6 +359,11 @@ namespace GameMode.Lasers
             
 
             _diamondPool?.Clear();
+            */
+            foreach (Transform diamond in _diamondParent.transform)
+            {
+                Object.Destroy(diamond.gameObject);
+            }
            
         }
 

@@ -18,6 +18,8 @@ TagManager:
   - LifeGrid
   - Arrow
   - Windows
+  - Lasers
+  - DiamondParent
   layers:
   - Default
   - TransparentFX

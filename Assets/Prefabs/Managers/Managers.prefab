@@ -105,6 +105,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 555857938625486637}
     m_Modifications:
+    - target: {fileID: 1457767313061061382, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
+      propertyPath: _flashAnimatior
+      value: 
+      objectReference: {fileID: 1771707840214848163}
     - target: {fileID: 3032008426419352740, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -195,6 +199,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
+--- !u!95 &1771707840214848163 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2242954505361913934, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
+  m_PrefabInstance: {fileID: 555857939788901101}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3289059569581809225 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3032008426419352740, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
