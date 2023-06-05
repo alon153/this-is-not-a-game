@@ -168,7 +168,7 @@ namespace Managers
         public void NextRound()
         {
             UIManager.Instance.ToggleFlash(true);
-
+            
             GameMode?.ClearRound();
 
             _roundsPlayed++;

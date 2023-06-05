@@ -6,16 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/Managers.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/Managers.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +51,6 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/TimeManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModeBase.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverArena.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModes.cs" />
@@ -75,6 +67,7 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" />
     </changedPaths>
   </component>

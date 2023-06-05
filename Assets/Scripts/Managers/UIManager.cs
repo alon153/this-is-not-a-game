@@ -23,6 +23,7 @@ namespace Managers
         [Header ("\nMisc")]
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         [SerializeField] private Image _flash;
+        [SerializeField] private Animator _flashAnimatior;
 
         [SerializeField] private GameObject _pauseMenu;
 
@@ -37,6 +38,8 @@ namespace Managers
         private int _maxScoreDisplays;
 
         private TransitionWindow _transitionWindow;
+        
+        private static readonly int PlayFizz = Animator.StringToHash("PlayFizz");
 
         #endregion
 
@@ -105,7 +108,12 @@ namespace Managers
             Debug.Log("ROUND RESET");
         }
 
-        public void ToggleFlash(bool show) => _flash.gameObject.SetActive(show);
+        public void ToggleFlash(bool show)
+        {
+            _flash.gameObject.SetActive(show);
+            if (show)
+                _flashAnimatior.SetTrigger(PlayFizz);
+        }
 
         /// <summary>
         /// Called when a new player is registered to game. Function attributes a text display to player score.

@@ -2278,6 +2278,7 @@ MonoBehaviour:
   - {fileID: 4455762741027506234}
   - {fileID: 538869494963475065}
   _flash: {fileID: 202640994617899738}
+  _flashAnimatior: {fileID: 0}
   _pauseMenu: {fileID: 4101463878265079203}
 --- !u!1 &5836911718952132378
 GameObject:
@@ -2832,6 +2833,7 @@ GameObject:
   - component: {fileID: 4020183717860521845}
   - component: {fileID: 6023447158288063455}
   - component: {fileID: 202640994617899738}
+  - component: {fileID: 2242954505361913934}
   m_Layer: 5
   m_Name: Flash
   m_TagString: Untagged
@@ -2897,6 +2899,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!95 &2242954505361913934
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7156882663875520978}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c40996ee19642a74794f622370251cf8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8427971638292605785
 GameObject:
   m_ObjectHideFlags: 0
