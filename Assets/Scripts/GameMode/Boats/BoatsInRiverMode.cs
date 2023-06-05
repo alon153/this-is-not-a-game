@@ -13,6 +13,8 @@ namespace GameMode.Boats
     public class BoatsInRiverMode : GameModeBase
     {
         #region Serialized Fields
+
+        [SerializeField] private float _yOffset = 1;
         
         [Tooltip("Drag all the prefabs that are used as obstacles for this round.\n Can be found on " +
                  "Prefabs/Modes/Boats)")]
@@ -111,7 +113,7 @@ namespace GameMode.Boats
             _isInGame = new List<bool>();
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {
-                GameManager.Instance.Players[i].transform.position = _playerPositions[i];
+                // GameManager.Instance.Players[i].transform.position = _playerPositions[i];
                 _isInGame.Add(true);
             }
             
@@ -219,7 +221,7 @@ namespace GameMode.Boats
 
             HashSet<Vector3> spawnSet = new HashSet<Vector3>();
 
-            var spawnYCor = _arenaMaxCoord.y;
+            var spawnYCor = _arenaMaxCoord.y + _yOffset;
             var spawnZCor = _arenaMaxCoord.z;
 
             // calc spawn locations

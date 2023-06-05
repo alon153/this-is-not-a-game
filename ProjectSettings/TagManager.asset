@@ -76,3 +76,9 @@ TagManager:
   - name: Player
     uniqueID: 583492459
     locked: 0
+  - name: BoatsObstacle
+    uniqueID: 1098838965
+    locked: 0
+  - name: Top
+    uniqueID: 1269378327
+    locked: 0

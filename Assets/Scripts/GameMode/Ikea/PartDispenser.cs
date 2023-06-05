@@ -17,7 +17,7 @@ namespace GameMode.Ikea
         
         #region Properties
 
-        public IkeaPart PartPrefab { get; set; }
+        [field: SerializeField] public IkeaPart PartPrefab { get; set; }
 
         #endregion
 

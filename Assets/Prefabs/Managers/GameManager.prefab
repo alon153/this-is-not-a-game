@@ -55,15 +55,15 @@ MonoBehaviour:
     _bloomColor: {r: 0.46274513, g: 0.93725497, b: 0.9803922, a: 1}
   - _animatorOverride: {fileID: 22100000, guid: cfd739ab0ab450245a48db752090ed0c, type: 2}
     _bloomColor: {r: 0.9686275, g: 0.89019614, b: 0.30980393, a: 1}
-  _defaultPlayerSprite: {fileID: 0}
-  _roundLength: 10
+  _defaultPlayerSprite: {fileID: 21300000, guid: d96ee26a30fa4454caab7e667a6fb31a, type: 3}
+  _roundLength: 30
   _numRounds: 10
   <Zap>k__BackingField: 1
   _zapLength: 0.25
   _gameModeFactory: {fileID: 11400000, guid: d489007350ef4364b82b6b9f0c563837, type: 2}
-  _isSingleMode: 0
-  _singleMode: 6
-  _modes: 030000000500000006000000010000000200000004000000
+  _isSingleMode: 1
+  _singleMode: 7
+  _modes: 0100000002000000040000000600000008000000070000000300000005000000
   _isGameModeByOrder: 1
 --- !u!114 &5528608369377680934
 MonoBehaviour:

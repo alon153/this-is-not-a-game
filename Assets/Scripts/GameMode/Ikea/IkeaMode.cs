@@ -41,25 +41,25 @@ namespace GameMode.Ikea
         protected override void InitArena_Inner()
         {
             var arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
-            var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
-            var dispenserPos = (_partsPrefabs.Count % 2 == 0)
-                ? arena.TopMiddle - dispenserWidth / 2
-                : arena.TopMiddle;
-            var padding = new Vector3(0.2f,0,0);
-            dispenserPos -= dispenserWidth * Mathf.Floor(_partsPrefabs.Count / 2) + padding * Mathf.Floor((_partsPrefabs.Count)/2 - 1);
-            foreach (IkeaPart part in _partsPrefabs)
-            {
-                var dispenser = Object.Instantiate(_dispenserPrefab, dispenserPos, Quaternion.identity);
-                dispenser.PartPrefab = part;
-
-                var transform = dispenser.transform;
-                var disPart = Object.Instantiate(part, transform.position, Quaternion.identity, transform);
-                
-                disPart.GetComponent<Collider2D>().enabled = false;
-                IkeaPart.BlueprintCount--; //don't count the items on the dispensers as blueprints
-
-                dispenserPos += dispenserWidth + padding;
-            }
+            // var dispenserWidth = Vector3.right * _dispenserPrefab.transform.lossyScale.x;
+            // var dispenserPos = (_partsPrefabs.Count % 2 == 0)
+            //     ? arena.TopMiddle - dispenserWidth / 2
+            //     : arena.TopMiddle;
+            // var padding = new Vector3(0.2f,0,0);
+            // dispenserPos -= dispenserWidth * Mathf.Floor(_partsPrefabs.Count / 2) + padding * Mathf.Floor((_partsPrefabs.Count)/2 - 1);
+            // foreach (IkeaPart part in _partsPrefabs)
+            // {
+            //     var dispenser = Object.Instantiate(_dispenserPrefab, dispenserPos, Quaternion.identity);
+            //     dispenser.PartPrefab = part;
+            //
+            //     var transform = dispenser.transform;
+            //     var disPart = Object.Instantiate(part, transform.position, Quaternion.identity, transform);
+            //     
+            //     disPart.GetComponent<Collider2D>().enabled = false;
+            //     IkeaPart.BlueprintCount--; //don't count the items on the dispensers as blueprints
+            //
+            //     dispenserPos += dispenserWidth + padding;
+            // }
 
             GameManager.Instance.CurrArena = arena;
         }

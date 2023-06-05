@@ -7,14 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1243513888052202077, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 3.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 1243513888052202077, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 3.97
-      objectReference: {fileID: 0}
     - target: {fileID: 1630163584984898480, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
       propertyPath: m_Name
       value: CircleDispenser
@@ -79,5 +71,9 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
+      propertyPath: <PartPrefab>k__BackingField
+      value: 
+      objectReference: {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}

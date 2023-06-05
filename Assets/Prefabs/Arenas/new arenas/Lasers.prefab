@@ -1141,6 +1141,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
       value: TopWindow2
@@ -1215,6 +1219,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 822c6536c1a4b3c40a8d1cf0f81af484, type: 3}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
       value: SideWindow2
@@ -1284,6 +1292,10 @@ PrefabInstance:
     - target: {fileID: 3302654513436476623, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
@@ -1465,6 +1477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopToBottomLaser2
       objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
+      objectReference: {fileID: 0}
     - target: {fileID: 6898624280494246258, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: laserCycles.Array.size
       value: 4
@@ -1547,6 +1567,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: TopToBottomLaser4
       objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
+      objectReference: {fileID: 0}
     - target: {fileID: 6898624280494246258, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: laserCycles.Array.size
       value: 4
@@ -1621,6 +1649,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
       value: TopWindow3
@@ -1690,6 +1722,10 @@ PrefabInstance:
     - target: {fileID: 3302654513436476623, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
@@ -1781,6 +1817,14 @@ PrefabInstance:
       propertyPath: laserCycles.Array.data[3]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
 --- !u!4 &6426320326095530613 stripped
@@ -1867,6 +1911,14 @@ PrefabInstance:
       propertyPath: laserCycles.Array.data[3]
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
 --- !u!4 &5424353006629472252 stripped
@@ -1940,6 +1992,14 @@ PrefabInstance:
     - target: {fileID: 3326687377143996790, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: m_Name
       value: TopToBottomLaser1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
       objectReference: {fileID: 0}
     - target: {fileID: 6898624280494246258, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: laserCycles.Array.size
@@ -2019,6 +2079,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 822c6536c1a4b3c40a8d1cf0f81af484, type: 3}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
       value: SideWindow1
@@ -2096,6 +2160,14 @@ PrefabInstance:
     - target: {fileID: 3326687377143996790, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: m_Name
       value: TopToBottomLaser3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6085373501500139303, guid: 01860512d40f36247848907b8bbacfed, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1269378327
       objectReference: {fileID: 0}
     - target: {fileID: 6898624280494246258, guid: 01860512d40f36247848907b8bbacfed, type: 3}
       propertyPath: laserCycles.Array.size
