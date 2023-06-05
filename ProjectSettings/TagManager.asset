@@ -12,12 +12,12 @@ TagManager:
   - spawnLocation
   - WaterObstacle
   - DiamondPos
-  - Lasers
   - Treasure
   - RingTrigger
   - PlayerCanvas
   - LifeGrid
   - Arrow
+  - Windows
   layers:
   - Default
   - TransparentFX

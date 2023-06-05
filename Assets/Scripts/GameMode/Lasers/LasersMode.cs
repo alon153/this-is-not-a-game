@@ -69,7 +69,7 @@ namespace GameMode.Lasers
 
         private bool _inRound;
 
-        private GameObject _laserParent;
+        private GameObject _windowParent;
 
         private Vector3? _playerPosition;
 
@@ -101,6 +101,7 @@ namespace GameMode.Lasers
 
             GameManager.Instance.GameModeUpdateAction += LaserModeUpdate;
             _allDiamondsCollected = false;
+            _initialDiamondsPooled.Clear();
         }
 
         protected override void InitArena_Inner()
@@ -119,14 +120,12 @@ namespace GameMode.Lasers
                     newDiamond.OnDiamondPickedUp += DiamondPickedUp;
                 }
 
-                if (child.CompareTag("Lasers"))
-                {
-                    _laserParent = child.gameObject;
-                    foreach (Transform laserObj in child.transform)
-                    {
-                        laserObj.GetComponent<LaserBeam>().OnLaserHit += OnPlayerHitByLaser;
-                        laserObj.gameObject.SetActive(true);
-                    }
+                if (child.CompareTag("Windows"))
+                {   
+                    _windowParent = child.gameObject;
+                    foreach (Transform window in _windowParent.transform)
+                        window.GetComponent<Window>().SetOnLaserHit(OnPlayerHitByLaser);
+                    
                 }
             }
 
@@ -141,7 +140,7 @@ namespace GameMode.Lasers
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = null;
 
-            Object.Destroy(_laserParent);
+            Object.Destroy(_windowParent);
         }
 
         protected override void OnTimeOver_Inner()

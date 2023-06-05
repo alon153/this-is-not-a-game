@@ -43,8 +43,6 @@ namespace GameMode.Juggernaut
         
         #region Properties
         public bool YieldsTotem => _yieldsTotem;
-        
-        public float TotalTimeYieldingTotem { get; set; } = 0f;
 
         #endregion
 

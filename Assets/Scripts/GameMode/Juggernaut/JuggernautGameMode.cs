@@ -5,6 +5,7 @@ using UnityEngine;
 using Basics;
 using Basics.Player;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
 
@@ -37,9 +38,11 @@ namespace GameMode.Juggernaut
         [Header("\nGameMode ui")]
         [Tooltip("how many hits can a player take before dropping the totem")]
         [SerializeField] private int juggernautLives = 5;
-
+        
         [Tooltip("How many points will be added per frame to the totem holder")]
-        [SerializeField] private float scorePerFrameHolding = 0.01f;
+        [SerializeField] private float scorePerSecondHolding = 1f;
+
+        [SerializeField] private float timeToAddScore = 1f;
 
         [SerializeField] private JuggerCanvasAddOn canvasAddOnPrefab;
         
@@ -48,6 +51,8 @@ namespace GameMode.Juggernaut
         #endregion
 
         #region Non-Serialized Fields
+
+        private float _time = 0f;
         
         // totem
         private Totem _totem;
@@ -109,8 +114,7 @@ namespace GameMode.Juggernaut
             int roundLen = GameManager.Instance.GetRoundLength();
             foreach (var player in GameManager.Instance.Players)
             {   
-                PlayerAddon.CheckCompatability(player.Addon, GameModes.Juggernaut);
-                var timeWithTotem = ((JuggernautPlayerAddOn) player.Addon).TotalTimeYieldingTotem / roundLen;
+               
             }
 
             return scores;
@@ -153,7 +157,8 @@ namespace GameMode.Juggernaut
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
             _isAPlayerHoldingTotem = true;
-            
+            _time = 0;
+
         }
 
         private void OnTotemDropped()
@@ -175,9 +180,12 @@ namespace GameMode.Juggernaut
             if (_isAPlayerHoldingTotem)
             {   
                 PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
-                ((JuggernautPlayerAddOn) _currTotemHolder.Addon).TotalTimeYieldingTotem += Time.deltaTime;
-                
-                ScoreManager.Instance.SetPlayerScore(_currTotemHolder.Index, scorePerFrameHolding);
+                _time += Time.deltaTime;
+                if (_time >= timeToAddScore)
+                {
+                    _time = 0f; 
+                    ScoreManager.Instance.SetPlayerScore(_currTotemHolder.Index, scorePerSecondHolding);
+                }
             }
 
             foreach (var player in GameManager.Instance.Players)
