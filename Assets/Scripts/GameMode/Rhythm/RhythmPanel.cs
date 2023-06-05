@@ -41,7 +41,10 @@ namespace GameMode.Rhythm
             foreach (var beat in _beats)
             {
                 if (!_rings.ContainsKey(beat))
+                {
                     _rings[beat] = Instantiate(_ringPrefab, transform);
+                    _rings[beat].transform.localScale = Vector3.zero;
+                }
             }
         }
 

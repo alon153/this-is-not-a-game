@@ -28,6 +28,8 @@ namespace GameMode.Modes
         #endregion
 
         #region Non-Serialized Fields
+
+        private static int order = Int32.MinValue;
         
         private float[] _paintTime;
         private GameObject _splashContainer;
@@ -134,6 +136,7 @@ namespace GameMode.Modes
         private void DrawSprite(Vector3 center, Sprite sprite)
         {
             var splash = Object.Instantiate(_paintPrefab, center, Quaternion.identity, _splashContainer.transform);
+            splash.Renderer.sortingOrder = ++order;
             splash.Renderer.sprite = sprite;
         }
         

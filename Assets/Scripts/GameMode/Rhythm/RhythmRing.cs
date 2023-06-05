@@ -14,7 +14,7 @@ public class RhythmRing : MonoBehaviour
 
     private Vector3 _originalScale;
     private float _time;
-    private float _shrinkPerSecond;
+    private float _sizePerSecond;
     private RingTrigger _ringTrigger;
 
     private SpriteRenderer _renderer;
@@ -32,26 +32,26 @@ public class RhythmRing : MonoBehaviour
     private void Awake()
     {
         _renderer = GetComponent<SpriteRenderer>();
-        _originalScale = transform.localScale;
+        _originalScale = Vector3.zero;
     }
 
     private void Start()
     {
         _time = 4 * (AudioManager.Tempo / 60);
-        _shrinkPerSecond = _originalScale.magnitude / _time;
+        _sizePerSecond = 1 / _time;
     }
 
     private void Update()
     {
         if (Run)
         {
-            transform.localScale -= new Vector3(_shrinkPerSecond, _shrinkPerSecond, 0) * Time.deltaTime;
-            if (transform.localScale.magnitude <= 0.05f)
+            transform.localScale += new Vector3(_sizePerSecond, _sizePerSecond, 0) * Time.deltaTime;
+            if (transform.localScale.x >= 1)
                 ResetRing();
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("RingTrigger"))
         {
@@ -72,7 +72,7 @@ public class RhythmRing : MonoBehaviour
     {
         Run = true;
         _time = 4 * (AudioManager.Tempo / 60);
-        _shrinkPerSecond = _originalScale.magnitude / _time;
+        _sizePerSecond = _originalScale.magnitude / _time;
     }
 
     public void ResetRing()
