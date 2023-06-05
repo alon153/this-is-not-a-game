@@ -186,7 +186,7 @@ namespace Managers
                     FreezePlayers(false);
                     GameMode.InitRound();
                     if(InstructionsTime > 0)
-                        UIManager.Instance.ShowInstructions(GameMode.Description, _defaultPlayerSprite, StartRound);
+                        UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite, StartRound);
                     else
                         StartRound();
                 }

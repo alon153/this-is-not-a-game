@@ -13,7 +13,7 @@ namespace GameMode
 
     [field:SerializeField] public Arena ModeArena { get; private set;}
     [field: SerializeField] public string Name { get; private set; }
-    [field: SerializeField] public string Description { get; private set; }
+    [field: SerializeField] public Sprite InstructionsSprite { get; set; }
     [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
 
     #endregion
