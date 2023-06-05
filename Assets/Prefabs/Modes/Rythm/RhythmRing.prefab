@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4887223296590717371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &-4069595545650762990
 MonoBehaviour:
@@ -131,7 +131,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -149,8 +149,9 @@ PolygonCollider2D:
     - - {x: -0.5, y: 0.5}
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: 0.1474086}
       - {x: 0.5, y: 0.5}
-    - - {x: -0.40234375, y: 0.3984375}
-      - {x: 0.41015625, y: 0.3984375}
-      - {x: 0.41015625, y: -0.40625}
-      - {x: -0.40234375, y: -0.40625}
+    - - {x: -0.49, y: 0.49}
+      - {x: 0.49, y: 0.49}
+      - {x: 0.49, y: -0.49}
+      - {x: -0.49, y: -0.49}

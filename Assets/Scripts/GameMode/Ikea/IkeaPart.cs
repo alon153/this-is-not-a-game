@@ -62,6 +62,8 @@ namespace GameMode.Ikea
                 CanInteract = value == null;
                 _collider.enabled = value == null;
                 _rigidbody.isKinematic = value != null;
+                if(value == null)
+                    transform.SetParent(null);
             }
         }
 

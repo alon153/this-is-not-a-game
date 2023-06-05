@@ -239,7 +239,7 @@ namespace Managers
                 player.Ready = false;
             }
             
-            AudioManager.SetMusic(MusicSounds.Game);
+            // AudioManager.SetMusic(MusicSounds.Game);
             _state = GameState.Playing;
             UIManager.Instance.ActivateScoreDisplays();
             NextRound();
