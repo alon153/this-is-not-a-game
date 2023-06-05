@@ -64,15 +64,16 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
     - {fileID: 21300000, guid: 445782942a0198945a0e53c75576ac3d, type: 3}
     - {fileID: 21300000, guid: 711ce4e08e9a27c4699bc690d4361efa, type: 3}
+    _yOffset: 1
     obstaclesPrefab:
     - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
     - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
     - {fileID: 3324010259797466655, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
-    defaultObstaclesCapacity: 80
-    maxObstacleCapacity: 100
+    defaultObstaclesCapacity: 8
+    maxObstacleCapacity: 15
     maxSpawnInterval: 3
     minSpawnInterval: 1
-    obstacleSpawnMultiplier: 6
+    obstacleSpawnMultiplier: 3
     score: 30
   _lasersMode:
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
@@ -140,6 +141,7 @@ MonoBehaviour:
     projectileDestroyTime: 3
     shotCooldown: 0.5
     juggernautLives: 5
-    scorePerFrameHolding: 0.01
+    scorePerSecondHolding: 1
+    timeToAddScore: 1
     canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
     lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

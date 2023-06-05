@@ -281,6 +281,10 @@ PrefabInstance:
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: DefaultArenaPrefab
       value: 
-      objectReference: {fileID: 6661921919638176978, guid: 0e870b9cd1364754ea8537051bc6c026, type: 3}
+      objectReference: {fileID: 6661921919638176978, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+    - target: {fileID: 4565979815418834766, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}

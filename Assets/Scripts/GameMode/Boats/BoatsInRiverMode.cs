@@ -20,19 +20,20 @@ namespace GameMode.Boats
                  "Prefabs/Modes/Boats)")]
         [SerializeField] private List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
         
-        [Range(50, 100)]
-        [SerializeField] private int defaultObstaclesCapacity = 100;
+        [Range(5, 15)]
+        [SerializeField] private int defaultObstaclesCapacity = 8;
         
-        [Range(100, 300)]
-        [SerializeField] private int maxObstacleCapacity = 300;
+        [Range(15, 20)]
+        [SerializeField] private int maxObstacleCapacity = 20;
         
         [Tooltip("Initial Interval, it will go lower as round time progress.")]
         [SerializeField] private float maxSpawnInterval = 3f;
         
         [Tooltip("Lowest Boundary interval, it won't go lower than this.")]
         [SerializeField] private float minSpawnInterval = 0.5f;
-
-        [SerializeField] private float obstacleSpawnMultiplier = 10f;
+        
+        [Range(2,7)]
+        [SerializeField] private int obstacleSpawnMultiplier = 3;
 
         [SerializeField] private float score = 30f;
 
