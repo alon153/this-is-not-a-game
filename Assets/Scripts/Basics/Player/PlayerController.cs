@@ -6,6 +6,7 @@ using GameMode;
 using GameMode.Ikea;
 using Managers;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -32,6 +33,8 @@ namespace Basics.Player
         [Header("UI")] [SerializeField] private TextMeshProUGUI _txtReady;
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
+
+        [SerializeField] private Transform _playerFront;
 
         [Header("Movement")] [SerializeField] private float _speed = 2;
         [SerializeField] private float _maxSpeed = 2;
@@ -147,7 +150,14 @@ namespace Basics.Player
                 // Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
                 bool facingRight = _direction.x > 0;
                 if (facingRight != Renderer.Regular.flipX && Mathf.Abs(_direction.x) >= 0.1f)
+                {
                     Renderer.Regular.flipX = facingRight;
+                    var pos = _playerFront.localPosition;
+                    pos.x = Mathf.Abs(pos.x) * (facingRight ? 1 : -1);
+                    _playerFront.localPosition = pos;
+                    FlipAllFrontObjects(facingRight);
+                }
+                    
             }
         }
 
@@ -374,6 +384,15 @@ namespace Basics.Player
             Freeze(stun, 1, stun);
         }
 
+        public void SetObjectInFront(GameObject objectToSet)
+        {
+            objectToSet.transform.parent = _playerFront;
+            objectToSet.transform.localPosition = Vector3.zero;
+            var spriteRenderer = objectToSet.GetComponent<SpriteRenderer>();
+            spriteRenderer.sortingLayerName = "Player";
+            spriteRenderer.sortingOrder = 1;
+        }
+
         #endregion
 
         #region Private Methods
@@ -473,6 +492,12 @@ namespace Basics.Player
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
             UnFreeze();
+        }
+
+        private void FlipAllFrontObjects(bool flip)
+        {
+            foreach (Transform frontObj in _playerFront)
+                frontObj.GetComponent<SpriteRenderer>().flipX = flip;
         }
 
         #endregion

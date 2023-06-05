@@ -62,7 +62,6 @@ namespace GameMode.Ikea
                 CanInteract = value == null;
                 _collider.enabled = value == null;
                 _rigidbody.isKinematic = value != null;
-                transform.SetParent(value);
             }
         }
 
@@ -168,11 +167,12 @@ namespace GameMode.Ikea
                     playerPart.transform.position = transform.position;
                     playerPart.Holder = null;
                 }
-                
+                    
                 Color = player.Color;
                 transform.position = playerTrans.position + new Vector3(0,playerTrans.lossyScale.y/2,0);
                 transform.rotation = Quaternion.Euler(0,0,0);
                 Holder = playerTrans;
+                player.SetObjectInFront(this.gameObject);
                 ((IkeaPlayerAddon) player.Addon).Part = this;
 
                 CanInteract = false;
@@ -194,7 +194,7 @@ namespace GameMode.Ikea
 
     public enum Type
     {
-        Bar, Bolt,
+        Body, Leg, Circle 
     }
 
     #endregion
