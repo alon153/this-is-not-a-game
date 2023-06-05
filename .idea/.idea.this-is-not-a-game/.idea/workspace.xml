@@ -6,11 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes new arenas.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/AllModes new arenas.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ActionMaps/PlayerMap.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/Managers.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/Managers.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,9 +36,11 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BAE255E3-E08E-46F7-BC2F-BD23DDE96338/2a/87db19f3/SetupCoroutine.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/D6232873-6095-49B8-A045-FA15811A5BD3/5e/84a3ae9c/Delegate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerChild.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Rhythm/RhythmMode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.mathematics@1.2.6/Unity.Mathematics/bool2x2.gen.cs" root0="SKIP_HIGHLIGHTING" />
@@ -50,7 +57,6 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/TimeManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModeBase.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
@@ -58,16 +64,18 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModes.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/ScoreManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModeFactory.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Projectile.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" />
       <option value="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2NbNWtVmqlXkbF3dy7zreWEhftu" />

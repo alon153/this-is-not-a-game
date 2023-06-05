@@ -62,6 +62,15 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a71c4131-9a78-4d2d-b02b-f3bd2fd85ed9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -262,6 +271,28 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""action"": ""ToogleReady"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61350ca6-1625-42f8-b06b-fd89f4518b3a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6bdfd3b8-f0b3-45d4-8b15-9cf1e38855c6"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -297,6 +328,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         m_Game_Dash = m_Game.FindAction("Dash", throwIfNotFound: true);
         m_Game_Action = m_Game.FindAction("Action", throwIfNotFound: true);
         m_Game_ToogleReady = m_Game.FindAction("ToogleReady", throwIfNotFound: true);
+        m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -360,6 +392,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Dash;
     private readonly InputAction m_Game_Action;
     private readonly InputAction m_Game_ToogleReady;
+    private readonly InputAction m_Game_Pause;
     public struct GameActions
     {
         private @PlayerMap m_Wrapper;
@@ -368,6 +401,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_Game_Dash;
         public InputAction @Action => m_Wrapper.m_Game_Action;
         public InputAction @ToogleReady => m_Wrapper.m_Game_ToogleReady;
+        public InputAction @Pause => m_Wrapper.m_Game_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -389,6 +423,9 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @ToogleReady.started -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleReady;
                 @ToogleReady.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleReady;
                 @ToogleReady.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnToogleReady;
+                @Pause.started -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -405,6 +442,9 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @ToogleReady.started += instance.OnToogleReady;
                 @ToogleReady.performed += instance.OnToogleReady;
                 @ToogleReady.canceled += instance.OnToogleReady;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -433,5 +473,6 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnAction(InputAction.CallbackContext context);
         void OnToogleReady(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

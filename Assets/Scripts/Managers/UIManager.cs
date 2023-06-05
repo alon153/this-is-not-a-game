@@ -16,13 +16,15 @@ namespace Managers
         [Header("General Texts")]
         [SerializeField] private TextMeshProUGUI _centerText;
         
-        [Header("Timers")]
+        [Header("\nTimers")]
         [SerializeField] private TextMeshProUGUI _gameTimeText;
         [SerializeField] private TextMeshProUGUI _mainTimeText;
 
-        [Header ("Misc")]
+        [Header ("\nMisc")]
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         [SerializeField] private Image _flash;
+
+        [SerializeField] private GameObject _pauseMenu;
 
         #endregion
         
@@ -45,7 +47,6 @@ namespace Managers
         private const int NewPlayerRegistered = 1;
 
         #endregion
-
 
         #region MonoBehaviour Methods
 
@@ -83,6 +84,25 @@ namespace Managers
         public void HideInstructions()
         {
             _transitionWindow.HideWindow();
+        }
+
+        public void ShowPauseMenu()
+        {   
+            Time.timeScale = 0;
+            _pauseMenu.SetActive(true);
+            _transitionWindow.ShowWindow();
+        }
+
+        public void OnPressResume()
+        {
+            _transitionWindow.HideWindow();
+            _pauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
+
+        public void OnPressReset()
+        {
+            Debug.Log("ROUND RESET");
         }
 
         public void ToggleFlash(bool show) => _flash.gameObject.SetActive(show);

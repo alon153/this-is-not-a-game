@@ -520,6 +520,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bfe516d9-3e89-4e68-8c86-9e8265473acc
     m_ActionName: Game/ToogleRound[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1687361226651586059}
+        m_TargetAssemblyTypeName: Basics.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a71c4131-9a78-4d2d-b02b-f3bd2fd85ed9
+    m_ActionName: Game/Pause[/Keyboard/escape,/XInputControllerWindows/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Game

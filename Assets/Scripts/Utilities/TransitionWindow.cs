@@ -57,7 +57,7 @@ namespace Utilities
 
         #region Public Method
 
-        public void ShowWindow(string title, Sprite instructions, bool immediate=false, Action onEnd=null)
+        public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false, Action onEnd=null)
         {
             if (immediate)
             {
@@ -91,7 +91,7 @@ namespace Utilities
         private void MoveWindow()
         {
             var destPos = _rect.anchoredPosition;
-            destPos.y = Speed == Mathf.Infinity ? _destY : destPos.y + Time.deltaTime * Speed * Mathf.Sign(_destY - destPos.y);
+            destPos.y = Speed == Mathf.Infinity ? _destY : destPos.y + Time.unscaledDeltaTime * Speed * Mathf.Sign(_destY - destPos.y);
             
             if (destPos.y < 0 || destPos.y > _rectOrigY) destPos.y = _destY;
 
