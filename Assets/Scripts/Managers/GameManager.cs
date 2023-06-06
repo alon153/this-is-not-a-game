@@ -156,6 +156,7 @@ namespace Managers
 
         public void StartRound()
         {
+            _state = GameState.Playing;
             UIManager.Instance.HideAllMessages();
             TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
             UnFreezePlayers();
@@ -185,8 +186,11 @@ namespace Managers
                 {
                     FreezePlayers(false);
                     GameMode.InitRound();
-                    if(InstructionsTime > 0)
+                    if (InstructionsTime > 0)
+                    {
+                        _state = GameState.Instructions;
                         UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite, StartRound);
+                    }
                     else
                         StartRound();
                 }
@@ -229,6 +233,16 @@ namespace Managers
             CurrArena = Instantiate(DefaultArenaPrefab);
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
+            _state = GameState.Lobby;
+
+            InitFactory();
+
+            TimeManager.Instance.DelayInvoke((() =>
+            {
+                ScoreManager.Instance.ResetScore();
+                UIManager.Instance.ResetScoreDisplays();
+                UIManager.Instance.HideWinner();
+            }), 5);
         }
 
         private void StartGame()
@@ -252,12 +266,17 @@ namespace Managers
         /// </summary>
         private void Init()
         {
+            InitFactory();
+            CurrArena = Instantiate(DefaultArenaPrefab);
+            _inputManager = GetComponent<PlayerInputManager>();
+        }
+
+        private void InitFactory()
+        {
             if (_isSingleMode)
                 _gameModeFactory.Init(_singleMode);
             else
                 _gameModeFactory.Init(_modes);
-            CurrArena = Instantiate(DefaultArenaPrefab);
-            _inputManager = GetComponent<PlayerInputManager>();
         }
 
         #endregion
@@ -303,14 +322,18 @@ namespace Managers
             player.Renderer.RegularSprite = _defaultPlayerSprite;
             player.Renderer.RegularColor = PlayerDatas[player.Index]._bloomColor;
         }
-        
+
+        public void OnReset()
+        {
+            EndGame();
+        }
     }
     
    
 
     public enum GameState
     {
-        Lobby, Playing
+        Lobby, Playing, Instructions
     }
 
     [Serializable]

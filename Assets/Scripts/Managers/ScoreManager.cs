@@ -119,7 +119,11 @@ namespace Managers
 
         public void ResetScore()
         {
-            _playerScores.Clear();
+            for (int i=0; i < GameManager.Instance.Players.Count; i++)
+            {
+                if(_playerScores.ContainsKey(i))
+                    _playerScores[i] = 0;
+            }
         }
 
         #endregion

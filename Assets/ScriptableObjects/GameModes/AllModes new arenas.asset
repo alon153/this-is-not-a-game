@@ -96,7 +96,7 @@ MonoBehaviour:
   _islandMode:
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
-    <InstructionsSprite>k__BackingField: {fileID: 0}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 743d8bf8c1d877c409ee6cb6f3b42335, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 9c46601d80c2a4e4190d64f505d3ea91, type: 3}
     - {fileID: 21300000, guid: 0e9d2e4ac183636429c3d8f0b6b5e384, type: 3}
@@ -126,12 +126,12 @@ MonoBehaviour:
   _rhythmMode:
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
     <Name>k__BackingField: This is not a game this is a beat!
-    <InstructionsSprite>k__BackingField: {fileID: 0}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
     <CharacterSprites>k__BackingField: []
   _juggernautMode:
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: 
-    <InstructionsSprite>k__BackingField: {fileID: 0}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: fb3015ce38ed48a4086cda348c5fdd58, type: 3}
     <CharacterSprites>k__BackingField: []
     totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
     totemDisableTime: 2

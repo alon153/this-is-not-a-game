@@ -7,7 +7,7 @@ public class RhythmRing : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private Color _onBeatColor = Color.green;
-    
+
     #endregion
 
     #region Non-Serialized Fields
@@ -16,8 +16,6 @@ public class RhythmRing : MonoBehaviour
     private float _time;
     private float _sizePerSecond;
     private RingTrigger _ringTrigger;
-    private float _beatAt = 0;
-    private float _beatFactor = 0;
 
     private SpriteRenderer _renderer;
 
@@ -72,28 +70,16 @@ public class RhythmRing : MonoBehaviour
 
     public void StartRing()
     {
-        if (_beatAt == 0)
-        {
-            _beatAt = Time.time;
-            return;
-        }
-        
-        if (_beatFactor == 0)
-        {
-            _time = 4 * (AudioManager.Tempo / 60);
-            _beatFactor = (Time.time - _beatAt) / _time;
-            print(_beatFactor);
-            _time *= _beatFactor;
-            _beatAt = Time.time;
-            return;
-        }
-
+        ResetRing();
         Run = true;
+        _time = 4 * (AudioManager.Tempo / 60) * AudioManager.TimeFactor;
         _sizePerSecond = 1 / _time;
     }
 
     public void ResetRing()
     {
+        if(transform == null) return; // in case the object was destroyed
+        
         Run = false;
         transform.localScale = _originalScale;
         _renderer.color = Color.white;

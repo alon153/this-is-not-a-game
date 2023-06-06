@@ -77,9 +77,9 @@ namespace GameMode
             _playedModes = new List<GameModes>();
         }
 
-        public GameModeBase GetGameMode(bool isRandom)
+        public GameModeBase GetGameMode(bool isByOrder)
         {
-            GameModes mode = GetModeEnum(isRandom);
+            GameModes mode = GetModeEnum(isByOrder);
             return mode switch
             {
                 GameModes.Paint => _paintMode,
@@ -93,6 +93,11 @@ namespace GameMode
                 
                 _ => null
             };
+        }
+        
+        public void Reset()
+        {
+            
         }
 
         #endregion

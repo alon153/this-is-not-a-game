@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Audio;
@@ -14,6 +15,7 @@ namespace GameMode.Rhythm
 
         [SerializeField] private List<int> _beats;
         [SerializeField] private RhythmRing _ringPrefab;
+        [SerializeField] private float _coyoteTime = 0.5f;
 
         #endregion
 
@@ -21,6 +23,8 @@ namespace GameMode.Rhythm
         
         private Dictionary<int, RhythmRing> _rings = new();
         private RingTrigger _ringTrigger;
+        
+        private Guid _beatInvoke = Guid.Empty;
 
         #endregion
 
@@ -34,6 +38,12 @@ namespace GameMode.Rhythm
         {
             InitRings();
             _ringTrigger = GetComponentInChildren<RingTrigger>();
+        }
+
+        private void OnDestroy()
+        {
+            if (_beatInvoke != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_beatInvoke);
         }
 
         private void InitRings()
@@ -62,13 +72,20 @@ namespace GameMode.Rhythm
 
         public void OnBeat(int beat)
         {
-            if (_rings.ContainsKey(beat))
+            if(GameManager.Instance.CurrentState != GameState.Playing)
+                return;
+            
+            if (_beatInvoke != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_beatInvoke);
+            _beatInvoke = TimeManager.Instance.DelayInvoke((() =>
             {
-                print($"reset on beat {beat}");
-                var ring = _rings[beat];
-                ring.ResetRing();
-                ring.StartRing();
-            }
+                if (_rings.ContainsKey(beat))
+                {
+                    var ring = _rings[beat];
+                    ring.StartRing();
+                }
+                _beatInvoke = Guid.Empty;
+            }), _coyoteTime);
         }
 
         #endregion

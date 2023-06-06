@@ -7,6 +7,7 @@ using FMOD.Studio;
 using UnityEngine;
 using FMODUnity;
 using Managers;
+using Unity.VisualScripting;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
@@ -39,11 +40,14 @@ public class AudioManager : MonoBehaviour
 
     private EVENT_CALLBACK cb;
 
+    private float _lastBeat;
+
     #endregion
 
     #region Properties
 
     public static float Tempo { get; private set; }
+    public static float TimeFactor { get; private set; } = 0;
 
     #endregion
 
@@ -167,9 +171,22 @@ public class AudioManager : MonoBehaviour
         {
             TIMELINE_BEAT_PROPERTIES beat = ((TIMELINE_NESTED_BEAT_PROPERTIES)Marshal.PtrToStructure(parameters, typeof(TIMELINE_NESTED_BEAT_PROPERTIES))).properties;
             Tempo = beat.tempo;
-            foreach (var l in _beatListeners)
+
+            if (_lastBeat == 0)
             {
-                l.OnBeat(beat.beat);
+                _lastBeat = Time.time;
+            }
+            else if(TimeFactor == 0)
+            {
+                float delta = Time.time - _lastBeat;
+                TimeFactor = delta / (Tempo / 60);
+            }
+            else
+            {
+                foreach (var l in _beatListeners)
+                {
+                    l.OnBeat(beat.beat);
+                }
             }
         }
         return FMOD.RESULT.OK;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Basics;
+using Managers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -26,6 +27,8 @@ namespace GameMode.Rhythm
                     AudioManager.RegisterBeatListener(p);
                 }
             }
+
+            GameManager.Instance.CurrArena = arena;
         }
 
         protected override void ClearRound_Inner()

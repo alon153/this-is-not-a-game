@@ -105,7 +105,7 @@ namespace Managers
 
         public void OnPressReset()
         {
-            Debug.Log("ROUND RESET");
+            GameManager.Instance.OnReset();
         }
 
         public void ToggleFlash(bool show)
@@ -168,9 +168,6 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
-            _playerScoreDisplay.Clear();
-            _activeScoreDisplays = 0;
-
             foreach (var display in playerScoreTexts)
             {
                 display.gameObject.SetActive(false);
@@ -207,6 +204,11 @@ namespace Managers
             _centerText.color = GameManager.Instance.PlayerColor(winner);
             _centerText.text = $"Player {winner + 1} wins!";
             ToggleCenterText(true);
+        }
+        
+        public void HideWinner()
+        {
+            ToggleCenterText(false);
         }
     }
 }
