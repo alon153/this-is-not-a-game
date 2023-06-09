@@ -385,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
@@ -393,7 +393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _modes.Array.size
@@ -439,6 +439,10 @@ PrefabInstance:
       propertyPath: _modes.Array.data[7]
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 557702557130088218, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: abc09f7fb534de442b1036c4e2dfad85, type: 3}
     - target: {fileID: 1055141918217770904, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 5

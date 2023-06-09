@@ -15,7 +15,9 @@ namespace Utilities
         [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private RectTransform _timer;
         [SerializeField] private Image _instructions;
-        [SerializeField] private float _transitionTime;
+        [SerializeField] private float _transitionTime = 3;
+        [SerializeField] private TextMeshProUGUI[] _playerReady;
+        [SerializeField] private float _countdown = 3f;
         
         #endregion
         
@@ -43,6 +45,11 @@ namespace Utilities
             _rect = GetComponent<RectTransform>();
             _timerOrigX = _timer.rect.width;
             _rectOrigY = _rect.rect.height;
+
+            foreach (var text in _playerReady)
+            {
+                text.enabled = false;
+            }
         }
 
         private void Update()
@@ -57,7 +64,7 @@ namespace Utilities
 
         #region Public Method
 
-        public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false, Action onEnd=null)
+        public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false)
         {
             if (title != "")
                 _title.text = title;
@@ -73,7 +80,6 @@ namespace Utilities
             if(_rect.anchoredPosition.y >= _rectOrigY) return;
             
             _destY = _rectOrigY;
-            StartTimer(GameManager.Instance.InstructionsTime, onEnd);
         }
 
         public void HideWindow(bool immediate=false)
@@ -109,13 +115,6 @@ namespace Utilities
             _instructions.sprite = instructions;
         }
 
-        private void StartTimer(float duration, Action onEnd=null)
-        {
-            if (_transitionCoroutine != null)
-                StopCoroutine(_transitionCoroutine);
-            _transitionCoroutine = StartCoroutine(Timer_Inner(duration, onEnd));
-        }
-
         private IEnumerator Timer_Inner(float duration, Action onEnd=null)
         {
             var pos = _timer.anchoredPosition;
@@ -143,5 +142,26 @@ namespace Utilities
         }
 
         #endregion
+
+        public void StartCountdown(Action onEnd)
+        {
+            if (_transitionCoroutine != null)
+                StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = StartCoroutine(Timer_Inner(_countdown, onEnd));
+        }
+
+        public void SetReady(int index, bool ready)
+        {
+            if (index < 0 || index >= _playerReady.Length) 
+                return;
+            _playerReady[index].enabled = ready;
+        }
+
+        public void SetPlayerColor(int index, Color color)
+        {
+            if (index < 0 || index >= _playerReady.Length) 
+                return;
+            _playerReady[index].color = color;
+        }
     }
 }

@@ -181,7 +181,6 @@ namespace Basics.Player
             set
             {
                 _ready = value;
-                _txtReady.enabled = value;
                 GameManager.Instance.SetReady(Index, value);
             }
         }
@@ -223,7 +222,7 @@ namespace Basics.Player
             // Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
             Color = _origColor;
             GameManager.Instance.SetDefaultSprite(this);
-            Ready = false;
+            _txtReady.enabled = false;
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
         }
@@ -314,7 +313,7 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (GameManager.Instance.CurrentState == GameState.Lobby)
+                    if (GameManager.Instance.CurrentState == GameState.Lobby || GameManager.Instance.CurrentState == GameState.Instructions)
                         Ready = !Ready;
                     break;
             }
@@ -330,6 +329,11 @@ namespace Basics.Player
         #endregion
 
         #region Public Methods
+
+        public void ShowReady(bool show)
+        {
+            _txtReady.enabled = show;
+        }
 
         private void ToggleInteractText(bool show, string text = "Press A")
         {

@@ -79,9 +79,9 @@ namespace Managers
 
         #region Public Methods
         
-        public void ShowInstructions(string title, Sprite instructions, Action onEnd=null)
+        public void ShowInstructions(string title, Sprite instructions)
         {
-            _transitionWindow.ShowWindow(title, instructions, onEnd: onEnd);
+            _transitionWindow.ShowWindow(title, instructions);
         }
         
         public void HideInstructions()
@@ -130,8 +130,9 @@ namespace Managers
                 return;
             }
             
-            
-            playerScoreTexts[_activeScoreDisplays].color = GameManager.Instance.PlayerColor(playerId);
+            var color = GameManager.Instance.PlayerColor(playerId);
+            playerScoreTexts[_activeScoreDisplays].color = color;
+            _transitionWindow.SetPlayerColor(playerId, color);
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
             _activeScoreDisplays += NewPlayerRegistered;
         }
@@ -209,6 +210,16 @@ namespace Managers
         public void HideWinner()
         {
             ToggleCenterText(false);
+        }
+
+        public void StartCountdown(Action onEnd=null)
+        {
+            _transitionWindow.StartCountdown(onEnd);
+        }
+
+        public void InstructionsReady(int index, bool ready)
+        {
+            _transitionWindow.SetReady(index, ready);
         }
     }
 }

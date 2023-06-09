@@ -28,8 +28,7 @@ namespace Managers
         [SerializeField] private int _numRounds = 10;
         [field: SerializeField] public bool Zap { get; private set; }= false;
         [SerializeField] private float _zapLength = 0.5f;
-        [field: SerializeField] public float InstructionsTime { get; private set; } = 3f;
-        
+
         [Header("Mode Factory Settings")]
         [SerializeField] private GameModeFactory _gameModeFactory;
         [SerializeField] private bool _isSingleMode;
@@ -58,12 +57,28 @@ namespace Managers
         private Arena _currArena;
         private GameState _state = GameState.Lobby;
 
+        private Action<int, bool> _showReady;
+
         #endregion
 
         #region Properties
 
         public List<PlayerController> Players => Instance._players;
 
+        private GameState State
+        {
+            get => _state;
+            set
+            {
+                _state = value;
+                _showReady = _state switch
+                {
+                    GameState.Lobby => (i, b) => { _players[i].ShowReady(b); },
+                    _ => UIManager.Instance.InstructionsReady
+                };
+            }
+        }
+        
         public GameState CurrentState => _state;
         
         public UnityAction GameModeUpdateAction { get; set;}  
@@ -156,7 +171,9 @@ namespace Managers
 
         public void StartRound()
         {
-            _state = GameState.Playing;
+            State = GameState.Playing;
+            ResetReadies();
+            
             UIManager.Instance.HideAllMessages();
             TimeManager.Instance.StartCountDown(_roundLength, OnTimeOver);
             UnFreezePlayers();
@@ -186,13 +203,8 @@ namespace Managers
                 {
                     FreezePlayers(false);
                     GameMode.InitRound();
-                    if (InstructionsTime > 0)
-                    {
-                        _state = GameState.Instructions;
-                        UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite, StartRound);
-                    }
-                    else
-                        StartRound();
+                    State = GameState.Instructions;
+                    UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
                 }
             }
             
@@ -227,15 +239,12 @@ namespace Managers
         #endregion
 
         #region Private Methods
-        
+
         private void EndGame()
         {
-            CurrArena = Instantiate(DefaultArenaPrefab);
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
-            _state = GameState.Lobby;
-
-            InitFactory();
+            Init();
 
             TimeManager.Instance.DelayInvoke((() =>
             {
@@ -248,15 +257,22 @@ namespace Managers
         private void StartGame()
         {
             _inputManager.enabled = false;
+            
+            
+            State = GameState.Playing;
+            ResetReadies();
+            
+            UIManager.Instance.ActivateScoreDisplays();
+            NextRound();
+        }
+
+        private void ResetReadies()
+        {
             foreach (var player in Players)
             {
                 player.Ready = false;
+                player.ShowReady(false);
             }
-            
-            // AudioManager.SetMusic(MusicSounds.Game);
-            _state = GameState.Playing;
-            UIManager.Instance.ActivateScoreDisplays();
-            NextRound();
         }
 
         /// <summary>
@@ -269,6 +285,7 @@ namespace Managers
             InitFactory();
             CurrArena = Instantiate(DefaultArenaPrefab);
             _inputManager = GetComponent<PlayerInputManager>();
+            State = GameState.Lobby;
         }
 
         private void InitFactory()
@@ -299,17 +316,29 @@ namespace Managers
 
         public void SetReady(int index, bool value)
         {
-            if(_state != GameState.Lobby)
+            if(_state != GameState.Lobby && _state != GameState.Instructions)
                 return;
             
             if(index < 0 || index >= _readys.Count)
                 return;
             _readys[index] = value;
+            _showReady(index, value);
             
-            if(_readys.Contains(false))
-                TimeManager.Instance.StopCountDown();
-            else
-                TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
+            switch (_state)
+            {
+                case GameState.Lobby:
+                    if(_readys.Contains(false))
+                        TimeManager.Instance.StopCountDown();
+                    else
+                        TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
+                    break;
+                case GameState.Instructions:
+                    if (!_readys.Contains(false))
+                    {
+                        UIManager.Instance.StartCountdown(StartRound);
+                    }
+                    break;
+            }
         }
 
         public int GetRoundLength()
