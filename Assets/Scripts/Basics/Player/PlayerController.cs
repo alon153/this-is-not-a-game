@@ -293,6 +293,12 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if (GameManager.Instance.CurrentState is GameState.Lobby or GameState.Instructions)
+                    {
+                        Ready = !Ready;
+                        return;
+                    }
+                    
                     if (Interactable != null)
                         Interactable.OnInteract(this);
                     else if (Addon is PlayerActionAddOn)
@@ -304,17 +310,6 @@ namespace Basics.Player
                     if (Interactable != null)
                         Interactable.OnInteract(this, false);
 
-                    break;
-            }
-        }
-
-        public void OnToggleReady(InputAction.CallbackContext context)
-        {
-            switch (context.phase)
-            {
-                case InputActionPhase.Started:
-                    if (GameManager.Instance.CurrentState == GameState.Lobby || GameManager.Instance.CurrentState == GameState.Instructions)
-                        Ready = !Ready;
                     break;
             }
         }
