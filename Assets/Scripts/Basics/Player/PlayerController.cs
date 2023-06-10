@@ -316,9 +316,7 @@ namespace Basics.Player
 
         public void OnPause(InputAction.CallbackContext context)
         {   
-            
-            if (GameManager.Instance.CurrentState != GameState.Playing) return;
-            UIManager.Instance.ShowPauseMenu();
+           UIManager.Instance.OnPressStart();
         }
 
         #endregion

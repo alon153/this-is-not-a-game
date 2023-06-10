@@ -4,6 +4,7 @@ using Basics;
 using Managers;
 using UnityEngine;
 using UnityEngine.Pool;
+using Utilities;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -71,16 +72,6 @@ namespace GameMode.Boats
         
         private int _maxPrefabIndex;
 
-        #endregion
-
-        #region Constants
-
-        private const int MaxProgress = 1;
-
-        private const int MinProgress = 0;
-
-        private const int MinPrefabIndex = 0;
-        
         #endregion
 
         // Update is called once per frame
@@ -219,7 +210,7 @@ namespace GameMode.Boats
         private void SpawnNewObstacles()
         {   
             // calc amount of objects to spawn in this round
-            float roundProgress = Mathf.Lerp(MinProgress, MaxProgress, _timeProgress);
+            float roundProgress = Mathf.Lerp(Constants.MinProgress, Constants.MaxProgress, _timeProgress);
             int spawnAmount = CalcSpawnAmount(roundProgress);
 
             HashSet<Vector3> spawnSet = new HashSet<Vector3>();
@@ -292,7 +283,7 @@ namespace GameMode.Boats
         /// </summary>
         private RiverObstacle CreateObstacle()
         {
-            int idx = Random.Range(MinPrefabIndex, _maxPrefabIndex);
+            int idx = Random.Range(Constants.MinIndex, _maxPrefabIndex);
             var newObstacle = Object.Instantiate(obstaclesPrefab[idx], 
                 _obstaclesParent.transform, true);
             _obstacles.Add(newObstacle.GetInstanceID(), newObstacle);

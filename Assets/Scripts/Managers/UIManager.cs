@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utilities;
 
@@ -24,8 +25,14 @@ namespace Managers
         [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
         [SerializeField] private Image _flash;
         [SerializeField] private Animator _flashAnimatior;
-
+        
+        [Header("\nMenus")]
         [SerializeField] private GameObject _pauseMenu;
+        [SerializeField] private GameObject _settingsMenu;
+        [SerializeField] private GameObject _firstPauseMenuBtn;
+        [SerializeField] private GameObject _firstSettingsMenuBtn;
+
+        [SerializeField] private EventSystem _eventSystem;
 
         #endregion
         
@@ -40,14 +47,6 @@ namespace Managers
         private TransitionWindow _transitionWindow;
         
         private static readonly int PlayFizz = Animator.StringToHash("PlayFizz");
-
-        #endregion
-
-        #region Constants
-
-        private const string InitialScore = "0";
-
-        private const int NewPlayerRegistered = 1;
 
         #endregion
 
@@ -88,23 +87,64 @@ namespace Managers
         {
             _transitionWindow.HideWindow();
         }
+        
+        /// <summary>
+        /// will lead to settings menu if in lobby, will lead to pause menu if in game. 
+        /// </summary>
+        public void OnPressStart()
+        {
+            switch (GameManager.Instance.CurrentState)
+            {
+               case GameState.Lobby:
+                    _eventSystem.SetSelectedGameObject(_firstSettingsMenuBtn);
+                    _settingsMenu.SetActive(true);
+                    GameManager.Instance.CurrentState = GameState.SettingsMenu;
+                    break;
+                    
+                case GameState.Playing: 
+                    _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn);
+                    _pauseMenu.SetActive(true);
+                    _transitionWindow.ShowWindow();
+                    GameManager.Instance.CurrentState = GameState.PauseMenu;
+                    break;
+                
+                case GameState.Instructions:
+                case GameState.MainMenu:
+                case GameState.PauseMenu:
+                case GameState.SettingsMenu:
+                    return;
+            }
 
-        public void ShowPauseMenu()
-        {   
             Time.timeScale = 0;
-            _pauseMenu.SetActive(true);
-            _transitionWindow.ShowWindow();
         }
 
-        public void OnPressResume()
-        {
-            _transitionWindow.HideWindow();
-            _pauseMenu.SetActive(false);
+        public void OnReturnToGame()
+        {   
+            switch (GameManager.Instance.CurrentState){
+
+                case GameState.PauseMenu:
+                    _transitionWindow.HideWindow();
+                    _pauseMenu.SetActive(false);
+                    GameManager.Instance.CurrentState = GameState.Playing;
+                    break;
+                case GameState.SettingsMenu:
+                    _settingsMenu.SetActive(false);
+                    GameManager.Instance.CurrentState = GameState.Lobby;
+                    break;
+                
+                case GameState.Lobby:
+                case GameState.Playing:
+                case GameState.Instructions:
+                case GameState.MainMenu:
+                    return;
+            }
             Time.timeScale = 1;
         }
 
         public void OnPressReset()
-        {
+        {   
+            Time.timeScale = 1;
+            _pauseMenu.SetActive(false);
             GameManager.Instance.OnReset();
         }
 
@@ -134,7 +174,7 @@ namespace Managers
             playerScoreTexts[_activeScoreDisplays].color = color;
             _transitionWindow.SetPlayerColor(playerId, color);
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
-            _activeScoreDisplays += NewPlayerRegistered;
+            _activeScoreDisplays += Constants.NewPlayerRegistered;
         }
         
         /// <summary>
@@ -145,7 +185,7 @@ namespace Managers
         {
             foreach (var key in _playerScoreDisplay.Keys)
             {
-                _playerScoreDisplay[key].text = InitialScore;
+                _playerScoreDisplay[key].text = Constants.InitialScore;
                 _playerScoreDisplay[key].gameObject.SetActive(true);
             }
         }

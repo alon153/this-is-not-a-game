@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using JetBrains.Annotations;
+using Utilities;
 
 namespace GameMode.Boats
 {
@@ -20,14 +21,6 @@ namespace GameMode.Boats
 
         [CanBeNull] public Coroutine _fadeCoroutine = null;
 
-        #endregion
-
-        #region Constants
-        
-        private const int MaxAlpha = 1;
-
-        private const int MinAlpha = 0;
-            
         #endregion
 
         #region Properties
@@ -94,7 +87,7 @@ namespace GameMode.Boats
             while (timePassed < _timeToFade)
             {
                 float progress = timePassed / _timeToFade;
-                var alpha = Mathf.Lerp(MaxAlpha, MinAlpha, progress);
+                var alpha = Mathf.Lerp(Constants.MaxProgress, Constants.MinProgress, progress);
                 var newColor = new Color(color.r, color.g, color.b, alpha);
                 var curScale = Vector3.Lerp(initScale, Vector3.zero, progress);
 

@@ -6,6 +6,7 @@ using Basics.Player;
 using Managers;
 using Unity.Mathematics;
 using UnityEngine.Pool;
+using Utilities;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -82,23 +83,11 @@ namespace GameMode.Lasers
 
         #endregion
 
-        #region Constants
-
-        private const int MinIndex = 0;
-
-        private const int Empty = 0;
-
-        private const float ResetTime = 0f;
-
-        private const int None = 0;
-
-        #endregion
-
         #region GameModeBase Methods
 
         protected override void InitRound_Inner()
         {
-            _diamondsCollected = None;
+            _diamondsCollected = Constants.None;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = new LaserPlayerAddon();
 
@@ -122,7 +111,7 @@ namespace GameMode.Lasers
             {
                 if (child.CompareTag("DiamondPos"))
                 {
-                    var idx = Random.Range(MinIndex, diamondPrefabs.Length);
+                    var idx = Random.Range(Constants.MinIndex, diamondPrefabs.Length);
                     DiamondCollectible newDiamond = Object.Instantiate(diamondPrefabs[idx], child.transform.position,
                         quaternion.identity);
                     newDiamond.transform.parent = _diamondParent.transform;
@@ -186,9 +175,9 @@ namespace GameMode.Lasers
             // all initial diamonds are already in the pool. so 
             // a new one needs to be created.
             DiamondCollectible newDiamond;
-            if (_collectedInitialDiamonds.Count == Empty)
+            if (_collectedInitialDiamonds.Count == Constants.Empty)
             {
-                int idx = Random.Range(MinIndex, diamondPrefabs.Length);
+                int idx = Random.Range(Constants.MinIndex, diamondPrefabs.Length);
                 newDiamond = Object.Instantiate(diamondPrefabs[idx], _diamondParent.transform, true);
                 newDiamond.OnDiamondPickedUp += DiamondPickedUp;
                 return newDiamond;
@@ -304,7 +293,7 @@ namespace GameMode.Lasers
             _diamondSpawnTimer += Time.deltaTime;
             if (_diamondSpawnTimer >= timeToSpawnNewDiamond)
             {
-                _diamondSpawnTimer = ResetTime;
+                _diamondSpawnTimer = Constants.ResetTime;
                 _diamondPool.Get();
             }
         }
@@ -381,7 +370,7 @@ namespace GameMode.Lasers
                 : diamondsDropOnLaser;
 
             // reduce diamonds from the player and spawn them on field.
-            if (diamondsToDrop > None)
+            if (diamondsToDrop > Constants.None)
             {
                 _playerPosition = player.transform.position;
 

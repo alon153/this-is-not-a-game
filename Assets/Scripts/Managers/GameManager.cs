@@ -57,6 +57,8 @@ namespace Managers
         private Arena _currArena;
         private GameState _state = GameState.Lobby;
 
+        [SerializeField] private InstructionsState _instructionsState = InstructionsState.Show;
+
         private Action<int, bool> _showReady;
 
         #endregion
@@ -79,8 +81,12 @@ namespace Managers
             }
         }
         
-        public GameState CurrentState => _state;
-        
+        public GameState CurrentState
+        {
+            get => _state;
+            set => _state = value;
+        }
+
         public UnityAction GameModeUpdateAction { get; set;}  
         public GameModeBase GameMode { get; private set; }
 
@@ -204,7 +210,16 @@ namespace Managers
                     FreezePlayers(false);
                     GameMode.InitRound();
                     State = GameState.Instructions;
-                    UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
+                    
+                    switch (_instructionsState)
+                    {
+                        case InstructionsState.Show:
+                            UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
+                            break;
+                        case InstructionsState.Hide:
+                            UIManager.Instance.StartCountdown(StartRound);
+                            break;
+                    }
                 }
             }
             
@@ -361,8 +376,13 @@ namespace Managers
    
 
     public enum GameState
+    { 
+        MainMenu, PauseMenu, SettingsMenu, Lobby, Playing, Instructions
+    }
+
+    public enum InstructionsState
     {
-        Lobby, Playing, Instructions
+        Show, Hide
     }
 
     [Serializable]

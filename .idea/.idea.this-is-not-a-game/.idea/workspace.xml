@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Basics/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Ikea/IkeaPart.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Ikea/IkeaPart.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +49,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Managers/ScoreManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Rhythm/RhythmPanel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../../../work/MoonActiveHomeTest/Assets/Scripts/Utilities/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Basics/FloatingPoints.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BAE255E3-E08E-46F7-BC2F-BD23DDE96338/d3/8227c20c/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../NarrativeFormats/NarrativeFormats-EX5/Assets/Scripts/Managers/UIManager.cs" root0="SKIP_HIGHLIGHTING" />
@@ -52,14 +60,12 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/Singleton.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/TimeManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModeBase.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverArena.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModes.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/ScoreManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/GameModeFactory.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Projectile.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautLifeGrid.cs" />
       <option value="$PROJECT_DIR$/ProjectSettings/TagManager.asset" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" />
@@ -67,10 +73,15 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/Totem.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Ikea/IkeaPart.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Ikea/IkeaPart.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2NbNWtVmqlXkbF3dy7zreWEhftu" />
@@ -126,6 +137,7 @@
       <workItem from="1685530548057" duration="5472000" />
       <workItem from="1685536340416" duration="2926000" />
       <workItem from="1685694147436" duration="2251000" />
+      <workItem from="1686395396577" duration="5726000" />
     </task>
     <servers />
   </component>
