@@ -77,7 +77,7 @@ namespace GameMode.Boats
         // Update is called once per frame
         private void Update()
         {
-            if(GameManager.Instance.CurrentState != GameState.Playing) return;
+            if(GameManager.Instance.State != GameState.Playing) return;
             
             if (_started)
             {

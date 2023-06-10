@@ -48,7 +48,7 @@ namespace GameMode.Lasers
         // Update is called once per frame
         void Update()
         {   
-            if (GameManager.Instance.CurrentState != GameState.Playing) return;
+            if (GameManager.Instance.State != GameState.Playing) return;
             
             _timer += Time.deltaTime;
             if (_timer >= laserToggleTime)

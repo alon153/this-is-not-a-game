@@ -72,7 +72,7 @@ namespace GameMode.Rhythm
 
         public void OnBeat(int beat)
         {
-            if(GameManager.Instance.CurrentState != GameState.Playing)
+            if(GameManager.Instance.State != GameState.Playing)
                 return;
             
             if (_beatInvoke != Guid.Empty)

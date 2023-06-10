@@ -9,6 +9,7 @@ using GameMode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utilities;
 using PlayerController = Basics.Player.PlayerController;
 
@@ -50,49 +51,36 @@ namespace Managers
 
         private HashSet<int> _playerIds = new();
 
-      
         private int _roundsPlayed = 0;
         private PlayerInputManager _inputManager;
 
         private Arena _currArena;
-        private GameState _state = GameState.Lobby;
 
-        [SerializeField] private InstructionsState _instructionsState = InstructionsState.Show;
+        private GameState _currentState = GameState.Lobby;
 
         private Action<int, bool> _showReady;
 
         #endregion
 
         #region Properties
-
         public List<PlayerController> Players => Instance._players;
-
-        private GameState State
+        public GameState State
         {
-            get => _state;
+            get => _currentState;
             set
             {
-                _state = value;
-                _showReady = _state switch
+                _currentState = value;
+                _showReady = _currentState switch
                 {
                     GameState.Lobby => (i, b) => { _players[i].ShowReady(b); },
                     _ => UIManager.Instance.InstructionsReady
                 };
             }
         }
-        
-        public GameState CurrentState
-        {
-            get => _state;
-            set => _state = value;
-        }
-
-        public UnityAction GameModeUpdateAction { get; set;}  
-        public GameModeBase GameMode { get; private set; }
-
+        public UnityAction GameModeUpdateAction { get; set;}
+        private GameModeBase GameMode { get; set; }
         public Color PlayerColor(int i) => PlayerDatas[i]._bloomColor;
         public AnimatorOverrideController PlayerAnimatorOverride(int i) => PlayerDatas[i]._animatorOverride;
-
         public Arena CurrArena
         {
             get => _currArena;
@@ -109,7 +97,9 @@ namespace Managers
                 }
             }
         }
-
+        
+        public bool instructionsMode = false;
+        
         #endregion
 
         #region Event Functions
@@ -209,14 +199,14 @@ namespace Managers
                 {
                     FreezePlayers(false);
                     GameMode.InitRound();
-                    State = GameState.Instructions;
-                    
-                    switch (_instructionsState)
+
+                    switch (instructionsMode)
                     {
-                        case InstructionsState.Show:
+                        case true:
+                            State = GameState.Instructions;
                             UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
                             break;
-                        case InstructionsState.Hide:
+                        case false:
                             UIManager.Instance.StartCountdown(StartRound);
                             break;
                     }
@@ -331,7 +321,7 @@ namespace Managers
 
         public void SetReady(int index, bool value)
         {
-            if(_state != GameState.Lobby && _state != GameState.Instructions)
+            if(_currentState != GameState.Lobby && _currentState != GameState.Instructions)
                 return;
             
             if(index < 0 || index >= _readys.Count)
@@ -339,7 +329,7 @@ namespace Managers
             _readys[index] = value;
             _showReady(index, value);
             
-            switch (_state)
+            switch (State)
             {
                 case GameState.Lobby:
                     if(_readys.Contains(false))

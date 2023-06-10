@@ -93,19 +93,19 @@ namespace Managers
         /// </summary>
         public void OnPressStart()
         {
-            switch (GameManager.Instance.CurrentState)
+            switch (GameManager.Instance.State)
             {
                case GameState.Lobby:
                     _eventSystem.SetSelectedGameObject(_firstSettingsMenuBtn);
                     _settingsMenu.SetActive(true);
-                    GameManager.Instance.CurrentState = GameState.SettingsMenu;
+                    GameManager.Instance.State = GameState.SettingsMenu;
                     break;
                     
                 case GameState.Playing: 
                     _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn);
                     _pauseMenu.SetActive(true);
                     _transitionWindow.ShowWindow();
-                    GameManager.Instance.CurrentState = GameState.PauseMenu;
+                    GameManager.Instance.State = GameState.PauseMenu;
                     break;
                 
                 case GameState.Instructions:
@@ -120,16 +120,16 @@ namespace Managers
 
         public void OnReturnToGame()
         {   
-            switch (GameManager.Instance.CurrentState){
+            switch (GameManager.Instance.State){
 
                 case GameState.PauseMenu:
                     _transitionWindow.HideWindow();
                     _pauseMenu.SetActive(false);
-                    GameManager.Instance.CurrentState = GameState.Playing;
+                    GameManager.Instance.State = GameState.Playing;
                     break;
                 case GameState.SettingsMenu:
                     _settingsMenu.SetActive(false);
-                    GameManager.Instance.CurrentState = GameState.Lobby;
+                    GameManager.Instance.State = GameState.Lobby;
                     break;
                 
                 case GameState.Lobby:
@@ -141,10 +141,14 @@ namespace Managers
             Time.timeScale = 1;
         }
 
+        public void ToggleInstructions() => GameManager.Instance.instructionsMode = 
+            !GameManager.Instance.instructionsMode;
+
         public void OnPressReset()
         {   
             Time.timeScale = 1;
             _pauseMenu.SetActive(false);
+            _transitionWindow.HideWindow();
             GameManager.Instance.OnReset();
         }
 

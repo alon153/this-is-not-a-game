@@ -293,7 +293,7 @@ namespace Basics.Player
             switch (context.phase)
             {
                 case InputActionPhase.Started:
-                    if (GameManager.Instance.CurrentState is GameState.Lobby or GameState.Instructions)
+                    if (GameManager.Instance.State is GameState.Lobby or GameState.Instructions)
                     {
                         Ready = !Ready;
                         return;

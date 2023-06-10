@@ -22,6 +22,5 @@
         public const int MaxProgress = 1;
 
         public const int MinProgress = 0;
-
     }
 }
