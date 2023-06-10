@@ -24,6 +24,7 @@ namespace GameMode.Modes
         [SerializeField] private float _threshold = 0.02f;
         [SerializeField] private float _coloringOffset = 0.5f;
         [SerializeField] private int _totalPoints = 10;
+        [SerializeField] private int _colorCountSkip = 100;
 
         #endregion
 
@@ -162,18 +163,20 @@ namespace GameMode.Modes
             var arena = GameManager.Instance.CurrArena;
             var bottomLeft = Camera.main.WorldToScreenPoint(arena.BottomLeft);
             var topRight = Camera.main.WorldToScreenPoint(arena.TopRight);
-            float total = (topRight.x - bottomLeft.x) * (topRight.y - bottomLeft.y);
+            int width = (int) (topRight.x - bottomLeft.x);
+            int height = (int) (topRight.y - bottomLeft.y);
+            float total = ((float) width * height) / _colorCountSkip;
             
             //Count how many pixels are colored with each color
             foreach (var key in colors.Keys)
             {
                 _percentages[key] = 0;
             }
-            
-            for (int x = (int) bottomLeft.x; x <= topRight.x; x++)
-            for (int y = (int) bottomLeft.y; y <= topRight.y; y++)
+
+            var pixels = tex.GetPixels((int) bottomLeft.x, (int) bottomLeft.y, width, height);
+            for (int i=0; i<pixels.Length; i+=_colorCountSkip)
             {
-                var color = tex.GetPixel(x, y);
+                var color = pixels[i];
                 int min = -1;
                 float minDist = Mathf.Infinity;
                 foreach (int key in colors.Keys)
