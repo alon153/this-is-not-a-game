@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Basics;
 using Basics.Player;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 using Utilities.Interfaces;
 using Object = UnityEngine.Object;
@@ -12,14 +13,14 @@ namespace GameMode.Ikea
     [Serializable]
     public class IkeaMode : GameModeBase, IOnPushedListener
     {
-        #region Serialized Fields
+        #region ScriptableObject Fields
 
-        [SerializeField] private List<IkeaPart> _partsPrefabs;
-        [SerializeField] private PartDispenser _dispenserPrefab;
-        [SerializeField] private float _pointsPerPart = 10;
+        private List<IkeaPart> _partsPrefabs;
+        private PartDispenser _dispenserPrefab;
+        private float _pointsPerPart = 10;   
 
         #endregion
-
+        
         #region Non-Serialized Fields
 
         private IkeaPart[] parts;
@@ -28,6 +29,14 @@ namespace GameMode.Ikea
         #endregion
 
         #region GameModeBase
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            IkeaModeObject sObj = (IkeaModeObject) input;
+            _partsPrefabs = sObj._partsPrefabs;
+            _dispenserPrefab = sObj._dispenserPrefab;
+            _pointsPerPart = sObj._pointsPerPart;
+        }
 
         protected override void InitRound_Inner()
         {

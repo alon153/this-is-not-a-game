@@ -4,6 +4,7 @@ using Managers;
 using UnityEngine;
 using Basics;
 using Basics.Player;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine.Pool;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -16,37 +17,20 @@ namespace GameMode.Juggernaut
     public class JuggernautGameMode : GameModeBase
     {   
         
-        #region Serialized Fields  
+        #region ScriptableObject Fields  
         
-        [Header("Totem")]
-        [SerializeField] private Totem totemPrefab;
-
-        [SerializeField] private float totemDisableTime = 3f;
-        
-        [SerializeField] private float totemDropRadius = 1.5f;
-        
-        [Header("\nProjectile")]
-        [SerializeField] private Projectile projectilePrefab;
-        
-        [Tooltip("speed given to projectile while shooting")]
-        [SerializeField] private float projectileSpeed = 10f;
-        
-        [SerializeField] private float projectileDestroyTime = 3f;
-        
-        [SerializeField] private float shotCooldown = 0.5f;
-        
-        [Header("\nGameMode ui")]
-        [Tooltip("how many hits can a player take before dropping the totem")]
-        [SerializeField] private int juggernautLives = 5;
-        
-        [Tooltip("How many points will be added per frame to the totem holder")]
-        [SerializeField] private float scorePerSecondHolding = 1f;
-
-        [SerializeField] private float timeToAddScore = 1f;
-
-        [SerializeField] private JuggerCanvasAddOn canvasAddOnPrefab;
-        
-        [SerializeField] private GameObject lifePrefab;
+        private Totem totemPrefab;
+        private float totemDisableTime = 3f;
+        private float totemDropRadius = 1.5f;
+        private Projectile projectilePrefab;
+        private float projectileSpeed = 10f;
+        private float projectileDestroyTime = 3f;
+        private float shotCooldown = 0.5f;
+        private int juggernautLives = 5;
+        private float scorePerSecondHolding = 1f;
+        private float timeToAddScore = 1f;
+        private JuggerCanvasAddOn canvasAddOnPrefab;
+        private GameObject lifePrefab;
 
         #endregion
 
@@ -69,6 +53,24 @@ namespace GameMode.Juggernaut
         #endregion
 
         #region GameModeBase
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            JuggernautModeObject sObj = (JuggernautModeObject) input;
+            totemPrefab = sObj.totemPrefab;
+            totemDisableTime = sObj.totemDisableTime;
+            totemDropRadius = sObj.totemDropRadius;
+            projectilePrefab = sObj.projectilePrefab;
+            projectileSpeed = sObj.projectileSpeed;
+            projectileDestroyTime = sObj.projectileDestroyTime;
+            shotCooldown = sObj.shotCooldown;
+            juggernautLives = sObj.juggernautLives;
+            scorePerSecondHolding = sObj.scorePerSecondHolding;
+            timeToAddScore = sObj.timeToAddScore;
+            canvasAddOnPrefab = sObj.canvasAddOnPrefab;
+            lifePrefab = sObj.lifePrefab;
+        }
+
         protected override void InitRound_Inner()
         {
             _isAPlayerHoldingTotem = false;

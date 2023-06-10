@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using Basics;
 using Basics.Player;
+using GameMode;
+using GameMode.Island;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -16,17 +19,17 @@ namespace GameMode.Island
     [Serializable]
     public class IslandMode : GameModeBase, IOnMoveListener, IOnPushedListener
     {
-        #region Serialized Fields
+        #region ScriptableObject Fields
 
-        [SerializeField] private int _numTreasures;
-        [SerializeField] private List<TreasureValue> _treasureValues;
-        [SerializeField] private List<DigTime> _digTimes;
-        [SerializeField] private Treasure _treasurePrefab;
-        [SerializeField] private float _vibrationRadius = 2;
-        [SerializeField] private float _vibrationMaxForce = 0.5f;
+        private int _numTreasures;
+        private List<TreasureValue> _treasureValues;
+        private List<DigTime> _digTimes;
+        private Treasure _treasurePrefab;
+        private float _vibrationRadius = 2;
+        private float _vibrationMaxForce = 0.5f;        
 
         #endregion
-
+        
         #region Non-Serialized Fields
 
         private GameObject _treasureParent;
@@ -38,6 +41,17 @@ namespace GameMode.Island
         #endregion
         
         #region GameModeBase
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            IslandModeObject sObj = (IslandModeObject) input;
+            _numTreasures = sObj._numTreasures;
+            _treasureValues = sObj._treasureValues;
+            _digTimes = sObj._digTimes;
+            _treasurePrefab = sObj._treasurePrefab;
+            _vibrationRadius = sObj._vibrationRadius;
+            _vibrationMaxForce = sObj._vibrationMaxForce;
+        }
 
         protected override void InitRound_Inner()
         {

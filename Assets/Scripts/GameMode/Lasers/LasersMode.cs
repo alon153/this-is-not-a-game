@@ -4,6 +4,7 @@ using UnityEngine;
 using Basics;
 using Basics.Player;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using Unity.Mathematics;
 using UnityEngine.Pool;
 using Utilities;
@@ -15,33 +16,16 @@ namespace GameMode.Lasers
     [Serializable]
     public class LasersMode : GameModeBase
     {
-        #region Serialized Fields
-
-        [Header("\nLasers")] 
-        [Tooltip("When hit by laser, how much time the player freezes?")] 
-        [SerializeField] private float freezeTime = 2;
-
-        [Tooltip("When hit by laser, how much force is applied")] 
-        [SerializeField] private float laserKnockBackForce = 1.5f;
-
-        [Header("\nDiamonds")]
-        [SerializeField] private DiamondCollectible[] diamondPrefabs;
-
-        [Tooltip("How many (regular) diamonds will be spawned initially")]
-        [Range(10, 30)] 
-        [SerializeField] private int diamondCount = 12;
-
-        [Tooltip("check this box if you want more diamonds to continue spawning after all diamonds are collected")]
-        [SerializeField] private bool shouldContinueSpawn = true;
-
-        [Tooltip("timer for new diamond to be summoned")] 
-        [SerializeField] private float timeToSpawnNewDiamond = 1;
-
-        [Tooltip("How many diamonds will the player drop when hitting a laser?")] 
-        [SerializeField] private int diamondsDropOnLaser = 2;
-
-        [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")]
-        [SerializeField] private float onHitSpreadRadius = 3f;
+        #region ScriptableObject Fields
+        
+        private float freezeTime = 2;
+        private float laserKnockBackForce = 1.5f;
+        private DiamondCollectible[] diamondPrefabs;
+        private int diamondCount = 12;
+        private bool shouldContinueSpawn = true;
+        private float timeToSpawnNewDiamond = 1;
+        private int diamondsDropOnLaser = 2;
+        private float onHitSpreadRadius = 3f;
 
         #endregion
 
@@ -79,11 +63,20 @@ namespace GameMode.Lasers
 
         #endregion
 
-        #region Properties
-
-        #endregion
-
         #region GameModeBase Methods
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            LasersModeObject sObj = (LasersModeObject) input;
+            freezeTime = sObj.freezeTime;
+            laserKnockBackForce = sObj.laserKnockBackForce;
+            diamondPrefabs = sObj.diamondPrefabs;
+            diamondCount = sObj.diamondCount;
+            shouldContinueSpawn = sObj.shouldContinueSpawn;
+            timeToSpawnNewDiamond = sObj.timeToSpawnNewDiamond;
+            diamondsDropOnLaser = sObj.diamondsDropOnLaser;
+            onHitSpreadRadius = sObj.onHitSpreadRadius;
+        }
 
         protected override void InitRound_Inner()
         {

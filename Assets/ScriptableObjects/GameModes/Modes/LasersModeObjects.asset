@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf78b870bba485d8fc7a6e415aa1247, type: 3}
+  m_Name: LasersModeObjects
+  m_EditorClassIdentifier: 
+  freezeTime: 2
+  laserKnockBackForce: 1.5
+  diamondPrefabs:
+  - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
+  diamondCount: 12
+  shouldContinueSpawn: 1
+  timeToSpawnNewDiamond: 1
+  diamondsDropOnLaser: 2
+  onHitSpreadRadius: 3

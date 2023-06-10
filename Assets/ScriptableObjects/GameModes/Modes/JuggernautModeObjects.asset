@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cec093e927d446e9e7c6159df74f8da, type: 3}
+  m_Name: JuggernautModeObjects
+  m_EditorClassIdentifier: 
+  totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
+  totemDisableTime: 2
+  totemDropRadius: 1.5
+  projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
+  projectileSpeed: 10
+  projectileDestroyTime: 3
+  shotCooldown: 0.5
+  juggernautLives: 5
+  scorePerSecondHolding: 1
+  timeToAddScore: 1
+  canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
+  lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

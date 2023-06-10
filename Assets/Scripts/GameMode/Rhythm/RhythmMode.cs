@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Basics;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -11,6 +12,13 @@ namespace GameMode.Rhythm
     public class RhythmMode : GameModeBase
     {
         private HashSet<RhythmPanel> _panels = new();
+
+        #region GameModeBase
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            
+        }
 
         protected override void InitRound_Inner() { }
 
@@ -49,5 +57,7 @@ namespace GameMode.Rhythm
         {
             return null;
         }
+
+        #endregion
     }
 }

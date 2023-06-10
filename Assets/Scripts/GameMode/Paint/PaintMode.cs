@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Basics;
 using Basics.Player;
+using GameMode.Paint;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEditor.Build;
 using UnityEngine;
 using Utilities;
@@ -16,19 +18,15 @@ namespace GameMode.Modes
     [Serializable]
     public class PaintMode : GameModeBase, IOnMoveListener
     {
-        #region Serialized Fields
-        
-        [SerializeField] private float _paintIntervals = 0.05f;
-        [SerializeField] private List<Sprite> _paintingSprites;
-        [SerializeField] private Splash _paintPrefab;
-        [SerializeField] private float _threshold = 0.02f;
-        [SerializeField] private float _coloringOffset = 0.5f;
-        [SerializeField] private int _totalPoints = 10;
-        [SerializeField] private int _colorCountSkip = 100;
-
-        #endregion
-
         #region Non-Serialized Fields
+        
+        private float _paintIntervals = 0.05f;
+        private List<Sprite> _paintingSprites;
+        private Splash _paintPrefab;
+        private float _threshold = 0.02f;
+        private float _coloringOffset = 0.5f;
+        private int _totalPoints = 10;
+        private int _colorCountSkip = 100;
 
         private static int order = Int32.MinValue;
         
@@ -39,6 +37,18 @@ namespace GameMode.Modes
         #endregion
 
         #region GameModeBase Methods
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            PaintModeObject sObj = (PaintModeObject) input;
+            _paintIntervals = sObj._paintIntervals;
+            _paintingSprites = sObj._paintingSprites;
+            _paintPrefab = sObj._paintPrefab;
+            _threshold = sObj._threshold;
+            _coloringOffset = sObj._coloringOffset;
+            _totalPoints = sObj._totalPoints;
+            _colorCountSkip = sObj._colorCountSkip;
+        }
 
         /// <summary>
         /// Registers as a MoveListener for all players and creates a container for all Splash objects.

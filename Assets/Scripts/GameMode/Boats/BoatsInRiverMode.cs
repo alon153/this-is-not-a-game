@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Basics;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 using UnityEngine.Pool;
 using Utilities;
@@ -13,36 +14,22 @@ namespace GameMode.Boats
     [Serializable]
     public class BoatsInRiverMode : GameModeBase
     {
-        #region Serialized Fields
-
-        [SerializeField] private float _yOffset = 1;
-        
-        [Tooltip("Drag all the prefabs that are used as obstacles for this round.\n Can be found on " +
-                 "Prefabs/Modes/Boats)")]
-        [SerializeField] private List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
-        
-        [Range(5, 15)]
-        [SerializeField] private int defaultObstaclesCapacity = 8;
-        
-        [Range(15, 20)]
-        [SerializeField] private int maxObstacleCapacity = 20;
-        
-        [Tooltip("Initial Interval, it will go lower as round time progress.")]
-        [SerializeField] private float maxSpawnInterval = 3f;
-        
-        [Tooltip("Lowest Boundary interval, it won't go lower than this.")]
-        [SerializeField] private float minSpawnInterval = 0.5f;
-        
-        [Range(2,7)]
-        [SerializeField] private int obstacleSpawnMultiplier = 3;
-
-        [SerializeField] private float score = 30f;
-
-        #endregion
-        
         // used to clear and freeze all obstacles still on screen when round ends. 
         public static ObjectPool<RiverObstacle> ObstaclesPool;
 
+        #region ScriptableObject Fields
+
+        private float _yOffset = 1;
+        private List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
+        private int defaultObstaclesCapacity = 8;
+        private int maxObstacleCapacity = 20;
+        private float maxSpawnInterval = 3f;
+        private float minSpawnInterval = 0.5f;
+        private int obstacleSpawnMultiplier = 3;
+        private float score = 30f;
+
+        #endregion
+        
         #region Non-Serialized Fields
 
         private Vector3 _arenaMinCoord;
@@ -97,6 +84,19 @@ namespace GameMode.Boats
         }
 
         #region GameModeBase Methods
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            BoatsModeObject sObj = (BoatsModeObject) input;
+            _yOffset = sObj._yOffset;
+            obstaclesPrefab = sObj.obstaclesPrefab;
+            defaultObstaclesCapacity = sObj.defaultObstaclesCapacity;
+            maxObstacleCapacity = sObj.maxObstacleCapacity;
+            maxSpawnInterval = sObj.maxSpawnInterval;
+            minSpawnInterval = sObj.minSpawnInterval;
+            obstacleSpawnMultiplier = sObj.obstacleSpawnMultiplier;
+            score = sObj.score;
+        }
 
         protected override void InitRound_Inner()
         {   
@@ -312,8 +312,5 @@ namespace GameMode.Boats
         }
         
         #endregion
-        
-        
-        
     }
 }

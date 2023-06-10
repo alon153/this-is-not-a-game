@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AllModes new arenas
   m_EditorClassIdentifier: 
   _paintMode:
+    sObj: {fileID: 11400000, guid: 97409b55a88c78744bb312829379d450, type: 2}
     <ModeArena>k__BackingField: {fileID: 8297754426601155343, guid: 270ec6d96f32464428afbae02bcdca09, type: 3}
     <Name>k__BackingField: This is not a game, this is a painting
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 82db75632a349444bbd0d595882f3b02, type: 3}
@@ -21,17 +22,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: dee127ae62b44a942a9a63e498458508, type: 3}
     - {fileID: 21300000, guid: 3162fcfd6a7026a41a6238885ebbbbaa, type: 3}
     - {fileID: 21300000, guid: 8f9f0ed705a6fe84893566bdc1395ee3, type: 3}
-    _paintIntervals: 0.05
-    _paintingSprites:
-    - {fileID: 21300000, guid: 089b1f3c157becd468a9d263d74517c2, type: 3}
-    - {fileID: 21300000, guid: 2ee419be126e7a14a8e846f0d71184c9, type: 3}
-    - {fileID: 21300000, guid: 8cdfbd9839915a04f96137687e5c7792, type: 3}
-    - {fileID: 21300000, guid: bdea544e974a38747a9831118ae05293, type: 3}
-    _paintPrefab: {fileID: 8299707058809069130, guid: 6a816eb99095b6644a5e2756de5625f2, type: 3}
-    _threshold: 0.2
-    _coloringOffset: 0.05
-    _totalPoints: 10
   _poolMode:
+    sObj: {fileID: 11400000, guid: 094d10e272e8dbe4390c1748c2d9c99c, type: 2}
     <ModeArena>k__BackingField: {fileID: 5435150949364787957, guid: e58a143c5142a7b4ba9f553f23715d53, type: 3}
     <Name>k__BackingField: This is not a game, this is a pool table
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 0eba7057ee073e5458dbd63932bff3ca, type: 3}
@@ -40,22 +32,18 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6fdd3aa1a77076f41970ddea7912addf, type: 3}
     - {fileID: 21300000, guid: 531b7628e6594e644b25d7d2924e095a, type: 3}
     - {fileID: 21300000, guid: 656d2151effcea44b8145a7e3d412d7b, type: 3}
-    scoreOnHit: 10
   _ikeaMode:
+    sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
     <Name>k__BackingField: This is not a game, this is an IKEA item!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: c1b09b279b85bcb4383fb7188582fe22, type: 3}
     <CharacterSprites>k__BackingField:
-    - {fileID: 21300000, guid: cc925ac250ef62549b74366dbc5519c6, type: 3}
-    - {fileID: 21300000, guid: 92392a65a1e27c740a07cc26e2909085, type: 3}
-    - {fileID: 21300000, guid: 2198b15005874d94fba617315f587dc8, type: 3}
-    - {fileID: 21300000, guid: 6045a98b579865c44b1ee66e050ce971, type: 3}
-    _partsPrefabs:
-    - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
-    - {fileID: 393630251795051260, guid: a103a33bb9a6dc64b995e14e6ab68746, type: 3}
-    _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
-    _pointsPerPart: 10
+    - {fileID: 21300000, guid: 3a34aefe788dcbe479a151a68eddd041, type: 3}
+    - {fileID: 21300000, guid: 9088baa0a77b8bc4c8675032de383cf4, type: 3}
+    - {fileID: 21300000, guid: 29e061dfe131ca1418c01ced82645b90, type: 3}
+    - {fileID: 21300000, guid: d70ff1fb87b5f2846ac85547821dd035, type: 3}
   _boatsInRiverMode:
+    sObj: {fileID: 11400000, guid: 374a12b2eb2df88418143fb113118a8f, type: 2}
     <ModeArena>k__BackingField: {fileID: 5700301782894875129, guid: 32acb11074124b7409b1918aff91eae3, type: 3}
     <Name>k__BackingField: This is not a game, this is a River!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: abc09f7fb534de442b1036c4e2dfad85, type: 3}
@@ -64,18 +52,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
     - {fileID: 21300000, guid: 445782942a0198945a0e53c75576ac3d, type: 3}
     - {fileID: 21300000, guid: 711ce4e08e9a27c4699bc690d4361efa, type: 3}
-    _yOffset: 1
-    obstaclesPrefab:
-    - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
-    - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
-    - {fileID: 3324010259797466655, guid: 422dd96b907c1084d95a3bd796e9a5a4, type: 3}
-    defaultObstaclesCapacity: 8
-    maxObstacleCapacity: 15
-    maxSpawnInterval: 3
-    minSpawnInterval: 1
-    obstacleSpawnMultiplier: 3
-    score: 30
   _lasersMode:
+    sObj: {fileID: 11400000, guid: 8c085581268861541bd2ca57628707e2, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
     <Name>k__BackingField: This is not a game! It's a spy movie!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 689c9e73f33152d4eb9a4208c738a03a, type: 3}
@@ -84,16 +62,8 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a26f50ec8a213e74eb7334f2656b3586, type: 3}
     - {fileID: 21300000, guid: 63ba6ab5aba3efe43a34cdd1dbf0a289, type: 3}
     - {fileID: 21300000, guid: ed0fea5a705cc5f47809ffc0b64fae40, type: 3}
-    freezeTime: 2
-    laserKnockBackForce: 1.5
-    diamondPrefabs:
-    - {fileID: 5503735703372495295, guid: 06fa750353cf2e946a4081cc77970cc1, type: 3}
-    diamondCount: 12
-    shouldContinueSpawn: 1
-    timeToSpawnNewDiamond: 1
-    diamondsDropOnLaser: 2
-    onHitSpreadRadius: 3
   _islandMode:
+    sObj: {fileID: 11400000, guid: 07ebe6a38fbfb1047af3f180a197b8b2, type: 2}
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 743d8bf8c1d877c409ee6cb6f3b42335, type: 3}
@@ -102,46 +72,15 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0e9d2e4ac183636429c3d8f0b6b5e384, type: 3}
     - {fileID: 21300000, guid: b2a79f0c33855944abd13c9c33e5c530, type: 3}
     - {fileID: 21300000, guid: eaa3a1e9d3a8a364088ca9097558d306, type: 3}
-    _numTreasures: 7
-    _treasureValues:
-    - score: 0
-      count: 3
-    - score: 5
-      count: 10
-    - score: 20
-      count: 3
-    _digTimes:
-    - minTime: 1
-      maxTime: 2
-      count: 2
-    - minTime: 4
-      maxTime: 7
-      count: 5
-    - minTime: 10
-      maxTime: 12
-      count: 2
-    _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
-    _vibrationRadius: 2
-    _vibrationMaxForce: 0.1
   _rhythmMode:
+    sObj: {fileID: 11400000, guid: d15cf7536ced1eb49a98773a112e8683, type: 2}
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
     <Name>k__BackingField: This is not a game this is a beat!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
     <CharacterSprites>k__BackingField: []
   _juggernautMode:
+    sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: 
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: fb3015ce38ed48a4086cda348c5fdd58, type: 3}
     <CharacterSprites>k__BackingField: []
-    totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
-    totemDisableTime: 2
-    totemDropRadius: 1.5
-    projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
-    projectileSpeed: 10
-    projectileDestroyTime: 3
-    shotCooldown: 0.5
-    juggernautLives: 5
-    scorePerSecondHolding: 1
-    timeToAddScore: 1
-    canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
-    lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}

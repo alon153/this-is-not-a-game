@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a9672a4637441793cb1f24d24cb019, type: 3}
+  m_Name: IkeaModeObjects
+  m_EditorClassIdentifier: 
+  _partsPrefabs:
+  - {fileID: 393630251795051260, guid: 0e8db0629872ac04f93cbb4f5073e805, type: 3}
+  - {fileID: 393630251795051260, guid: 431ee58635b2eb24cb2b6f32fe469f38, type: 3}
+  - {fileID: 393630251795051260, guid: a103a33bb9a6dc64b995e14e6ab68746, type: 3}
+  _dispenserPrefab: {fileID: 5971357858826341837, guid: d6b38172a13631f428c4b4e5976827f1, type: 3}
+  _pointsPerPart: 10

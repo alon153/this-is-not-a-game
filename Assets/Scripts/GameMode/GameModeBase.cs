@@ -2,6 +2,7 @@ using Basics;
 using System;
 using System.Collections.Generic;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 
 namespace GameMode
@@ -11,6 +12,7 @@ namespace GameMode
   {
     #region Serialized Fields
 
+    [SerializeField] private GameModeObject sObj;
     [field:SerializeField] public Arena ModeArena { get; private set;}
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite InstructionsSprite { get; set; }
@@ -20,6 +22,7 @@ namespace GameMode
 
     #region Abstract Functions
 
+    protected abstract void ExtractScriptableObject(GameModeObject input);
     protected abstract void InitRound_Inner();
     protected abstract void InitArena_Inner();
     protected abstract void ClearRound_Inner();
@@ -38,6 +41,7 @@ namespace GameMode
 
     public virtual void InitRound()
     {
+      ExtractScriptableObject(sObj);
       SetPlayerSprites();
       InitArena_Inner();
       InitRound_Inner();

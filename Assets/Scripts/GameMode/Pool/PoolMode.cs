@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Basics;
 using Basics.Player;
 using Managers;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 using UnityEngine.Events;
 using Utilities.Interfaces;
@@ -14,12 +15,10 @@ namespace GameMode.Pool
     [Serializable]
     
     public class PoolMode : GameModeBase, IOnFallListener
-    {   
-        #region Serialized Fields
-        
-        [Tooltip("list stores pool holes object deactivated, will be activated when starting a new pool round")]
+    {
+        #region ScriptableObject Fields
 
-        [SerializeField] private float scoreOnHit = 10f;
+        private float scoreOnHit = 10f;
 
         #endregion
         
@@ -33,6 +32,13 @@ namespace GameMode.Pool
         #endregion
 
         #region GameModeBase Methods
+
+        protected override void ExtractScriptableObject(GameModeObject input)
+        {
+            PoolModeObject sObj = (PoolModeObject) input;
+            scoreOnHit = sObj.scoreOnHit;
+        }
+
         protected override void InitRound_Inner()
         {
             foreach (PlayerController player in GameManager.Instance.Players)
