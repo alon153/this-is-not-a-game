@@ -7,10 +7,6 @@
 
         public const int NewPlayerRegistered = 1;
 
-        public const float MinGlow = 0.1f;
-
-        public const float MaxGlow = 1f;
-        
         public const int MinIndex = 0;
 
         public const int Empty = 0;

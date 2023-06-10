@@ -16,7 +16,10 @@ namespace GameMode.Lasers
         [SerializeField] private List<bool> laserCycles = new List<bool>();
 
         [SerializeField] private float laserToggleTime = 3;
-
+        
+        [Range(0, 1)] 
+        [SerializeField] private float maxGlow = 1f; 
+        
         [SerializeField] private Material windowGlow;
         
         #endregion
@@ -65,7 +68,7 @@ namespace GameMode.Lasers
             else if (!_inMaxGlow && laserCycles[_cycleIdx])
             {   
                 
-                var glow = Mathf.Lerp(Constants.MinGlow, Constants.MaxGlow, _timer / laserToggleTime);
+                var glow = Mathf.Lerp(Constants.MinProgress, maxGlow, _timer / laserToggleTime);
                 _windowRenderer.material.SetFloat(_colorFactor, glow);
             }
         }
@@ -74,7 +77,7 @@ namespace GameMode.Lasers
         {
             _laserBeam.ToggleLaser(activate);
             _inMaxGlow = activate;
-            _windowRenderer.material.SetFloat(_colorFactor, _inMaxGlow ? Constants.MaxGlow : Constants.MinGlow);
+            _windowRenderer.material.SetFloat(_colorFactor, _inMaxGlow ? maxGlow : Constants.MinProgress);
         }
 
         public void SetOnLaserHit(UnityAction<PlayerController> action) => _laserBeam.OnLaserHit += action;

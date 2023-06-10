@@ -1617,6 +1617,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1717098986269389195}
     m_Modifications:
+    - target: {fileID: -1935544350499378562, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: maxGlow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3302654513436476623, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_RootOrder
       value: 0
