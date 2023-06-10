@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.44
       objectReference: {fileID: 0}
+    - target: {fileID: 6661921919638176978, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+      propertyPath: _perimeter
+      value: 
+      objectReference: {fileID: 3566584349615002980}
     - target: {fileID: 6661921919638177006, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Name
       value: Island
@@ -250,7 +254,7 @@ SpriteMask:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6679206946444666285}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

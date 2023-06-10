@@ -33,7 +33,7 @@ namespace GameMode.Lasers
 
         private bool _inMaxGlow = false;
         
-        private static readonly int ColorFactor = Shader.PropertyToID("_ColorFactor");
+        private readonly int _colorFactor = Shader.PropertyToID("_ColorFactor");
 
         #endregion
 
@@ -42,6 +42,7 @@ namespace GameMode.Lasers
             _laserBeam = GetComponentInChildren<LaserBeam>();
             _windowRenderer = GetComponent<SpriteRenderer>();
             _windowRenderer.material = new Material(windowGlow);
+
         }
 
 
@@ -65,7 +66,7 @@ namespace GameMode.Lasers
             {   
                 
                 var glow = Mathf.Lerp(Constants.MinGlow, Constants.MaxGlow, _timer / laserToggleTime);
-                _windowRenderer.material.SetFloat(ColorFactor, glow);
+                _windowRenderer.material.SetFloat(_colorFactor, glow);
             }
         }
 
@@ -73,7 +74,7 @@ namespace GameMode.Lasers
         {
             _laserBeam.ToggleLaser(activate);
             _inMaxGlow = activate;
-            _windowRenderer.material.SetFloat(ColorFactor, _inMaxGlow ? Constants.MaxGlow : Constants.MinGlow);
+            _windowRenderer.material.SetFloat(_colorFactor, _inMaxGlow ? Constants.MaxGlow : Constants.MinGlow);
         }
 
         public void SetOnLaserHit(UnityAction<PlayerController> action) => _laserBeam.OnLaserHit += action;

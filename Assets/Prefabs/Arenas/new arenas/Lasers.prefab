@@ -1293,6 +1293,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1717098986269389195}
     m_Modifications:
+    - target: {fileID: -2329715860132261156, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
+      propertyPath: windowGlow
+      value: 
+      objectReference: {fileID: 2100000, guid: 29b778198b6fb7d4cb9fd13587d26a4a, type: 2}
     - target: {fileID: 2775014128045352358, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1411,6 +1415,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3406092962882541219, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4602517565686096644, guid: b9baf0d6864ad964f954d79705b0e1c3, type: 3}
       propertyPath: m_Name
       value: TopWindow4
@@ -1744,6 +1752,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1717098986269389195}
     m_Modifications:
+    - target: {fileID: -2329715860132261156, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
+      propertyPath: windowGlow
+      value: 
+      objectReference: {fileID: 2100000, guid: 29b778198b6fb7d4cb9fd13587d26a4a, type: 2}
     - target: {fileID: 2775014128045352358, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
       propertyPath: m_RootOrder
       value: 4
