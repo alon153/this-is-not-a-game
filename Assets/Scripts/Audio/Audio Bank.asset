@@ -36,4 +36,12 @@ MonoBehaviour:
         Data4: 1233523226
       Path: event:/Player/dash cooldown
     _type: 1
-  _sfxRefs: []
+  _sfxRefs:
+  - _reference:
+      Guid:
+        Data1: 919895568
+        Data2: 1217077507
+        Data3: 1827957893
+        Data4: -1786757234
+      Path: event:/SFX/Noise
+    _type: 0

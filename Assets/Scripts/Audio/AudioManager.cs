@@ -17,6 +17,10 @@ public class AudioManager : MonoBehaviour
     [Header("Master Bank")]
     [SerializeField] private AudioBank _bank;
 
+    [Header("Sounds")] 
+    [SerializeField] private EventReference _defaultDash;
+    [SerializeField] private MusicSounds _defaultMusic;
+
     [Header("Volume")] 
     [SerializeField][Range(0f, 1f)] private float _masterVolume = 1;
     [SerializeField][Range(0f, 1f)] private float _musicVolume = 1;
@@ -41,6 +45,7 @@ public class AudioManager : MonoBehaviour
     private EVENT_CALLBACK cb;
 
     private float _lastBeat;
+    private EventReference _dashEvent;
 
     #endregion
 
@@ -48,6 +53,12 @@ public class AudioManager : MonoBehaviour
 
     public static float Tempo { get; private set; }
     public static float TimeFactor { get; private set; } = 0;
+
+    public static EventReference DashEvent
+    {
+        get => _instance._dashEvent;
+        set => _instance._dashEvent = value.IsNull ? _instance._defaultDash : value;
+    }
 
     #endregion
 
@@ -62,6 +73,9 @@ public class AudioManager : MonoBehaviour
         }
 
         _instance = this;
+
+        DashEvent = _defaultDash;
+        SetMusic(MusicSounds.Lobby);
         
         transform.SetParent(null);
         DontDestroyOnLoad(_instance.gameObject);
@@ -96,6 +110,17 @@ public class AudioManager : MonoBehaviour
         _instance._beatListeners.Remove(l);
     }
 
+    public static void PlayNoise()
+    {
+        RuntimeManager.PlayOneShot(_instance._bank[SoundType.Sfx, (int)SfxSounds.Noise]);
+    }
+
+    public static void Transition(MusicSounds to)
+    {
+        PlayNoise();
+        SetMusic(to);
+    }
+
     public static void PlayOneShot(SoundType type, int val)
     {
         try
@@ -106,6 +131,11 @@ public class AudioManager : MonoBehaviour
         {
             print($"Invalid sound {type}:{val}");
         }
+    }
+
+    public static void PlayDash()
+    {
+        RuntimeManager.PlayOneShot(_instance._dashEvent);
     }
 
     private void Update()

@@ -198,6 +198,7 @@ namespace Managers
                 else
                 {
                     FreezePlayers(false);
+                    AudioManager.Transition(GameMode.Music);
                     GameMode.InitRound();
 
                     switch (instructionsMode)

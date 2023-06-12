@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1f4d3b75-3e66-4f80-b850-64b523b1dea4}">
+		<property name="assetPath">
+			<value>Music/island music.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>30.014693877551021</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ca117902-401d-4215-a1ac-56fa91d3975e}</destination>
+		</relationship>
+	</object>
+</objects>

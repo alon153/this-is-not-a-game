@@ -277,11 +277,11 @@ namespace Basics.Player
                 case InputActionPhase.Started:
                     if (Direction == Vector2.zero) return;
 
-                    if (!CanDash)
-                    {
-                        ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
-                        return;
-                    }
+                    // if (!CanDash)
+                    // {
+                    //     ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
+                    //     return;
+                    // }
 
                     Dash();
                     break;
@@ -402,7 +402,7 @@ namespace Basics.Player
             CanDash = false;
 
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
-            ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.Dash);
+            AudioManager.PlayDash();
             Renderer.FaceBack = true;
 
             _dashingId = TimeManager.Instance.DelayInvoke(() =>
