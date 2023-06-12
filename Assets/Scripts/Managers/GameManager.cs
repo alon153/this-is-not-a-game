@@ -277,6 +277,7 @@ namespace Managers
             {
                 player.Ready = false;
                 player.ShowReady(false);
+                UIManager.Instance.InstructionsReady(player.Index, false);
             }
         }
 
