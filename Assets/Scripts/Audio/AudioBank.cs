@@ -114,11 +114,18 @@ namespace Audio
     {
         Lobby = 0,
         Game,
+        Pool,
+        Lasers,
+        Paint,
+        Ikea,
+        Rhythm,
+        Boats,
+        Island
     }
 
     public enum SfxSounds
     {
-        
+        Noise
     }
 
     #endregion

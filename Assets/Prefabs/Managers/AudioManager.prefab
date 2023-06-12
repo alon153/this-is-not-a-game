@@ -45,6 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bank: {fileID: 11400000, guid: 58c3e219064648e4995591af58b289e0, type: 2}
+  _defaultDash:
+    Guid:
+      Data1: 165002214
+      Data2: 1143757236
+      Data3: -1933243236
+      Data4: -276202440
+    Path: event:/Player/Default Dash
+  _defaultMusic: 0
   _masterVolume: 1
   _musicVolume: 1
   _sfxVolume: 1

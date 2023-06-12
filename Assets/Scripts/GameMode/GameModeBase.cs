@@ -1,6 +1,8 @@
 using Basics;
 using System;
 using System.Collections.Generic;
+using Audio;
+using FMODUnity;
 using Managers;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
@@ -17,6 +19,9 @@ namespace GameMode
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite InstructionsSprite { get; set; }
     [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
+    
+    [field: SerializeField] public EventReference DashSound { get; private set; }
+    [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
 
     #endregion
 
@@ -43,6 +48,7 @@ namespace GameMode
     {
       ExtractScriptableObject(sObj);
       SetPlayerSprites();
+      AudioManager.DashEvent = DashSound;
       InitArena_Inner();
       InitRound_Inner();
     }

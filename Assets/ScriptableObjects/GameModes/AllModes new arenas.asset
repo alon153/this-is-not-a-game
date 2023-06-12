@@ -22,6 +22,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: dee127ae62b44a942a9a63e498458508, type: 3}
     - {fileID: 21300000, guid: 3162fcfd6a7026a41a6238885ebbbbaa, type: 3}
     - {fileID: 21300000, guid: 8f9f0ed705a6fe84893566bdc1395ee3, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: -311145583
+        Data2: 1326179993
+        Data3: 2052379579
+        Data4: 60044150
+      Path: event:/Player/Paint/Dash
+    <Music>k__BackingField: 4
   _poolMode:
     sObj: {fileID: 11400000, guid: 094d10e272e8dbe4390c1748c2d9c99c, type: 2}
     <ModeArena>k__BackingField: {fileID: 5435150949364787957, guid: e58a143c5142a7b4ba9f553f23715d53, type: 3}
@@ -32,6 +40,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 6fdd3aa1a77076f41970ddea7912addf, type: 3}
     - {fileID: 21300000, guid: 531b7628e6594e644b25d7d2924e095a, type: 3}
     - {fileID: 21300000, guid: 656d2151effcea44b8145a7e3d412d7b, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: -1004467982
+        Data2: 1157961868
+        Data3: -71499125
+        Data4: 1563561652
+      Path: event:/Player/Pool/Dash
+    <Music>k__BackingField: 2
   _ikeaMode:
     sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
@@ -42,6 +58,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9088baa0a77b8bc4c8675032de383cf4, type: 3}
     - {fileID: 21300000, guid: 29e061dfe131ca1418c01ced82645b90, type: 3}
     - {fileID: 21300000, guid: d70ff1fb87b5f2846ac85547821dd035, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 1496387947
+        Data2: 1191897625
+        Data3: -94989135
+        Data4: 1919478105
+      Path: event:/Player/Ikea/Dash
+    <Music>k__BackingField: 5
   _boatsInRiverMode:
     sObj: {fileID: 11400000, guid: 374a12b2eb2df88418143fb113118a8f, type: 2}
     <ModeArena>k__BackingField: {fileID: 5700301782894875129, guid: 32acb11074124b7409b1918aff91eae3, type: 3}
@@ -52,6 +76,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
     - {fileID: 21300000, guid: 445782942a0198945a0e53c75576ac3d, type: 3}
     - {fileID: 21300000, guid: 711ce4e08e9a27c4699bc690d4361efa, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 165002214
+        Data2: 1143757236
+        Data3: -1933243236
+        Data4: -276202440
+      Path: event:/Player/Default Dash
+    <Music>k__BackingField: 7
   _lasersMode:
     sObj: {fileID: 11400000, guid: 8c085581268861541bd2ca57628707e2, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
@@ -62,6 +94,14 @@ MonoBehaviour:
     - {fileID: 21300000, guid: a26f50ec8a213e74eb7334f2656b3586, type: 3}
     - {fileID: 21300000, guid: 63ba6ab5aba3efe43a34cdd1dbf0a289, type: 3}
     - {fileID: 21300000, guid: ed0fea5a705cc5f47809ffc0b64fae40, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 384501834
+        Data2: 1160766182
+        Data3: -1227033698
+        Data4: -2072956365
+      Path: event:/Player/Lasers/Dash
+    <Music>k__BackingField: 3
   _islandMode:
     sObj: {fileID: 11400000, guid: 07ebe6a38fbfb1047af3f180a197b8b2, type: 2}
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
@@ -72,15 +112,39 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 0e9d2e4ac183636429c3d8f0b6b5e384, type: 3}
     - {fileID: 21300000, guid: b2a79f0c33855944abd13c9c33e5c530, type: 3}
     - {fileID: 21300000, guid: eaa3a1e9d3a8a364088ca9097558d306, type: 3}
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 757577854
+        Data2: 1081521427
+        Data3: -1510581592
+        Data4: -268268766
+      Path: event:/Player/Island/Dash
+    <Music>k__BackingField: 8
   _rhythmMode:
     sObj: {fileID: 11400000, guid: d15cf7536ced1eb49a98773a112e8683, type: 2}
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
     <Name>k__BackingField: This is not a game this is a beat!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
     <CharacterSprites>k__BackingField: []
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 165002214
+        Data2: 1143757236
+        Data3: -1933243236
+        Data4: -276202440
+      Path: event:/Player/Default Dash
+    <Music>k__BackingField: 6
   _juggernautMode:
     sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: 
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: fb3015ce38ed48a4086cda348c5fdd58, type: 3}
     <CharacterSprites>k__BackingField: []
+    <DashSound>k__BackingField:
+      Guid:
+        Data1: 165002214
+        Data2: 1143757236
+        Data3: -1933243236
+        Data4: -276202440
+      Path: event:/Player/Default Dash
+    <Music>k__BackingField: 0
