@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Basics;
+using Basics.Player;
 using Managers;
 using ScriptableObjects.GameModes.Modes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using Utilities;
@@ -27,6 +29,7 @@ namespace GameMode.Boats
         private float minSpawnInterval = 0.5f;
         private int obstacleSpawnMultiplier = 3;
         private float score = 30f;
+        private float dragUpSpeed = 0.01f;
 
         #endregion
         
@@ -43,13 +46,12 @@ namespace GameMode.Boats
         private float _timeProgress;
 
         private GameObject _obstaclesParent;
+
+        private Vector2 _zeroVelocity = new Vector2(0, 0.01f);
         
         // has the round started? 
         private bool _started;
 
-        // initial player positions for the round.
-        private List<Vector3> _playerPositions = new List<Vector3>();
-        
         // every time a player falls 
         private List<bool> _isInGame;
 
@@ -80,6 +82,22 @@ namespace GameMode.Boats
                     SpawnNewObstacles();
                     _curInterval = CalcNextInterval();
                 }
+        
+                foreach (var player in GameManager.Instance.Players)
+                    if (!player.Frozen)
+                        DragPlayerUp(player);
+            }
+        }
+
+        private void DragPlayerUp(PlayerController playerController)
+        {
+            var velocity = playerController.Rigidbody.velocity;
+            if (velocity.x is >= -0.1f and <= 0.1f && velocity.y is <= 0.1f and >= -0.1f)
+            {
+                var transform = playerController.transform;
+                var draggingPosition = transform.position;
+                draggingPosition.y += dragUpSpeed;
+                transform.position = draggingPosition;
             }
         }
 
@@ -96,6 +114,7 @@ namespace GameMode.Boats
             minSpawnInterval = sObj.minSpawnInterval;
             obstacleSpawnMultiplier = sObj.obstacleSpawnMultiplier;
             score = sObj.score;
+            dragUpSpeed = sObj.dragUpPlayerSpeed;
         }
 
         protected override void InitRound_Inner()
@@ -107,7 +126,6 @@ namespace GameMode.Boats
             _isInGame = new List<bool>();
             for (int i = 0; i < GameManager.Instance.Players.Count; i++)
             {
-                // GameManager.Instance.Players[i].transform.position = _playerPositions[i];
                 _isInGame.Add(true);
             }
             
@@ -123,16 +141,16 @@ namespace GameMode.Boats
         protected override void InitArena_Inner()
         {
             Arena arena = Object.Instantiate(ModeArena, Vector3.zero, Quaternion.identity);
-             _playerPositions.Clear();
-             foreach (Transform child in arena.transform){
-                if (child.CompareTag("spawnLocation"))
-                    _playerPositions.Add(child.position);
-                if (child.CompareTag("WaterObstacle"))
-                    _obstaclesParent = child.gameObject;
+       
+             foreach (Transform child in arena.transform)
+             {
+                 if (child.CompareTag("WaterObstacle"))
+                     _obstaclesParent = child.gameObject;
              } 
              GameManager.Instance.CurrArena = arena;
-            _arenaMaxCoord = GameManager.Instance.CurrArena.TopRight;
-            _arenaMinCoord = GameManager.Instance.CurrArena.TopLeft;
+            _arenaMaxCoord = GameManager.Instance.CurrArena.BottomRight;
+            _arenaMinCoord = GameManager.Instance.CurrArena.BottomLeft;
+            
         }
 
         protected override void ClearRound_Inner()
@@ -177,8 +195,7 @@ namespace GameMode.Boats
         }
 
         #endregion
-        
-        
+
         /// <returns>
         /// The next interval to spawn new obstacles (becomes smaller as round progress). 
         /// </returns>
@@ -215,7 +232,7 @@ namespace GameMode.Boats
 
             HashSet<Vector3> spawnSet = new HashSet<Vector3>();
 
-            var spawnYCor = _arenaMaxCoord.y + _yOffset;
+            var spawnYCor = _arenaMaxCoord.y - _yOffset;
             var spawnZCor = _arenaMaxCoord.z;
 
             // calc spawn locations

@@ -5,18 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Managers/UIManager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Boats.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Boats.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Boats/Obstacle.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Boats/Obstacle.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Boats/Obstacle1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Boats/Obstacle1.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/Modes/BoatsModeObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/GameModes/Modes/BoatsModeObjects.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Arena.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Arena.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsModeObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsModeObject.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +52,7 @@
     <setting file="file://$PROJECT_DIR$/../../../../work/MoonActiveHomeTest/Assets/Scripts/Utilities/Constants.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Basics/FloatingPoints.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BAE255E3-E08E-46F7-BC2F-BD23DDE96338/d3/8227c20c/Object.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/BAE255E3-E08E-46F7-BC2F-BD23DDE96338/b5/9603eed2/ObjectPool`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../NarrativeFormats/NarrativeFormats-EX5/Assets/Scripts/Managers/UIManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverArena.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -74,14 +75,16 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/TransitionWindow.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Ikea/IkeaPart.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/LasersMode.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Lasers/Window.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Utilities/Constants.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Managers/UIManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Arena.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsModeObject.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/RiverObstacle.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameMode/Boats/BoatsInRiverMode.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="2NbNWtVmqlXkbF3dy7zreWEhftu" />
@@ -90,7 +93,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34987745" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34994584" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -110,10 +113,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="21712">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="21712" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -138,6 +141,7 @@
       <workItem from="1685536340416" duration="2926000" />
       <workItem from="1685694147436" duration="2251000" />
       <workItem from="1686395396577" duration="5726000" />
+      <workItem from="1686575850251" duration="6889000" />
     </task>
     <servers />
   </component>

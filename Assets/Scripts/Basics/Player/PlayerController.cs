@@ -129,6 +129,8 @@ namespace Basics.Player
             }
         }
 
+        public bool Frozen => _frozen;
+
         private Vector2 DesiredVelocity => _direction * _speed;
         private float DashSpeed => _maxSpeed + _dashBonus;
 

@@ -56,6 +56,10 @@ PrefabInstance:
       value: Obstacle1
       objectReference: {fileID: 0}
     - target: {fileID: 2310977808191821806, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
+      propertyPath: m_FlipY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310977808191821806, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: d32842471d64e614db465e8dbcd826af, type: 3}

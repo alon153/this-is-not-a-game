@@ -22,5 +22,7 @@ namespace GameMode.Boats
         [Range(2,7)]
         public int obstacleSpawnMultiplier = 3;
         public float score = 30f;
+
+        public float dragUpPlayerSpeed = 0.01f;
     }
 }

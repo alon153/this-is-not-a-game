@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using JetBrains.Annotations;
@@ -21,6 +22,8 @@ namespace GameMode.Boats
 
         [CanBeNull] public Coroutine _fadeCoroutine = null;
 
+        public float speed = 0.01f;
+
         #endregion
 
         #region Properties
@@ -39,16 +42,6 @@ namespace GameMode.Boats
             ObstacleRigidbody2D = GetComponent<Rigidbody2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _obsColor = _spriteRenderer.color;
-        }
-
-        public void SetDrag(float newDrag)
-        {
-            ObstacleRigidbody2D.drag = newDrag;
-        }
-
-        public void SetGravity(float newGravity)
-        {
-            ObstacleRigidbody2D.gravityScale = newGravity;
         }
 
         public void FreezeObstacle()
@@ -111,6 +104,16 @@ namespace GameMode.Boats
                 BoatsInRiverMode.ObstaclesPool.Release(this);
             }
         }
+
+        private void Update()
+        {
+            var position = transform.position;
+            float newY = position.y + speed;
+            Vector3 newPosition = new Vector3(position.x, newY, position.z);
+            position = newPosition;
+            transform.position = position;
+        }
+    
     }
     
 }

@@ -25,6 +25,7 @@ namespace Basics
         public Vector3 RightMiddle => (TopRight + BottomRight) / 2;
         public Vector3 LeftMiddle => (TopLeft + BottomLeft) / 2;
         public Vector3 Center => _perimeter.position;
+        public float Length => BottomRight.x - BottomLeft.x;
 
         private void Awake()
         {
