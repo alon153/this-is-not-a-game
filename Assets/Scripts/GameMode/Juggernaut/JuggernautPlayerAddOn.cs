@@ -144,8 +144,6 @@ namespace GameMode.Juggernaut
             ((JuggernautPlayerAddOn) player.Addon).ReduceHealth();
         }
 
-
-
         public void RemoveTotemFromPlayer()
         {
             if (!_yieldsTotem)

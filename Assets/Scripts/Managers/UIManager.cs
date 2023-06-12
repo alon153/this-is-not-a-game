@@ -31,6 +31,8 @@ namespace Managers
         [SerializeField] private GameObject _settingsMenu;
         [SerializeField] private GameObject _firstPauseMenuBtn;
         [SerializeField] private GameObject _firstSettingsMenuBtn;
+        [SerializeField] private GameObject _instructionsOffBtn;
+        [SerializeField] private GameObject _instructionsOnBtn;
 
         [SerializeField] private EventSystem _eventSystem;
 
@@ -141,8 +143,23 @@ namespace Managers
             Time.timeScale = 1;
         }
 
-        public void ToggleInstructions() => GameManager.Instance.instructionsMode = 
-            !GameManager.Instance.instructionsMode;
+        public void ToggleInstructions()
+        {
+            GameManager.Instance.instructionsMode = !GameManager.Instance.instructionsMode;
+            if (GameManager.Instance.instructionsMode)
+            {
+                _instructionsOffBtn.SetActive(false);
+                _instructionsOnBtn.SetActive(true);
+                _eventSystem.SetSelectedGameObject(_instructionsOnBtn);
+            }
+
+            else
+            {
+                _instructionsOffBtn.SetActive(true);
+                _instructionsOnBtn.SetActive(false);
+                _eventSystem.SetSelectedGameObject(_instructionsOffBtn);
+            }
+        }
 
         public void OnPressReset()
         {   
@@ -150,6 +167,7 @@ namespace Managers
             _pauseMenu.SetActive(false);
             _transitionWindow.HideWindow();
             GameManager.Instance.OnReset();
+            GameManager.Instance.State = GameState.Lobby;
         }
 
         public void ToggleFlash(bool show)
