@@ -197,7 +197,7 @@ namespace GameMode.Juggernaut
                 
                 // player is a shooter so change it's direction 
                 if (!curAddon.YieldsTotem)
-                    curAddon.SetArrowDir(player.Direction);
+                    curAddon.SetDir(player.Direction);
             }
         }
         

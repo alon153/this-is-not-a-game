@@ -28,6 +28,8 @@ namespace GameMode.Juggernaut
         private readonly float _projectileDestroyTime;
 
         private readonly float _shotSpeed;
+
+        private Vector2 _lastDir = Vector2.down;
         
         // health
         private readonly float _maxLives;
@@ -94,7 +96,7 @@ namespace GameMode.Juggernaut
            
             var projectile = _projectilePool.Get();
             projectile.gameObject.transform.position = position;
-            Vector2 velocity = direction.Equals(Vector2.zero) ? Vector2.down : direction;
+            Vector2 velocity = direction.Equals(Vector2.zero) ? _lastDir : direction;
             velocity *= speed;
             projectile.rigidBody.velocity = velocity;
             _canShoot = false;
@@ -165,8 +167,15 @@ namespace GameMode.Juggernaut
            
         }
 
-        public void SetArrowDir(Vector2 playerDir) => _juggernautCanvasAddOn.SetArrowDirection(playerDir);
-
+        public void SetDir(Vector2 playerDir)
+        {
+            if (!playerDir.Equals(Vector2.zero))
+            {
+                _lastDir = playerDir;
+                _juggernautCanvasAddOn.SetArrowDirection(playerDir);
+            }
+        }
+        
         public void SetJuggerCanvas(JuggernautGameMode.PlayerState state) =>
             _juggernautCanvasAddOn.SetAddOnCanvas(state);
     }
