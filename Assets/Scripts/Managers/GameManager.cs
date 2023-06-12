@@ -98,7 +98,7 @@ namespace Managers
             }
         }
         
-        public bool instructionsMode = false;
+        public bool instructionsMode = true;
         
         #endregion
 
