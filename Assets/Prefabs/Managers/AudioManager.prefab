@@ -54,5 +54,5 @@ MonoBehaviour:
     Path: event:/Player/Default Dash
   _defaultMusic: 0
   _masterVolume: 1
-  _musicVolume: 1
+  _musicVolume: 0.75
   _sfxVolume: 1
