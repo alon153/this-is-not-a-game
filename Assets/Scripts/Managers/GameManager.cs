@@ -98,6 +98,7 @@ namespace Managers
             }
         }
         
+        [HideInInspector]
         public bool instructionsMode = true;
         
         #endregion
@@ -112,6 +113,7 @@ namespace Managers
 
         private void Start()
         {
+            instructionsMode = true;
             AudioManager.SetMusic(MusicSounds.Lobby);
         }
 
@@ -208,7 +210,7 @@ namespace Managers
                             UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
                             break;
                         case false:
-                            UIManager.Instance.StartCountdown(StartRound);
+                            StartRound();
                             break;
                     }
                 }
@@ -276,6 +278,7 @@ namespace Managers
         {
             foreach (var player in Players)
             {
+                _readys[player.Index] = false;
                 player.Ready = false;
                 player.ShowReady(false);
                 UIManager.Instance.InstructionsReady(player.Index, false);
@@ -331,6 +334,7 @@ namespace Managers
             _readys[index] = value;
             _showReady(index, value);
             
+                
             switch (State)
             {
                 case GameState.Lobby:

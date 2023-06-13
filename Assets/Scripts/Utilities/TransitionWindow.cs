@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using Basics;
 using GameMode;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Utilities
@@ -16,8 +19,10 @@ namespace Utilities
         [SerializeField] private RectTransform _timer;
         [SerializeField] private Image _instructions;
         [SerializeField] private float _transitionTime = 3;
-        [SerializeField] private TextMeshProUGUI[] _playerReady;
         [SerializeField] private float _countdown = 3f;
+        [SerializeField] private List<Animator> _readyButtonAnimators = new List<Animator>();
+        [SerializeField] private GameObject _readyMenu;
+        [SerializeField] private GameObject _pauseButtons;
         
         #endregion
         
@@ -29,6 +34,8 @@ namespace Utilities
         private float _destY;
 
         private Coroutine _transitionCoroutine;
+        private static readonly int Press = Animator.StringToHash("Press");
+        
 
         #endregion
 
@@ -46,10 +53,6 @@ namespace Utilities
             _timerOrigX = _timer.rect.width;
             _rectOrigY = _rect.rect.height;
 
-            foreach (var text in _playerReady)
-            {
-                text.enabled = false;
-            }
         }
 
         private void Update()
@@ -80,6 +83,20 @@ namespace Utilities
             if(_rect.anchoredPosition.y >= _rectOrigY) return;
             
             _destY = _rectOrigY;
+
+            if (GameManager.Instance.State is GameState.PauseMenu)
+            {
+                _readyMenu.SetActive(false);
+                _pauseButtons.SetActive(true);
+            }
+                
+
+            else if (GameManager.Instance.State is GameState.Instructions)
+            {
+                _readyMenu.SetActive(true);
+                _pauseButtons.SetActive(false);
+            }
+                
         }
 
         public void HideWindow(bool immediate=false)
@@ -107,12 +124,6 @@ namespace Utilities
             if (destPos.y < 0 || destPos.y > _rectOrigY) destPos.y = _destY;
 
             _rect.anchoredPosition = destPos;
-        }
-
-        private void SetInformation(string title, Sprite instructions)
-        {
-            _title.text = title;
-            _instructions.sprite = instructions;
         }
 
         private IEnumerator Timer_Inner(float duration, Action onEnd=null)
@@ -152,16 +163,18 @@ namespace Utilities
 
         public void SetReady(int index, bool ready)
         {
-            if (index < 0 || index >= _playerReady.Length) 
+            if (index < 0 || index >= _readyButtonAnimators.Count) 
                 return;
-            _playerReady[index].enabled = ready;
+            _readyButtonAnimators[index].SetBool(Press, ready);
         }
 
-        public void SetPlayerColor(int index, Color color)
+        public void EnableReadyButton(int index)
         {
-            if (index < 0 || index >= _playerReady.Length) 
+            if (index < 0 || index >= _readyButtonAnimators.Count) 
                 return;
-            _playerReady[index].color = color;
+            _readyButtonAnimators[index].gameObject.SetActive(true);
         }
+
+        
     }
 }

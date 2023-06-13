@@ -104,10 +104,9 @@ namespace Managers
                     break;
                     
                 case GameState.Playing: 
-                    _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn);
-                    _pauseMenu.SetActive(true);
-                    _transitionWindow.ShowWindow();
+                    _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn); 
                     GameManager.Instance.State = GameState.PauseMenu;
+                    _transitionWindow.ShowWindow();
                     break;
                 
                 case GameState.Instructions:
@@ -194,7 +193,7 @@ namespace Managers
             
             var color = GameManager.Instance.PlayerColor(playerId);
             playerScoreTexts[_activeScoreDisplays].color = color;
-            _transitionWindow.SetPlayerColor(playerId, color);
+            _transitionWindow.EnableReadyButton(playerId);
             _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
             _activeScoreDisplays += Constants.NewPlayerRegistered;
         }
