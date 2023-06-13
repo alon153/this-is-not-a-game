@@ -21,6 +21,13 @@ namespace Managers
         private Dictionary<int, float> _playerScores = new Dictionary<int, float>();
         
         #endregion
+        
+        #region Properties
+
+        public int WinningPlayer { get; set; } = -1;
+        public float WinningScore { get; set; } = -1;
+        
+        #endregion
 
         #region Constants
 
@@ -78,10 +85,11 @@ namespace Managers
         /// </param>
         public void SetPlayerScore(int playerId, float score, bool shouldAdd=true, bool showFloat=true)
         {
+            var playerScore = _playerScores[playerId];
             switch (shouldAdd)
             {
                 case true:
-                    _playerScores[playerId] += score;
+                    playerScore += score;
                     if (showFloat)
                     {
                         PlayerController player = GameManager.Instance.Players[playerId];
@@ -93,13 +101,29 @@ namespace Managers
                     break;
                 
                 case false:
-                    _playerScores[playerId] -= score;
+                    playerScore -= score;
                     if (_playerScores[playerId] < InitialScore)
-                        _playerScores[playerId] = InitialScore;
+                        playerScore = InitialScore;
+                    
+                    if (WinningPlayer == playerId)
+                    {
+                        _playerScores[playerId] = playerScore;
+                        int newWinner = GetWinner();
+                        if(newWinner != WinningPlayer)
+                            UIManager.Instance.CurrWinner = newWinner;
+                    }
                     break;
             }
 
-            UIManager.Instance.SetScoreToPlayerDisplay(playerId, _playerScores[playerId]);
+            _playerScores[playerId] = playerScore;
+            UIManager.Instance.SetScoreToPlayerDisplay(playerId, playerScore);
+            if (playerScore > WinningScore && playerId != WinningPlayer)
+            {
+                if(playerId != UIManager.Instance.CurrWinner)
+                    UIManager.Instance.CurrWinner = playerId;
+                WinningScore = playerScore;
+                WinningPlayer = playerId;
+            }
         }
 
         /// <summary>

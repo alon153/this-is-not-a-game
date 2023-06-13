@@ -63,6 +63,7 @@ namespace Managers
         #endregion
 
         #region Properties
+
         public List<PlayerController> Players => Instance._players;
         public GameState State
         {

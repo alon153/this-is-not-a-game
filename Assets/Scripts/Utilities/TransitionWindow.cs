@@ -69,10 +69,7 @@ namespace Utilities
 
         public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false)
         {
-            if (title != "")
-                _title.text = title;
-            if (instructions != null)
-                _instructions.sprite = instructions;
+            SetInformation(title, instructions);
             
             if (immediate)
             {
@@ -125,7 +122,15 @@ namespace Utilities
 
             _rect.anchoredPosition = destPos;
         }
-
+        
+        private void SetInformation(string title, Sprite instructions)
+        {
+            if (title != "")
+                _title.text = title;
+            if (instructions != null)
+                _instructions.sprite = instructions;
+        }
+        
         private IEnumerator Timer_Inner(float duration, Action onEnd=null)
         {
             var pos = _timer.anchoredPosition;

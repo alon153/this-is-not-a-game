@@ -22,7 +22,7 @@ namespace Managers
         [SerializeField] private TextMeshProUGUI _mainTimeText;
 
         [Header ("\nMisc")]
-        [SerializeField] private TextMeshProUGUI[] playerScoreTexts;
+        [SerializeField] private ScoreBlock[] _playerScores;
         [SerializeField] private Image _flash;
         [SerializeField] private Animator _flashAnimatior;
         
@@ -39,9 +39,7 @@ namespace Managers
         #endregion
         
         #region Non-Serialized Fields
-        
-        private Dictionary<int, TextMeshProUGUI> _playerScoreDisplay = new Dictionary<int, TextMeshProUGUI>();
-        
+
         private int _activeScoreDisplays = 0;
 
         private int _maxScoreDisplays;
@@ -50,6 +48,24 @@ namespace Managers
         
         private static readonly int PlayFizz = Animator.StringToHash("PlayFizz");
 
+        private int _currWinner = -1;
+
+        #endregion
+        
+        #region Properties
+
+        public int CurrWinner
+        {
+            get => _currWinner;
+            set
+            {
+                if(_currWinner != -1)
+                    _playerScores[_currWinner].Lower();
+                _playerScores[value].Raise();
+                _currWinner = value;
+            }
+        }
+        
         #endregion
 
         #region MonoBehaviour Methods
@@ -62,7 +78,7 @@ namespace Managers
 
         private void Start()
         {
-            _maxScoreDisplays = playerScoreTexts.Length;
+            _maxScoreDisplays = _playerScores.Length;
             _transitionWindow.HideWindow(true);
         }
         #endregion
@@ -187,34 +203,35 @@ namespace Managers
             if (_maxScoreDisplays == _activeScoreDisplays)
             {
                 Debug.LogError("Error: Trying to set a new player but reached maximum amount." +
-                               "Available displays:" + _playerScoreDisplay.Count);
+                               "Available displays:" + _playerScores.Length);
                 return;
             }
             
             var color = GameManager.Instance.PlayerColor(playerId);
-            playerScoreTexts[_activeScoreDisplays].color = color;
+
             _transitionWindow.EnableReadyButton(playerId);
-            _playerScoreDisplay.Add(playerId, playerScoreTexts[_activeScoreDisplays]);
+
             _activeScoreDisplays += Constants.NewPlayerRegistered;
+
+            for (int i = 0; i < _activeScoreDisplays; i++)
+            {
+                _playerScores[i].AnchorMinX = ((float) i) / _activeScoreDisplays;
+                _playerScores[i].AnchorMaxX = ((float) i+1) / _activeScoreDisplays;
+            }
         }
         
-        /// <summary>
-        /// called when starting the round, function sets all displays that are linked with a player
-        /// and sets score to zero. 
-        /// </summary>
         public void ActivateScoreDisplays()
         {
-            foreach (var key in _playerScoreDisplay.Keys)
+            for(int i=0;i<_activeScoreDisplays;i++)
             {
-                _playerScoreDisplay[key].text = Constants.InitialScore;
-                _playerScoreDisplay[key].gameObject.SetActive(true);
+                _playerScores[i].Lower(); // calling lower will raise from height 0 to default height
             }
         }
 
         public void SetScoreToPlayerDisplay(int playerId, float newScore)
         {
             // todo: make this juicier! add a coroutine or something!
-            _playerScoreDisplay[playerId].text = newScore.ToString("0");
+            _playerScores[playerId].Score = newScore;
         }
 
         public void ToggleCenterText(bool show) => _centerText.gameObject.SetActive(show);
@@ -230,9 +247,10 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
-            foreach (var display in playerScoreTexts)
+            foreach (var block in _playerScores)
             {
-                display.gameObject.SetActive(false);
+                block.Score = 0;
+                block.Lower();
             }
         }
 
