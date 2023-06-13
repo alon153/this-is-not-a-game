@@ -34,6 +34,8 @@ namespace GameMode.Island
         }
         
         public float Score { get; set; }
+        
+        public Sprite Sprite { get; set; }
 
         #endregion
 
@@ -98,14 +100,8 @@ namespace GameMode.Island
             if(_digger == null)
                 return;
             
-            PlayerAddon.CheckCompatability(_digger.Addon, GameModes.Island);
-            float score = Mathf.Max(Score, 0);
-            ((IslandPlayerAddon) _digger.Addon).Score += score; 
-            ScoreManager.Instance.SetPlayerScore(_digger.Index, score);
-            _digger.Gamepad?.SetMotorSpeeds(0,0);
-            _digger.UnFreeze();
-            
-            _digger = null;
+            AddScore();
+            CreateTreasureSprite();
             if (Pool != null)
             {
                 Pool.Release(this);
@@ -115,6 +111,28 @@ namespace GameMode.Island
                 Release();
                 Destroy(gameObject);
             }
+        }
+
+        private void AddScore()
+        {
+            PlayerAddon.CheckCompatability(_digger.Addon, GameModes.Island);
+            float score = Mathf.Max(Score, 0);
+            ((IslandPlayerAddon) _digger.Addon).Score += score;
+            ScoreManager.Instance.SetPlayerScore(_digger.Index, score);
+            _digger.Gamepad?.SetMotorSpeeds(0, 0);
+            _digger.UnFreeze();
+
+            _digger = null;
+        }
+
+        private void CreateTreasureSprite()
+        {
+            var g = new GameObject();
+            g.transform.position = transform.position;
+            var spriteRenderer = g.AddComponent<SpriteRenderer>();
+            spriteRenderer.sprite = Sprite;
+            spriteRenderer.sortingLayerID = SortingLayer.NameToID("Treasure");
+            Destroy(g, 3);
         }
 
         #endregion

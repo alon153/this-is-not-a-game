@@ -75,6 +75,9 @@ TagManager:
   - name: Part
     uniqueID: 4173128985
     locked: 0
+  - name: Treasure
+    uniqueID: 2417598515
+    locked: 0
   - name: Player
     uniqueID: 583492459
     locked: 0

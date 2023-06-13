@@ -170,7 +170,7 @@ namespace GameMode.Island
             int digTimeCount = Random.Range(0, _digTimeCount);
             
             treasure.transform.position = GameManager.Instance.CurrArena.GetRespawnPosition(treasure.gameObject);
-            treasure.Score = GetTreasureValue(valCount);
+            (treasure.Score, treasure.Sprite) = GetTreasureValue(valCount);
             treasure.DiggingTime = GetDigTime(digTimeCount);
         }
 
@@ -196,17 +196,22 @@ namespace GameMode.Island
             return 0;
         }
         
-        private float GetTreasureValue(int count)
+        private (float score, Sprite sprite) GetTreasureValue(int count)
         {
             int countLeft = count;
             for (int i = 0; i < _treasureValues.Count; i++)
             {
                 countLeft -= _treasureValues[i].count;
                 if (countLeft <= 0)
-                    return _treasureValues[i].score;
+                {
+                    var t = _treasureValues[i];
+                    var score = t.score;
+                    var sprite = t.sprites[Random.Range(0, t.sprites.Count)];
+                    return (score, sprite);
+                }
             }
 
-            return 0;
+            return (0, null);
         }
 
         #endregion
@@ -247,6 +252,7 @@ namespace GameMode.Island
         {
             public float score;
             public int count;
+            public List<Sprite> sprites;
         }
         
         [Serializable]
