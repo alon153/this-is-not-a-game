@@ -1,6 +1,8 @@
 using System;
 using Managers;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class RhythmRing : MonoBehaviour
 {
@@ -18,12 +20,14 @@ public class RhythmRing : MonoBehaviour
     private RingTrigger _ringTrigger;
 
     private SpriteRenderer _renderer;
+    private Guid _removeRing = Guid.Empty;
 
     #endregion
 
     #region Properties
 
     public bool Run { get; private set; } = false;
+    public LinkedPool<RhythmRing> Pool { get; set; } = null;
 
     #endregion
 
@@ -44,11 +48,7 @@ public class RhythmRing : MonoBehaviour
     private void Update()
     {
         if (Run)
-        {
             transform.localScale += new Vector3(_sizePerSecond, _sizePerSecond, 0) * Time.deltaTime;
-            if (transform.localScale.x >= 1)
-                ResetRing();
-        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -62,6 +62,21 @@ public class RhythmRing : MonoBehaviour
             _ringTrigger.RegisterRing(this);
             _renderer.color = _onBeatColor;
         }
+        else if (other.CompareTag("RingPanel"))
+        {
+            if (_removeRing != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_removeRing);
+            _removeRing = TimeManager.Instance.DelayInvoke(
+                (() => { Pool.Release(this); }), 
+                0.5f
+                );
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(_removeRing != Guid.Empty)
+            TimeManager.Instance.CancelInvoke(_removeRing);
     }
 
     #endregion
@@ -86,7 +101,6 @@ public class RhythmRing : MonoBehaviour
         if (_ringTrigger != null)
         {
             _ringTrigger.UnregisterRing(this);
-            _ringTrigger = null;
         }
     }
 

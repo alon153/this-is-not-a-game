@@ -261,10 +261,10 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
-            foreach (var block in _playerScores)
+            for(int i=0;i<_activeScoreDisplays;i++)
             {
-                block.Score = 0;
-                block.Lower();
+                _playerScores[i].Score = 0;
+                _playerScores[i].MoveTo(0,true);
             }
         }
 

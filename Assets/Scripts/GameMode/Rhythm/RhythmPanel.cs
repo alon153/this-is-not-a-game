@@ -6,24 +6,24 @@ using Basics;
 using Basics.Player;
 using Managers;
 using UnityEngine;
+using UnityEngine.Pool;
+using Random = UnityEngine.Random;
 
 namespace GameMode.Rhythm
 {
     public class RhythmPanel : InteractableObject, IOnBeatListener
     {
         #region Serialized Fields
-
-        [SerializeField] private List<int> _beats;
+        
         [SerializeField] private RhythmRing _ringPrefab;
-        [SerializeField] private float _coyoteTime = 0.5f;
+        [SerializeField] private RingTrigger _ringTrigger;
 
         #endregion
 
         #region Non-Serialized Fields
-        
-        private Dictionary<int, RhythmRing> _rings = new();
-        private RingTrigger _ringTrigger;
-        
+
+        private LinkedPool<RhythmRing> _rings;
+
         private Guid _beatInvoke = Guid.Empty;
 
         #endregion
@@ -37,7 +37,6 @@ namespace GameMode.Rhythm
         private void Awake()
         {
             InitRings();
-            _ringTrigger = GetComponentInChildren<RingTrigger>();
         }
 
         private void OnDestroy()
@@ -48,14 +47,19 @@ namespace GameMode.Rhythm
 
         private void InitRings()
         {
-            foreach (var beat in _beats)
-            {
-                if (!_rings.ContainsKey(beat))
+            _rings = new LinkedPool<RhythmRing>(
+                createFunc: (() =>
                 {
-                    _rings[beat] = Instantiate(_ringPrefab, transform);
-                    _rings[beat].transform.localScale = Vector3.zero;
-                }
-            }
+                    var ring = Instantiate(_ringPrefab, transform);
+                    ring.transform.localScale = Vector3.zero;
+                    ring.Pool = _rings;
+                    return ring;
+                }),
+                actionOnGet:(ring =>
+                {
+                    ring.StartRing();
+                }),
+                actionOnRelease:(ring => ring.ResetRing()));
         }
 
         #endregion
@@ -75,17 +79,7 @@ namespace GameMode.Rhythm
             if(GameManager.Instance.State != GameState.Playing)
                 return;
             
-            if (_beatInvoke != Guid.Empty)
-                TimeManager.Instance.CancelInvoke(_beatInvoke);
-            _beatInvoke = TimeManager.Instance.DelayInvoke((() =>
-            {
-                if (_rings.ContainsKey(beat))
-                {
-                    var ring = _rings[beat];
-                    ring.StartRing();
-                }
-                _beatInvoke = Guid.Empty;
-            }), _coyoteTime);
+            _rings.Get();
         }
 
         #endregion
@@ -99,7 +93,7 @@ namespace GameMode.Rhythm
 
         protected override void OnInteract_Inner(PlayerController player)
         {
-            bool onBeat = _ringTrigger.Beat();
+            bool onBeat = _ringTrigger != null && _ringTrigger.Beat();
             ScoreManager.Instance.SetPlayerScore(player.Index, onBeat ? 10 : -5);
         }
 
@@ -112,10 +106,7 @@ namespace GameMode.Rhythm
 
         public void StopRings()
         {
-            foreach (var key in _rings.Keys)
-            {
-                _rings[key].ResetRing();
-            }
+            _rings.Clear();
         }
     }
 }
