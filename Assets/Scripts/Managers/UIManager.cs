@@ -13,6 +13,10 @@ namespace Managers
     {
 
         #region Serialized Fields
+
+        [Header("Lobby Readies")] 
+        [SerializeField] private GameObject _lobbyReadiesContainer;
+        [SerializeField] private GameObject[] _lobbyReadies;
         
         [Header("General Texts")]
         [SerializeField] private TextMeshProUGUI _centerText;
@@ -49,6 +53,9 @@ namespace Managers
         private static readonly int PlayFizz = Animator.StringToHash("PlayFizz");
 
         private int _currWinner = -1;
+
+        private List<Animator> _lobbyReadiesAnimators = new();
+        private static readonly int Press = Animator.StringToHash("Press");
 
         #endregion
         
@@ -192,6 +199,11 @@ namespace Managers
                 _flashAnimatior.SetTrigger(PlayFizz);
         }
 
+        public void ToggleLobbyReadies(bool show)
+        {
+            _lobbyReadiesContainer.SetActive(show);
+        }
+
         /// <summary>
         /// Called when a new player is registered to game. Function attributes a text display to player score.
         /// </summary>
@@ -210,6 +222,8 @@ namespace Managers
             var color = GameManager.Instance.PlayerColor(playerId);
 
             _transitionWindow.EnableReadyButton(playerId);
+            _lobbyReadies[playerId].SetActive(true);
+            _lobbyReadiesAnimators.Add(_lobbyReadies[playerId].GetComponent<Animator>());
 
             _activeScoreDisplays += Constants.NewPlayerRegistered;
 
@@ -299,6 +313,11 @@ namespace Managers
         public void InstructionsReady(int index, bool ready)
         {
             _transitionWindow.SetReady(index, ready);
+        }
+        
+        public void LobbyReady(int index, bool ready)
+        {
+            _lobbyReadiesAnimators[index].SetBool(Press, ready);
         }
     }
 }

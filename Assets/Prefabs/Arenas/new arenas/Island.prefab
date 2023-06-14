@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2697159395290441158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.009529999, y: -0.0065299994, z: 0}
-  m_LocalScale: {x: 1.9200298, y: 0.9224985, z: 1}
+  m_LocalPosition: {x: -0.00793, y: -0.00508, z: 0}
+  m_LocalScale: {x: 2.0655596, y: 1.0651217, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6679206946444666259}
@@ -145,7 +145,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 31169753099930987, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176976, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_RootOrder
@@ -193,23 +193,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 2.0128531
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 1.0320154
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Offset.x
-      value: 0.00000011920929
+      value: 0.002910614
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Offset.y
-      value: 0.0015230775
+      value: 0.0029783845
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x

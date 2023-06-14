@@ -20,6 +20,7 @@ namespace Managers
         #region Serialized Fields
 
         [field: SerializeField] private Arena DefaultArenaPrefab;
+        [SerializeField] private Arena _lobbyArenaPrefab;
 
         [field: SerializeField] private List<PlayerData> PlayerDatas;
         [SerializeField] private Sprite _defaultPlayerSprite;
@@ -73,7 +74,7 @@ namespace Managers
                 _currentState = value;
                 _showReady = _currentState switch
                 {
-                    GameState.Lobby => (i, b) => { _players[i].ShowReady(b); },
+                    GameState.Lobby => UIManager.Instance.LobbyReady,
                     _ => UIManager.Instance.InstructionsReady
                 };
             }
@@ -109,13 +110,12 @@ namespace Managers
         public override void Awake()
         {
             base.Awake();
-            Init();
         }
 
         private void Start()
         {
+            Init();
             instructionsMode = true;
-            AudioManager.SetMusic(MusicSounds.Lobby);
         }
 
         private void Update()
@@ -266,10 +266,10 @@ namespace Managers
         private void StartGame()
         {
             _inputManager.enabled = false;
-            
-            
+
             State = GameState.Playing;
             ResetReadies();
+            UIManager.Instance.ToggleLobbyReadies(false);
             
             UIManager.Instance.ActivateScoreDisplays();
             NextRound();
@@ -281,8 +281,8 @@ namespace Managers
             {
                 _readys[player.Index] = false;
                 player.Ready = false;
-                player.ShowReady(false);
                 UIManager.Instance.InstructionsReady(player.Index, false);
+                UIManager.Instance.LobbyReady(player.Index,false);
             }
         }
 
@@ -294,7 +294,9 @@ namespace Managers
         private void Init()
         {
             InitFactory();
-            CurrArena = Instantiate(DefaultArenaPrefab);
+            AudioManager.SetMusic(MusicSounds.Lobby);
+            CurrArena = Instantiate(_lobbyArenaPrefab);
+            UIManager.Instance.ToggleLobbyReadies(true);
             _inputManager = GetComponent<PlayerInputManager>();
             State = GameState.Lobby;
         }

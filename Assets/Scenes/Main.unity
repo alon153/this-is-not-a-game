@@ -500,62 +500,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _singleMode
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _roundLength
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _isSingleMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: DefaultArenaPrefab
-      value: 
-      objectReference: {fileID: 7849785998550999870, guid: a29aa183b2981e641aae2fc1e836808e, type: 3}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _isGameModeByOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[3]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[4]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[5]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[6]
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-      propertyPath: _modes.Array.data[7]
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 557702557130088218, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -568,6 +512,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 68fd27982ccb836489f25f50d3ff0e54, type: 3}
+    - target: {fileID: 867106328218866151, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 936772034852571337, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -884,6 +832,14 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.9607843
       objectReference: {fileID: 0}
+    - target: {fileID: 5440878403067852677, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _musicVolume
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 5552343554096834524, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1119,6 +1075,10 @@ PrefabInstance:
     - target: {fileID: 8518349760253943973, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8855821299246159198, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8948356876203540666, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_text

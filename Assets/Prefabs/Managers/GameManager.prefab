@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1c879b16f3744cdb8e6f6d35fecf6c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultArenaPrefab: {fileID: 6661921919638176978, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+  DefaultArenaPrefab: {fileID: 7849785998550999870, guid: a29aa183b2981e641aae2fc1e836808e, type: 3}
+  _lobbyArenaPrefab: {fileID: 3785053900138126748, guid: d912b9ab901a2d24dacb9b0387d2bbcc, type: 3}
   PlayerDatas:
   - _animatorOverride: {fileID: 22100000, guid: d953a5aaf24497048ab1a7e8755985f6, type: 2}
     _bloomColor: {r: 0.91372555, g: 0.427451, b: 0.85098046, a: 1}
@@ -62,9 +63,10 @@ MonoBehaviour:
   _zapLength: 0.25
   _gameModeFactory: {fileID: 11400000, guid: d489007350ef4364b82b6b9f0c563837, type: 2}
   _isSingleMode: 1
-  _singleMode: 7
-  _modes: 0100000002000000040000000600000008000000070000000300000005000000
+  _singleMode: 6
+  _modes: 0100000005000000040000000200000003000000060000000700000008000000
   _isGameModeByOrder: 1
+  instructionsMode: 1
 --- !u!114 &5528608369377680934
 MonoBehaviour:
   m_ObjectHideFlags: 0

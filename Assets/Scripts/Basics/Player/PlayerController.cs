@@ -29,8 +29,7 @@ namespace Basics.Player
         #region Serialized Fields
 
         [SerializeField] private Material _bloomMaterialOrigin;
-
-        [Header("UI")] [SerializeField] private TextMeshProUGUI _txtReady;
+        
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
 
@@ -221,10 +220,8 @@ namespace Basics.Player
         {
             Index = GameManager.Instance.RegisterPlayer(this);
             _origColor = GameManager.Instance.PlayerColor(Index);
-            // Renderer.Animator.runtimeAnimatorController = GameManager.Instance.PlayerAnimatorOverride(Index);
             Color = _origColor;
             GameManager.Instance.SetDefaultSprite(this);
-            _txtReady.enabled = false;
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
         }
@@ -324,11 +321,6 @@ namespace Basics.Player
         #endregion
 
         #region Public Methods
-
-        public void ShowReady(bool show)
-        {
-            _txtReady.enabled = show;
-        }
 
         private void ToggleInteractText(bool show, string text = "Press A")
         {
