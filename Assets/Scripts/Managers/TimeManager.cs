@@ -7,7 +7,7 @@ using Utilities;
 
 namespace Managers
 {
-    public class TimeManager : SingletonPersistent<TimeManager>
+    public class TimeManager : Singleton<TimeManager>
     {
         #region Non-Serialized Fields
 

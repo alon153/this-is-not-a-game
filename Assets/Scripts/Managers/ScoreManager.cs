@@ -7,7 +7,7 @@ using Utilities;
 
 namespace Managers
 {
-    public class ScoreManager : SingletonPersistent<ScoreManager>
+    public class ScoreManager : Singleton<ScoreManager>
     {
 
         #region Serialized Fields

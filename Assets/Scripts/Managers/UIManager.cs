@@ -4,12 +4,13 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utilities;
 
 namespace Managers
 {
-    public class UIManager : SingletonPersistent<UIManager>
+    public class UIManager : Singleton<UIManager>
     {
 
         #region Serialized Fields
@@ -77,9 +78,8 @@ namespace Managers
 
         #region MonoBehaviour Methods
 
-        public override void Awake()
+        public void Awake()
         {
-            base.Awake();
             _transitionWindow = GetComponentInChildren<TransitionWindow>();
         }
 
@@ -192,6 +192,12 @@ namespace Managers
             GameManager.Instance.State = GameState.Lobby;
         }
 
+        public void OnPressMainMenu()
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Scenes/Opening");
+        }
+
         public void ToggleFlash(bool show)
         {
             _flash.gameObject.SetActive(show);
@@ -282,17 +288,7 @@ namespace Managers
             timerText.text = FormatTime((int) time);
             timerText.enabled = time > 0;
         }
-
-
-        #endregion
-
-        public enum CountDownTimer
-        {
-            Game,
-            Main,
-            Transition,
-        }
-
+        
         public void ShowWinner(int winner)
         {
             _centerText.color = GameManager.Instance.PlayerColor(winner);
@@ -318,6 +314,15 @@ namespace Managers
         public void LobbyReady(int index, bool ready)
         {
             _lobbyReadiesAnimators[index].SetBool(Press, ready);
+        }
+        
+        #endregion
+        
+        public enum CountDownTimer
+        {
+            Game,
+            Main,
+            Transition,
         }
     }
 }

@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Managers
 {
-    public class GameModePropsManager : SingletonPersistent<GameModePropsManager>
+    public class GameModePropsManager : Singleton<GameModePropsManager>
     {
         
     }

@@ -9,13 +9,14 @@ using GameMode;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using Utilities;
 using PlayerController = Basics.Player.PlayerController;
 
 namespace Managers
 {
-    public class GameManager : SingletonPersistent<GameManager>
+    public class GameManager : Singleton<GameManager>
     {
         #region Serialized Fields
 
@@ -106,11 +107,6 @@ namespace Managers
         #endregion
 
         #region Event Functions
-
-        public override void Awake()
-        {
-            base.Awake();
-        }
 
         private void Start()
         {
@@ -250,7 +246,8 @@ namespace Managers
         #region Private Methods
 
         private void EndGame()
-        {
+        {   
+            /**
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
             Init();
@@ -261,6 +258,9 @@ namespace Managers
                 UIManager.Instance.ResetScoreDisplays();
                 UIManager.Instance.HideWinner();
             }), 5);
+            */
+            
+            SceneManager.LoadScene("Main");
         }
 
         private void StartGame()

@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
         SetMusic(MusicSounds.Lobby);
         
         transform.SetParent(null);
-        DontDestroyOnLoad(_instance.gameObject);
+        //DontDestroyOnLoad(_instance.gameObject);
         
         InitializeMusicEventInstance(_bank.MusicEventReference);
 
