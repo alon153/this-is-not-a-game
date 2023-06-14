@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -195,6 +196,7 @@ namespace Managers
         public void OnPressMainMenu()
         {
             Time.timeScale = 1;
+            AudioManager.SetMusic(MusicSounds.Lobby);
             SceneManager.LoadScene("Scenes/Opening");
         }
 

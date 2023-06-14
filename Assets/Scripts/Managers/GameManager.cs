@@ -247,7 +247,7 @@ namespace Managers
 
         private void EndGame()
         {   
-            /**
+            
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
             Init();
@@ -258,9 +258,6 @@ namespace Managers
                 UIManager.Instance.ResetScoreDisplays();
                 UIManager.Instance.HideWinner();
             }), 5);
-            */
-            
-            SceneManager.LoadScene("Main");
         }
 
         private void StartGame()
