@@ -307,6 +307,11 @@ namespace Managers
         {
             _transitionWindow.StartCountdown(onEnd);
         }
+        
+        public void StopCountdown()
+        {
+            _transitionWindow.StopCountdown();
+        }
 
         public void InstructionsReady(int index, bool ready)
         {

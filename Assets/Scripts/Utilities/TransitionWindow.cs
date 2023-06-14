@@ -165,6 +165,17 @@ namespace Utilities
                 StopCoroutine(_transitionCoroutine);
             _transitionCoroutine = StartCoroutine(Timer_Inner(_countdown, onEnd));
         }
+        
+        public void StopCountdown()
+        {
+            if (_transitionCoroutine != null)
+                StopCoroutine(_transitionCoroutine);
+            _transitionCoroutine = null;
+            
+            var pos = _timer.anchoredPosition;
+            pos.x = _timerOrigX;
+            _timer.anchoredPosition = pos;
+        }
 
         public void SetReady(int index, bool ready)
         {
@@ -179,7 +190,5 @@ namespace Utilities
                 return;
             _readyButtonAnimators[index].gameObject.SetActive(true);
         }
-
-        
     }
 }

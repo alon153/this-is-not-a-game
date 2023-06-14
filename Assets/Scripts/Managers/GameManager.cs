@@ -344,10 +344,10 @@ namespace Managers
                         TimeManager.Instance.StartCountDown(5, StartGame, UIManager.CountDownTimer.Main);
                     break;
                 case GameState.Instructions:
-                    if (!_readys.Contains(false))
-                    {
+                    if (_readys.Contains(false))
+                        UIManager.Instance.StopCountdown();
+                    else
                         UIManager.Instance.StartCountdown(StartRound);
-                    }
                     break;
             }
         }
