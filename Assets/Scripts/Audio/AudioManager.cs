@@ -8,23 +8,24 @@ using UnityEngine;
 using FMODUnity;
 using Managers;
 using Unity.VisualScripting;
+using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class AudioManager : MonoBehaviour
 {
     #region Serialized Fields
 
-    [Header("Master Bank")]
-    [SerializeField] private AudioBank _bank;
+    [Header("Master Bank")] [SerializeField]
+    private AudioBank _bank;
 
-    [Header("Sounds")] 
-    [SerializeField] private EventReference _defaultDash;
+    [Header("Sounds")] [SerializeField] private EventReference _defaultDash;
     [SerializeField] private MusicSounds _defaultMusic;
 
-    [Header("Volume")] 
-    [SerializeField][Range(0f, 1f)] private float _masterVolume = 1;
-    [SerializeField][Range(0f, 1f)] private float _musicVolume = 1;
-    [SerializeField][Range(0f, 1f)] private float _sfxVolume = 1;
+    [Header("Volume")] [SerializeField] [Range(0f, 1f)]
+    private float _masterVolume = 1;
+
+    [SerializeField] [Range(0f, 1f)] private float _musicVolume = 1;
+    [SerializeField] [Range(0f, 1f)] private float _sfxVolume = 1;
 
     #endregion
 
@@ -35,7 +36,7 @@ public class AudioManager : MonoBehaviour
 
     private List<EventInstance> _instances = new();
     private EventInstance _musicEventInstance;
-        
+
     private static readonly string _musicEventName = "Section";
 
     private Bus _masterBus;
@@ -76,17 +77,17 @@ public class AudioManager : MonoBehaviour
 
         DashEvent = _defaultDash;
         SetMusic(MusicSounds.Lobby);
-        
+
         transform.SetParent(null);
-        //DontDestroyOnLoad(_instance.gameObject);
-        
+        DontDestroyOnLoad(_instance.gameObject);
+
         InitializeMusicEventInstance(_bank.MusicEventReference);
 
         _masterBus = RuntimeManager.GetBus("bus:/");
         _musicBus = RuntimeManager.GetBus("bus:/Music");
         _sfxBus = RuntimeManager.GetBus("bus:/SFX");
     }
-    
+
     private void OnDestroy()
     {
         CleanUp();
@@ -98,21 +99,21 @@ public class AudioManager : MonoBehaviour
 
     public static void RegisterBeatListener(IOnBeatListener l)
     {
-        if(_instance._beatListeners.Contains(l))
+        if (_instance._beatListeners.Contains(l))
             return;
         _instance._beatListeners.Add(l);
     }
-    
+
     public static void UnRegisterBeatListener(IOnBeatListener l)
     {
-        if(!_instance._beatListeners.Contains(l))
+        if (!_instance._beatListeners.Contains(l))
             return;
         _instance._beatListeners.Remove(l);
     }
 
     public static void PlayNoise()
     {
-        RuntimeManager.PlayOneShot(_instance._bank[SoundType.Sfx, (int)SfxSounds.Noise]);
+        RuntimeManager.PlayOneShot(_instance._bank[SoundType.Sfx, (int) SfxSounds.Noise]);
     }
 
     public static void Transition(MusicSounds to)
@@ -159,7 +160,7 @@ public class AudioManager : MonoBehaviour
         return new EventInstance();
     }
 
-    public static void SetMusic( MusicSounds music)
+    public static void SetMusic(MusicSounds music)
     {
         _instance._musicEventInstance.setParameterByName(_musicEventName, (float) music);
     }
@@ -182,7 +183,7 @@ public class AudioManager : MonoBehaviour
         _instances.Add(instance);
         return instance;
     }
-    
+
     private void CleanUp()
     {
         foreach (var instance in _instances)
@@ -194,64 +195,45 @@ public class AudioManager : MonoBehaviour
         _musicEventInstance.stop(STOP_MODE.IMMEDIATE);
         _musicEventInstance.release();
     }
-    
+
     public FMOD.RESULT OnBeatCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type, IntPtr eventInstance, IntPtr parameters)
     {
         if (type == EVENT_CALLBACK_TYPE.NESTED_TIMELINE_BEAT)
         {
-            TIMELINE_BEAT_PROPERTIES beat = ((TIMELINE_NESTED_BEAT_PROPERTIES)Marshal.PtrToStructure(parameters, typeof(TIMELINE_NESTED_BEAT_PROPERTIES))).properties;
+            TIMELINE_BEAT_PROPERTIES beat =
+                ((TIMELINE_NESTED_BEAT_PROPERTIES) Marshal.PtrToStructure(parameters,
+                    typeof(TIMELINE_NESTED_BEAT_PROPERTIES))).properties;
             Tempo = beat.tempo;
 
             if (_lastBeat == 0)
             {
                 _lastBeat = Time.time;
             }
-            else if(TimeFactor == 0)
+            else if (TimeFactor == 0)
             {
                 float delta = Time.time - _lastBeat;
-                TimeFactor = delta / (Tempo / 60);
+                TimeFactor = 1; //delta / (Tempo / 60);
             }
             else
             {
-                foreach (var l in _beatListeners)
-                {
-                    l.OnBeat(beat.beat);
-                }
+                int index = Random.Range(0, _beatListeners.Count);
+                int item = 0;
+                if (beat.beat % 2 == 0)
+                    foreach (var l in _beatListeners)
+                    {
+                        if (item == index)
+                        {
+                            l.OnBeat(beat.beat);
+                            break;
+                        }
+
+                        item++;
+                    }
             }
         }
+
         return FMOD.RESULT.OK;
     }
 
     #endregion
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

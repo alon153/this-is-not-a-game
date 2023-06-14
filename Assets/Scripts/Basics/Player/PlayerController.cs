@@ -445,7 +445,7 @@ namespace Basics.Player
             {
                 Rigidbody.velocity = Vector2.Lerp(Rigidbody.velocity,
                     DesiredVelocity,
-                    _acceleration * Time.fixedDeltaTime);
+                    (DesiredVelocity.magnitude > Rigidbody.velocity.magnitude ? _acceleration : _deceleration) * Time.fixedDeltaTime);
 
                 if (DesiredVelocity.magnitude > _maxSpeed)
                 {

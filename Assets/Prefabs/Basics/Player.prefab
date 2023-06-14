@@ -283,8 +283,8 @@ MonoBehaviour:
   _playerFront: {fileID: 7424307220151420971}
   _speed: 7
   _maxSpeed: 8
-  _acceleration: 7
-  _deceleration: 5
+  _acceleration: 10
+  _deceleration: 15
   DashTime: 0.3
   _dashBonus: 5
   _dashCooldown: 1
