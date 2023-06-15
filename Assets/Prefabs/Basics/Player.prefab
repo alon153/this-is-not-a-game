@@ -285,8 +285,8 @@ MonoBehaviour:
   _maxSpeed: 8
   _acceleration: 10
   _deceleration: 12
-  DashTime: 0.3
-  _dashBonus: 5
+  DashTime: 0.2
+  _dashBonus: 10
   _dashCooldown: 1
   _knockBackForce: 30
   _mutualKnockBackForce: 20
