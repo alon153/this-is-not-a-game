@@ -276,11 +276,11 @@ namespace Basics.Player
                 case InputActionPhase.Started:
                     if (Direction == Vector2.zero) return;
 
-                    // if (!CanDash)
-                    // {
-                    //     ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
-                    //     return;
-                    // }
+                    if (!CanDash)
+                    {
+                        // ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
+                        return;
+                    }
 
                     Dash();
                     break;
