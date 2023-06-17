@@ -28,20 +28,21 @@ namespace Basics.Player
 
         #region Serialized Fields
 
-        [SerializeField] private Material _bloomMaterialOrigin;
+        [SerializeField] private Material _OutlineMaterialOrigin;
         
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
 
         [SerializeField] private Transform _playerFront;
 
-        [Header("Movement")] [SerializeField] private float _speed = 2;
+        [Header("Movement")] 
+        [SerializeField] private float _speed = 2;
         [SerializeField] private float _maxSpeed = 2;
         [SerializeField] private float _acceleration = 2;
         [SerializeField] private float _deceleration = 2;
 
-        [Header("Dash")] [field: SerializeField]
-        public float DashTime = 0.5f;
+        [Header("Dash")] 
+        [field: SerializeField] public float DashTime = 0.5f;
 
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
@@ -112,7 +113,7 @@ namespace Basics.Player
             set
             {
                 _canDash = value;
-                Renderer.ToggleBloom(value);
+                Renderer.ToggleOutline(value);
             }
         }
 
@@ -144,7 +145,6 @@ namespace Basics.Player
                 //     Renderer.Animator.SetBool(Moving, value.magnitude != 0);
 
                 _direction = value.normalized;
-                bool facingBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;
                 // if (facingBack != Renderer.FaceBack)
                 //     Renderer.FaceBack = facingBack;
                 // Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
@@ -207,7 +207,7 @@ namespace Basics.Player
             Rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
 
-            Renderer.BloomMaterial = new Material(_bloomMaterialOrigin);
+            Renderer.OutlineMaterial = new Material(_OutlineMaterialOrigin);
 
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;
@@ -397,13 +397,10 @@ namespace Basics.Player
 
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
             AudioManager.PlayDash();
-            Renderer.FaceBack = true;
 
             _dashingId = TimeManager.Instance.DelayInvoke(() =>
             {
                 Dashing = false;
-                Renderer.FaceBack = _direction.y > 0 && Mathf.Abs(_direction.x) <= 0.1f;
-                ;
                 _isInPostDash = true;
                 _postDashId = TimeManager.Instance.DelayInvoke(() => { _isInPostDash = false; }, _postDashPushTime);
             }, DashTime);
@@ -478,7 +475,6 @@ namespace Basics.Player
             transform.localScale = _originalScale;
             Renderer.SetGlobalColor(_origColor);
             Renderer.Regular.flipX = false;
-            Renderer.Bloomed.flipX = false;
             Renderer.SetActive(true);
             Rigidbody.velocity = Vector2.zero;
             Rigidbody.drag = 0;
