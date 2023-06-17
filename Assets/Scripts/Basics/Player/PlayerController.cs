@@ -348,6 +348,9 @@ namespace Basics.Player
 
         public void UnFreeze()
         {
+            if(GameManager.Instance.State == GameState.Instructions)
+                return;
+            
             if (_freezeId != Guid.Empty)
             {
                 TimeManager.Instance.CancelInvoke(_freezeId);
@@ -492,6 +495,12 @@ namespace Basics.Player
         public SoundType GetSoundType()
         {
             return SoundType.Player;
+        }
+
+        public void ResetPlayer()
+        {
+            GameManager.Instance.SetDefaultSprite(this);
+            Addon = null;
         }
     }
 }

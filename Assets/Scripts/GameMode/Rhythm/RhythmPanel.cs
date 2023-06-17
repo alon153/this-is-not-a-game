@@ -76,9 +76,6 @@ namespace GameMode.Rhythm
 
         public void OnBeat(int beat)
         {
-            if(GameManager.Instance.State != GameState.Playing)
-                return;
-            
             _rings.Get();
         }
 

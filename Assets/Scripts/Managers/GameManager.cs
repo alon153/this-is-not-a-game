@@ -246,8 +246,7 @@ namespace Managers
         #region Private Methods
 
         private void EndGame()
-        {   
-            
+        {
             print($"Player {ScoreManager.Instance.GetWinner()} wins!");
             UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
             Init();
@@ -296,6 +295,11 @@ namespace Managers
             UIManager.Instance.ToggleLobbyReadies(true);
             _inputManager = GetComponent<PlayerInputManager>();
             State = GameState.Lobby;
+
+            foreach (var player in Players)
+            {
+                player.ResetPlayer();
+            }
         }
 
         private void InitFactory()

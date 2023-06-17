@@ -68,7 +68,7 @@ namespace Managers
             get => _currWinner;
             set
             {
-                if(_currWinner != -1)
+                if(GameManager.Instance.State != GameState.Lobby && _currWinner != -1)
                     _playerScores[_currWinner].Lower();
                 _playerScores[value].Raise();
                 _currWinner = value;
