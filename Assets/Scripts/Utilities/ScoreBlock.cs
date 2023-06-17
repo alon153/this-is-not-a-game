@@ -1,12 +1,11 @@
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ScoreBlock : MonoBehaviour
+namespace Utilities
 {
-    #region Serialized Fields
+    public class ScoreBlock : MonoBehaviour
+    {
+        #region Serialized Fields
         
         [SerializeField] private TextMeshProUGUI _scoreTxt;
         [SerializeField] private float _transitionTime = 3;
@@ -108,5 +107,6 @@ public class ScoreBlock : MonoBehaviour
         }
 
         #endregion
+    }
 }
 

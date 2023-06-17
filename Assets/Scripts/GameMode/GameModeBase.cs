@@ -14,6 +14,7 @@ namespace GameMode
   {
     #region Serialized Fields
 
+    [SerializeField] private AnimatorOverrideController _animatorOverride;
     [SerializeField] private GameModeObject sObj;
     [field:SerializeField] public Arena ModeArena { get; private set;}
     [field: SerializeField] public string Name { get; private set; }
@@ -83,9 +84,10 @@ namespace GameMode
         {
           players[i].Renderer.RegularSprite = CharacterSprites[i];
           players[i].Renderer.RegularColor = Color.white;
+          players[i].Renderer.Animator.runtimeAnimatorController = _animatorOverride;
         }
       }
-    }    
+    }
 
     #endregion
   }

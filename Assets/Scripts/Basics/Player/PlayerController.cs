@@ -94,12 +94,6 @@ namespace Basics.Player
         private Guid _dashingId;
         private Guid _postDashId;
 
-        private static readonly int Moving = Animator.StringToHash("Moving");
-        private static readonly int Stunned1 = Animator.StringToHash("Stunned");
-        private static readonly int Dashing1 = Animator.StringToHash("Dashing");
-        private static readonly int MoveX = Animator.StringToHash("moveX");
-        private static readonly int MoveY = Animator.StringToHash("moveY");
-
         #endregion
 
         #region Properties
@@ -123,8 +117,6 @@ namespace Basics.Player
             private set
             {
                 bool shouldChange = _stunned != value;
-                // if (shouldChange)
-                //     Renderer.Animator.SetBool(Stunned1, value);
                 _stunned = value;
             }
         }
@@ -141,14 +133,8 @@ namespace Basics.Player
             {
                 bool shouldChangeAnimation = (_direction.magnitude == 0 && value.magnitude != 0) ||
                                              (_direction.magnitude != 0 && value.magnitude == 0);
-                // if (shouldChangeAnimation)
-                //     Renderer.Animator.SetBool(Moving, value.magnitude != 0);
 
                 _direction = value.normalized;
-                // if (facingBack != Renderer.FaceBack)
-                //     Renderer.FaceBack = facingBack;
-                // Renderer.Animator.SetFloat(MoveX, Mathf.Abs(_direction.x) <= 0.1f ? 0 : _direction.x);
-                // Renderer.Animator.SetFloat(MoveY, Mathf.Abs(_direction.y) <= 0.1f ? 0 : _direction.y);
                 bool facingRight = _direction.x > 0;
                 if (facingRight != Renderer.Regular.flipX && Mathf.Abs(_direction.x) >= 0.1f)
                 {
@@ -168,8 +154,6 @@ namespace Basics.Player
             set
             {
                 bool shouldChange = _dashing != value;
-                // if (shouldChange)
-                //     Renderer.Animator.SetBool(Dashing1, value);
                 _dashing = value;
             }
         }
