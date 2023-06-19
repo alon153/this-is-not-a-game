@@ -9,6 +9,9 @@ namespace Basics.Player
     {
         [field: SerializeField] public SpriteRenderer Regular { get; private set; }
         [SerializeField] private float _bloomIntensity = 2;
+        [SerializeField] private Material _playerMaterialOrigin;
+        [SerializeField] private Material _defaultMaterial;
+        private Material _playerMaterial;
 
         public Animator Animator
         {
@@ -24,14 +27,8 @@ namespace Basics.Player
         private Animator _animator;
         
         private static readonly int ColorFactor = Shader.PropertyToID("_ColorFactor");
-        private static readonly int Color1 = Shader.PropertyToID("_Color");
+        private static readonly int Color1 = Shader.PropertyToID("_OutlineColor");
         private static readonly int Thickness = Shader.PropertyToID("_Thickness");
-
-        public Material OutlineMaterial
-        {
-            get => Regular.material;
-            set => Regular.material = value;
-        }
 
         public Sprite RegularSprite
         {
@@ -41,12 +38,7 @@ namespace Basics.Player
 
         public void ToggleOutline(bool showOutline)
         {
-            OutlineMaterial.SetFloat(ColorFactor, showOutline ? 1 : 0);
-        }
-
-        public void SetGlobalColor(Color c)
-        {
-            Regular.material.SetColor(Color1,c.Intensify(_bloomIntensity));
+            Regular.material = showOutline ? _playerMaterial : _defaultMaterial;
         }
 
         public Color RegularColor
@@ -58,6 +50,13 @@ namespace Basics.Player
         public void SetActive(bool active)
         {
             Regular.gameObject.SetActive(active);
+        }
+
+        public void Init(Color playerColor)
+        {
+            _playerMaterial = new Material(_playerMaterialOrigin);
+            _playerMaterial.SetColor(Color1, playerColor);
+            Regular.material = _playerMaterial;
         }
     }
 }

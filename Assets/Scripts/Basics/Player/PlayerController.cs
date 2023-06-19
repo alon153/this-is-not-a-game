@@ -28,8 +28,6 @@ namespace Basics.Player
 
         #region Serialized Fields
 
-        [SerializeField] private Material _OutlineMaterialOrigin;
-        
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
 
@@ -62,7 +60,6 @@ namespace Basics.Player
         private Vector3 _origScale;
 
         private bool _ready;
-        private Color _color;
 
         private Vector3
             _dashDirection; // used so we can keep tracking the input direction without changing dash direction
@@ -170,15 +167,7 @@ namespace Basics.Player
             }
         }
 
-        public Color Color
-        {
-            get => _color;
-            private set
-            {
-                _color = value;
-                Renderer.SetGlobalColor(value);
-            }
-        }
+        public Color Color { get; private set; }
 
         public PlayerAddon Addon { get; set; }
 
@@ -190,8 +179,6 @@ namespace Basics.Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
-
-            Renderer.OutlineMaterial = new Material(_OutlineMaterialOrigin);
 
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;
@@ -205,6 +192,7 @@ namespace Basics.Player
             Index = GameManager.Instance.RegisterPlayer(this);
             _origColor = GameManager.Instance.PlayerColor(Index);
             Color = _origColor;
+            Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
@@ -460,7 +448,6 @@ namespace Basics.Player
         private void Reset()
         {
             transform.localScale = _originalScale;
-            Renderer.SetGlobalColor(_origColor);
             Renderer.Regular.flipX = false;
             Renderer.SetActive(true);
             Rigidbody.velocity = Vector2.zero;

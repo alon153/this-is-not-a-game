@@ -176,9 +176,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 583492459
-  m_SortingLayer: 8
+  m_SortingLayer: 11
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d96ee26a30fa4454caab7e667a6fb31a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a34aefe788dcbe479a151a68eddd041, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -277,7 +277,6 @@ MonoBehaviour:
   _fallDrag: 6
   _fallParticles: {fileID: 8251455087175131020}
   _playerKnockedBy: {fileID: 0}
-  _OutlineMaterialOrigin: {fileID: 2100000, guid: f829e9be164bd354cb5fcdfa3a32e73c, type: 2}
   _txtInteract: {fileID: 7780490974589913635}
   _txtStun: {fileID: 6695085039680576198}
   _playerFront: {fileID: 7424307220151420971}
@@ -295,6 +294,8 @@ MonoBehaviour:
   <Renderer>k__BackingField:
     <Regular>k__BackingField: {fileID: 4555169616738326406}
     _bloomIntensity: 5
+    _playerMaterialOrigin: {fileID: 2100000, guid: 0b2fb536a99e4ba418f180e7703c08e1, type: 2}
+    _defaultMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &916809306669561107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5280,7 +5281,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 583492459
-  m_SortingLayer: 8
+  m_SortingLayer: 11
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -5549,7 +5550,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 583492459
-  m_SortingLayer: 8
+  m_SortingLayer: 11
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 38594ccad0a0e644985ad3d1c76ad632, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

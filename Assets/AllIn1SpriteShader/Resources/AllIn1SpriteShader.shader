@@ -19,7 +19,7 @@
 		_FadeBurnTex("Fade Burn Texture", 2D) = "white" {} //12
 		_FadeBurnGlow("Fade Burn Glow",  Range(1,250)) = 2//13
         
-		_OutlineColor("Outline Base Color", Color) = (1,1,1,1) //14
+		[HDR] _OutlineColor("Outline Base Color", Color) = (1,1,1,1) //14
 		_OutlineAlpha("Outline Base Alpha",  Range(0,1)) = 1 //15
 		_OutlineGlow("Outline Base Glow", Range(1,100)) = 1.5 //16
 		_OutlineWidth("Outline Base Width", Range(0,0.2)) = 0.004 //17
