@@ -57,6 +57,7 @@ MonoBehaviour:
   - _animatorOverride: {fileID: 22100000, guid: cfd739ab0ab450245a48db752090ed0c, type: 2}
     _bloomColor: {r: 0.9686275, g: 0.89019614, b: 0.30980393, a: 1}
   _defaultPlayerSprite: {fileID: 21300000, guid: d96ee26a30fa4454caab7e667a6fb31a, type: 3}
+  _defaultPlayerAnimator: {fileID: 22100000, guid: ce6da6fc787969741833e82affb64fd6, type: 2}
   _roundLength: 30
   _numRounds: 10
   <Zap>k__BackingField: 1

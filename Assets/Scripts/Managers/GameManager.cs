@@ -25,6 +25,7 @@ namespace Managers
 
         [field: SerializeField] private List<PlayerData> PlayerDatas;
         [SerializeField] private Sprite _defaultPlayerSprite;
+        [SerializeField] private AnimatorOverrideController _defaultPlayerAnimator;
 
         [Header("Round Settings")] 
         [SerializeField] private int _roundLength;
@@ -370,6 +371,11 @@ namespace Managers
         public void OnReset()
         {
             EndGame();
+        }
+
+        public void SetDefaultAnimator(PlayerController player)
+        {
+            player.Renderer.Animator.runtimeAnimatorController = _defaultPlayerAnimator;
         }
     }
     

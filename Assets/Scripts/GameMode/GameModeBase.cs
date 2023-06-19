@@ -13,13 +13,13 @@ namespace GameMode
   public abstract class GameModeBase
   {
     #region Serialized Fields
-
-    [SerializeField] private AnimatorOverrideController _animatorOverride;
+    
     [SerializeField] private GameModeObject sObj;
     [field:SerializeField] public Arena ModeArena { get; private set;}
     [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite InstructionsSprite { get; set; }
     [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
+    [field: SerializeField] public List<AnimatorOverrideController> AnimatorOverride { get; private set; } = new();
     
     [field: SerializeField] public EventReference DashSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
@@ -84,7 +84,15 @@ namespace GameMode
         {
           players[i].Renderer.RegularSprite = CharacterSprites[i];
           players[i].Renderer.RegularColor = Color.white;
-          players[i].Renderer.Animator.runtimeAnimatorController = _animatorOverride;
+        }
+        
+        if (AnimatorOverride == null || AnimatorOverride.Count < players.Count)
+        {
+          GameManager.Instance.SetDefaultAnimator(players[i]);
+        }
+        else
+        {
+          players[i].Renderer.Animator.runtimeAnimatorController = AnimatorOverride[i];
         }
       }
     }
