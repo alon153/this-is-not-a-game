@@ -79,6 +79,15 @@ TagManager:
   - name: Treasure
     uniqueID: 2417598515
     locked: 0
+  - name: PanelBottom
+    uniqueID: 3518419629
+    locked: 0
+  - name: RhythmRing
+    uniqueID: 2212512793
+    locked: 0
+  - name: PanelTop
+    uniqueID: 3625329081
+    locked: 0
   - name: Player
     uniqueID: 583492459
     locked: 0

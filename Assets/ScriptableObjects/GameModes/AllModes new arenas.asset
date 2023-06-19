@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AllModes new arenas
   m_EditorClassIdentifier: 
   _paintMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 97409b55a88c78744bb312829379d450, type: 2}
     <ModeArena>k__BackingField: {fileID: 8297754426601155343, guid: 270ec6d96f32464428afbae02bcdca09, type: 3}
     <Name>k__BackingField: This is not a game, this is a painting
@@ -31,6 +32,7 @@ MonoBehaviour:
       Path: event:/Player/Paint/Dash
     <Music>k__BackingField: 4
   _poolMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 094d10e272e8dbe4390c1748c2d9c99c, type: 2}
     <ModeArena>k__BackingField: {fileID: 5435150949364787957, guid: e58a143c5142a7b4ba9f553f23715d53, type: 3}
     <Name>k__BackingField: This is not a game, this is a pool table
@@ -49,6 +51,7 @@ MonoBehaviour:
       Path: event:/Player/Pool/Dash
     <Music>k__BackingField: 2
   _ikeaMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
     <Name>k__BackingField: This is not a game, this is an IKEA item!
@@ -67,6 +70,7 @@ MonoBehaviour:
       Path: event:/Player/Ikea/Dash
     <Music>k__BackingField: 5
   _boatsInRiverMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 374a12b2eb2df88418143fb113118a8f, type: 2}
     <ModeArena>k__BackingField: {fileID: 5700301782894875129, guid: 32acb11074124b7409b1918aff91eae3, type: 3}
     <Name>k__BackingField: This is not a game, this is a River!
@@ -85,6 +89,7 @@ MonoBehaviour:
       Path: event:/Player/Default Dash
     <Music>k__BackingField: 7
   _lasersMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 8c085581268861541bd2ca57628707e2, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
     <Name>k__BackingField: This is not a game! It's a spy movie!
@@ -103,6 +108,7 @@ MonoBehaviour:
       Path: event:/Player/Lasers/Dash
     <Music>k__BackingField: 3
   _islandMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 07ebe6a38fbfb1047af3f180a197b8b2, type: 2}
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
     <Name>k__BackingField: This is not a game, this is a desert island!
@@ -121,11 +127,16 @@ MonoBehaviour:
       Path: event:/Player/Island/Dash
     <Music>k__BackingField: 8
   _rhythmMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: d15cf7536ced1eb49a98773a112e8683, type: 2}
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
     <Name>k__BackingField: This is not a game this is a beat!
     <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
-    <CharacterSprites>k__BackingField: []
+    <CharacterSprites>k__BackingField:
+    - {fileID: 21300000, guid: 6bb277f418d6ab846a2cb00f79b5abb1, type: 3}
+    - {fileID: 21300000, guid: 0d25ca9685c41914e98a2acef543e9b2, type: 3}
+    - {fileID: 21300000, guid: 687b28b348809fa4c89273c5b3e697d3, type: 3}
+    - {fileID: 21300000, guid: bad71575b60cebf47bfeea322c0e674b, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -135,6 +146,7 @@ MonoBehaviour:
       Path: event:/Player/Default Dash
     <Music>k__BackingField: 6
   _juggernautMode:
+    _animatorOverride: {fileID: 0}
     sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
     <Name>k__BackingField: 
