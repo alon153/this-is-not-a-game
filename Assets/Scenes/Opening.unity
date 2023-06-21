@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 375324472}
   - component: {fileID: 375324474}
   - component: {fileID: 375324473}
+  - component: {fileID: 375324475}
   m_Layer: 5
   m_Name: OpeningBG
   m_TagString: Untagged
@@ -332,6 +333,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375324471}
   m_CullTransparentMesh: 1
+--- !u!95 &375324475
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375324471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 46f7c78789ebead4e8fe938ae0fba842, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1243278412
 GameObject:
   m_ObjectHideFlags: 0
