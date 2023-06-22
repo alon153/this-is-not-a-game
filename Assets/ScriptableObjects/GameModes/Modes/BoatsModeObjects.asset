@@ -18,9 +18,9 @@ MonoBehaviour:
   - {fileID: 135305096213913569, guid: 3966201c1c5d4dd449ed9f57097a9e6b, type: 3}
   - {fileID: 6119090743351735752, guid: 07f2a3180625b4b4cad4ee6fa078e814, type: 3}
   defaultObstaclesCapacity: 8
-  maxObstacleCapacity: 15
+  maxObstacleCapacity: 20
   maxSpawnInterval: 3
   minSpawnInterval: 1
-  obstacleSpawnMultiplier: 3
+  obstacleSpawnMultiplier: 7
   score: 30
   dragUpPlayerSpeed: 0.001

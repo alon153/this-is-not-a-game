@@ -46,23 +46,32 @@ namespace Basics
             }
         }
 
-        public Vector3 GetRespawnPosition(GameObject obj)
+        public Vector3 GetRespawnPosition(GameObject obj, bool isCircle=true, 
+                                            bool specY=false, float givenY=-1, 
+                                            bool specX=false, float givenX=-1,
+                                            bool specZ=false, float givenZ=-1)
         {
+            if (specX && specY)
+                return new Vector3(givenX, givenY, specZ ? givenZ : 0);
+            
             var pos = _perimeter.position;
             var scale = _perimeter.lossyScale;
             var objScale = obj.transform.lossyScale;
             var margin = new Vector2(scale.x - objScale.x, scale.y - objScale.y) / 2;
             
             Vector3 respawnPos = Vector3.zero;
+            respawnPos.z = specZ ? givenZ : 0;
             bool found = false;
             while (!found)
             {
-                float x = Random.Range(pos.x - margin.x, pos.x + margin.x);
-                float y = Random.Range(pos.y - margin.y, pos.y + margin.y);
-
+                float x = specX ? givenX : Random.Range(pos.x - margin.x, pos.x + margin.x);
+                float y = specY ? givenY : Random.Range(pos.y - margin.y, pos.y + margin.y);
+                
                 respawnPos.x = x;
                 respawnPos.y = y;
-                Collider2D collision = Physics2D.OverlapCircle(respawnPos, objScale.x / 2, _respawnBlockers);
+                Collider2D collision = isCircle
+                    ? Physics2D.OverlapCircle(respawnPos, objScale.x / 2, _respawnBlockers)
+                    : Physics2D.OverlapBox(respawnPos, new Vector2(objScale.x, objScale.y), 0, _respawnBlockers);
                 found = collision == null || collision.gameObject == null;
             }
 
