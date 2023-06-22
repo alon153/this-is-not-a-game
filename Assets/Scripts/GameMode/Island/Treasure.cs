@@ -16,6 +16,7 @@ namespace GameMode.Island
         private PlayerController _digger;
         private float _diggingTime;
         private SpriteRenderer _renderer;
+        private ParticleSystem _particles;
 
         #endregion
         
@@ -45,6 +46,7 @@ namespace GameMode.Island
         {
             _diggingTimeLeft = _diggingTime;
             _renderer = GetComponent<SpriteRenderer>();
+            _particles = GetComponentInChildren<ParticleSystem>();
 
             var color = _renderer.color;
             color.a = 0;
@@ -75,8 +77,9 @@ namespace GameMode.Island
         {
             if (_digger != null && _digger.Interactable.gameObject.GetInstanceID() == gameObject.GetInstanceID())
             {
+                _particles.Stop();
                 _digger.Interactable = null;
-                _digger.Gamepad?.SetMotorSpeeds(0,0);
+                _digger.StopVibration();
                 _digger.UnFreeze();
                 _digger = null;
             }
@@ -119,7 +122,7 @@ namespace GameMode.Island
             float score = Mathf.Max(Score, 0);
             ((IslandPlayerAddon) _digger.Addon).Score += score;
             ScoreManager.Instance.SetPlayerScore(_digger.Index, score);
-            _digger.Gamepad?.SetMotorSpeeds(0, 0);
+            _digger.StopVibration();
             _digger.UnFreeze();
 
             _digger = null;
@@ -144,6 +147,7 @@ namespace GameMode.Island
             if(_digger == null || player.GetInstanceID() != _digger.GetInstanceID())
                 return;
             
+            _particles.Stop();
             _digger.UnFreeze();
             _digger = null;
         }
@@ -156,6 +160,7 @@ namespace GameMode.Island
                 return;
 
             _digger = player;
+            _particles.Play();
             _digger.Freeze(false);
         }
 

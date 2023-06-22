@@ -222,6 +222,11 @@ namespace Basics.Player
                 MoveCharacter();
         }
 
+        private void OnDestroy()
+        {
+            StopVibration();
+        }
+
         #endregion
 
         #region ActionMap
@@ -358,6 +363,13 @@ namespace Basics.Player
             spriteRenderer.sortingLayerName = "Player";
             spriteRenderer.sortingOrder = 1;
         }
+
+        public void SetVibration(float amp)
+        {
+            Gamepad?.SetMotorSpeeds(amp, amp);
+        }
+
+        public void StopVibration() => SetVibration(0);
 
         #endregion
 
