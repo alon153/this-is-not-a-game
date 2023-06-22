@@ -230,19 +230,6 @@ namespace GameMode.Boats
             float roundProgress = Mathf.Lerp(Constants.MinProgress, Constants.MaxProgress, _timeProgress);
             int spawnAmount = CalcSpawnAmount(roundProgress);
 
-            HashSet<Vector3> spawnSet = new HashSet<Vector3>();
-
-            var spawnYCor = _arenaMaxCoord.y - _yOffset;
-            var spawnZCor = _arenaMaxCoord.z;
-
-            // calc spawn locations
-            while (spawnSet.Count < spawnAmount)
-            {
-                float spawnXCor = Random.Range(_arenaMinCoord.x, _arenaMaxCoord.x);
-                spawnSet.Add(new Vector3(spawnXCor, spawnYCor, spawnZCor));
-            }
-
-            _spawnLocations = new Queue<Vector3>(spawnSet);
             for (int i = 0; i < spawnAmount; i++)
                 ObstaclesPool.Get();
         }
@@ -312,7 +299,13 @@ namespace GameMode.Boats
             if (obstacle._fadeCoroutine != null)
                 obstacle.StopFadeCoroutine();
             // set the location of the object
-            obstacle.transform.position = _spawnLocations.Dequeue();
+            // obstacle.transform.position = _spawnLocations.Dequeue();
+            var spawnYCor = _arenaMaxCoord.y - _yOffset;
+            var spawnZCor = _arenaMaxCoord.z;
+            obstacle.transform.position =
+                GameManager.Instance.CurrArena.GetRespawnPosition(obstacle.gameObject, false, 
+                    specY: true, givenY: spawnYCor, 
+                    specZ: true, givenZ: spawnZCor);
             obstacle.gameObject.SetActive(true);
         }
 
