@@ -90,14 +90,6 @@ namespace Managers
             {
                 case true:
                     playerScore += score;
-                    if (showFloat)
-                    {
-                        PlayerController player = GameManager.Instance.Players[playerId];
-                        FloatingPoints fp = Instantiate(_floatingPointsPrefab, player.transform.position, Quaternion.identity);
-                        fp.Color = player.Color;
-                        fp.Text = score >= 0 ? $"+{score}" : $"{score}";
-                        fp.Float();
-                    }
                     break;
                 
                 case false:
@@ -113,6 +105,20 @@ namespace Managers
                             UIManager.Instance.CurrWinner = newWinner;
                     }
                     break;
+            }
+            
+            if (showFloat)
+            {
+                PlayerController player = GameManager.Instance.Players[playerId];
+                FloatingPoints fp = Instantiate(_floatingPointsPrefab, player.transform.position, Quaternion.identity);
+                fp.Color = player.Color;
+                if(shouldAdd)
+                    fp.Text = score >= 0 ? $"+{score}" : $"{score}";
+                else
+                {
+                    fp.Text = score >= 0 ? $"-{score}" : $"+{-1 * score}";
+                }
+                fp.Float();
             }
 
             _playerScores[playerId] = playerScore;
