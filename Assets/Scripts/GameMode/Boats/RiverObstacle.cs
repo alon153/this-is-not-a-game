@@ -107,6 +107,8 @@ namespace GameMode.Boats
 
         private void Update()
         {
+            if(Time.timeScale == 0) return;
+            
             var position = transform.position;
             float newY = position.y + speed;
             Vector3 newPosition = new Vector3(position.x, newY, position.z);
