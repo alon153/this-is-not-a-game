@@ -6,14 +6,13 @@ using Basics.Player;
 using Managers;
 using UnityEngine.Events;
 using Utilities;
+using Random = System.Random;
 
 namespace GameMode.Lasers
 {
     public class Window : MonoBehaviour
     {
         #region Serialized Fields
-
-        [SerializeField] private List<bool> laserCycles = new List<bool>();
 
         [SerializeField] private float laserToggleTime = 3;
         
@@ -29,12 +28,14 @@ namespace GameMode.Lasers
         private LaserBeam _laserBeam;
 
         private SpriteRenderer _windowRenderer;
+
+        private bool _shouldCastBeam;
         
         private float _timer = 0f;
 
-        private int _cycleIdx = 0;
-
         private bool _inMaxGlow = false;
+
+        private readonly Random _randomBool = new Random();
         
         private readonly int _colorFactor = Shader.PropertyToID("_ColorFactor");
 
@@ -57,15 +58,13 @@ namespace GameMode.Lasers
             _timer += Time.deltaTime;
             if (_timer >= laserToggleTime)
             {
-                _timer = 0f;
-                OnCurCycleEnd(laserCycles[_cycleIdx]);
                 
-                _cycleIdx++;
-                if (_cycleIdx == laserCycles.Count)
-                    _cycleIdx = Constants.MinIndex;
+                _timer = 0f;
+                OnCurCycleEnd(_shouldCastBeam);
+                _shouldCastBeam = _randomBool.Next(2) == 1;
             }
 
-            else if (!_inMaxGlow && laserCycles[_cycleIdx])
+            else if (!_inMaxGlow && _shouldCastBeam)
             {   
                 
                 var glow = Mathf.Lerp(Constants.MinProgress, maxGlow, _timer / laserToggleTime);

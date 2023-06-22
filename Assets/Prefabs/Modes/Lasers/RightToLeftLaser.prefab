@@ -9,15 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1728134483593577294, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_Name
-      value: LeftToRightLight
+      value: RightToLeftLaser
       objectReference: {fileID: 0}
     - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8357
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.8428
       objectReference: {fileID: 0}
     - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_LocalPosition.y
