@@ -14,7 +14,7 @@ namespace GameMode.Lasers
         [Tooltip("how much points the player gets for collecting that diamond")]
         [SerializeField] private int diamondValue;
 
-        public UnityAction<DiamondCollectible> OnDiamondPickedUp;
+        public UnityAction<DiamondCollectible, int> OnDiamondPickedUp;
        
         #endregion
 
@@ -22,16 +22,19 @@ namespace GameMode.Lasers
         {
             if (other.CompareTag("Player"))
             {
+                int playerIdx;  
                 foreach (var player in GameManager.Instance.Players)
                 {
                     if (player.gameObject.GetInstanceID().Equals(other.gameObject.GetInstanceID()))
                     {   
-                        PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
-                        LaserPlayerAddon playerAddon = (LaserPlayerAddon) player.Addon;
-                        playerAddon.DiamondsCollected += 1;
+                       PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
+                       LaserPlayerAddon playerAddon = (LaserPlayerAddon) player.Addon;
+                       playerAddon.DiamondsCollected += 1; 
+                       playerIdx = player.Index;
+                       OnDiamondPickedUp.Invoke(this, playerIdx);
+                       return;
                     }
                 }
-                OnDiamondPickedUp.Invoke(this);
             }
         }
     }

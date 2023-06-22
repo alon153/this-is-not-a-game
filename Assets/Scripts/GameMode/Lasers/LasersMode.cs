@@ -26,6 +26,7 @@ namespace GameMode.Lasers
         private float timeToSpawnNewDiamond = 1;
         private int diamondsDropOnLaser = 2;
         private float onHitSpreadRadius = 3f;
+        private int scorePerDiamond = 1;
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace GameMode.Lasers
             timeToSpawnNewDiamond = sObj.timeToSpawnNewDiamond;
             diamondsDropOnLaser = sObj.diamondsDropOnLaser;
             onHitSpreadRadius = sObj.onHitSpreadRadius;
+            scorePerDiamond = sObj.scorePerDiamond;
         }
 
         protected override void InitRound_Inner()
@@ -144,7 +146,6 @@ namespace GameMode.Lasers
         protected override void EndRound_Inner()
         {
             GameManager.Instance.FreezePlayers(timed: false);
-            ScoreManager.Instance.SetPlayerScores(CalculateScore_Inner());
         }
 
         protected override Dictionary<int, float> CalculateScore_Inner()
@@ -300,8 +301,15 @@ namespace GameMode.Lasers
         /// <param name="diamondPicked">
         /// the diamond that was picked up and invoked the event. 
         /// </param>
-        private void DiamondPickedUp(DiamondCollectible diamondPicked)
-        {
+        /// <param name="playerIdx">
+        /// player who picked up diamond
+        /// </param>
+        private void DiamondPickedUp(DiamondCollectible diamondPicked, int playerIdx)
+        {   
+            //set the player score
+            ScoreManager.Instance.SetPlayerScore(playerIdx, scorePerDiamond);
+            
+            
             // it is from the pool so it needs to go back.
             if (_allDiamondsCollected)
                 _diamondPool.Release(diamondPicked);
@@ -361,10 +369,14 @@ namespace GameMode.Lasers
             int diamondsToDrop = diamondsDropOnLaser > ((LaserPlayerAddon) player.Addon).DiamondsCollected
                 ? ((LaserPlayerAddon) player.Addon).DiamondsCollected
                 : diamondsDropOnLaser;
+            
+            
+                
 
             // reduce diamonds from the player and spawn them on field.
             if (diamondsToDrop > Constants.None)
-            {
+            {   
+                ScoreManager.Instance.SetPlayerScore(player.Index, scorePerDiamond * diamondsToDrop, false);
                 _playerPosition = player.transform.position;
 
                 // take from object pool

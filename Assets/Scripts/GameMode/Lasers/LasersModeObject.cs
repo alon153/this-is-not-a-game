@@ -24,5 +24,7 @@ namespace GameMode.Lasers
         public int diamondsDropOnLaser = 2;
         [Tooltip("in which radius from player will diamonds fall when it gets hit by laser.")]
         public float onHitSpreadRadius = 3f;
+
+        public int scorePerDiamond = 1;
     }
 }
