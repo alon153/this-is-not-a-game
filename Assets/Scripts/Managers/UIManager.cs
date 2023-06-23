@@ -33,14 +33,22 @@ namespace Managers
         [SerializeField] private Image _flash;
         [SerializeField] private Animator _flashAnimatior;
         
-        [Header("\nMenus")]
+        [Header("\nPause Menus")]
         [SerializeField] private GameObject _pauseMenu;
         [SerializeField] private GameObject _settingsMenu;
         [SerializeField] private GameObject _firstPauseMenuBtn;
         [SerializeField] private GameObject _firstSettingsMenuBtn;
+       
+        [Header("\nInstructionMenu")]
         [SerializeField] private GameObject _instructionsOffBtn;
         [SerializeField] private GameObject _instructionsOnBtn;
 
+        [Header("\nWiningMenu")] 
+        [SerializeField] private GameObject _endScreen;
+        [SerializeField] private List<PlayerFinalScore> _finalScoreDisplays;
+        [SerializeField] private GameObject _firstEndScreenBtn;
+        
+        
         [SerializeField] private EventSystem _eventSystem;
 
         #endregion
@@ -79,6 +87,22 @@ namespace Managers
         }
         
         #endregion
+        
+        #region NestedClasses
+        
+        [Serializable]
+        class PlayerFinalScore
+        {
+            [SerializeField] private Image _scoreImage;
+
+            [SerializeField] private TextMeshProUGUI _scoreTxt;
+            public void SetScore(int score) => _scoreTxt.text = score.ToString();
+            public void SetImgColor(Color newColor) => _scoreImage.color = newColor;
+            public void ToggleImage(bool activate = true) => _scoreImage.gameObject.SetActive(activate);
+        }
+        
+        
+        #endregion
 
         #region MonoBehaviour Methods
 
@@ -106,7 +130,14 @@ namespace Managers
         #endregion
 
         #region Public Methods
-        
+
+        public void ShowRoundEndScreen()
+        {
+            
+            _endScreen.SetActive(true);
+            _eventSystem.SetSelectedGameObject(_firstEndScreenBtn);
+        }
+
         public void ShowInstructions(string title, Sprite instructions)
         {
             _transitionWindow.ShowWindow(title, instructions);
@@ -391,6 +422,12 @@ namespace Managers
 
             _fadeCoroutine = null;
         }
+
+        private void SetDisplaysScoreAndColor()
+        {
+            
+        }
+        
 
         #endregion
         
