@@ -17,6 +17,7 @@ namespace Basics.Player
         private static readonly int Hold = Animator.StringToHash("hold");
         private static readonly int Action = Animator.StringToHash("action");
         private static readonly int Death = Animator.StringToHash("death");
+        private static readonly int Dash1 = Animator.StringToHash("dash");
 
         #region Properties
 
@@ -24,12 +25,13 @@ namespace Basics.Player
         {
             get
             {
-                var velocity = Rigidbody.velocity;
-                if(velocity.magnitude <= 0.2f)
-                    return Vector2.zero;
-                return velocity.x > velocity.y
-                    ? Vector2.right * Mathf.Sign(velocity.x)
-                    : Vector2.up * Mathf.Sign(velocity.y);
+                // var velocity = Rigidbody.velocity;
+                // if(velocity.magnitude <= 0.2f)
+                //     return Vector2.zero;
+                // return velocity.x > velocity.y
+                //     ? Vector2.right * Mathf.Sign(velocity.x)
+                //     : Vector2.up * Mathf.Sign(velocity.y);
+                return Vector2.zero;
             }
         }
         
@@ -76,7 +78,11 @@ namespace Basics.Player
             Renderer.Animator.SetBool(Hold,holding);
         }
 
+        private void SetDashAnimation(bool dashing)
+        {
+            Renderer.Animator.SetBool(Dash1, dashing);
+        }
+
         #endregion
-        
     }
 }

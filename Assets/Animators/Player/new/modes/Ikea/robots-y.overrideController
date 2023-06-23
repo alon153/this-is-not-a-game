@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: robots-y
+  m_Controller: {fileID: 9100000, guid: 333a373eaae62e740be3fd12d0e14c6f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 760610e805894c247af653482658922c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8a46aac3e30c8e247a6fd2c819e962e8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 982a1b1d12c748843a6eaf3c5699c85d, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 17e57641c8ab31a4f9b742bc093011d9, type: 2}

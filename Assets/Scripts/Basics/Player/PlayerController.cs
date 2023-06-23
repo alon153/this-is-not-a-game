@@ -151,6 +151,8 @@ namespace Basics.Player
             set
             {
                 bool shouldChange = _dashing != value;
+                if(shouldChange)
+                    SetDashAnimation(value);
                 _dashing = value;
             }
         }
@@ -276,7 +278,13 @@ namespace Basics.Player
                     }
                     
                     if (Interactable != null)
+                    {
+                        if(Interactable.IsHold)
+                            SetLongActionAnimation(true);
+                        else
+                            SetActionAnimation();
                         Interactable.OnInteract(this);
+                    }
                     else if (Addon is PlayerActionAddOn)
                     {
                         ((PlayerActionAddOn) Addon).OnAction(this);
@@ -284,8 +292,11 @@ namespace Basics.Player
                     break;
                 case InputActionPhase.Canceled:
                     if (Interactable != null)
+                    {
+                        if(Interactable.IsHold)
+                            SetLongActionAnimation(false);
                         Interactable.OnInteract(this, false);
-
+                    }
                     break;
             }
         }

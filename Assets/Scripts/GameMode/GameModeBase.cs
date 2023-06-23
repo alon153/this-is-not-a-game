@@ -76,6 +76,15 @@ namespace GameMode
       var players = GameManager.Instance.Players;
       for (int i = 0; i < players.Count; i++)
       {
+        if (AnimatorOverride == null || AnimatorOverride.Count < players.Count)
+        {
+          GameManager.Instance.SetDefaultAnimator(players[i]);
+        }
+        else
+        {
+          players[i].Renderer.Animator.runtimeAnimatorController = AnimatorOverride[i];
+        }
+        
         if (CharacterSprites == null || CharacterSprites.Count < players.Count)
         {
           GameManager.Instance.SetDefaultSprite(players[i]);
@@ -84,15 +93,6 @@ namespace GameMode
         {
           players[i].Renderer.RegularSprite = CharacterSprites[i];
           players[i].Renderer.RegularColor = Color.white;
-        }
-        
-        if (AnimatorOverride == null || AnimatorOverride.Count < players.Count)
-        {
-          GameManager.Instance.SetDefaultAnimator(players[i]);
-        }
-        else
-        {
-          players[i].Renderer.Animator.runtimeAnimatorController = AnimatorOverride[i];
         }
       }
     }

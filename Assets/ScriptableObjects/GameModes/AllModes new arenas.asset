@@ -60,7 +60,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 9088baa0a77b8bc4c8675032de383cf4, type: 3}
     - {fileID: 21300000, guid: 29e061dfe131ca1418c01ced82645b90, type: 3}
     - {fileID: 21300000, guid: d70ff1fb87b5f2846ac85547821dd035, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: 89506ba7400cee74d899f3d87c2a73a3, type: 2}
+    - {fileID: 22100000, guid: 5c4ac7fea4dd9e44f871877500d43c84, type: 2}
+    - {fileID: 22100000, guid: 544517c21b918ae4c8981fcfdff7fe8b, type: 2}
+    - {fileID: 22100000, guid: 81532d4188e5f044aa7bdc6022d5771c, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: 1496387947
