@@ -131,13 +131,13 @@ namespace GameMode.Juggernaut
         /// the player that was hit by the projectile (if the player is not the juggernaut, nothing will happen).
         /// </param>
         public void OnHit(Projectile projectile, PlayerController player)
-        {
+        {   
             // the player isn't the juggernaut
             if (!_yieldsTotem) return;
             
-            Debug.Log("player hit");
+            player.SetVibration(1, 0.3f);
+
             // the player is juggernaut so we hot a hit.
-            
             _projectilePool.Release(projectile);
             
             CheckCompatability(player.Addon, GameModes.Juggernaut);

@@ -32,12 +32,11 @@ namespace GameMode.Juggernaut
 
         private void Update()
         {
-            if (isActiveAndEnabled)
+            if (isActiveAndEnabled && GameManager.Instance.State == GameState.Playing)
             {   
                _time += Time.deltaTime;
                 if (_time >= coolDownTime)
                 {    
-                    
                     _spriteRenderer.color = _pickUpEnabledColor;
                     _canPickUp = true;
                     _time = 0;

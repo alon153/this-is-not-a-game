@@ -94,11 +94,11 @@ namespace Basics.Player
                 listener.OnFall(this);    
             }
             
-            
             var vel = Rigidbody.velocity;
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
             Fall_Inner(shouldRespawn, stun);
+           
         }
 
         #endregion

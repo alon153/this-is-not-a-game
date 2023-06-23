@@ -103,14 +103,12 @@ namespace GameMode.Pool
         /// </param>
         public void OnFall(PlayerController playerFalling)
         {
-            PlayerController playerBashing = playerFalling.GetBashingPlayer();
-            if (playerBashing != null)
-            {
-                if (!_hits.ContainsKey(playerBashing.Index))
-                    _hits[playerBashing.Index] = 0;
-                _hits[playerBashing.Index]++;
-                ScoreManager.Instance.SetPlayerScore(playerBashing.Index,scoreOnHit);
-            }
+            var playerBashing = playerFalling.GetBashingPlayer();
+            if (playerBashing == null) return;
+            if (!_hits.ContainsKey(playerBashing.Index))
+                _hits[playerBashing.Index] = 0;
+            _hits[playerBashing.Index]++;
+            ScoreManager.Instance.SetPlayerScore(playerBashing.Index,scoreOnHit);
         }
 
         #endregion

@@ -118,14 +118,7 @@ namespace GameMode.Juggernaut
 
         protected override Dictionary<int, float> CalculateScore_Inner()
         {
-            
             Dictionary<int, float> scores = new Dictionary<int, float>();
-            int roundLen = GameManager.Instance.GetRoundLength();
-            foreach (var player in GameManager.Instance.Players)
-            {   
-               
-            }
-
             return scores;
         }
         #endregion
