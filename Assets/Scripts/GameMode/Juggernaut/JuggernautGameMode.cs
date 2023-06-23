@@ -7,6 +7,7 @@ using Basics.Player;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine.Pool;
 using UnityEngine.Serialization;
+using Utilities.Interfaces;
 using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
 
@@ -14,7 +15,7 @@ using Object = UnityEngine.Object;
 namespace GameMode.Juggernaut
 {   
     [Serializable]
-    public class JuggernautGameMode : GameModeBase
+    public class JuggernautGameMode : GameModeBase, IOnFallListener
     {   
         
         #region ScriptableObject Fields  
@@ -81,6 +82,9 @@ namespace GameMode.Juggernaut
                 OnReturnProjectileToPool, OnDestroyProjectile, true);
            
             SetUpPlayerAddOn();
+            
+            foreach (PlayerController player in GameManager.Instance.Players)
+                player.RegisterFallListener(this);            
         }
 
         protected override void InitArena_Inner()
@@ -102,6 +106,9 @@ namespace GameMode.Juggernaut
                 Object.Destroy(_playerCanvasAddOns[i].gameObject);
                 GameManager.Instance.Players[i].Addon = null;
             }
+            
+            foreach (PlayerController player in GameManager.Instance.Players)
+                player.UnRegisterFallListener(this);              
         }
 
         protected override void OnTimeOver_Inner()
@@ -247,6 +254,14 @@ namespace GameMode.Juggernaut
         {
             Shooter, Juggernaut 
         }
-        
+
+        public void OnFall(PlayerController playerFell)
+        {   
+            if (_isAPlayerHoldingTotem && _currTotemHolder.Index.Equals(playerFell.Index))
+            {
+                PlayerAddon.CheckCompatability(playerFell.Addon, GameModes.Juggernaut);
+                ((JuggernautPlayerAddOn) playerFell.Addon).ReduceHealth();
+            }
+        }
     }
 }

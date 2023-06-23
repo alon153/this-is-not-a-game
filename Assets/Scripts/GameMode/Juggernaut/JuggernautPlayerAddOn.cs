@@ -109,7 +109,7 @@ namespace GameMode.Juggernaut
             }, _projectileDestroyTime);
         }
         
-        private void ReduceHealth()
+        public void ReduceHealth()
         {
             _curLives -= 1;
            
