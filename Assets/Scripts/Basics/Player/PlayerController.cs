@@ -88,8 +88,9 @@ namespace Basics.Player
         private PlayerInput _input;
 
         private Material _bloomMat;
-        private Guid _dashingId;
-        private Guid _postDashId;
+        private Guid _dashingId = Guid.Empty;
+        private Guid _postDashId = Guid.Empty;
+        private Guid _vibrationId = Guid.Empty;
 
         #endregion
 
@@ -375,9 +376,17 @@ namespace Basics.Player
             spriteRenderer.sortingOrder = 1;
         }
 
-        public void SetVibration(float amp)
+        public void SetVibration(float amp, float offTimer=-1)
         {
+            if (_vibrationId != Guid.Empty)
+            {
+                TimeManager.Instance.CancelInvoke(_vibrationId);
+                _vibrationId = Guid.Empty;
+            }
+
             Gamepad?.SetMotorSpeeds(amp, amp);
+            if (offTimer >= 0)
+                _vibrationId = TimeManager.Instance.DelayInvoke(StopVibration, offTimer);
         }
 
         public void StopVibration() => SetVibration(0);
