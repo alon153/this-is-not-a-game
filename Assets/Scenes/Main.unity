@@ -938,6 +938,10 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 21300000, guid: 0f96f802fdd52634ea042598121038b0, type: 3}
+    - target: {fileID: 9032654660921453887, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9218948407995963489, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_Type
       value: 0

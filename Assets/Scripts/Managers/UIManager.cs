@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Audio;
@@ -58,6 +59,8 @@ namespace Managers
 
         private List<Animator> _lobbyReadiesAnimators = new();
         private static readonly int Press = Animator.StringToHash("Press");
+
+        private Coroutine _fadeCoroutine = null;
 
         #endregion
         
@@ -287,8 +290,29 @@ namespace Managers
                 CountDownTimer.Game => _gameTimeText,
             };
             
-            timerText.text = FormatTime((int) time);
-            timerText.enabled = time > 0;
+            timerText.text = timer == CountDownTimer.Game ? FormatTime((int) time) : Mathf.CeilToInt(time).ToString();
+            
+            if (time > 0)
+                timerText.enabled = true;
+
+            if (timer == CountDownTimer.Game && time <= 5)
+            {
+                _mainTimeText.enabled = true;
+                _mainTimeText.text = Mathf.CeilToInt(time).ToString();
+            }
+
+            if (timer == CountDownTimer.Main || time <= 5)
+            {
+                if(_fadeCoroutine != null)
+                    StopCoroutine(_fadeCoroutine);
+                _fadeCoroutine = StartCoroutine(MainTextFade(2, 0));
+            }
+
+            if (time <= 0)
+            {
+                _mainTimeText.enabled = false;
+                _gameTimeText.enabled = false;
+            }
         }
         
         public void ShowWinner(int winner)
@@ -324,12 +348,66 @@ namespace Managers
         }
         
         #endregion
+
+        #region Private Methods
+
+        private IEnumerator MainTextFade(float duration, float targetScale)
+        {
+            var color = _mainTimeText.color;
+            var scale = _mainTimeText.transform.localScale;
+
+            float t = 1;
+
+            color.a = t;
+            scale.x = t;
+            scale.y = t;
+
+            _mainTimeText.color = color;
+            _mainTimeText.transform.localScale = scale;
+
+            yield return null;
+
+            float time = 0;
+            while (time < duration)
+            {
+                time += Time.unscaledDeltaTime;
+                t = (duration - time) / duration;
+                color.a = t;
+                _mainTimeText.color = color;
+                
+                scale.x = t + (1 - t) * targetScale;
+                scale.y = t + (1 - t) * targetScale;
+                _mainTimeText.transform.localScale = scale;
+                
+                yield return null;
+            }
+
+            color.a = 0;
+            scale.x = targetScale;
+            scale.y = targetScale;
+
+            _mainTimeText.color = color;
+            _mainTimeText.transform.localScale = scale;
+
+            _fadeCoroutine = null;
+        }
+
+        #endregion
         
         public enum CountDownTimer
         {
             Game,
             Main,
             Transition,
+        }
+
+        public void StopFade()
+        {
+            if (_fadeCoroutine != null)
+            {
+                StopCoroutine(_fadeCoroutine);
+                _fadeCoroutine = null;
+            }
         }
     }
 }

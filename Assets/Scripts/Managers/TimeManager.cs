@@ -54,6 +54,7 @@ namespace Managers
                 return;
             
             StopCoroutine(_countDownCoroutine);
+            UIManager.Instance.StopFade();
             UIManager.Instance.UpdateTime(0,_currTimer);
         }
 
@@ -88,19 +89,25 @@ namespace Managers
         private IEnumerator CountDown_Inner(int duration, Action onEnd, UIManager.CountDownTimer timer = UIManager.CountDownTimer.Game)
         {
             _currTimer = timer;
+            
             UIManager.Instance.UpdateTime(duration, timer);
             yield return null;
 
             RoundDuration = duration;
             TimeLeft = duration;
+            int lastUpdate = 0;
             
             while (TimeLeft > 0)
             {
-                UIManager.Instance.UpdateTime(Mathf.Ceil(TimeLeft), timer);
+                if (Mathf.CeilToInt(TimeLeft) != lastUpdate)
+                {
+                    UIManager.Instance.UpdateTime(Mathf.Ceil(TimeLeft), timer);
+                    lastUpdate = Mathf.CeilToInt(TimeLeft);
+                }
+                
                 yield return null;
                 
                 TimeLeft -= Time.deltaTime;
-                
             }
             
             UIManager.Instance.UpdateTime(0, timer);
