@@ -41,11 +41,11 @@ namespace Basics.Player
 
         [Header("Dash")] 
         [field: SerializeField] public float DashTime = 0.5f;
-
         [SerializeField] private float _dashBonus = 1;
         [SerializeField] private float _dashCooldown = 0.5f;
         [SerializeField] private float _knockBackForce = 20f;
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
+        [SerializeField] private ParticleSystem _dashParticles;
 
         [Tooltip("How much time will a player be pushed after dash is finished")] [SerializeField]
         private float _postDashPushTime = 0.1f;
@@ -199,6 +199,8 @@ namespace Basics.Player
             GameManager.Instance.SetDefaultSprite(this);
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
+
+            SetDashParticlesColor();
         }
 
         private void Update()
@@ -394,6 +396,18 @@ namespace Basics.Player
         #endregion
 
         #region Private Methods
+        
+        private void SetDashParticlesColor()
+        {
+            var color = _dashParticles.colorOverLifetime;
+            color.enabled = true;
+            Gradient grad = new Gradient();
+            grad.SetKeys( new GradientColorKey[]
+            {
+                new GradientColorKey(Color.Intensify(0.7f), 0.0f), new GradientColorKey(Color, 1.0f)
+            }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.9f, 0.8f), new GradientAlphaKey(0.0f, 1.0f) } );
+            color.color = grad;
+        }
 
         private void Dash()
         {
@@ -402,6 +416,10 @@ namespace Basics.Player
             Dashing = true;
             CanDash = false;
 
+            float z = Vector2.Angle(Vector2.right, Direction);
+            _dashParticles.transform.rotation = Quaternion.Euler(0,0,z);
+            _dashParticles.Play();
+            
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
             AudioManager.PlayDash();
 
