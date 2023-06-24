@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3b77a451aef405e876ddafc288d95b0, type: 3}
   m_Name: IslandModeObjects
   m_EditorClassIdentifier: 
-  _numTreasures: 10
+  _numTreasures: 12
   _treasureValues:
   - score: 0
     count: 2
@@ -32,10 +32,10 @@ MonoBehaviour:
     maxTime: 2
     count: 2
   - minTime: 4
-    maxTime: 7
+    maxTime: 5
     count: 10
-  - minTime: 10
-    maxTime: 12
+  - minTime: 7
+    maxTime: 9
     count: 2
   _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
   _vibrationRadius: 2
