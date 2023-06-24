@@ -1200,6 +1200,9 @@ MonoBehaviour:
   _firstSettingsMenuBtn: {fileID: 2921051022288033768}
   _instructionsOffBtn: {fileID: 6384236801108780399}
   _instructionsOnBtn: {fileID: 8327867228190368658}
+  _endScreen: {fileID: 0}
+  _finalScoreDisplays: []
+  _firstEndScreenBtn: {fileID: 0}
   _eventSystem: {fileID: 0}
 --- !u!1 &5836911718952132378
 GameObject:
@@ -1582,7 +1585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 168.45886, y: 0}
+  m_AnchoredPosition: {x: 465, y: 0}
   m_SizeDelta: {x: 358.9177, y: 112.5671}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &8712379947492912254
