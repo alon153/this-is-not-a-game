@@ -63,9 +63,13 @@ namespace Managers
 
         private Action<int, bool> _showReady;
 
+        private CameraScript _camera;
+
         #endregion
 
         #region Properties
+        
+        public CameraScript CameraScript { get; private set; }
 
         public List<PlayerController> Players => Instance._players;
         public GameState State
@@ -113,6 +117,7 @@ namespace Managers
         {
             Init();
             instructionsMode = true;
+            CameraScript = Camera.main.GetComponent<CameraScript>();
         }
 
         private void Update()

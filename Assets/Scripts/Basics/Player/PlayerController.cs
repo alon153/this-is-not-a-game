@@ -258,7 +258,7 @@ namespace Basics.Player
                 case InputActionPhase.Started:
                     if (Direction == Vector2.zero) return;
 
-                    if (!CanDash)
+                    if (!CanDash || Frozen)
                     {
                         // ((IAudible<PlayerSounds>) this).PlayOneShot(PlayerSounds.DashCooldown);
                         return;

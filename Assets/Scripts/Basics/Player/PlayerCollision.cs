@@ -10,6 +10,7 @@ namespace Basics.Player
 {
     public partial class PlayerController
     {
+        [SerializeField] private ParticleSystem _collisionParticles;
         [field: SerializeField] public float FallTime { get; set; } = 2;
         [SerializeField] private float _fallDrag = 6;
         [SerializeField] private ParticleSystem _fallParticles;
@@ -50,18 +51,25 @@ namespace Basics.Player
             if (other.gameObject.CompareTag("Player"))
             {   
                 bool isOtherDashing = other.gameObject.GetComponent<PlayerController>().GetIsDashing();
-                print(isOtherDashing);
-                if(isOtherDashing)
+                if (isOtherDashing)
+                {
                     SetVibration(1, 0.2f);
-                    
+                    PlayCollisionParticles(other.gameObject.transform.position);
+                }
+
                 // was the player bashing or only pushing the other player
                 if (Dashing || _isInPostDash)
                 {
                     // player has bashed another player so a knockback needed.
                     bool isMutual = isOtherDashing;
+                    GameManager.Instance.CameraScript.Shake(isMutual);
                     TimeManager.Instance.DelayInvoke((() => Dashing = false), 0.1f);
                     PlayerByPlayerKnockBack(other.gameObject, isMutual);
-                    TimeManager.Instance.DelayInvoke(CancelDash,0.05f);
+                    TimeManager.Instance.DelayInvoke((() =>
+                    {
+                        CancelDash();
+                        Rigidbody.velocity = Vector2.zero;
+                    }),0.05f);
                 }
 
                 else
@@ -72,6 +80,7 @@ namespace Basics.Player
 
             }
         }
+
         private void OnCollisionExit2D(Collision2D other)
         {
             if (other.gameObject.CompareTag("Player"))
@@ -104,6 +113,14 @@ namespace Basics.Player
         #endregion
         
         #region Private Methods
+        
+        private void PlayCollisionParticles(Vector3 to)
+        {
+            var direction = ((Vector2) (transform.position - to)).normalized;
+            float z = Vector2.Angle(Vector2.right, direction);
+            _collisionParticles.transform.rotation = Quaternion.Euler(0,0,z);
+            _collisionParticles.Play();
+        }
         
         private void Fall_Inner(bool shouldRespawn, bool stun=true)
         {
