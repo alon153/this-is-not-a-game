@@ -22,9 +22,9 @@ namespace Managers
 
         [field: SerializeField] private Arena DefaultArenaPrefab;
         [SerializeField] private Arena _lobbyArenaPrefab;
-
+        
+        [Header("Default player data")]
         [field: SerializeField] private List<PlayerData> PlayerDatas;
-        [SerializeField] private Sprite _defaultPlayerSprite;
         [SerializeField] private AnimatorOverrideController _defaultPlayerAnimator;
 
         [Header("Round Settings")] 
@@ -364,8 +364,7 @@ namespace Managers
 
         public void SetDefaultSprite(PlayerController player)
         {
-            player.Renderer.RegularSprite = _defaultPlayerSprite;
-            player.Renderer.RegularColor = PlayerDatas[player.Index]._bloomColor;
+            player.Renderer.RegularSprite = PlayerDatas[player.Index]._defaultSprite;
         }
 
         public void OnReset()
@@ -396,5 +395,6 @@ namespace Managers
     {
         public AnimatorOverrideController _animatorOverride;
         public Color _bloomColor;
+        public Sprite _defaultSprite;
     }
 }
