@@ -200,7 +200,7 @@ namespace Basics.Player
             _txtInteract.enabled = false;
             _txtStun.enabled = false;
 
-            SetDashParticlesColor();
+            SetParticlesColors();
         }
 
         private void Update()
@@ -397,7 +397,7 @@ namespace Basics.Player
 
         #region Private Methods
         
-        private void SetDashParticlesColor()
+        private void SetParticlesColors()
         {
             var color = _dashParticles.colorOverLifetime;
             color.enabled = true;
@@ -407,6 +407,9 @@ namespace Basics.Player
                 new GradientColorKey(Color.Intensify(0.7f), 0.0f), new GradientColorKey(Color, 1.0f)
             }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.9f, 0.8f), new GradientAlphaKey(0.0f, 1.0f) } );
             color.color = grad;
+
+            var fallParticlesMain = _fallParticles.main;
+            fallParticlesMain.startColor = Color;
         }
 
         private void Dash()
