@@ -514,6 +514,14 @@ PrefabInstance:
       propertyPath: m_FlipY
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2078206151124920432, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
+      propertyPath: m_Size.x
+      value: 0.27333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078206151124920432, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
+      propertyPath: m_Size.y
+      value: 0.7733333
+      objectReference: {fileID: 0}
     - target: {fileID: 6174235300388105791, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
       propertyPath: m_Name
       value: JuggerTorchRight
@@ -613,6 +621,10 @@ PrefabInstance:
       value: 0.0053317845
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661921919638176977, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 2.56
       objectReference: {fileID: 0}
@@ -623,10 +635,14 @@ PrefabInstance:
     - target: {fileID: 6661921919638176978, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: _perimeter
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2186749310633870870}
     - target: {fileID: 6661921919638177006, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Name
       value: Juggernaut
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661921919638177007, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
+      propertyPath: m_Size.y
+      value: 1.44
       objectReference: {fileID: 0}
     - target: {fileID: 6661921919638177007, guid: 751fe5bc31c4f664dbb081cb2b6a179b, type: 3}
       propertyPath: m_Sprite
@@ -689,6 +705,14 @@ PrefabInstance:
     - target: {fileID: 1529860250346549413, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078206151124920432, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
+      propertyPath: m_Size.x
+      value: 0.27333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078206151124920432, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
+      propertyPath: m_Size.y
+      value: 0.7733333
       objectReference: {fileID: 0}
     - target: {fileID: 6174235300388105791, guid: 56c1bfa795423ed4593e05b2cf79ea59, type: 3}
       propertyPath: m_Name

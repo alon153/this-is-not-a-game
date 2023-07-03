@@ -17,7 +17,6 @@ namespace GameMode.Juggernaut
         [HideInInspector]
         public GameObject lifeObject;
 
-       
         #endregion
 
         #region Private fields
@@ -25,6 +24,8 @@ namespace GameMode.Juggernaut
         private GameObject _lifeGridObject;
 
         private GameObject _arrowObject;
+
+        private Image _arrowImg;
 
         private RectTransform _arrowTransform;
 
@@ -51,7 +52,8 @@ namespace GameMode.Juggernaut
 
                 else if (child.gameObject.CompareTag("Arrow"))
                 {
-                    child.GetComponent<Image>().color = arrowColor;
+                    _arrowImg = child.GetComponent<Image>();
+                    _arrowImg.color = arrowColor;
                     _arrowObject = child.gameObject;
                     _arrowTransform = child.GetComponent<RectTransform>();
                 }
@@ -67,6 +69,8 @@ namespace GameMode.Juggernaut
             _arrowObject.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
 
+        public void SetArrowColor(Color newColor) => _arrowImg.color = newColor;
+        
         public void EliminateLife()
         {
             if (!(_nextActiveHeart < 0))

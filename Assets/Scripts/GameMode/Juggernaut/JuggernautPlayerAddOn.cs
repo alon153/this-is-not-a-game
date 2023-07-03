@@ -109,15 +109,17 @@ namespace GameMode.Juggernaut
             }, _projectileDestroyTime);
         }
         
-        public void ReduceHealth()
+        public void ReduceHealth(PlayerController player = null)
         {
             _curLives -= 1;
            
             _juggernautCanvasAddOn.EliminateLife();
-            
+
             if (_curLives <= ZeroHealth)
+            {
                 OnTotemDropped.Invoke();
-            
+            }
+
         }
         
         
@@ -173,6 +175,7 @@ namespace GameMode.Juggernaut
                 _juggernautCanvasAddOn.SetArrowDirection(playerDir);
             }
         }
+        public void SetArrowColor(Color newColor) => _juggernautCanvasAddOn.SetArrowColor(newColor);
         
         public void SetJuggerCanvas(JuggernautGameMode.PlayerState state) =>
             _juggernautCanvasAddOn.SetAddOnCanvas(state);

@@ -81,10 +81,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10.26, y: 1.61}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &6209663197602382186
@@ -105,7 +105,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 10.26, y: 1.61}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 10.26, y: 1.61}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -125,8 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a08b041deefb549922d2327e27c980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserCycles: 010001
-  laserToggleTime: 3
 --- !u!50 &3681150813258683700
 Rigidbody2D:
   serializedVersion: 4
