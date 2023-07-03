@@ -17,7 +17,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1.7862
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3329326818772345964, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -83,8 +87,40 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 822c6536c1a4b3c40a8d1cf0f81af484, type: 3}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_Size.x
+      value: 16.843235
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_Size.y
+      value: 0.6479898
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.054750443
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.024387926
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 17.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6209663197602382186, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900091472001549599, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ecd56886bb66a8947ab12c73c2c820bc, type: 3}
     - target: {fileID: 7900091472001549599, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
       propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7900091472001549599, guid: 4c67e0131e9fe9f40a2428f3d017203b, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

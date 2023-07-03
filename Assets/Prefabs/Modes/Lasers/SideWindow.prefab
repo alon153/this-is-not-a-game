@@ -98,8 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afe129b05a14b254bb8c1c6df5002f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserCycles: 000101000100
   laserToggleTime: 3
+  maxGlow: 1
   windowGlow: {fileID: 2100000, guid: f510ca3765f61954d9502cd18287c2da, type: 2}
 --- !u!1001 &182465166889152829
 PrefabInstance:
@@ -119,14 +119,6 @@ PrefabInstance:
     - target: {fileID: 4125268111999544130, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125268111999544130, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 4.380283
-      objectReference: {fileID: 0}
-    - target: {fileID: 4125268111999544130, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4125268111999544130, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
       propertyPath: m_LocalScale.z
@@ -210,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
       propertyPath: m_SortingLayer
-      value: 9
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 8838599255856712241, guid: 9ac9805f818b0d74e8cf6185b6cb4f37, type: 3}
       propertyPath: m_SortingLayerID
