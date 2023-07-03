@@ -259,6 +259,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bfb09d35f30654b85a7a139c50beb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakeSize: 4.8
+  _smallShakeDuration: 0.1
+  _smallShakeMagnitude: 0.1
+  _bigShakeDuration: 0.3
+  _bigShakeMagnitude: 0.2
 --- !u!1001 &598494002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -555,15 +560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 10
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
