@@ -230,7 +230,7 @@ namespace GameMode.Juggernaut
 
         private void OnTakeProjectileFromPool(Projectile projectile)
         {   
-            projectile.ResetRotation();
+           
             projectile.gameObject.SetActive(true);
         }
 

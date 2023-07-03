@@ -102,7 +102,7 @@ namespace GameMode.Juggernaut
             Vector2 velocity = direction.Equals(Vector2.zero) ? _lastDir : direction;
             velocity *= speed;
             projectile.rigidBody.velocity = velocity;
-            projectile.SetProjectileRotation(direction);
+            projectile.SetProjectileRotation(velocity);
             _canShoot = false;
             
             TimeManager.Instance.DelayInvoke(() => _canShoot = true, _coolDown);

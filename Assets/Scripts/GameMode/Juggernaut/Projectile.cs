@@ -37,13 +37,8 @@ namespace GameMode.Juggernaut
         {
             // Rotate the arrow object around the Z-axis
             float angle = Vector2.SignedAngle(Vector2.down, playerDir);
+            Debug.Log("rotation: " + Quaternion.Euler(0f, 0f, angle));
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
-        
-        public void ResetRotation() => transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        
-
-
-
     }
 }
