@@ -112,7 +112,7 @@ namespace GameMode.Juggernaut
         {
             for (int i = 0; i < lifeCount; ++i)
             {
-                var life = Instantiate(lifeObj, _lifeGridObject.transform, true);
+                var life = Instantiate(lifeObj, _lifeGridObject.transform);
                 var img = life.GetComponent<Image>();
                 img.color = _invisible;
                 _lives.Add(img);

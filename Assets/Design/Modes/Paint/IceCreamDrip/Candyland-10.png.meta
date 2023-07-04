@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 776d579667cedab4380c3ec8587085f8
+guid: ad976ce28da2ebe4487b9511bb88b5d6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -163,133 +163,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1285
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 492032723b2d1c947a95878c7a804547
-      internalID: 1944879195
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1028
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c8046323be60ef04ba5cc8bf4d5ab280
-      internalID: 1821329140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 771
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d4441f6df847aa84d8d0c62f43e34d4c
-      internalID: 782423667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 514
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a5d1cd31dd70cfd499c88d91502609d8
-      internalID: 901354327
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 257
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8103719f34c31db4499de7ef11d5a1b8
-      internalID: -1602643522
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Jugger_BG_anim_leaves1_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 381
-        height: 257
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 49782dfdfe53dfa47a2a0048c0bcd950
-      internalID: 1810061476
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -300,13 +174,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Jugger_BG_anim_leaves1_4: -1602643522
-      Jugger_BG_anim_leaves1_3: 901354327
-      Jugger_BG_anim_leaves1_5: 1810061476
-      Jugger_BG_anim_leaves1_1: 1821329140
-      Jugger_BG_anim_leaves1_2: 782423667
-      Jugger_BG_anim_leaves1_0: 1944879195
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

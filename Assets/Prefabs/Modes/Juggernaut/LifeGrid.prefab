@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5447627101492549435}
   - component: {fileID: 5763003072925748798}
-  - component: {fileID: 6928619715556353303}
   m_Layer: 5
   m_Name: LifeGrid
   m_TagString: Untagged
@@ -64,15 +63,3 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!114 &6928619715556353303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6502438569659259769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e32534a214a15d941beac38dd66680ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
