@@ -11,6 +11,8 @@ namespace GameMode.Juggernaut
     {
         public Rigidbody2D rigidBody;
 
+        public SpriteRenderer spriteRenderer;
+
         // Start is called before the first frame update
        
         private void OnTriggerEnter2D(Collider2D other)
@@ -27,6 +29,16 @@ namespace GameMode.Juggernaut
                     }
                 }
             }
+        }
+
+        public void SetProjectileColor(Color newColor) => spriteRenderer.color = newColor;
+
+        public void SetProjectileRotation(Vector2 playerDir)
+        {
+            // Rotate the arrow object around the Z-axis
+            float angle = Vector2.SignedAngle(Vector2.down, playerDir);
+            Debug.Log("rotation: " + Quaternion.Euler(0f, 0f, angle));
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
 }

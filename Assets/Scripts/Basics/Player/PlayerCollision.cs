@@ -98,15 +98,15 @@ namespace Basics.Player
 
         public void Fall(bool shouldRespawn = true, bool stun = true)
         {
-            foreach (var listener in _fallListeners)
-            {
-                listener.OnFall(this);    
-            }
-            
             var vel = Rigidbody.velocity;
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
             Fall_Inner(shouldRespawn, stun);
+            
+            foreach (var listener in _fallListeners)
+            {
+                listener.OnFall(this);    
+            }
            
         }
 

@@ -140,6 +140,7 @@ namespace GameMode.Juggernaut
                         //canvasAddOn.arrowColor = player.Color;
                         canvasAddOn.lifeObject = lifePrefab;
                         canvasAddOn.lives = juggernautLives;
+                        canvasAddOn.arrowColor = player.Color;
                         _playerCanvasAddOns.Add(canvasAddOn);
                         break;
                     }
@@ -148,6 +149,7 @@ namespace GameMode.Juggernaut
                 
                 player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
                     projectileDestroyTime, juggernautLives, OnTotemDropped, canvasAddOn);
+               
             }
         }
 
@@ -166,7 +168,6 @@ namespace GameMode.Juggernaut
         private void OnTotemDropped()
         {
             _totem.gameObject.SetActive(true);
-            
             // remove totem from current player
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
@@ -228,7 +229,8 @@ namespace GameMode.Juggernaut
         }
 
         private void OnTakeProjectileFromPool(Projectile projectile)
-        {
+        {   
+           
             projectile.gameObject.SetActive(true);
         }
 

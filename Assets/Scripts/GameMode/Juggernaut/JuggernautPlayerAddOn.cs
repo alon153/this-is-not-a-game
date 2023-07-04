@@ -75,7 +75,9 @@ namespace GameMode.Juggernaut
 
         public override void OnAction(PlayerController player)
         {
-            Shoot(_shotSpeed, player.Direction, player.transform.position);
+            var projectile = Shoot(_shotSpeed, player.Direction, player.transform.position);
+            projectile.SetProjectileColor(player.Color);
+            
         }
 
         /// <summary>
@@ -90,15 +92,17 @@ namespace GameMode.Juggernaut
         /// <param name="position">
         /// player's (shooter) position 
         /// </param>
-        private void Shoot(float speed, Vector2 direction, Vector3 position)
+        private Projectile Shoot(float speed, Vector2 direction, Vector3 position)
         {
-            if (_yieldsTotem || !_canShoot) return;
+            if (_yieldsTotem || !_canShoot) return null;
            
             var projectile = _projectilePool.Get();
             projectile.gameObject.transform.position = position;
+           
             Vector2 velocity = direction.Equals(Vector2.zero) ? _lastDir : direction;
             velocity *= speed;
             projectile.rigidBody.velocity = velocity;
+            projectile.SetProjectileRotation(velocity);
             _canShoot = false;
             
             TimeManager.Instance.DelayInvoke(() => _canShoot = true, _coolDown);
@@ -107,17 +111,21 @@ namespace GameMode.Juggernaut
                 if (projectile.isActiveAndEnabled)
                     _projectilePool.Release(projectile);
             }, _projectileDestroyTime);
+
+            return projectile;
         }
         
-        public void ReduceHealth()
+        public void ReduceHealth(PlayerController player = null)
         {
             _curLives -= 1;
            
             _juggernautCanvasAddOn.EliminateLife();
-            
+
             if (_curLives <= ZeroHealth)
+            {
                 OnTotemDropped.Invoke();
-            
+            }
+
         }
         
         
@@ -173,6 +181,7 @@ namespace GameMode.Juggernaut
                 _juggernautCanvasAddOn.SetArrowDirection(playerDir);
             }
         }
+        public void SetArrowColor(Color newColor) => _juggernautCanvasAddOn.SetArrowColor(newColor);
         
         public void SetJuggerCanvas(JuggernautGameMode.PlayerState state) =>
             _juggernautCanvasAddOn.SetAddOnCanvas(state);
