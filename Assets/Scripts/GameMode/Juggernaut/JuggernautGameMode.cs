@@ -166,7 +166,7 @@ namespace GameMode.Juggernaut
             _isAPlayerHoldingTotem = true;
 
             TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
-                player.PlayerEffect.GetCurAnimationTime() * 0.7f);
+                player.PlayerEffect.GetCurAnimationTime() * 0.5f);
 
             _time = 0;
 
@@ -184,7 +184,7 @@ namespace GameMode.Juggernaut
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
             TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
-                _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.7f);
+                _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
             
             _currTotemHolder = null;
         }
@@ -277,11 +277,11 @@ namespace GameMode.Juggernaut
             {
                 case AnimatorState.ToGorilla:
                     newController = gorillaAnimatorOverrides[_currTotemHolder.Index];
-                    _currTotemHolder.GetComponent<PlayerRenderer>().SetAnimatorOverride(newController);
+                    _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     break;
                 case AnimatorState.ToHunter:
                     newController = AnimatorOverride[_currTotemHolder.Index];
-                    _currTotemHolder.GetComponent<PlayerRenderer>().SetAnimatorOverride(newController);
+                    _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     break;
             }
         }
