@@ -16,8 +16,8 @@ namespace GameMode
     
     [SerializeField] private GameModeObject sObj;
     [field:SerializeField] public Arena ModeArena { get; private set;}
-    [field: SerializeField] public string Name { get; private set; }
     [field: SerializeField] public Sprite InstructionsSprite { get; set; }
+    [field: SerializeField] public Sprite ChannelSprite { get; set; }
     [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
     [field: SerializeField] public List<AnimatorOverrideController> AnimatorOverride { get; private set; } = new();
     

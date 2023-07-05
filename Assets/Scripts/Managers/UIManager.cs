@@ -42,6 +42,7 @@ namespace Managers
         [Header("\nInstructionMenu")]
         [SerializeField] private GameObject _instructionsOffBtn;
         [SerializeField] private GameObject _instructionsOnBtn;
+        [SerializeField] private Image _instructionsBackground;
 
         [Header("\nWiningMenu")] 
         [SerializeField] private GameObject _endScreen;
@@ -60,6 +61,7 @@ namespace Managers
         private int _maxScoreDisplays;
 
         private TransitionWindow _transitionWindow;
+        private ChannelNameSlide _channelWindow;
         
         private static readonly int PlayFizz = Animator.StringToHash("PlayFizz");
 
@@ -109,12 +111,13 @@ namespace Managers
         public void Awake()
         {
             _transitionWindow = GetComponentInChildren<TransitionWindow>();
+            _channelWindow = GetComponentInChildren<ChannelNameSlide>();
         }
 
         private void Start()
         {
             _maxScoreDisplays = _playerScores.Length;
-            _transitionWindow.HideWindow(true);
+            HideInstructions(true);
         }
         #endregion
 
@@ -133,19 +136,22 @@ namespace Managers
 
         public void ShowRoundEndScreen()
         {
-            
             _endScreen.SetActive(true);
             _eventSystem.SetSelectedGameObject(_firstEndScreenBtn);
         }
 
-        public void ShowInstructions(string title, Sprite instructions)
+        public void ShowInstructions(Sprite instructions=null, Sprite channel=null, bool immediate=false)
         {
-            _transitionWindow.ShowWindow(title, instructions);
+            _transitionWindow.ShowWindow(instructions, immediate);
+            _channelWindow.ShowWindow(channel, immediate);
+            _instructionsBackground.gameObject.SetActive(true);
         }
         
-        public void HideInstructions()
+        public void HideInstructions(bool immediate=false)
         {
-            _transitionWindow.HideWindow();
+            _transitionWindow.HideWindow(immediate);
+            _channelWindow.HideWindow(immediate);
+            _instructionsBackground.gameObject.SetActive(false);
         }
         
         /// <summary>
@@ -164,7 +170,7 @@ namespace Managers
                 case GameState.Playing: 
                     _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn); 
                     GameManager.Instance.State = GameState.PauseMenu;
-                    _transitionWindow.ShowWindow();
+                    ShowInstructions();
                     break;
                 
                 case GameState.Instructions:
@@ -182,7 +188,7 @@ namespace Managers
             switch (GameManager.Instance.State){
 
                 case GameState.PauseMenu:
-                    _transitionWindow.HideWindow();
+                    HideInstructions();
                     _pauseMenu.SetActive(false);
                     GameManager.Instance.State = GameState.Playing;
                     break;
@@ -222,7 +228,7 @@ namespace Managers
         {   
             Time.timeScale = 1;
             _pauseMenu.SetActive(false);
-            _transitionWindow.HideWindow();
+            HideInstructions();
             GameManager.Instance.OnReset();
             GameManager.Instance.State = GameState.Lobby;
         }
