@@ -158,6 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe63548203fe4079b7b598001aa04d3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hintColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _showHintColor: 0
   <PartPrefab>k__BackingField: {fileID: 0}
 --- !u!50 &7160010805718217940
 Rigidbody2D:

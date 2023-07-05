@@ -132,7 +132,7 @@ namespace GameMode.Ikea
 
         protected override void TogglePrompt_Inner(bool showPrompt)
         {
-            _renderer.color = showPrompt ? Color.yellow : Color;
+            _renderer.color = showPrompt ? _hintColor : Color;
         }
 
         protected override bool CanPlayerInteract(PlayerController player)
