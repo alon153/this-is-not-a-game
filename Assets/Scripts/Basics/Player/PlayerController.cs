@@ -29,7 +29,6 @@ namespace Basics.Player
         #region Serialized Fields
 
         [SerializeField] private TextMeshProUGUI _txtInteract;
-        [SerializeField] private TextMeshProUGUI _txtStun;
         [SerializeField] private Transform _playerFront;
         [SerializeField] public PlayerEffect PlayerEffect;
 
@@ -202,7 +201,7 @@ namespace Basics.Player
             Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
             _txtInteract.enabled = false;
-            _txtStun.enabled = false;
+            
 
             SetParticlesColors();
         }
@@ -338,7 +337,7 @@ namespace Basics.Player
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
 
             if (stunned)
-                _txtStun.enabled = true;
+                PlayerEffect.PlayStunAnimation();
         }
 
         public void UnFreeze()
@@ -353,7 +352,7 @@ namespace Basics.Player
             }
 
             _frozen = false;
-            _txtStun.enabled = false;
+            PlayerEffect.StopStunAnimation();
         }
 
         public bool GetIsDashing()
