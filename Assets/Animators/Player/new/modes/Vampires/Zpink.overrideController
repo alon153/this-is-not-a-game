@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Zpink
+  m_Controller: {fileID: 9100000, guid: 333a373eaae62e740be3fd12d0e14c6f, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fc060c030d99f8347b25ed5cf335043a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 460e77c8797ba974787cf93399686644, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 45dfa9818cf7e98449365d66eb4fac8d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bc3d3783a634e3940b35aa42844c8737, type: 2}

@@ -592,6 +592,22 @@ PrefabInstance:
       propertyPath: PlayerDatas.Array.data[0]._bloomColor.r
       value: 0.9137255
       objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: PlayerDatas.Array.data[0]._defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 121b1ed7b03dfcd44a6d061109bb8c13, type: 3}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: PlayerDatas.Array.data[1]._defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8200ec183cae73b4dbd7d2f6fed47c99, type: 3}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: PlayerDatas.Array.data[2]._defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b295770081025554dbfb29fec0b215a2, type: 3}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: PlayerDatas.Array.data[3]._defaultSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bf8122102c048764eb3760bec68104a8, type: 3}
     - target: {fileID: 591557154786533805, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 1
