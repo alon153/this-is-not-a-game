@@ -325,67 +325,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e321d29f9d67304bbe2a9e5db69a9d2, type: 3}
---- !u!1001 &662810858
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 555857939697055764}
-    m_Modifications:
-    - target: {fileID: 1860373422633631165, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: _musicVolume
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862548, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_Name
-      value: AudioManager (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5633047606244862549, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f21dc8cbe977d1f4fb15a5ff7a383bf4, type: 3}
 --- !u!1 &1535105642
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,11 +511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 30
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
@@ -1038,11 +977,6 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7bd478622aae7f14f8c788017fa1b3fa, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
---- !u!4 &555857939697055764 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 555857938625486637, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
-  m_PrefabInstance: {fileID: 555857939697055763}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &555857939697055765 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1409004893076490731, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
