@@ -27,6 +27,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 3897a9ee026b0b144b10d9218eaa3f02, type: 2}
     - {fileID: 22100000, guid: 5909a92b6f88de944bf7c30793bae6c0, type: 2}
     - {fileID: 22100000, guid: c4bd613144aa4e34f8faea80699c26e4, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: -311145583
@@ -50,6 +51,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 199df16824c4ca54e888afaf178ce2de, type: 2}
     - {fileID: 22100000, guid: fb4721d9a4cdff1418878b0f0d438c5f, type: 2}
     - {fileID: 22100000, guid: 8dd9adb9d6c022d46960d5fdcc2d1352, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: -1004467982
@@ -73,6 +75,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 5c4ac7fea4dd9e44f871877500d43c84, type: 2}
     - {fileID: 22100000, guid: 544517c21b918ae4c8981fcfdff7fe8b, type: 2}
     - {fileID: 22100000, guid: 81532d4188e5f044aa7bdc6022d5771c, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 1496387947
@@ -96,6 +99,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: c62d992a6fcb6ac4d8873475fac93df0, type: 2}
     - {fileID: 22100000, guid: 22a0d34c34b21654595eef251f0801ab, type: 2}
     - {fileID: 22100000, guid: c0a2ae7c49d4c424786f199b2b1973b4, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -119,6 +123,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: f007a73b67a46c34cbbe31c89f062fa7, type: 2}
     - {fileID: 22100000, guid: 55b774b0729a5664bac70fd1cf6addbc, type: 2}
     - {fileID: 22100000, guid: 9b520a0d585c6cc44a7e97e0f030fc22, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 384501834
@@ -138,10 +143,11 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b2a79f0c33855944abd13c9c33e5c530, type: 3}
     - {fileID: 21300000, guid: eaa3a1e9d3a8a364088ca9097558d306, type: 3}
     <AnimatorOverride>k__BackingField:
-    - {fileID: 22100000, guid: aaa2153c07a6ce5468d43eb45e8f7bcf, type: 2}
-    - {fileID: 22100000, guid: 72a6ebda259413d4298cc7997502e94c, type: 2}
-    - {fileID: 22100000, guid: 351119b682f29654cbde88254d5b7b80, type: 2}
-    - {fileID: 22100000, guid: 843428d002ce9ef489ff9ae4060956f3, type: 2}
+    - {fileID: 22100000, guid: c8b2c377ab766e446b993ca29c81e0fe, type: 2}
+    - {fileID: 22100000, guid: c2fbd05b465445c43934af6a2520f981, type: 2}
+    - {fileID: 22100000, guid: 59b91d584c7b36242b0ea5df3aed0931, type: 2}
+    - {fileID: 22100000, guid: 499bdbcd9726b5c4b9edd4b4b94f73e4, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 757577854
@@ -165,6 +171,7 @@ MonoBehaviour:
     - {fileID: 22100000, guid: b08671f267ffc79408496d627dd7fc70, type: 2}
     - {fileID: 22100000, guid: 8ea05f2bd74dd62459b64a895fc1953b, type: 2}
     - {fileID: 22100000, guid: d014b57b743da8d4498c05cf2c9166fa, type: 2}
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -180,6 +187,7 @@ MonoBehaviour:
     <ChannelSprite>k__BackingField: {fileID: 21300000, guid: b4a9528a72c062d41af3438f8dbf71a7, type: 3}
     <CharacterSprites>k__BackingField: []
     <AnimatorOverride>k__BackingField: []
+    CollisionParticlesSprites: []
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214

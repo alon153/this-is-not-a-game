@@ -7,9 +7,11 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ice cream y
-  m_Controller: {fileID: 9100000, guid: 333a373eaae62e740be3fd12d0e14c6f, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2f535a8135a4b44c91bf32e32b39b8e, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: a76db9b02a49e02458ee46587f77f065, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 43ba09d1965539c4182d6c45b9e89d09, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 88d6278594b2dc64cbc88fbf2e01aa8c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 27300aa82fc085c4f8a67ea5f73ad0d0, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ef8e16f9366f4ce499b3ed6015162ec4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ba6f08227e245934a90ee9896b8557f7, type: 2}

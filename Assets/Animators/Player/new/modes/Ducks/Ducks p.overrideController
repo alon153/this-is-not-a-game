@@ -7,9 +7,11 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ducks p
-  m_Controller: {fileID: 9100000, guid: 333a373eaae62e740be3fd12d0e14c6f, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2f535a8135a4b44c91bf32e32b39b8e, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 820090bc6af22724098ec36d43e5956c, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8e65756af664a1b479a00697a6a67bdc, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 4d2da2e358c8ea948a9b08595dc504de, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7e13b12e83a2aa447aec64cd53858f62, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ef8e16f9366f4ce499b3ed6015162ec4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 7a052c75596d1a643bb419912b8a2e6d, type: 2}

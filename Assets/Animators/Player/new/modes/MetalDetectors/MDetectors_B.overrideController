@@ -6,12 +6,12 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ducks y
+  m_Name: MDetectors_B
   m_Controller: {fileID: 9100000, guid: c2f535a8135a4b44c91bf32e32b39b8e, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 8c921f952b970c34682dd2ed224d8dcf, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: ec72c7315736d164e8c2defdd77c1e89, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 26985e542f64d5e4fb31e182d61f29df, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: aeb1f5fd529e1d24c8ec213a94e27dba, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ef8e16f9366f4ce499b3ed6015162ec4, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: b41c6f438e430bf468dee077fdaa097f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f6918f8e4df42cb4c88d0a5034d106a1, type: 2}
