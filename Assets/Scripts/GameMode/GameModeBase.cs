@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Audio;
 using FMODUnity;
 using Managers;
+using Utilities;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ namespace GameMode
     [field: SerializeField] public Sprite InstructionsSprite { get; set; }
     [field: SerializeField] public List<Sprite> CharacterSprites { get; private set; } = new();
     [field: SerializeField] public List<AnimatorOverrideController> AnimatorOverride { get; private set; } = new();
-    
+
+    [field: SerializeField] public List<Sprite> CollisionParticlesSprites = new List<Sprite>();
     [field: SerializeField] public EventReference DashSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
 
@@ -49,6 +51,7 @@ namespace GameMode
     {
       ExtractScriptableObject(sObj);
       SetPlayerSprites();
+      SetCollisionParticles();
       AudioManager.DashEvent = DashSound;
       InitArena_Inner();
       InitRound_Inner();
@@ -95,6 +98,13 @@ namespace GameMode
           players[i].Renderer.RegularColor = Color.white;
         }
       }
+    }
+
+    private void SetCollisionParticles()
+    {
+      var players = GameManager.Instance.Players;
+      foreach (var player in players)
+        player.SetCollisionParticles(CollisionParticlesSprites);
     }
 
     #endregion

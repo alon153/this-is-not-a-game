@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Managers;
-using Unity.VisualScripting;
 using UnityEngine;
-using Utilities.Interfaces;
+using Utilities;
 
 namespace Basics.Player
 {
@@ -240,6 +240,18 @@ namespace Basics.Player
                 
             _resetMoveCoroutine = StartCoroutine(ResetMovementAfterKnockBack(Rigidbody));
             Rigidbody.velocity = Vector2.zero;
+        }
+        
+        public void SetCollisionParticles(List<Sprite> newSprites)
+        {
+            if (newSprites == null || newSprites.Count == Constants.Empty) return;
+            
+            var texSheet = _collisionParticles.textureSheetAnimation;
+            var spriteCount = texSheet.spriteCount;
+            
+            for (int i = 0; i < spriteCount ; i++) texSheet.RemoveSprite(i);
+            
+            for (int i = 0; i < newSprites.Count; i++) texSheet.AddSprite(newSprites[i]);
         }
         #endregion
     }
