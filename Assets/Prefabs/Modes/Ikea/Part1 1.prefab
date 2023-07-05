@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d7f5283e174019b7758544ac614c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hintColor: {r: 0.8352941, g: 1, b: 0.8862745, a: 1}
   _blueprintSprite: {fileID: 21300000, guid: e5475313ec9200544809feb76461b2d6, type: 3}
   _partSprite: {fileID: 21300000, guid: 6f8238eab92061441ba4705d5383f34a, type: 3}
   _collider: {fileID: 8603959287331571172}
