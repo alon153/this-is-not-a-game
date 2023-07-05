@@ -99,7 +99,7 @@ namespace Basics.Player
         public Gamepad Gamepad { get; private set; } = null;
         public int Index { get; private set; } = DefaultIndex;
 
-        private bool CanDash
+        public bool CanDash
         {
             get => _canDash;
             set

@@ -406,7 +406,21 @@ namespace GameMode.Lasers
 
             // save current velocity since it will be zeroed by freeze().
             Vector2 velocityBeforeFreeze = -player.Rigidbody.velocity;
-            player.Freeze(true, freezeTime, true);
+            player.Renderer.Animator.SetTrigger("death");
+
+            
+            // 0.75f is the length of the death animation
+            float animationTime = 0.9f;
+            player.Freeze(false);
+            TimeManager.Instance.DelayInvoke(
+                (() => { player.Freeze(true, freezeTime-animationTime, true);}), 
+                animationTime
+                );
+            if (player.CanDash)
+            {
+                player.CanDash = false;
+                TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
+            }
             player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
         }
 
