@@ -15,6 +15,11 @@ MonoBehaviour:
   totemPrefab: {fileID: 9167746192894825416, guid: 7b727bb7848433a43a8da1272c5d014e, type: 3}
   totemDisableTime: 2
   totemDropRadius: 1.5
+  gorillaAnimatorOverride:
+  - {fileID: 22100000, guid: 0feba617a382cdc4abac4e13e70e902a, type: 2}
+  - {fileID: 22100000, guid: 840203b8f51c5f94d87f0058611ea3c3, type: 2}
+  - {fileID: 22100000, guid: bd45e8df632143f48bc66b9cb773a0c7, type: 2}
+  - {fileID: 22100000, guid: 22a0d34c34b21654595eef251f0801ab, type: 2}
   projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
   projectileSpeed: 10
   projectileDestroyTime: 3
