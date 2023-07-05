@@ -15,8 +15,8 @@ MonoBehaviour:
   _paintMode:
     sObj: {fileID: 11400000, guid: 97409b55a88c78744bb312829379d450, type: 2}
     <ModeArena>k__BackingField: {fileID: 8297754426601155343, guid: 270ec6d96f32464428afbae02bcdca09, type: 3}
-    <Name>k__BackingField: This is not a game, this is a painting
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 82db75632a349444bbd0d595882f3b02, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aa2cf0c4c52827f47af60f4c1059ebbb, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: e0a6fb1ae5b1c4447afdac4d5f7de2b5, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 46361ceeaf825f3439698767a9a32eeb, type: 3}
     - {fileID: 21300000, guid: dee127ae62b44a942a9a63e498458508, type: 3}
@@ -38,8 +38,8 @@ MonoBehaviour:
   _poolMode:
     sObj: {fileID: 11400000, guid: 094d10e272e8dbe4390c1748c2d9c99c, type: 2}
     <ModeArena>k__BackingField: {fileID: 5435150949364787957, guid: e58a143c5142a7b4ba9f553f23715d53, type: 3}
-    <Name>k__BackingField: This is not a game, this is a pool table
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 0eba7057ee073e5458dbd63932bff3ca, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: b2bd256cec2578648a772e630f137d2a, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 8596603aba8a9bc49b1420080613dcb0, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: ddcbec167a951ab4596f93326360fd24, type: 3}
     - {fileID: 21300000, guid: 6fdd3aa1a77076f41970ddea7912addf, type: 3}
@@ -61,8 +61,8 @@ MonoBehaviour:
   _ikeaMode:
     sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
-    <Name>k__BackingField: This is not a game, this is an IKEA item!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: c1b09b279b85bcb4383fb7188582fe22, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aee71c0335387f04da82e656e44514c9, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: ddc3cc7fb64be4444aea4e02e0e063df, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 3a34aefe788dcbe479a151a68eddd041, type: 3}
     - {fileID: 21300000, guid: 9088baa0a77b8bc4c8675032de383cf4, type: 3}
@@ -84,8 +84,8 @@ MonoBehaviour:
   _boatsInRiverMode:
     sObj: {fileID: 11400000, guid: 374a12b2eb2df88418143fb113118a8f, type: 2}
     <ModeArena>k__BackingField: {fileID: 5700301782894875129, guid: 32acb11074124b7409b1918aff91eae3, type: 3}
-    <Name>k__BackingField: This is not a game, this is a River!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: abc09f7fb534de442b1036c4e2dfad85, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: cff384cfa36a9c94dab7789abc77b1b8, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 6db341538e9f43a46bb7a609bdd2fb3d, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: efecef754938b7d4998fa82e20259b3d, type: 3}
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
@@ -107,8 +107,8 @@ MonoBehaviour:
   _lasersMode:
     sObj: {fileID: 11400000, guid: 8c085581268861541bd2ca57628707e2, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
-    <Name>k__BackingField: This is not a game! It's a spy movie!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 689c9e73f33152d4eb9a4208c738a03a, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 5d8b45bba0ea52542be0b0ea70452629, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 4b73d4dfa8eda9f4a9b6753f441064f3, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: e262dbeb9ff842547a8cc7be8927551e, type: 3}
     - {fileID: 21300000, guid: a26f50ec8a213e74eb7334f2656b3586, type: 3}
@@ -130,8 +130,8 @@ MonoBehaviour:
   _islandMode:
     sObj: {fileID: 11400000, guid: 07ebe6a38fbfb1047af3f180a197b8b2, type: 2}
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
-    <Name>k__BackingField: This is not a game, this is a desert island!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 743d8bf8c1d877c409ee6cb6f3b42335, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ea4ec57220ece6f4b9296c33d02a3a38, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 1ae99a7765f4fab4dbc52d50a633c92b, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 9c46601d80c2a4e4190d64f505d3ea91, type: 3}
     - {fileID: 21300000, guid: 0e9d2e4ac183636429c3d8f0b6b5e384, type: 3}
@@ -153,8 +153,8 @@ MonoBehaviour:
   _rhythmMode:
     sObj: {fileID: 11400000, guid: d15cf7536ced1eb49a98773a112e8683, type: 2}
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
-    <Name>k__BackingField: This is not a game this is a beat!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: d04699f3dd7f29a45a16aef21e46d432, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 4ec4afa1ddb8009439f4810f404ec96b, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 6bb277f418d6ab846a2cb00f79b5abb1, type: 3}
     - {fileID: 21300000, guid: 0d25ca9685c41914e98a2acef543e9b2, type: 3}
@@ -176,8 +176,8 @@ MonoBehaviour:
   _juggernautMode:
     sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
-    <Name>k__BackingField: 
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: fb3015ce38ed48a4086cda348c5fdd58, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 4dd791aad167b6542bc6099cf23621c8, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: b4a9528a72c062d41af3438f8dbf71a7, type: 3}
     <CharacterSprites>k__BackingField: []
     <AnimatorOverride>k__BackingField: []
     <DashSound>k__BackingField:

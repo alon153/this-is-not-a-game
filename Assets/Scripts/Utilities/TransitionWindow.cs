@@ -15,7 +15,6 @@ namespace Utilities
     {
         #region Serialized Fields
         
-        [SerializeField] private TextMeshProUGUI _title;
         [SerializeField] private RectTransform _timer;
         [SerializeField] private Image _instructions;
         [SerializeField] private float _transitionTime = 3;
@@ -67,13 +66,14 @@ namespace Utilities
 
         #region Public Method
 
-        public void ShowWindow(string title = "", Sprite instructions = null, bool immediate=false)
+        public void ShowWindow(Sprite instructions = null, bool immediate=false)
         {
-            SetInformation(title, instructions);
+            SetInformation(instructions);
             
             if (immediate)
             {
                 _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, _rectOrigY);
+                ResetTimer();
                 return;
             }
             
@@ -101,6 +101,7 @@ namespace Utilities
             if (immediate)
             {
                 _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, 0);
+                ResetTimer();
                 return;
             }
             
@@ -117,16 +118,25 @@ namespace Utilities
         {
             var destPos = _rect.anchoredPosition;
             destPos.y = Speed == Mathf.Infinity ? _destY : destPos.y + Time.unscaledDeltaTime * Speed * Mathf.Sign(_destY - destPos.y);
-            
-            if (destPos.y < 0 || destPos.y > _rectOrigY) destPos.y = _destY;
+
+            if (destPos.y < 0 || destPos.y > _rectOrigY)
+            {
+                destPos.y = _destY;
+                ResetTimer();
+            }
 
             _rect.anchoredPosition = destPos;
         }
-        
-        private void SetInformation(string title, Sprite instructions)
+
+        private void ResetTimer()
         {
-            if (title != "")
-                _title.text = title;
+            var pos = _timer.anchoredPosition;
+            pos.x = _timerOrigX;
+            _timer.anchoredPosition = pos;
+        }
+
+        private void SetInformation(Sprite instructions)
+        {
             if (instructions != null)
                 _instructions.sprite = instructions;
         }

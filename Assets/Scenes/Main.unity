@@ -502,6 +502,14 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 461586850210210540, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 461586850210210540, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -110
+      objectReference: {fileID: 0}
     - target: {fileID: 529956756837331065, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -564,11 +572,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 1000
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
@@ -822,6 +830,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: readyBtns
       objectReference: {fileID: 0}
+    - target: {fileID: 3837026560722375221, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _transitionTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3929896099375249771, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_Name
       value: SettingsResume
@@ -934,6 +946,14 @@ PrefabInstance:
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
       objectReference: {fileID: 21300000, guid: 7bd478622aae7f14f8c788017fa1b3fa, type: 3}
+    - target: {fileID: 8034414956185818109, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8099121887648588072, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _transitionTime
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8266100549358010466, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0

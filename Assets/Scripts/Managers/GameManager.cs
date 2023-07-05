@@ -210,7 +210,7 @@ namespace Managers
                     {
                         case true:
                             State = GameState.Instructions;
-                            UIManager.Instance.ShowInstructions(GameMode.Name, GameMode.InstructionsSprite);
+                            UIManager.Instance.ShowInstructions(GameMode.InstructionsSprite,GameMode.ChannelSprite);
                             break;
                         case false:
                             StartRound();
