@@ -91,6 +91,7 @@ namespace Basics.Player
         private Guid _dashingId = Guid.Empty;
         private Guid _postDashId = Guid.Empty;
         private Guid _vibrationId = Guid.Empty;
+        private static readonly int Moving = Animator.StringToHash("moving");
 
         #endregion
 
@@ -132,6 +133,10 @@ namespace Basics.Player
                 bool shouldChangeAnimation = (_direction.magnitude == 0 && value.magnitude != 0) ||
                                              (_direction.magnitude != 0 && value.magnitude == 0);
 
+                if (value == Vector2.zero && _direction != Vector2.zero ||
+                    value != Vector2.zero && _direction == Vector2.zero)
+                    Renderer.Animator.SetBool(Moving,value != Vector2.zero);
+                
                 _direction = value.normalized;
                 bool facingRight = _direction.x > 0;
                 if (facingRight != Renderer.Regular.flipX && Mathf.Abs(_direction.x) >= 0.1f)
