@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Animations/Player/modes/Island.meta
-guid: f2b7e061cda45774bacf5cd7f6bdf611
-========
-guid: bd9e879093ad4964f86a1341fc88c588
->>>>>>>> main:Assets/Design/Modes/Jugger.meta
+<<<<<<<< HEAD:Assets/Design/Modes/Jugger.meta
+guid: 04e124a10cd16df49adacf17529c7985
 folderAsset: yes
+========
+guid: 90f095f84f018824e8cb743c0a1dcf61
+>>>>>>>> edoBeforeMerge:Assets/Scenes/Edo tests.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

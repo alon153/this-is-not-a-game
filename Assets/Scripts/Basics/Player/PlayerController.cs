@@ -30,8 +30,8 @@ namespace Basics.Player
 
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
-
         [SerializeField] private Transform _playerFront;
+        [SerializeField] public PlayerEffect PlayerEffect;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -47,12 +47,11 @@ namespace Basics.Player
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
         [SerializeField] private ParticleSystem _dashParticles;
 
-        [Tooltip("How much time will a player be pushed after dash is finished")] [SerializeField]
-        private float _postDashPushTime = 0.1f;
+        [Tooltip("How much time will a player be pushed after dash is finished")] 
+        [SerializeField] private float _postDashPushTime = 0.1f;
 
-        [Tooltip("The time a player is knocked back")] [SerializeField]
-        private float _knockBackDelay = 0.15f;
-
+        [Tooltip("The time a player is knocked back")] 
+        [SerializeField] private float _knockBackDelay = 0.15f;
         #endregion
 
         #region Non-Serialized Fields
@@ -91,6 +90,7 @@ namespace Basics.Player
         private Guid _dashingId = Guid.Empty;
         private Guid _postDashId = Guid.Empty;
         private Guid _vibrationId = Guid.Empty;
+        private static readonly int Moving = Animator.StringToHash("moving");
 
         #endregion
 
@@ -99,7 +99,7 @@ namespace Basics.Player
         public Gamepad Gamepad { get; private set; } = null;
         public int Index { get; private set; } = DefaultIndex;
 
-        private bool CanDash
+        public bool CanDash
         {
             get => _canDash;
             set
@@ -132,6 +132,10 @@ namespace Basics.Player
                 bool shouldChangeAnimation = (_direction.magnitude == 0 && value.magnitude != 0) ||
                                              (_direction.magnitude != 0 && value.magnitude == 0);
 
+                if (value == Vector2.zero && _direction != Vector2.zero ||
+                    value != Vector2.zero && _direction == Vector2.zero)
+                    Renderer.Animator.SetBool(Moving,value != Vector2.zero);
+                
                 _direction = value.normalized;
                 bool facingRight = _direction.x > 0;
                 if (facingRight != Renderer.Regular.flipX && Mathf.Abs(_direction.x) >= 0.1f)

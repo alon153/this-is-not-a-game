@@ -7,6 +7,13 @@ namespace Basics
 {
     public abstract class InteractableObject : MonoBehaviour
     {
+        #region Serializable Fields
+
+        [Header("InteractableObject")]
+        
+        [SerializeField] protected Color _hintColor = Color.yellow;
+
+        #endregion
         #region Non-Serializable Fields
 
         private bool _showingPrompt = false;

@@ -15,14 +15,18 @@ MonoBehaviour:
   _paintMode:
     sObj: {fileID: 11400000, guid: 97409b55a88c78744bb312829379d450, type: 2}
     <ModeArena>k__BackingField: {fileID: 8297754426601155343, guid: 270ec6d96f32464428afbae02bcdca09, type: 3}
-    <Name>k__BackingField: This is not a game, this is a painting
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 82db75632a349444bbd0d595882f3b02, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aa2cf0c4c52827f47af60f4c1059ebbb, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: e0a6fb1ae5b1c4447afdac4d5f7de2b5, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 46361ceeaf825f3439698767a9a32eeb, type: 3}
     - {fileID: 21300000, guid: dee127ae62b44a942a9a63e498458508, type: 3}
     - {fileID: 21300000, guid: 3162fcfd6a7026a41a6238885ebbbbaa, type: 3}
     - {fileID: 21300000, guid: 8f9f0ed705a6fe84893566bdc1395ee3, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: 9e310d1ec8c2b30408fd8c807c97d6e8, type: 2}
+    - {fileID: 22100000, guid: 3897a9ee026b0b144b10d9218eaa3f02, type: 2}
+    - {fileID: 22100000, guid: 5909a92b6f88de944bf7c30793bae6c0, type: 2}
+    - {fileID: 22100000, guid: c4bd613144aa4e34f8faea80699c26e4, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: -311145583
@@ -34,14 +38,18 @@ MonoBehaviour:
   _poolMode:
     sObj: {fileID: 11400000, guid: 094d10e272e8dbe4390c1748c2d9c99c, type: 2}
     <ModeArena>k__BackingField: {fileID: 5435150949364787957, guid: e58a143c5142a7b4ba9f553f23715d53, type: 3}
-    <Name>k__BackingField: This is not a game, this is a pool table
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 0eba7057ee073e5458dbd63932bff3ca, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: b2bd256cec2578648a772e630f137d2a, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 8596603aba8a9bc49b1420080613dcb0, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: ddcbec167a951ab4596f93326360fd24, type: 3}
     - {fileID: 21300000, guid: 6fdd3aa1a77076f41970ddea7912addf, type: 3}
     - {fileID: 21300000, guid: 531b7628e6594e644b25d7d2924e095a, type: 3}
     - {fileID: 21300000, guid: 656d2151effcea44b8145a7e3d412d7b, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: fd3483183ad6f334684bd66dc9243f06, type: 2}
+    - {fileID: 22100000, guid: 199df16824c4ca54e888afaf178ce2de, type: 2}
+    - {fileID: 22100000, guid: fb4721d9a4cdff1418878b0f0d438c5f, type: 2}
+    - {fileID: 22100000, guid: 8dd9adb9d6c022d46960d5fdcc2d1352, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: -1004467982
@@ -53,8 +61,8 @@ MonoBehaviour:
   _ikeaMode:
     sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
-    <Name>k__BackingField: This is not a game, this is an IKEA item!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: c1b09b279b85bcb4383fb7188582fe22, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aee71c0335387f04da82e656e44514c9, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: ddc3cc7fb64be4444aea4e02e0e063df, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 3a34aefe788dcbe479a151a68eddd041, type: 3}
     - {fileID: 21300000, guid: 9088baa0a77b8bc4c8675032de383cf4, type: 3}
@@ -76,14 +84,18 @@ MonoBehaviour:
   _boatsInRiverMode:
     sObj: {fileID: 11400000, guid: 374a12b2eb2df88418143fb113118a8f, type: 2}
     <ModeArena>k__BackingField: {fileID: 5700301782894875129, guid: 32acb11074124b7409b1918aff91eae3, type: 3}
-    <Name>k__BackingField: This is not a game, this is a River!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: abc09f7fb534de442b1036c4e2dfad85, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: cff384cfa36a9c94dab7789abc77b1b8, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 6db341538e9f43a46bb7a609bdd2fb3d, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: efecef754938b7d4998fa82e20259b3d, type: 3}
     - {fileID: 21300000, guid: 28129d177ce62c94696dca0747a25240, type: 3}
     - {fileID: 21300000, guid: 445782942a0198945a0e53c75576ac3d, type: 3}
     - {fileID: 21300000, guid: 711ce4e08e9a27c4699bc690d4361efa, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: ad94ea0765b2d1b488518273d54d9bdb, type: 2}
+    - {fileID: 22100000, guid: c62d992a6fcb6ac4d8873475fac93df0, type: 2}
+    - {fileID: 22100000, guid: 22a0d34c34b21654595eef251f0801ab, type: 2}
+    - {fileID: 22100000, guid: c0a2ae7c49d4c424786f199b2b1973b4, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -95,14 +107,18 @@ MonoBehaviour:
   _lasersMode:
     sObj: {fileID: 11400000, guid: 8c085581268861541bd2ca57628707e2, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: dae8b5b072269d9489bb1509ad5936e7, type: 3}
-    <Name>k__BackingField: This is not a game! It's a spy movie!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 689c9e73f33152d4eb9a4208c738a03a, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 5d8b45bba0ea52542be0b0ea70452629, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 4b73d4dfa8eda9f4a9b6753f441064f3, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: e262dbeb9ff842547a8cc7be8927551e, type: 3}
     - {fileID: 21300000, guid: a26f50ec8a213e74eb7334f2656b3586, type: 3}
     - {fileID: 21300000, guid: 63ba6ab5aba3efe43a34cdd1dbf0a289, type: 3}
     - {fileID: 21300000, guid: ed0fea5a705cc5f47809ffc0b64fae40, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: 13476a193317d624ea93402f88a2691e, type: 2}
+    - {fileID: 22100000, guid: f007a73b67a46c34cbbe31c89f062fa7, type: 2}
+    - {fileID: 22100000, guid: 55b774b0729a5664bac70fd1cf6addbc, type: 2}
+    - {fileID: 22100000, guid: 9b520a0d585c6cc44a7e97e0f030fc22, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: 384501834
@@ -114,14 +130,18 @@ MonoBehaviour:
   _islandMode:
     sObj: {fileID: 11400000, guid: 07ebe6a38fbfb1047af3f180a197b8b2, type: 2}
     <ModeArena>k__BackingField: {fileID: 6679206946444666257, guid: ed1e3d708e99ea24ab6de7d39eaad89c, type: 3}
-    <Name>k__BackingField: This is not a game, this is a desert island!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 743d8bf8c1d877c409ee6cb6f3b42335, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ea4ec57220ece6f4b9296c33d02a3a38, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 1ae99a7765f4fab4dbc52d50a633c92b, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 9c46601d80c2a4e4190d64f505d3ea91, type: 3}
     - {fileID: 21300000, guid: 0e9d2e4ac183636429c3d8f0b6b5e384, type: 3}
     - {fileID: 21300000, guid: b2a79f0c33855944abd13c9c33e5c530, type: 3}
     - {fileID: 21300000, guid: eaa3a1e9d3a8a364088ca9097558d306, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: aaa2153c07a6ce5468d43eb45e8f7bcf, type: 2}
+    - {fileID: 22100000, guid: 72a6ebda259413d4298cc7997502e94c, type: 2}
+    - {fileID: 22100000, guid: 351119b682f29654cbde88254d5b7b80, type: 2}
+    - {fileID: 22100000, guid: 843428d002ce9ef489ff9ae4060956f3, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: 757577854
@@ -133,14 +153,18 @@ MonoBehaviour:
   _rhythmMode:
     sObj: {fileID: 11400000, guid: d15cf7536ced1eb49a98773a112e8683, type: 2}
     <ModeArena>k__BackingField: {fileID: 1144060773873735729, guid: bb178d23c72f4d248ab7ab018d0d5921, type: 3}
-    <Name>k__BackingField: This is not a game this is a beat!
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: ff6082d2101d4ec46bebb1b3f01ea5d0, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: d04699f3dd7f29a45a16aef21e46d432, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: 4ec4afa1ddb8009439f4810f404ec96b, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 6bb277f418d6ab846a2cb00f79b5abb1, type: 3}
     - {fileID: 21300000, guid: 0d25ca9685c41914e98a2acef543e9b2, type: 3}
     - {fileID: 21300000, guid: 687b28b348809fa4c89273c5b3e697d3, type: 3}
     - {fileID: 21300000, guid: bad71575b60cebf47bfeea322c0e674b, type: 3}
-    <AnimatorOverride>k__BackingField: []
+    <AnimatorOverride>k__BackingField:
+    - {fileID: 22100000, guid: 5e9c18dd30c9a0d479a95008d8475f2d, type: 2}
+    - {fileID: 22100000, guid: b08671f267ffc79408496d627dd7fc70, type: 2}
+    - {fileID: 22100000, guid: 8ea05f2bd74dd62459b64a895fc1953b, type: 2}
+    - {fileID: 22100000, guid: d014b57b743da8d4498c05cf2c9166fa, type: 2}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -152,8 +176,8 @@ MonoBehaviour:
   _juggernautMode:
     sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
-    <Name>k__BackingField: 
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: fb3015ce38ed48a4086cda348c5fdd58, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 4dd791aad167b6542bc6099cf23621c8, type: 3}
+    <ChannelSprite>k__BackingField: {fileID: 21300000, guid: b4a9528a72c062d41af3438f8dbf71a7, type: 3}
     <CharacterSprites>k__BackingField: []
     <AnimatorOverride>k__BackingField: []
     <DashSound>k__BackingField:

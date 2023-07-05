@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Animations/Player/modes/Island/O_MDetector.meta
-guid: d8b6920681d3cf846a8b72a0ac9a0534
-========
+<<<<<<<< HEAD:Assets/Design/Modes/Jugger/arena.meta
 guid: 8e0d753e0acad8c4faa288b0aa20cf08
->>>>>>>> main:Assets/Design/Modes/Jugger/arena.meta
 folderAsset: yes
+========
+guid: ed9b95dc6ed6d0647ad7f1a8f305385d
+>>>>>>>> edoBeforeMerge:Assets/AllIn1SpriteShader/2DRenderer-URP-Package.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

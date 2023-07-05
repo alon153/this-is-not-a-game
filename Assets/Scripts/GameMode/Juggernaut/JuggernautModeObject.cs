@@ -1,4 +1,5 @@
-﻿using ScriptableObjects.GameModes.Modes;
+﻿using System.Collections.Generic;
+using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 
 namespace GameMode.Juggernaut
@@ -10,6 +11,10 @@ namespace GameMode.Juggernaut
         public Totem totemPrefab;
         public float totemDisableTime = 3f;
         public float totemDropRadius = 1.5f;
+
+        [Header("\nPlayers")] 
+        public List<AnimatorOverrideController> gorillaAnimatorOverride = new List<AnimatorOverrideController>();
+        
         [Header("\nProjectile")]
         public Projectile projectilePrefab;
         [Tooltip("speed given to projectile while shooting")]
@@ -24,5 +29,6 @@ namespace GameMode.Juggernaut
         public float timeToAddScore = 1f;
         public JuggerCanvasAddOn canvasAddOnPrefab;
         public GameObject lifePrefab;
+       
     }
 }

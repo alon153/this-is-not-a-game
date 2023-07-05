@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/Animations/Player/modes/Island/B_MDetector.meta
-guid: b7dac92e98c20494b98036211a36a068
-========
+<<<<<<<< HEAD:Assets/Design/Modes/Jugger/Players.meta
 guid: db78f79ecf13a374a9e18aeacfa6e03b
->>>>>>>> main:Assets/Design/Modes/Jugger/Players.meta
 folderAsset: yes
+========
+guid: a55ee4efaad27d948ba5f03fc6d7bc80
+>>>>>>>> edoBeforeMerge:Assets/AllIn1SpriteShader/2DRenderer-URP-Package-2021.2+.unitypackage.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

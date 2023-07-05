@@ -75,6 +75,7 @@ namespace GameMode.Juggernaut
 
         public override void OnAction(PlayerController player)
         {
+            if (!_canShoot) return;
             var projectile = Shoot(_shotSpeed, player.Direction, player.transform.position);
             projectile.SetProjectileColor(player.Color);
             
@@ -163,14 +164,16 @@ namespace GameMode.Juggernaut
             SetJuggerCanvas(JuggernautGameMode.PlayerState.Shooter);
             _yieldsTotem = false;
             _curLives = _maxLives;
-            
+            _canShoot = true;
+
         }
 
         public void AddTotemToPlayer()
         {   
             SetJuggerCanvas(JuggernautGameMode.PlayerState.Juggernaut);
             _yieldsTotem = true;
-           
+            _canShoot = false;
+
         }
 
         public void SetDir(Vector2 playerDir)
