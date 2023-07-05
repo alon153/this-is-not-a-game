@@ -58,5 +58,10 @@ namespace Basics.Player
             _playerMaterial.SetColor(Color1, playerColor);
             Regular.material = _playerMaterial;
         }
+
+        public void SetAnimatorOverride(AnimatorOverrideController newController)
+        {
+            _animator.runtimeAnimatorController = newController;
+        }
     }
 }

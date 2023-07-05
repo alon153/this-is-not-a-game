@@ -29,5 +29,6 @@ namespace GameMode.Juggernaut
         public float timeToAddScore = 1f;
         public JuggerCanvasAddOn canvasAddOnPrefab;
         public GameObject lifePrefab;
+       
     }
 }

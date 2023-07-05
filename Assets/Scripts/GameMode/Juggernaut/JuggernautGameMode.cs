@@ -32,6 +32,7 @@ namespace GameMode.Juggernaut
         private float timeToAddScore = 1f;
         private JuggerCanvasAddOn canvasAddOnPrefab;
         private GameObject lifePrefab;
+        private List<AnimatorOverrideController> gorillaAnimatorOverrides;
 
         #endregion
 
@@ -70,6 +71,7 @@ namespace GameMode.Juggernaut
             timeToAddScore = sObj.timeToAddScore;
             canvasAddOnPrefab = sObj.canvasAddOnPrefab;
             lifePrefab = sObj.lifePrefab;
+            gorillaAnimatorOverrides = sObj.gorillaAnimatorOverride;
         }
 
         protected override void InitRound_Inner()
@@ -155,25 +157,34 @@ namespace GameMode.Juggernaut
 
         private void OnTotemPickedUp(PlayerController player)
         {
+            player.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
             
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
             _isAPlayerHoldingTotem = true;
+
+            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
+                player.PlayerEffect.GetCurAnimationTime() * 0.7f);
+
             _time = 0;
 
         }
 
         private void OnTotemDropped()
-        {
+        {   
             _totem.gameObject.SetActive(true);
+            
             // remove totem from current player
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
             _isAPlayerHoldingTotem = false;
-
+            
+            _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
+            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
+                _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.7f);
             
             _currTotemHolder = null;
         }
@@ -257,6 +268,27 @@ namespace GameMode.Juggernaut
                 PlayerAddon.CheckCompatability(playerFell.Addon, GameModes.Juggernaut);
                 ((JuggernautPlayerAddOn) playerFell.Addon).ReduceHealth();
             }
+        }
+
+        public void SetNewAnimator(AnimatorState state)
+        {   
+            AnimatorOverrideController newController;
+            switch (state)
+            {
+                case AnimatorState.ToGorilla:
+                    newController = gorillaAnimatorOverrides[_currTotemHolder.Index];
+                    _currTotemHolder.GetComponent<PlayerRenderer>().SetAnimatorOverride(newController);
+                    break;
+                case AnimatorState.ToHunter:
+                    newController = AnimatorOverride[_currTotemHolder.Index];
+                    _currTotemHolder.GetComponent<PlayerRenderer>().SetAnimatorOverride(newController);
+                    break;
+            }
+        }
+
+        public enum AnimatorState
+        {
+            ToGorilla, ToHunter
         }
     }
 }

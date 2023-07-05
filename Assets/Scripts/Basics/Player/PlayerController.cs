@@ -30,8 +30,8 @@ namespace Basics.Player
 
         [SerializeField] private TextMeshProUGUI _txtInteract;
         [SerializeField] private TextMeshProUGUI _txtStun;
-
         [SerializeField] private Transform _playerFront;
+        [SerializeField] public PlayerEffect PlayerEffect;
 
         [Header("Movement")] 
         [SerializeField] private float _speed = 2;
@@ -47,12 +47,11 @@ namespace Basics.Player
         [SerializeField] private float _mutualKnockBackForce = 1.5f;
         [SerializeField] private ParticleSystem _dashParticles;
 
-        [Tooltip("How much time will a player be pushed after dash is finished")] [SerializeField]
-        private float _postDashPushTime = 0.1f;
+        [Tooltip("How much time will a player be pushed after dash is finished")] 
+        [SerializeField] private float _postDashPushTime = 0.1f;
 
-        [Tooltip("The time a player is knocked back")] [SerializeField]
-        private float _knockBackDelay = 0.15f;
-
+        [Tooltip("The time a player is knocked back")] 
+        [SerializeField] private float _knockBackDelay = 0.15f;
         #endregion
 
         #region Non-Serialized Fields
