@@ -9,6 +9,8 @@ public class RhythmRing : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField] private Color _onBeatColor = Color.green;
+    [SerializeField] private float _startingAlpha = 0.5f;
+    [SerializeField] private float _timeToFullAlpha = 2;
 
     #endregion
 
@@ -21,6 +23,9 @@ public class RhythmRing : MonoBehaviour
 
     private SpriteRenderer _renderer;
     private Guid _removeRing = Guid.Empty;
+
+    private Color _origColor;
+    private Color _currColor;
 
     #endregion
 
@@ -37,6 +42,11 @@ public class RhythmRing : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
         _originalScale = Vector3.zero;
+        
+        _origColor = _renderer.color;
+        _currColor = _origColor;
+        _currColor.a = _startingAlpha;
+        _renderer.color = _currColor;
     }
 
     private void Start()
@@ -48,7 +58,14 @@ public class RhythmRing : MonoBehaviour
     private void Update()
     {
         if (Run)
+        {
             transform.localScale += new Vector3(_sizePerSecond, _sizePerSecond, 0) * Time.deltaTime;
+            if (_currColor.a < 1)
+            {
+                _currColor.a += Mathf.Min(Mathf.Pow((1 - _startingAlpha) / _timeToFullAlpha,2), 1) * Time.deltaTime;
+                _renderer.color = _currColor;
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -60,6 +77,7 @@ public class RhythmRing : MonoBehaviour
 
             _ringTrigger = other.GetComponent<RingTrigger>();
             _ringTrigger.RegisterRing(this);
+            _currColor = _onBeatColor;
             _renderer.color = _onBeatColor;
         }
         else if (other.CompareTag("RingPanel"))
@@ -97,7 +115,9 @@ public class RhythmRing : MonoBehaviour
         
         Run = false;
         transform.localScale = _originalScale;
-        _renderer.color = Color.white;
+        _currColor = _origColor;
+        _currColor.a = _startingAlpha;
+        _renderer.color = _currColor;
         if (_ringTrigger != null)
         {
             _ringTrigger.UnregisterRing(this);
