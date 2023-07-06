@@ -162,5 +162,15 @@ namespace Managers
         }
 
         #endregion
+
+        public void CancelAll()
+        {
+            List<Guid> keys = new List<Guid>(_actions.Keys);
+            keys.AddRange(_fixedActions.Keys);
+            foreach (var k in keys)
+            {
+                Cancel_Inner(k, false);
+            }
+        }
     }
 }

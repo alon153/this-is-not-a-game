@@ -25,6 +25,7 @@ namespace GameMode
     [field: SerializeField] public List<Sprite> CollisionParticlesSprites = new List<Sprite>();
     [field: SerializeField] public EventReference DashSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
+    [field: SerializeField] public GameObject ArenaForScoreScreen { get; private set; }
 
     #endregion
 
