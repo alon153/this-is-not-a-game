@@ -6,7 +6,6 @@ using Basics;
 using Basics.Player;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine.Pool;
-using UnityEngine.Serialization;
 using Utilities.Interfaces;
 using Random = UnityEngine.Random;
 using Object = UnityEngine.Object;
@@ -33,7 +32,7 @@ namespace GameMode.Juggernaut
         private JuggerCanvasAddOn canvasAddOnPrefab;
         private GameObject lifePrefab;
         private List<AnimatorOverrideController> gorillaAnimatorOverrides;
-
+        private Vector2 colliderSize;
 
         #endregion
 
@@ -52,6 +51,8 @@ namespace GameMode.Juggernaut
         private ObjectPool<Projectile> _projectilePool;
 
         private List<JuggerCanvasAddOn> _playerCanvasAddOns = new List<JuggerCanvasAddOn>();
+
+        private List<BoxCollider2D> _gorillaColliders = new List<BoxCollider2D>();
 
         #endregion
 
@@ -73,12 +74,15 @@ namespace GameMode.Juggernaut
             canvasAddOnPrefab = sObj.canvasAddOnPrefab;
             lifePrefab = sObj.lifePrefab;
             gorillaAnimatorOverrides = sObj.gorillaAnimatorOverride;
+            colliderSize = sObj.gorillaColliderSize;
+
         }
 
         protected override void InitRound_Inner()
         {
             _isAPlayerHoldingTotem = false;
             _playerCanvasAddOns.Clear();
+            _gorillaColliders.Clear();
             GameManager.Instance.GameModeUpdateAction += JuggernautModeUpdate;
             
             _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
@@ -104,14 +108,13 @@ namespace GameMode.Juggernaut
         protected override void ClearRound_Inner()
         {
             Object.Destroy(_totem.gameObject);
-            for (int i = 0; i < _playerCanvasAddOns.Count; ++i)
+            for (int i = 0; i < GameManager.Instance.Players.Count; ++i)
             {
                 Object.Destroy(_playerCanvasAddOns[i].gameObject);
                 GameManager.Instance.Players[i].Addon = null;
+                GameManager.Instance.Players[i].UnRegisterFallListener(this);
+                Object.Destroy(_gorillaColliders[i]);
             }
-            
-            foreach (PlayerController player in GameManager.Instance.Players)
-                player.UnRegisterFallListener(this);              
         }
 
         protected override void OnTimeOver_Inner()
@@ -132,6 +135,12 @@ namespace GameMode.Juggernaut
         {
             foreach (var player in GameManager.Instance.Players)
             {
+
+                BoxCollider2D gorillaCollider = player.gameObject.AddComponent<BoxCollider2D>();
+                gorillaCollider.size = colliderSize;
+                gorillaCollider.enabled = false;
+                _gorillaColliders.Add(gorillaCollider);
+                
                 JuggerCanvasAddOn canvasAddOn = null;
                 
                 // find the canvas object in the player
@@ -147,7 +156,6 @@ namespace GameMode.Juggernaut
                         _playerCanvasAddOns.Add(canvasAddOn);
                         break;
                     }
-                    
                 }
                 
                 player.Addon = new JuggernautPlayerAddOn(_projectilePool, shotCooldown, projectileSpeed,
@@ -161,7 +169,7 @@ namespace GameMode.Juggernaut
             player.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
-            
+            _gorillaColliders[_currTotemHolder.Index].enabled = true;
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
             _isAPlayerHoldingTotem = true;
@@ -182,7 +190,7 @@ namespace GameMode.Juggernaut
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
             _isAPlayerHoldingTotem = false;
-            
+            _gorillaColliders[_currTotemHolder.Index].enabled = false;
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
         }
