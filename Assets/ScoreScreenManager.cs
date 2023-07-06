@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FMODUnity;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,9 @@ public class ScoreScreenManager : MonoBehaviour
   [SerializeField] private List<TextMeshProUGUI> _txts;
   [SerializeField] private GameObject _buttons;
   [SerializeField] private float _singleDuration = 1f;
+  
+  [SerializeField] private EventReference _clickButton;
+  [SerializeField] private EventReference _selectButton;
   
   #endregion
   #region Non-Serialized Fields
@@ -233,6 +237,16 @@ public class ScoreScreenManager : MonoBehaviour
   public void StartShow()
   {
     TimeManager.Instance.DelayInvoke(ShowNextArena, 1);
+  }
+  
+  public void SelectSound()
+  {
+    AudioManager.PlayOneShot(_selectButton);
+  }
+
+  public void ClickSound()
+  {
+    AudioManager.PlayOneShot(_clickButton);
   }
 }
 

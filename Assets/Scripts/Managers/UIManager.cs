@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Audio;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -48,9 +49,15 @@ namespace Managers
         [SerializeField] private GameObject _endScreen;
         [SerializeField] private List<PlayerFinalScore> _finalScoreDisplays;
         [SerializeField] private GameObject _firstEndScreenBtn;
+
+        [Header("Sounds")] 
+        [SerializeField] private EventReference _selectButton;
+        [SerializeField] private EventReference _clickButton;
         
         
         [SerializeField] private EventSystem _eventSystem;
+
+        [SerializeField] private RectTransform _scoreBlockParent;
 
         #endregion
         
@@ -275,11 +282,9 @@ namespace Managers
 
             _activeScoreDisplays += Constants.NewPlayerRegistered;
 
-            for (int i = 0; i < _activeScoreDisplays; i++)
-            {
-                _playerScores[i].AnchorMinX = ((float) i) / _activeScoreDisplays;
-                _playerScores[i].AnchorMaxX = ((float) i+1) / _activeScoreDisplays;
-            }
+            _scoreBlockParent.anchoredPosition = new Vector2(
+                _activeScoreDisplays % 2 == 0 ? 0 : -130,
+                _scoreBlockParent.anchoredPosition.y);
         }
         
         public void ActivateScoreDisplays()
@@ -309,6 +314,7 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
+            print("reset");
             for(int i=0;i<_activeScoreDisplays;i++)
             {
                 _playerScores[i].Score = 0;
@@ -357,6 +363,16 @@ namespace Managers
             _centerText.color = GameManager.Instance.PlayerColor(winner);
             _centerText.text = $"Player {winner + 1} wins!";
             ToggleCenterText(true);
+        }
+
+        public void SelectSound()
+        {
+            AudioManager.PlayOneShot(_selectButton);
+        }
+
+        public void ClickSound()
+        {
+            AudioManager.PlayOneShot(_clickButton);
         }
         
         public void HideWinner()

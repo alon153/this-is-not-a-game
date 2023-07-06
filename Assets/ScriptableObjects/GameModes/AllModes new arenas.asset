@@ -40,6 +40,20 @@ MonoBehaviour:
         Data3: 2052379579
         Data4: 60044150
       Path: event:/Player/Paint/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 4
     <ArenaForScoreScreen>k__BackingField: {fileID: 8599709049900410262, guid: a30551e6365179e40998777a8b939cf9, type: 3}
   _poolMode:
@@ -70,6 +84,20 @@ MonoBehaviour:
         Data3: -71499125
         Data4: 1563561652
       Path: event:/Player/Pool/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 2
     <ArenaForScoreScreen>k__BackingField: {fileID: 6464235967934194217, guid: 02e0c59647d5ecf4bba1c23f01ba75f4, type: 3}
   _ikeaMode:
@@ -100,6 +128,20 @@ MonoBehaviour:
         Data3: -94989135
         Data4: 1919478105
       Path: event:/Player/Ikea/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: -1234142865
+        Data2: 1104537593
+        Data3: 252810631
+        Data4: 637913901
+      Path: event:/Player/Ikea/Fall
     <Music>k__BackingField: 5
     <ArenaForScoreScreen>k__BackingField: {fileID: 1451660200506430337, guid: 210c59f521a41f043b09e0444edadda1, type: 3}
   _boatsInRiverMode:
@@ -130,6 +172,20 @@ MonoBehaviour:
         Data3: -1933243236
         Data4: -276202440
       Path: event:/Player/Default Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 7
     <ArenaForScoreScreen>k__BackingField: {fileID: 6934646808178343769, guid: 9156baac322e30546a05d95de48546a0, type: 3}
   _lasersMode:
@@ -160,6 +216,20 @@ MonoBehaviour:
         Data3: -1227033698
         Data4: -2072956365
       Path: event:/Player/Lasers/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 3
     <ArenaForScoreScreen>k__BackingField: {fileID: 3567189398528754529, guid: 05c93a2fd01799046b6b4220463ddf19, type: 3}
   _islandMode:
@@ -190,6 +260,20 @@ MonoBehaviour:
         Data3: -1510581592
         Data4: -268268766
       Path: event:/Player/Island/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 8
     <ArenaForScoreScreen>k__BackingField: {fileID: 6761252032622151010, guid: d5e6a09f13f55c04e93173e7f2cb6514, type: 3}
   _rhythmMode:
@@ -215,11 +299,25 @@ MonoBehaviour:
     - {fileID: -1870886834, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
     <DashSound>k__BackingField:
       Guid:
-        Data1: 165002214
-        Data2: 1143757236
-        Data3: -1933243236
-        Data4: -276202440
-      Path: event:/Player/Default Dash
+        Data1: 438253814
+        Data2: 1324570097
+        Data3: 1843402937
+        Data4: 1882113008
+      Path: event:/Player/Rhythm/Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 211304359
+        Data2: 1131525751
+        Data3: -24827734
+        Data4: -171983162
+      Path: event:/Player/Rhythm/Action
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 6
     <ArenaForScoreScreen>k__BackingField: {fileID: 760681610912982757, guid: dfb911c02693e464f9be06ded3ee8636, type: 3}
   _juggernautMode:
@@ -250,5 +348,19 @@ MonoBehaviour:
         Data3: -1933243236
         Data4: -276202440
       Path: event:/Player/Default Dash
+    <ActionSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
+    <FallSound>k__BackingField:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
     <Music>k__BackingField: 0
     <ArenaForScoreScreen>k__BackingField: {fileID: 5629905606402215844, guid: c743be047d697da45aa2f7f3016705c4, type: 3}
