@@ -283,10 +283,12 @@ namespace Basics.Player
                         else
                             SetActionAnimation();
                         Interactable.OnInteract(this);
+                        AudioManager.PlayAction();
                     }
                     else if (Addon is PlayerActionAddOn)
                     {
                         ((PlayerActionAddOn) Addon).OnAction(this);
+                        AudioManager.PlayAction();
                     }
                     break;
                 case InputActionPhase.Canceled:

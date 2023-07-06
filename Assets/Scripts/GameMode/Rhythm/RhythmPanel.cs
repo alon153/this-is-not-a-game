@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Audio;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace GameMode.Rhythm
     public class RhythmPanel : InteractableObject, IOnBeatListener
     {
         #region Serialized Fields
+
+        [SerializeField] private EventReference _goodSound;
+        [SerializeField] private EventReference _badSound;
         
         [SerializeField] private RhythmRing _ringPrefab;
         [SerializeField] private RingTrigger _ringTrigger;
@@ -116,6 +120,7 @@ namespace GameMode.Rhythm
             
             if(_beatCoroutine != null)
                 StopCoroutine(_beatCoroutine);
+            AudioManager.PlayOneShot(onBeat ? _goodSound : _badSound);
             _beatCoroutine = StartCoroutine(UpperGlow_Inner(onBeat));
             
             ScoreManager.Instance.SetPlayerScore(player.Index, onBeat ? 10 : -5);

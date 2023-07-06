@@ -24,6 +24,8 @@ namespace GameMode
 
     [field: SerializeField] public List<Sprite> CollisionParticlesSprites = new List<Sprite>();
     [field: SerializeField] public EventReference DashSound { get; private set; }
+    [field: SerializeField] public EventReference ActionSound { get; private set; }
+    [field: SerializeField] public EventReference FallSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
     [field: SerializeField] public GameObject ArenaForScoreScreen { get; private set; }
 
@@ -54,6 +56,8 @@ namespace GameMode
       SetPlayerSprites();
       SetCollisionParticles();
       AudioManager.DashEvent = DashSound;
+      AudioManager.ActionEvent = ActionSound;
+      AudioManager.FallEvent = FallSound;
       InitArena_Inner();
       InitRound_Inner();
     }

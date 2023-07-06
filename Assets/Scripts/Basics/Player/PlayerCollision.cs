@@ -102,6 +102,7 @@ namespace Basics.Player
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
             Fall_Inner(shouldRespawn, stun);
+            AudioManager.PlayFall();
             
             foreach (var listener in _fallListeners)
             {

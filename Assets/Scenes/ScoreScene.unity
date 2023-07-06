@@ -423,6 +423,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2366445438234971245}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClickSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ScoreScreenManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445438421080354, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2366445438542143512, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -450,6 +478,46 @@ PrefabInstance:
     - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
       propertyPath: _singleDuration
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _clickButton.Path
+      value: event:/SFX/SelectButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _selectButton.Path
+      value: event:/SFX/ChooseButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _clickButton.Guid.Data1
+      value: 852610773
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _clickButton.Guid.Data2
+      value: 1332175202
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _clickButton.Guid.Data3
+      value: 1524260742
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _clickButton.Guid.Data4
+      value: -1433971513
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _selectButton.Guid.Data1
+      value: 529026128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _selectButton.Guid.Data2
+      value: 1174710817
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _selectButton.Guid.Data3
+      value: 419467679
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: _selectButton.Guid.Data4
+      value: -667658882
       objectReference: {fileID: 0}
     - target: {fileID: 2366445439140241467, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
       propertyPath: m_Pivot.x
@@ -555,6 +623,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2366445438234971245}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ClickSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: ScoreScreenManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2366445439656836915, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
 --- !u!1 &2366445438234971244 stripped
@@ -562,3 +658,77 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2366445438421080364, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
   m_PrefabInstance: {fileID: 2366445438234971243}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2366445438234971245 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2366445439140241466, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+  m_PrefabInstance: {fileID: 2366445438234971243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7d0051d0f74c5f48a8a03b3ef16f3f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2366445438234971246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2366445439656836925, guid: 8b4e4d2a5facf134481f21db19a4775b, type: 3}
+  m_PrefabInstance: {fileID: 2366445438234971243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2366445438234971247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366445438234971246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2366445438234971245}
+          m_TargetAssemblyTypeName: ScoreScreenManager, Assembly-CSharp
+          m_MethodName: SelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2366445438234971248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2366445438234971244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 9
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2366445438234971245}
+          m_TargetAssemblyTypeName: ScoreScreenManager, Assembly-CSharp
+          m_MethodName: SelectSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
