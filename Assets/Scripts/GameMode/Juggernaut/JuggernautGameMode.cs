@@ -170,8 +170,6 @@ namespace GameMode.Juggernaut
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
             _gorillaColliders[_currTotemHolder.Index].enabled = true;
-            PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
-            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
             _isAPlayerHoldingTotem = true;
 
             TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
@@ -187,8 +185,6 @@ namespace GameMode.Juggernaut
             TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
                             _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
             // remove totem from current player
-            PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
-            ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
             _isAPlayerHoldingTotem = false;
             _gorillaColliders[_currTotemHolder.Index].enabled = false;
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
@@ -284,10 +280,14 @@ namespace GameMode.Juggernaut
                 case AnimatorState.ToGorilla:
                     newController = gorillaAnimatorOverrides[_currTotemHolder.Index];
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
+                    PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
+                    ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
                     break;
                 case AnimatorState.ToHunter:
                     newController = AnimatorOverride[_currTotemHolder.Index];
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
+                    PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
+                    ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
                     _currTotemHolder = null;
                     break;
             }
