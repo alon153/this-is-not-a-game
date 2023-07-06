@@ -34,6 +34,7 @@ namespace GameMode.Juggernaut
         private GameObject lifePrefab;
         private List<AnimatorOverrideController> gorillaAnimatorOverrides;
 
+
         #endregion
 
         #region Non-Serialized Fields
@@ -175,7 +176,8 @@ namespace GameMode.Juggernaut
         private void OnTotemDropped()
         {   
             _totem.gameObject.SetActive(true);
-            
+            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
+                            _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
             // remove totem from current player
             PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
             ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
@@ -183,10 +185,6 @@ namespace GameMode.Juggernaut
             
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
-            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
-                _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
-            
-            _currTotemHolder = null;
         }
 
         private void JuggernautModeUpdate()
@@ -282,8 +280,11 @@ namespace GameMode.Juggernaut
                 case AnimatorState.ToHunter:
                     newController = AnimatorOverride[_currTotemHolder.Index];
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
+                    _currTotemHolder = null;
                     break;
             }
+
+            
         }
 
         public enum AnimatorState
