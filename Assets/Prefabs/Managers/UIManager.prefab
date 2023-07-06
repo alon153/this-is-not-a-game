@@ -2962,6 +2962,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Instruction Window
       objectReference: {fileID: 0}
+    - target: {fileID: 7765689103824963588, guid: 1510bd775571b384695dabcf12bc0555, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7926643660883636474, guid: 1510bd775571b384695dabcf12bc0555, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
