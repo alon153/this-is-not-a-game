@@ -309,6 +309,7 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
+            print("reset");
             for(int i=0;i<_activeScoreDisplays;i++)
             {
                 _playerScores[i].Score = 0;
