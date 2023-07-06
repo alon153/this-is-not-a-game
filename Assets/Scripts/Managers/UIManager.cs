@@ -52,6 +52,8 @@ namespace Managers
         
         [SerializeField] private EventSystem _eventSystem;
 
+        [SerializeField] private RectTransform _scoreBlockParent;
+
         #endregion
         
         #region Non-Serialized Fields
@@ -275,11 +277,9 @@ namespace Managers
 
             _activeScoreDisplays += Constants.NewPlayerRegistered;
 
-            for (int i = 0; i < _activeScoreDisplays; i++)
-            {
-                _playerScores[i].AnchorMinX = ((float) i) / _activeScoreDisplays;
-                _playerScores[i].AnchorMaxX = ((float) i+1) / _activeScoreDisplays;
-            }
+            _scoreBlockParent.anchoredPosition = new Vector2(
+                _activeScoreDisplays % 2 == 0 ? 0 : -130,
+                _scoreBlockParent.anchoredPosition.y);
         }
         
         public void ActivateScoreDisplays()
