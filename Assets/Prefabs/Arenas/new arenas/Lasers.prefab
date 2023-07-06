@@ -2659,6 +2659,10 @@ PrefabInstance:
       propertyPath: windowGlow
       value: 
       objectReference: {fileID: 2100000, guid: 29b778198b6fb7d4cb9fd13587d26a4a, type: 2}
+    - target: {fileID: -2329715860132261156, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
+      propertyPath: isSideWindow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1978438015168824805, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3265,6 +3269,10 @@ PrefabInstance:
       propertyPath: windowGlow
       value: 
       objectReference: {fileID: 2100000, guid: 29b778198b6fb7d4cb9fd13587d26a4a, type: 2}
+    - target: {fileID: -2329715860132261156, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
+      propertyPath: isSideWindow
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1978438015168824805, guid: 4dcc98a3777602841977b3aaa38586e3, type: 3}
       propertyPath: m_Controller
       value: 

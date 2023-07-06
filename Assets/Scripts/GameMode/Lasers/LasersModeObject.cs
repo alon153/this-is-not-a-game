@@ -11,6 +11,7 @@ namespace GameMode.Lasers
         public float freezeTime = 2;
         [Tooltip("When hit by laser, how much force is applied")] 
         public float laserKnockBackForce = 1.5f;
+        public Vector2 defaultVelocity = Vector2.one;
         [Header("\nDiamonds")]
         public DiamondCollectible[] diamondPrefabs;
         [Tooltip("How many (regular) diamonds will be spawned initially")]
@@ -26,5 +27,7 @@ namespace GameMode.Lasers
         public float onHitSpreadRadius = 3f;
 
         public int scorePerDiamond = 1;
+        
+        
     }
 }

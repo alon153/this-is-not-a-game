@@ -17,5 +17,7 @@ namespace Basics.Player
         public void StopStunAnimation() => effectsAnimator.SetBool(Stun, false);
 
         public float GetCurAnimationTime() => effectsAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+        public void ResetPoofTrigger() => effectsAnimator.ResetTrigger(Poof);
     }
 }

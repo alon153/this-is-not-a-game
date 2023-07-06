@@ -15,8 +15,8 @@ namespace GameMode.Lasers
         private Collider2D _laserCollider;
 
         private SpriteRenderer _spriteRenderer;
-        public UnityAction<PlayerController> OnLaserHit { set; get; }
-        
+        public UnityAction<PlayerController, Vector2> OnLaserHit { set; get; }
+
         #endregion
 
         #region MonoBehaviour methods
@@ -27,17 +27,17 @@ namespace GameMode.Lasers
             _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-
         private void OnTriggerEnter2D(Collider2D other)
-        {   
+        {
             // player has collided upon laser.
             if (other.CompareTag("Player"))
-            {
+            {   
                 foreach (var player in GameManager.Instance.Players)
                 {
                     if (player.gameObject.GetInstanceID().Equals(other.gameObject.GetInstanceID()))
-                    {
-                        OnLaserHit.Invoke(player);
+                    {   
+                        if (((LaserPlayerAddon)player.Addon).InHit) return;
+                        OnLaserHit.Invoke(player, Vector2.zero);
                         break;
                     }
                 }
@@ -52,6 +52,7 @@ namespace GameMode.Lasers
         {
             _laserCollider.enabled = shouldActivate;
             _spriteRenderer.color = shouldActivate ? Color.white : new Color(1, 1, 1, 0);
+            
         } 
         
         

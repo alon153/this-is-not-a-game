@@ -22,9 +22,9 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 22a0d34c34b21654595eef251f0801ab, type: 2}
   gorillaColliderSize: {x: 2.6, y: 2.6}
   projectilePrefab: {fileID: 7701870011453495685, guid: c267ca900305fa047b7033833271e2a8, type: 3}
-  projectileSpeed: 10
+  projectileSpeed: 15
   projectileDestroyTime: 3
-  shotCooldown: 0.5
+  shotCooldown: 0.25
   juggernautLives: 5
   scorePerSecondHolding: 1
   timeToAddScore: 1
