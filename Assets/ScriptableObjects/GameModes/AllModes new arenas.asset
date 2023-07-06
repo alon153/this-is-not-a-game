@@ -27,7 +27,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 3897a9ee026b0b144b10d9218eaa3f02, type: 2}
     - {fileID: 22100000, guid: 5909a92b6f88de944bf7c30793bae6c0, type: 2}
     - {fileID: 22100000, guid: c4bd613144aa4e34f8faea80699c26e4, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: -462809471, guid: 8d443143635e6bd48993bc45a46c4da4, type: 3}
+    - {fileID: 1292925897, guid: 8d443143635e6bd48993bc45a46c4da4, type: 3}
+    - {fileID: 4880560, guid: 8d443143635e6bd48993bc45a46c4da4, type: 3}
+    - {fileID: 1292925897, guid: 8d443143635e6bd48993bc45a46c4da4, type: 3}
+    - {fileID: 4880560, guid: 8d443143635e6bd48993bc45a46c4da4, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: -311145583
@@ -51,7 +56,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 199df16824c4ca54e888afaf178ce2de, type: 2}
     - {fileID: 22100000, guid: fb4721d9a4cdff1418878b0f0d438c5f, type: 2}
     - {fileID: 22100000, guid: 8dd9adb9d6c022d46960d5fdcc2d1352, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 945308691, guid: d8df35d96658ab04d90319edaafe253f, type: 3}
+    - {fileID: 1386985598, guid: d8df35d96658ab04d90319edaafe253f, type: 3}
+    - {fileID: -1003671401, guid: d8df35d96658ab04d90319edaafe253f, type: 3}
+    - {fileID: 945308691, guid: d8df35d96658ab04d90319edaafe253f, type: 3}
+    - {fileID: 1386985598, guid: d8df35d96658ab04d90319edaafe253f, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: -1004467982
@@ -75,7 +85,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 5c4ac7fea4dd9e44f871877500d43c84, type: 2}
     - {fileID: 22100000, guid: 544517c21b918ae4c8981fcfdff7fe8b, type: 2}
     - {fileID: 22100000, guid: 81532d4188e5f044aa7bdc6022d5771c, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 921472907, guid: a019e348266dd6e4a8819a6490cef78d, type: 3}
+    - {fileID: -2024016318, guid: a019e348266dd6e4a8819a6490cef78d, type: 3}
+    - {fileID: 2051488236, guid: a019e348266dd6e4a8819a6490cef78d, type: 3}
+    - {fileID: 1484349144, guid: a019e348266dd6e4a8819a6490cef78d, type: 3}
+    - {fileID: 958334910, guid: a019e348266dd6e4a8819a6490cef78d, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 1496387947
@@ -99,7 +114,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: c62d992a6fcb6ac4d8873475fac93df0, type: 2}
     - {fileID: 22100000, guid: 22a0d34c34b21654595eef251f0801ab, type: 2}
     - {fileID: 22100000, guid: c0a2ae7c49d4c424786f199b2b1973b4, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 1247530719, guid: 6dd102c013b9afd4ab2d48bb6bc8a585, type: 3}
+    - {fileID: -1676092653, guid: 6dd102c013b9afd4ab2d48bb6bc8a585, type: 3}
+    - {fileID: -892448442, guid: 6dd102c013b9afd4ab2d48bb6bc8a585, type: 3}
+    - {fileID: 751485698, guid: 6dd102c013b9afd4ab2d48bb6bc8a585, type: 3}
+    - {fileID: 1247530719, guid: 6dd102c013b9afd4ab2d48bb6bc8a585, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -123,7 +143,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: f007a73b67a46c34cbbe31c89f062fa7, type: 2}
     - {fileID: 22100000, guid: 55b774b0729a5664bac70fd1cf6addbc, type: 2}
     - {fileID: 22100000, guid: 9b520a0d585c6cc44a7e97e0f030fc22, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 469088419, guid: 629f8b15936f07042aeb256558b1f0f6, type: 3}
+    - {fileID: 1262022942, guid: 629f8b15936f07042aeb256558b1f0f6, type: 3}
+    - {fileID: 469088419, guid: 629f8b15936f07042aeb256558b1f0f6, type: 3}
+    - {fileID: 1262022942, guid: 629f8b15936f07042aeb256558b1f0f6, type: 3}
+    - {fileID: 469088419, guid: 629f8b15936f07042aeb256558b1f0f6, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 384501834
@@ -147,7 +172,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 72a6ebda259413d4298cc7997502e94c, type: 2}
     - {fileID: 22100000, guid: 351119b682f29654cbde88254d5b7b80, type: 2}
     - {fileID: 22100000, guid: 843428d002ce9ef489ff9ae4060956f3, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 1469716650, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
+    - {fileID: 93284436, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
+    - {fileID: -739513275, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
+    - {fileID: 93284436, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
+    - {fileID: -739513275, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 757577854
@@ -171,7 +201,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: b08671f267ffc79408496d627dd7fc70, type: 2}
     - {fileID: 22100000, guid: 8ea05f2bd74dd62459b64a895fc1953b, type: 2}
     - {fileID: 22100000, guid: d014b57b743da8d4498c05cf2c9166fa, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: 1065090171, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
+    - {fileID: 1256759072, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
+    - {fileID: -1870886834, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
+    - {fileID: 1653136779, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
+    - {fileID: -1870886834, guid: 2ac8cc35832a8ac47ae552d258543c33, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214
@@ -195,7 +230,12 @@ MonoBehaviour:
     - {fileID: 22100000, guid: 72a6ebda259413d4298cc7997502e94c, type: 2}
     - {fileID: 22100000, guid: 351119b682f29654cbde88254d5b7b80, type: 2}
     - {fileID: 22100000, guid: 843428d002ce9ef489ff9ae4060956f3, type: 2}
-    CollisionParticlesSprites: []
+    CollisionParticlesSprites:
+    - {fileID: -255364949, guid: 9a5af260adb0c764ea1466b4832624aa, type: 3}
+    - {fileID: 776457213, guid: 9a5af260adb0c764ea1466b4832624aa, type: 3}
+    - {fileID: -255364949, guid: 9a5af260adb0c764ea1466b4832624aa, type: 3}
+    - {fileID: 776457213, guid: 9a5af260adb0c764ea1466b4832624aa, type: 3}
+    - {fileID: -255364949, guid: 9a5af260adb0c764ea1466b4832624aa, type: 3}
     <DashSound>k__BackingField:
       Guid:
         Data1: 165002214

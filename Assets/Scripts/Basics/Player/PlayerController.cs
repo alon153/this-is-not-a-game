@@ -1,16 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Audio;
-using GameMode;
-using GameMode.Ikea;
 using Managers;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utilities;
 using Utilities.Interfaces;
 
