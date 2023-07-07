@@ -243,10 +243,10 @@ MonoBehaviour:
     - {fileID: 21300000, guid: b2a79f0c33855944abd13c9c33e5c530, type: 3}
     - {fileID: 21300000, guid: eaa3a1e9d3a8a364088ca9097558d306, type: 3}
     <AnimatorOverride>k__BackingField:
-    - {fileID: 22100000, guid: aaa2153c07a6ce5468d43eb45e8f7bcf, type: 2}
-    - {fileID: 22100000, guid: 72a6ebda259413d4298cc7997502e94c, type: 2}
-    - {fileID: 22100000, guid: 351119b682f29654cbde88254d5b7b80, type: 2}
-    - {fileID: 22100000, guid: 843428d002ce9ef489ff9ae4060956f3, type: 2}
+    - {fileID: 22100000, guid: c8b2c377ab766e446b993ca29c81e0fe, type: 2}
+    - {fileID: 22100000, guid: c2fbd05b465445c43934af6a2520f981, type: 2}
+    - {fileID: 22100000, guid: 59b91d584c7b36242b0ea5df3aed0931, type: 2}
+    - {fileID: 22100000, guid: 499bdbcd9726b5c4b9edd4b4b94f73e4, type: 2}
     CollisionParticlesSprites:
     - {fileID: 1469716650, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
     - {fileID: 93284436, guid: c53b8b8b68fc9ee418abcc5fb147927c, type: 3}
