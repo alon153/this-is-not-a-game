@@ -66,14 +66,46 @@ public class ScoreScreenManager : MonoBehaviour
 
   public void ShowBars()
   {
+    var rectsTemp = new List<RectTransform>();
+    for (int i = 0; i < 4; i++)
+    {
+      rectsTemp.Add(_bars[i].GetComponent<RectTransform>());
+    }
+    switch (GameManager.Instance.Players.Count)
+    {
+      case 1:
+        _ys.Add((rectsTemp[1].anchoredPosition.y + rectsTemp[2].anchoredPosition.y)/2);
+        break;
+      case 2:
+        _ys.Add(rectsTemp[1].anchoredPosition.y);
+        _ys.Add(rectsTemp[2].anchoredPosition.y);
+        break;
+      case 3:
+        var baseY = (rectsTemp[1].anchoredPosition.y + rectsTemp[2].anchoredPosition.y) / 2;
+        _ys.Add(baseY + rectsTemp[0].anchoredPosition.y-rectsTemp[1].anchoredPosition.y);
+        _ys.Add(baseY);
+        _ys.Add(baseY + rectsTemp[2].anchoredPosition.y-rectsTemp[1].anchoredPosition.y);
+        break;
+      case 4:
+        for (int i = 0; i < rectsTemp.Count; i++)
+        {
+          _ys.Add(rectsTemp[i].anchoredPosition.y);
+        }
+        break;
+    }
+    
     for (int i = 0; i < GameManager.Instance.Players.Count; i++)
     {
       _txts[i].text = "0";
       _bars[i].SetActive(true);
       _rects.Add(_bars[i].GetComponent<RectTransform>());
+
+      var pos = _rects[i].anchoredPosition;
+      pos.y = _ys[i];
+      _rects[i].anchoredPosition = pos;
+      
       _expanding.Add(false);
       _moving.Add(false);
-      _ys.Add(_rects[i].anchoredPosition.y);
 
       if (i == 0)
       {

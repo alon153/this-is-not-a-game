@@ -345,7 +345,8 @@ namespace Managers
             {
                 if(_fadeCoroutine != null)
                     StopCoroutine(_fadeCoroutine);
-                AudioManager.CountDownSound();
+                if(time > 0)
+                    AudioManager.CountDownSound();
                 _fadeCoroutine = StartCoroutine(MainTextFade(2, 0));
             }
 
