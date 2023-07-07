@@ -162,6 +162,7 @@ namespace Basics.Player
             set
             {
                 _ready = value;
+                UIManager.Instance.ClickSound();
                 GameManager.Instance.SetReady(Index, value);
             }
         }

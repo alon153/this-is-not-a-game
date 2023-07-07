@@ -53,6 +53,27 @@ MonoBehaviour:
       Data4: -276202440
     Path: event:/Player/Default Dash
   _defaultMusic: 0
+  _selectButton:
+    Guid:
+      Data1: 529026128
+      Data2: 1174710817
+      Data3: 419467679
+      Data4: -667658882
+    Path: event:/SFX/ChooseButton
+  _clickButton:
+    Guid:
+      Data1: 852610773
+      Data2: 1332175202
+      Data3: 1524260742
+      Data4: -1433971513
+    Path: event:/SFX/SelectButton
+  _countDownButton:
+    Guid:
+      Data1: -1025349861
+      Data2: 1341837922
+      Data3: 1959044228
+      Data4: -1891071344
+    Path: event:/SFX/CountDown
   _masterVolume: 1
   _musicVolume: 0.75
   _sfxVolume: 1

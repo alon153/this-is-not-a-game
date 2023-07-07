@@ -18,10 +18,7 @@ public class ScoreScreenManager : MonoBehaviour
   [SerializeField] private List<TextMeshProUGUI> _txts;
   [SerializeField] private GameObject _buttons;
   [SerializeField] private float _singleDuration = 1f;
-  
-  [SerializeField] private EventReference _clickButton;
-  [SerializeField] private EventReference _selectButton;
-  
+
   #endregion
   #region Non-Serialized Fields
 
@@ -106,14 +103,18 @@ public class ScoreScreenManager : MonoBehaviour
     
     _currArena = Instantiate(Arenas.Dequeue());
     
-    TimeManager.Instance.DelayInvoke((UpdateBars), 0.25f);
+    TimeManager.Instance.DelayInvoke((() =>
+    {
+      UIManager.Instance.ToggleFlash(false);
+      TimeManager.Instance.DelayInvoke((UpdateBars), 1f);
+    }), 0.25f);
   }
 
   private void UpdateBars()
   {
     Dictionary<int,int> scores = new ();
     Dictionary<int,int> places = new ();
-    UIManager.Instance.ToggleFlash(false);
+    
     for (int i = 0; i < _rects.Count; i++)
     {
       float score = Scores.Dequeue();
@@ -238,17 +239,17 @@ public class ScoreScreenManager : MonoBehaviour
 
   public void StartShow()
   {
-    TimeManager.Instance.DelayInvoke(ShowNextArena, 1);
+    TimeManager.Instance.DelayInvoke(ShowNextArena, 3);
   }
   
   public void SelectSound()
   {
-    AudioManager.PlayOneShot(_selectButton);
+    AudioManager.SelectSound();
   }
 
   public void ClickSound()
   {
-    AudioManager.PlayOneShot(_clickButton);
+    AudioManager.ClickSound();
   }
 }
 

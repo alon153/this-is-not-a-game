@@ -18,8 +18,12 @@ public class AudioManager : MonoBehaviour
     [Header("Master Bank")] [SerializeField]
     private AudioBank _bank;
 
-    [Header("Sounds")] [SerializeField] private EventReference _defaultDash;
+    [Header("Sounds")] 
+    [SerializeField] private EventReference _defaultDash;
     [SerializeField] private MusicSounds _defaultMusic;
+    [SerializeField] private EventReference _selectButton;
+    [SerializeField] private EventReference _clickButton;
+    [SerializeField] private EventReference _countDownButton;
 
     [Header("Volume")] [SerializeField] [Range(0f, 1f)]
     private float _masterVolume = 1;
@@ -134,6 +138,21 @@ public class AudioManager : MonoBehaviour
     {
         PlayNoise();
         SetMusic(to);
+    }
+    
+    public static void SelectSound()
+    {
+        PlayOneShot(_instance._selectButton);
+    }
+
+    public static void ClickSound()
+    {
+        PlayOneShot(_instance._clickButton);
+    }
+    
+    public static void CountDownSound()
+    {
+        PlayOneShot(_instance._countDownButton);
     }
 
     public static void PlayOneShot(SoundType type, int val)

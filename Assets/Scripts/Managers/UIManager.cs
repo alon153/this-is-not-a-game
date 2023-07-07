@@ -50,11 +50,7 @@ namespace Managers
         [SerializeField] private List<PlayerFinalScore> _finalScoreDisplays;
         [SerializeField] private GameObject _firstEndScreenBtn;
 
-        [Header("Sounds")] 
-        [SerializeField] private EventReference _selectButton;
-        [SerializeField] private EventReference _clickButton;
-        
-        
+
         [SerializeField] private EventSystem _eventSystem;
 
         [SerializeField] private RectTransform _scoreBlockParent;
@@ -349,6 +345,7 @@ namespace Managers
             {
                 if(_fadeCoroutine != null)
                     StopCoroutine(_fadeCoroutine);
+                AudioManager.CountDownSound();
                 _fadeCoroutine = StartCoroutine(MainTextFade(2, 0));
             }
 
@@ -368,12 +365,12 @@ namespace Managers
 
         public void SelectSound()
         {
-            AudioManager.PlayOneShot(_selectButton);
+            AudioManager.SelectSound();
         }
 
         public void ClickSound()
         {
-            AudioManager.PlayOneShot(_clickButton);
+            AudioManager.ClickSound();
         }
         
         public void HideWinner()
