@@ -147,3 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diamondValue: 5
+  _slurp:
+    Guid:
+      Data1: 966334553
+      Data2: 1332036477
+      Data3: -443440709
+      Data4: -727500486
+    Path: event:/Player/Lasers/slurp
