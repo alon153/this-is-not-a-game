@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Audio;
 using FMODUnity;
 using Managers;
 using TMPro;
@@ -59,6 +60,7 @@ public class ScoreScreenManager : MonoBehaviour
 
   private void Start()
   {
+    AudioManager.SetMusic(MusicSounds.Lobby);
     GameManager.Instance.SetScoreManager(this);
   }
 

@@ -123,7 +123,7 @@ namespace GameMode.Rhythm
             AudioManager.PlayOneShot(onBeat ? _goodSound : _badSound);
             _beatCoroutine = StartCoroutine(UpperGlow_Inner(onBeat));
             
-            ScoreManager.Instance.SetPlayerScore(player.Index, onBeat ? 10 : -5);
+            ScoreManager.Instance.SetPlayerScore(player.Index, onBeat ? 10 : 5, onBeat);
         }
 
         private IEnumerator UpperGlow_Inner(bool green)

@@ -73,7 +73,6 @@ namespace Utilities
 
         public void MoveTo(float destY, bool immediate=false)
         {
-            print($"moveTo {destY}, immediate={immediate}");
             if (immediate || Mathf.Abs(_rect.anchoredPosition.y - destY) < 0.5f)
             {
                 _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, destY);
