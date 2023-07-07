@@ -322,9 +322,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: 0}
+  m_AnchoredPosition: {x: 10, y: -110}
   m_SizeDelta: {x: 398, y: 110}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &5664582344082508195
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1395,20 +1395,6 @@ MonoBehaviour:
   _endScreen: {fileID: 0}
   _finalScoreDisplays: []
   _firstEndScreenBtn: {fileID: 0}
-  _selectButton:
-    Guid:
-      Data1: 529026128
-      Data2: 1174710817
-      Data3: 419467679
-      Data4: -667658882
-    Path: event:/SFX/ChooseButton
-  _clickButton:
-    Guid:
-      Data1: 852610773
-      Data2: 1332175202
-      Data3: 1524260742
-      Data4: -1433971513
-    Path: event:/SFX/SelectButton
   _eventSystem: {fileID: 0}
   _scoreBlockParent: {fileID: 4769295962482133486}
 --- !u!1 &5836911718952132378
