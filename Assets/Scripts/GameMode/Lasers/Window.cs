@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using Basics.Player;
 using Managers;
+using Unity.Mathematics;
 using UnityEngine.Events;
 using Utilities;
 using Random = System.Random;
@@ -20,7 +21,11 @@ namespace GameMode.Lasers
         [SerializeField] private float maxGlow = 1f; 
         
         [SerializeField] private Material windowGlow;
-        
+
+        [SerializeField] private bool isSideWindow = false;
+
+        [SerializeField] private int defaultVelocityMultiplier = 7;
+
         #endregion
         
         #region Private Fields
@@ -58,7 +63,6 @@ namespace GameMode.Lasers
             _timer += Time.deltaTime;
             if (_timer >= laserToggleTime)
             {
-                
                 _timer = 0f;
                 OnCurCycleEnd(_shouldCastBeam);
                 _shouldCastBeam = _randomBool.Next(2) == 1;
@@ -72,14 +76,43 @@ namespace GameMode.Lasers
             }
         }
 
+        private Vector2 GetDefaultVelocity(PlayerController playerController)
+        {
+            Vector3 playerPosition = playerController.transform.position;
+            Vector3 windowPosition = transform.position;
+            
+            if (isSideWindow)
+                return playerPosition.y > windowPosition.y ? Vector2.up : Vector2.down;
+            
+            return playerPosition.x > windowPosition.x ? Vector2.right : Vector2.left;
+        }
+
         private void OnCurCycleEnd(bool activate)
         {
             _laserBeam.ToggleLaser(activate);
             _inMaxGlow = activate;
             _windowRenderer.material.SetFloat(_colorFactor, _inMaxGlow ? maxGlow : Constants.MinProgress);
+            if (activate)
+            {
+                var rayDir = isSideWindow ? Vector2.left : Vector2.down;
+                RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rayDir, Mathf.Infinity, LayerMask.GetMask("Player"));
+                foreach (var player in hit)
+                {
+                    var controller = player.collider.GetComponent<PlayerController>();
+                    var velocity = defaultVelocityMultiplier * GetDefaultVelocity(controller);
+                    _laserBeam.OnLaserHit(controller, velocity);
+                }
+            }
         }
 
-        public void SetOnLaserHit(UnityAction<PlayerController> action) => _laserBeam.OnLaserHit += action;
+        public void SetOnLaserHit(UnityAction<PlayerController, Vector2> action) => _laserBeam.OnLaserHit += action;
 
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            var rayDir = isSideWindow ? Vector2.left : Vector2.down;
+            Gizmos.DrawRay(transform.position, rayDir);
+        }
     }
 }

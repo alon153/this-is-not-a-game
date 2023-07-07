@@ -17,7 +17,7 @@ namespace GameMode.Ikea
 
         private List<IkeaPart> _partsPrefabs;
         private PartDispenser _dispenserPrefab;
-        private float _pointsPerPart = 10;   
+        private float _pointsPerPart = 10;
 
         #endregion
         

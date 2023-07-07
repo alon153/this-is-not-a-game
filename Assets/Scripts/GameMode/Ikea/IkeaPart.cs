@@ -1,6 +1,7 @@
 ﻿using System;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 using Utilities.Interfaces;
@@ -15,6 +16,8 @@ namespace GameMode.Ikea
         [SerializeField] private Sprite _partSprite;
         [SerializeField] private Collider2D _collider;
         [SerializeField] private float _pointsPerPart = 10;
+        [SerializeField] private EventReference _pickUpSound;
+        [SerializeField] private EventReference _placeSound;
 
         #endregion
         
@@ -153,6 +156,7 @@ namespace GameMode.Ikea
             
             if (_isBlueprint)
             {
+                AudioManager.PlayOneShot(_placeSound);
                 Destroy(playerPart.gameObject);
                 ((IkeaPlayerAddon) player.Addon).Part = null;
                 
@@ -178,6 +182,8 @@ namespace GameMode.Ikea
                 ((IkeaPlayerAddon) player.Addon).Part = this;
 
                 CanInteract = false;
+                
+                AudioManager.PlayOneShot(_pickUpSound);
             }
         }
 

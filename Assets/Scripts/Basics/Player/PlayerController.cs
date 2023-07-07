@@ -1,16 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Audio;
-using GameMode;
-using GameMode.Ikea;
 using Managers;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utilities;
 using Utilities.Interfaces;
 
@@ -29,7 +22,6 @@ namespace Basics.Player
         #region Serialized Fields
 
         [SerializeField] private TextMeshProUGUI _txtInteract;
-        [SerializeField] private TextMeshProUGUI _txtStun;
         [SerializeField] private Transform _playerFront;
         [SerializeField] public PlayerEffect PlayerEffect;
 
@@ -170,6 +162,7 @@ namespace Basics.Player
             set
             {
                 _ready = value;
+                UIManager.Instance.ClickSound();
                 GameManager.Instance.SetReady(Index, value);
             }
         }
@@ -202,7 +195,7 @@ namespace Basics.Player
             Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
             _txtInteract.enabled = false;
-            _txtStun.enabled = false;
+            
 
             SetParticlesColors();
         }
@@ -291,10 +284,12 @@ namespace Basics.Player
                         else
                             SetActionAnimation();
                         Interactable.OnInteract(this);
+                        AudioManager.PlayAction();
                     }
                     else if (Addon is PlayerActionAddOn)
                     {
                         ((PlayerActionAddOn) Addon).OnAction(this);
+                        AudioManager.PlayAction();
                     }
                     break;
                 case InputActionPhase.Canceled:
@@ -338,7 +333,7 @@ namespace Basics.Player
                 _freezeId = TimeManager.Instance.DelayInvoke(UnFreeze, time);
 
             if (stunned)
-                _txtStun.enabled = true;
+                PlayerEffect.PlayStunAnimation();
         }
 
         public void UnFreeze()
@@ -353,7 +348,7 @@ namespace Basics.Player
             }
 
             _frozen = false;
-            _txtStun.enabled = false;
+            PlayerEffect.StopStunAnimation();
         }
 
         public bool GetIsDashing()

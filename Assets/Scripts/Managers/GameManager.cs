@@ -49,6 +49,9 @@ namespace Managers
 
         #region None-Serialized Fields
 
+        private Queue<int> scores = new Queue<int>();
+        private Queue<GameObject> arenas = new Queue<GameObject>();
+
         private readonly List<PlayerController> _players = new();
         private readonly List<bool> _readys = new List<bool>();
 
@@ -64,6 +67,7 @@ namespace Managers
         private Action<int, bool> _showReady;
 
         private CameraScript _camera;
+        private float maxScore = -1;
 
         #endregion
 
@@ -189,6 +193,13 @@ namespace Managers
             UIManager.Instance.ToggleFlash(true);
             
             GameMode?.ClearRound();
+            
+            if (GameMode != null)
+            {
+                for (int i = 0; i < Players.Count; i++)
+                    scores.Enqueue((int) ScoreManager.Instance.GetPlayerScore(i));
+                arenas.Enqueue(GameMode.ArenaForScoreScreen);
+            }
 
             _roundsPlayed++;
             if (_roundsPlayed > _numRounds)
@@ -253,16 +264,20 @@ namespace Managers
 
         private void EndGame()
         {
-            print($"Player {ScoreManager.Instance.GetWinner()} wins!");
-            UIManager.Instance.ShowWinner(ScoreManager.Instance.GetWinner());
-            Init();
+            maxScore = ScoreManager.Instance.GetPlayerScore(ScoreManager.Instance.GetWinner());
+            UIManager.Instance.ResetScoreDisplays();
+            
+            UIManager.Instance.transform.SetParent(null);
+            DontDestroyOnLoad(UIManager.Instance.gameObject);
+            
+            transform.SetParent(null);
+            DontDestroyOnLoad(this);
+            
+            TimeManager.Instance.transform.SetParent(null);
+            TimeManager.Instance.CancelAll();
+            DontDestroyOnLoad(TimeManager.Instance.gameObject);
 
-            TimeManager.Instance.DelayInvoke((() =>
-            {
-                ScoreManager.Instance.ResetScore();
-                UIManager.Instance.ResetScoreDisplays();
-                UIManager.Instance.HideWinner();
-            }), 5);
+            SceneManager.LoadScene("ScoreScene");
         }
 
         private void StartGame()
@@ -374,16 +389,28 @@ namespace Managers
 
         public void OnReset()
         {
-            EndGame();
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
+            SceneManager.LoadScene("Main");
         }
 
         public void SetDefaultAnimator(PlayerController player)
         {
             player.Renderer.Animator.runtimeAnimatorController = _defaultPlayerAnimator;
         }
+
+        public void SetScoreManager(ScoreScreenManager scoreScreenManager)
+        {
+            while(arenas.Count > 0) scoreScreenManager.Arenas.Enqueue(arenas.Dequeue());
+            while(scores.Count > 0) scoreScreenManager.Scores.Enqueue(scores.Dequeue());
+            scoreScreenManager.ShowBars();
+            scoreScreenManager.MaxScore = (int) maxScore;
+            scoreScreenManager.StartShow();
+        }
     }
-    
-   
 
     public enum GameState
     { 

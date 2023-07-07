@@ -102,6 +102,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2930bcc8756f34ab57361ac6b384da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hintColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _goodSound:
+    Guid:
+      Data1: -817982540
+      Data2: 1277464268
+      Data3: 887067542
+      Data4: 1854044639
+    Path: event:/Player/Rhythm/PressGreen
+  _badSound:
+    Guid:
+      Data1: 1155569636
+      Data2: 1261952782
+      Data3: -766689624
+      Data4: 1420139557
+    Path: event:/Player/Rhythm/PressRed
   _ringPrefab: {fileID: -4069595545650762990, guid: 8a51540975686044989c5a4065d8a4c7, type: 3}
   _ringTrigger: {fileID: 5671898740860440139}
   _upperSprite: {fileID: 1093033537885588413}

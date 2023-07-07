@@ -7,9 +7,11 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Jugger p
-  m_Controller: {fileID: 9100000, guid: 333a373eaae62e740be3fd12d0e14c6f, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2f535a8135a4b44c91bf32e32b39b8e, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: c833f16b8ae25b1469b546fbcadc59c4, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 6d7c0fc19de8aef4abc566a0299412f8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f5bf9d2f7efd51d47b0f268d2bbfadbf, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: ab96118d139d1694883b9185dfbd1a0c, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 13580ecdfad1ac5499bc3bf2e756f4f6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 63ee5dd1e0f6c634daeae993f26e7bec, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: ef8e16f9366f4ce499b3ed6015162ec4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7398dded4e41ff42b73d7b318839de3, type: 2}

@@ -10,6 +10,7 @@ Material:
   m_Name: PlayerMaterial
   m_Shader: {fileID: 4800000, guid: a36b7719ff0465b42ab1407d67672c5f, type: 3}
   m_ValidKeywords:
+  - OUTBASE8DIR_ON
   - OUTBASE_ON
   - OUTTEX_ON
   m_InvalidKeywords: []
@@ -59,9 +60,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
-        m_Texture: {fileID: 2800000, guid: e3763a0fd85c67f4f9f31b55f886d31d, type: 3}
+        m_Texture: {fileID: 2800000, guid: d09b7123f481ae449b957b670044b425, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Offset: {x: 1.36, y: 0}
     - _OverlayTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -162,15 +163,15 @@ Material:
     - _OffsetUvY: 0
     - _OnlyInnerOutline: 0
     - _OnlyOutline: 0
-    - _OutlineAlpha: 1
+    - _OutlineAlpha: 0.46
     - _OutlineDistortAmount: 0.5
     - _OutlineDistortTexXSpeed: 5
     - _OutlineDistortTexYSpeed: 5
-    - _OutlineGlow: 25
+    - _OutlineGlow: 39
     - _OutlinePixelWidth: 1
-    - _OutlineTexXSpeed: 2
-    - _OutlineTexYSpeed: 2
-    - _OutlineWidth: 0.004
+    - _OutlineTexXSpeed: 8
+    - _OutlineTexYSpeed: -1
+    - _OutlineWidth: 0.013
     - _OverlayBlend: 1
     - _OverlayGlow: 1
     - _PinchUvAmount: 0.35

@@ -102,6 +102,7 @@ namespace Basics.Player
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);
             Fall_Inner(shouldRespawn, stun);
+            AudioManager.PlayFall();
             
             foreach (var listener in _fallListeners)
             {
@@ -244,15 +245,18 @@ namespace Basics.Player
         }
         
         public void SetCollisionParticles(List<Sprite> newSprites)
-        {
+        {   
+            
             if (newSprites == null || newSprites.Count == Constants.Empty) return;
             
             var texSheet = _collisionParticles.textureSheetAnimation;
-            var spriteCount = texSheet.spriteCount;
             
-            for (int i = 0; i < spriteCount ; i++) texSheet.RemoveSprite(i);
-            
-            for (int i = 0; i < newSprites.Count; i++) texSheet.AddSprite(newSprites[i]);
+            if (texSheet.enabled == false) texSheet.enabled = true;
+
+            for (int i = 0; i < newSprites.Count; i++)
+            {
+                texSheet.SetSprite(i ,newSprites[i]);
+            }
         }
         #endregion
     }

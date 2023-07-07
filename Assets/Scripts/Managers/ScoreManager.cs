@@ -52,6 +52,8 @@ namespace Managers
         
         public float GetPlayerScore(int playerId)
         {
+            if (playerId < 0 || playerId >= _playerScores.Count)
+                return -1;
             return _playerScores[playerId];
         }
 
@@ -96,14 +98,6 @@ namespace Managers
                     playerScore -= score;
                     if (_playerScores[playerId] < InitialScore)
                         playerScore = InitialScore;
-                    
-                    if (WinningPlayer == playerId)
-                    {
-                        _playerScores[playerId] = playerScore;
-                        int newWinner = GetWinner();
-                        if(newWinner != WinningPlayer)
-                            UIManager.Instance.CurrWinner = newWinner;
-                    }
                     break;
             }
             
@@ -123,12 +117,41 @@ namespace Managers
 
             _playerScores[playerId] = playerScore;
             UIManager.Instance.SetScoreToPlayerDisplay(playerId, playerScore);
-            if (playerScore > WinningScore && playerId != WinningPlayer)
+            
+            UpdateScoreBlocks(playerId, shouldAdd);
+        }
+
+        private void UpdateScoreBlocks(int playerId, bool added)
+        {
+            var score = _playerScores[playerId];
+            bool isCurrWinner = WinningPlayer == playerId;
+
+            print($"currWinner={WinningPlayer}:{WinningScore}. new winner={playerId}:{score}");
+            
+            if (added)
             {
-                if(playerId != UIManager.Instance.CurrWinner)
+                if(isCurrWinner)
+                    WinningScore = score;
+                if (!isCurrWinner && score > WinningScore)
+                {
+                    WinningPlayer = playerId;
+                    WinningScore = score;
                     UIManager.Instance.CurrWinner = playerId;
-                WinningScore = playerScore;
-                WinningPlayer = playerId;
+                }
+            }
+            else
+            {
+                int winner = GetWinner();
+                if (isCurrWinner)
+                {
+                    WinningScore = score;
+                    if (playerId != winner)
+                    {
+                        WinningPlayer = winner;
+                        WinningScore = GetPlayerScore(winner);
+                        UIManager.Instance.CurrWinner = winner;
+                    }
+                }
             }
         }
 

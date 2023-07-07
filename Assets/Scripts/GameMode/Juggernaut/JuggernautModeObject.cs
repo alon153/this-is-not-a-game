@@ -14,7 +14,8 @@ namespace GameMode.Juggernaut
 
         [Header("\nPlayers")] 
         public List<AnimatorOverrideController> gorillaAnimatorOverride = new List<AnimatorOverrideController>();
-        
+        public Vector2 gorillaColliderSize;
+
         [Header("\nProjectile")]
         public Projectile projectilePrefab;
         [Tooltip("speed given to projectile while shooting")]

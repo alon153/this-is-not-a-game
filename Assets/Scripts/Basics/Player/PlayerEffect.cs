@@ -12,8 +12,12 @@ namespace Basics.Player
 
         public void PlayPuffAnimation() => effectsAnimator.SetTrigger(Poof);
 
-        public void PlayStunAnimation() => effectsAnimator.SetTrigger(Stun);
+        public void PlayStunAnimation() => effectsAnimator.SetBool(Stun, true);
+
+        public void StopStunAnimation() => effectsAnimator.SetBool(Stun, false);
 
         public float GetCurAnimationTime() => effectsAnimator.GetCurrentAnimatorStateInfo(0).length;
+
+        public void ResetPoofTrigger() => effectsAnimator.ResetTrigger(Poof);
     }
 }

@@ -5,7 +5,7 @@
 			<value>Dash</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{5a80b9ff-f35f-4e4a-8d6a-4ac2df0f6933}</destination>
@@ -60,7 +60,7 @@
 	<object class="MarkerTrack" id="{17a0522e-9e0c-4bcc-a92d-b6108e319c56}" />
 	<object class="GroupTrack" id="{0525d9aa-fef3-49b6-b8d1-3c945953668a}">
 		<relationship name="modules">
-			<destination>{5829a1ff-ae5c-47e0-8b64-571d75bf46a9}</destination>
+			<destination>{9f1dc066-b00e-4ee6-8f7f-81269fa593fc}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{8090c6e0-9b44-4eb7-9a48-71065455ceb5}</destination>
@@ -68,7 +68,7 @@
 	</object>
 	<object class="Timeline" id="{3f6fe469-43d9-4625-8635-4109f573932a}">
 		<relationship name="modules">
-			<destination>{5829a1ff-ae5c-47e0-8b64-571d75bf46a9}</destination>
+			<destination>{9f1dc066-b00e-4ee6-8f7f-81269fa593fc}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{323bbb24-5996-4ca7-a3b4-9db2a66a69db}">
@@ -88,18 +88,15 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{1bc1e598-d274-4969-ac3b-c29dc0fc59a6}" />
-	<object class="SingleSound" id="{5829a1ff-ae5c-47e0-8b64-571d75bf46a9}">
+	<object class="SingleSound" id="{9f1dc066-b00e-4ee6-8f7f-81269fa593fc}">
 		<property name="length">
-			<value>0.85000000000000009</value>
-		</property>
-		<property name="timelockedOffset">
-			<value>0.10000000000000001</value>
+			<value>0.3395918367346939</value>
 		</property>
 		<property name="volume">
-			<value>-17</value>
+			<value>3.5</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{bbb959fa-3d72-435c-ad41-1f6698084c56}</destination>
+			<destination>{a579d781-0c90-4b11-82be-2c73b953df44}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{8090c6e0-9b44-4eb7-9a48-71065455ceb5}">

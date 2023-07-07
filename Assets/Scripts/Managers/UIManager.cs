@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using Audio;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -48,9 +49,11 @@ namespace Managers
         [SerializeField] private GameObject _endScreen;
         [SerializeField] private List<PlayerFinalScore> _finalScoreDisplays;
         [SerializeField] private GameObject _firstEndScreenBtn;
-        
-        
+
+
         [SerializeField] private EventSystem _eventSystem;
+
+        [SerializeField] private RectTransform _scoreBlockParent;
 
         #endregion
         
@@ -81,6 +84,7 @@ namespace Managers
             get => _currWinner;
             set
             {
+                print($"currWinner={_currWinner}:{ScoreManager.Instance.GetPlayerScore(_currWinner)}. new winner={value}:{ScoreManager.Instance.GetPlayerScore(value)}");
                 if(GameManager.Instance.State != GameState.Lobby && _currWinner != -1)
                     _playerScores[_currWinner].Lower();
                 _playerScores[value].Raise();
@@ -275,11 +279,9 @@ namespace Managers
 
             _activeScoreDisplays += Constants.NewPlayerRegistered;
 
-            for (int i = 0; i < _activeScoreDisplays; i++)
-            {
-                _playerScores[i].AnchorMinX = ((float) i) / _activeScoreDisplays;
-                _playerScores[i].AnchorMaxX = ((float) i+1) / _activeScoreDisplays;
-            }
+            _scoreBlockParent.anchoredPosition = new Vector2(
+                _activeScoreDisplays % 2 == 0 ? 0 : -130,
+                _scoreBlockParent.anchoredPosition.y);
         }
         
         public void ActivateScoreDisplays()
@@ -309,6 +311,7 @@ namespace Managers
         /// </summary>
         public void ResetScoreDisplays()
         {
+            print("reset");
             for(int i=0;i<_activeScoreDisplays;i++)
             {
                 _playerScores[i].Score = 0;
@@ -342,6 +345,7 @@ namespace Managers
             {
                 if(_fadeCoroutine != null)
                     StopCoroutine(_fadeCoroutine);
+                AudioManager.CountDownSound();
                 _fadeCoroutine = StartCoroutine(MainTextFade(2, 0));
             }
 
@@ -357,6 +361,16 @@ namespace Managers
             _centerText.color = GameManager.Instance.PlayerColor(winner);
             _centerText.text = $"Player {winner + 1} wins!";
             ToggleCenterText(true);
+        }
+
+        public void SelectSound()
+        {
+            AudioManager.SelectSound();
+        }
+
+        public void ClickSound()
+        {
+            AudioManager.ClickSound();
         }
         
         public void HideWinner()

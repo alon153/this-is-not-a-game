@@ -18,8 +18,12 @@ public class AudioManager : MonoBehaviour
     [Header("Master Bank")] [SerializeField]
     private AudioBank _bank;
 
-    [Header("Sounds")] [SerializeField] private EventReference _defaultDash;
+    [Header("Sounds")] 
+    [SerializeField] private EventReference _defaultDash;
     [SerializeField] private MusicSounds _defaultMusic;
+    [SerializeField] private EventReference _selectButton;
+    [SerializeField] private EventReference _clickButton;
+    [SerializeField] private EventReference _countDownButton;
 
     [Header("Volume")] [SerializeField] [Range(0f, 1f)]
     private float _masterVolume = 1;
@@ -47,6 +51,8 @@ public class AudioManager : MonoBehaviour
 
     private float _lastBeat;
     private EventReference _dashEvent;
+    private EventReference _actionEvent;
+    private EventReference _fallEvent;
 
     #endregion
 
@@ -59,6 +65,18 @@ public class AudioManager : MonoBehaviour
     {
         get => _instance._dashEvent;
         set => _instance._dashEvent = value.IsNull ? _instance._defaultDash : value;
+    }
+    
+    public static EventReference ActionEvent
+    {
+        get => _instance._actionEvent;
+        set => _instance._actionEvent = value;
+    }
+    
+    public static EventReference FallEvent
+    {
+        get => _instance._fallEvent;
+        set => _instance._fallEvent = value;
     }
 
     #endregion
@@ -121,6 +139,21 @@ public class AudioManager : MonoBehaviour
         PlayNoise();
         SetMusic(to);
     }
+    
+    public static void SelectSound()
+    {
+        PlayOneShot(_instance._selectButton);
+    }
+
+    public static void ClickSound()
+    {
+        PlayOneShot(_instance._clickButton);
+    }
+    
+    public static void CountDownSound()
+    {
+        PlayOneShot(_instance._countDownButton);
+    }
 
     public static void PlayOneShot(SoundType type, int val)
     {
@@ -133,10 +166,27 @@ public class AudioManager : MonoBehaviour
             print($"Invalid sound {type}:{val}");
         }
     }
+    
+    public static void PlayOneShot(EventReference eventRef)
+    {
+        RuntimeManager.PlayOneShot(eventRef);
+    }
 
     public static void PlayDash()
     {
         RuntimeManager.PlayOneShot(_instance._dashEvent);
+    }
+
+    public static void PlayAction()
+    {
+        if(!_instance._actionEvent.IsNull)
+            RuntimeManager.PlayOneShot(_instance._dashEvent);
+    }
+    
+    public static void PlayFall()
+    {
+        if(!_instance._fallEvent.IsNull)
+            RuntimeManager.PlayOneShot(_instance._fallEvent);
     }
 
     private void Update()

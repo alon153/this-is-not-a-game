@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using ScriptableObjects.GameModes.Modes;
 using Unity.VisualScripting;
@@ -31,8 +32,10 @@ namespace GameMode.Boats
         private float score = 30f;
         private float dragUpSpeed = 0.01f;
 
+        private EventReference _scream;
+
         #endregion
-        
+
         #region Non-Serialized Fields
 
         private Vector3 _arenaMinCoord;

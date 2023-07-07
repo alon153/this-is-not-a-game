@@ -6,6 +6,7 @@ using Basics.Player;
 using Managers;
 using ScriptableObjects.GameModes.Modes;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine.Pool;
 using Utilities;
 using Object = UnityEngine.Object;
@@ -61,6 +62,7 @@ namespace GameMode.Lasers
         private GameObject _windowParent;
 
         private Vector3? _playerPosition;
+        private static readonly int Death = Animator.StringToHash("death");
 
         #endregion
 
@@ -78,6 +80,7 @@ namespace GameMode.Lasers
             diamondsDropOnLaser = sObj.diamondsDropOnLaser;
             onHitSpreadRadius = sObj.onHitSpreadRadius;
             scorePerDiamond = sObj.scorePerDiamond;
+          
         }
 
         protected override void InitRound_Inner()
@@ -361,17 +364,14 @@ namespace GameMode.Lasers
         /// method will be invoked as an event from the laser object.
         /// will freeze the player and remove diamonds.
         /// </summary>
-        /// <param name="player"></param>
-        private void OnPlayerHitByLaser(PlayerController player)
+        private void OnPlayerHitByLaser(PlayerController player, Vector2 defaultVelocity)
         {
+            ((LaserPlayerAddon) player.Addon).InHit = true;
             // adjust diamonds that need to reduce. 
             PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
             int diamondsToDrop = diamondsDropOnLaser > ((LaserPlayerAddon) player.Addon).DiamondsCollected
                 ? ((LaserPlayerAddon) player.Addon).DiamondsCollected
                 : diamondsDropOnLaser;
-            
-            
-                
 
             // reduce diamonds from the player and spawn them on field.
             if (diamondsToDrop > Constants.None)
@@ -399,16 +399,16 @@ namespace GameMode.Lasers
                 }
 
                 _playerPosition = null;
-
+                
                 PlayerAddon.CheckCompatability(player.Addon, GameModes.Lasers);
                 ((LaserPlayerAddon) player.Addon).DiamondsCollected -= diamondsToDrop;
             }
 
             // save current velocity since it will be zeroed by freeze().
-            Vector2 velocityBeforeFreeze = -player.Rigidbody.velocity;
-            player.Renderer.Animator.SetTrigger("death");
+            var velocity = player.Rigidbody.velocity;
+            Vector2 velocityBeforeFreeze =  defaultVelocity != Vector2.zero ? defaultVelocity : -velocity;
+            player.Renderer.Animator.SetTrigger(Death);
 
-            
             // 0.75f is the length of the death animation
             float animationTime = 0.9f;
             player.Freeze(false);
@@ -422,6 +422,9 @@ namespace GameMode.Lasers
                 TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
             }
             player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
+            TimeManager.Instance.DelayInvoke(
+                () =>  ((LaserPlayerAddon) player.Addon).InHit = false , 0.1f);
+            
         }
 
         /// <summary>

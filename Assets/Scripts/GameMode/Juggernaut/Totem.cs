@@ -13,13 +13,9 @@ namespace GameMode.Juggernaut
     public class Totem : MonoBehaviour
     {
 
-        [SerializeField] private float maxSaturation;
-
-        [SerializeField] private float timeToSaturate = 1f;
-
         [SerializeField] private Animator totemAnimator;
 
-        [SerializeField] private Color saturatedColor;
+        [SerializeField] private PlayerEffect effect;
 
         private bool _canPickUp = false;
 
@@ -27,31 +23,36 @@ namespace GameMode.Juggernaut
 
         private SpriteRenderer _spriteRenderer;
 
-        private Sprite _disabledSprite;
-
-        private Vector3 _hsvColor = new Vector3();
-        
+        private readonly Color _disabledColor = new Color(1, 1, 1, 0);
         public UnityAction<PlayerController> OnTotemPickedUp { set; get; }
 
         public float coolDownTime = 2f;
+        
         private static readonly int TotemEnabled = Animator.StringToHash("TotemEnabled");
 
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            Color.RGBToHSV(_spriteRenderer.color, out _hsvColor.x, out _hsvColor.y, out _hsvColor.z);
-            _disabledSprite = _spriteRenderer.sprite;
+            
         }
 
         private void Update()
         {
-            if (isActiveAndEnabled && GameManager.Instance.State == GameState.Playing)
+            if (isActiveAndEnabled && GameManager.Instance.State == GameState.Playing && !_canPickUp)
             {   
                _time += Time.deltaTime;
                 if (_time >= coolDownTime)
-                {
-                    StartCoroutine(SetTotemSaturation());
-                    _time = 0;
+                {   
+                    _time = 0f;
+                    effect.PlayPuffAnimation();
+                    TimeManager.Instance.DelayInvoke(() => { 
+                            _spriteRenderer.color = Color.white;
+                            totemAnimator.SetBool(TotemEnabled, true);
+                            
+                        },
+                        effect.GetCurAnimationTime() * 0.5f);
+                    _canPickUp = true;
+                  
                 }
             }
         }
@@ -78,32 +79,8 @@ namespace GameMode.Juggernaut
         {
             _canPickUp = false;
             _time = 0;
-            _spriteRenderer.color = Color.white;
+            _spriteRenderer.color = _disabledColor;
             totemAnimator.SetBool(TotemEnabled, false);
-            _spriteRenderer.sprite = _disabledSprite;
-
         }
-
-        private IEnumerator SetTotemSaturation()
-        {
-            var time = 0f;
-            Color curColor;
-
-            while (time < timeToSaturate)
-            {
-                time += Time.deltaTime;
-                var curSat = Mathf.Lerp(0, maxSaturation, time / timeToSaturate);
-                curColor = Color.HSVToRGB(_hsvColor.x, curSat, _hsvColor.z);
-                _spriteRenderer.color = curColor;
-                yield return null;
-            }
-            
-            curColor = Color.HSVToRGB(_hsvColor.x, maxSaturation, _hsvColor.z);
-            _spriteRenderer.color = curColor;
-            totemAnimator.SetBool(TotemEnabled, true);
-            _canPickUp = true;
-        }
-        
-        
     }
 }

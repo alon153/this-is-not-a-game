@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using Utilities.Interfaces;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace GameMode.Boats
     [Serializable]
     public class BoatsInRiverArena : Arena
     {
+        [SerializeField] private ParticleSystem _bloodParticles;
+        [SerializeField] private EventReference _scream;
+        
         protected override void OnTriggerExit2D(Collider2D other)
         {
             if (GameManager.Instance.CurrArena.GetInstanceID() == this.GetInstanceID())
@@ -25,8 +29,13 @@ namespace GameMode.Boats
 
                     if (other.CompareTag("Player"))
                     {
-                       var playerId = other.gameObject.GetComponent<PlayerController>().GetInstanceID();
-                        OnPlayerDisqualified(playerId);
+                       var player = other.gameObject.GetComponent<PlayerController>();
+                       OnPlayerDisqualified(player.GetInstanceID());
+
+                       Vector3 pos = player.transform.position;
+                       pos.z = _bloodParticles.transform.position.z;
+                       Instantiate(_bloodParticles,pos,Quaternion.identity).Play();
+                       AudioManager.PlayOneShot(_scream);
                     }
                 }
             }
