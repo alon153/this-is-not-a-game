@@ -426,6 +426,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 130
       objectReference: {fileID: 0}
+    - target: {fileID: 461586850210210540, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 461586850210210540, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -110
+      objectReference: {fileID: 0}
     - target: {fileID: 555857938625486637, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -488,11 +496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1409004893076490731, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _eventSystem
@@ -550,9 +558,25 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _musicVolume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5775317529640911256, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397633773263369559, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 243755884}
+    - target: {fileID: 7397633773263369559, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7397633773263369559, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
       objectReference: {fileID: 0}
     - target: {fileID: 7585846865793184738, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_AnchorMin.x

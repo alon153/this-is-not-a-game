@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Utilities
 {
@@ -8,6 +9,7 @@ namespace Utilities
         #region Serialized Fields
         
         [SerializeField] private TextMeshProUGUI _scoreTxt;
+        [SerializeField] private Image _crown;
         [SerializeField] private float _transitionTime = 3;
         [SerializeField] private float _downHeight = 45;
         [SerializeField] private float _upHeight = 90;
@@ -73,6 +75,7 @@ namespace Utilities
 
         public void MoveTo(float destY, bool immediate=false)
         {
+            _crown.gameObject.SetActive(false);
             if (immediate || Mathf.Abs(_rect.anchoredPosition.y - destY) < 0.5f)
             {
                 _rect.anchoredPosition = new Vector2(_rect.anchoredPosition.x, destY);
@@ -84,6 +87,7 @@ namespace Utilities
         public void Raise()
         {
             MoveTo(_upHeight);
+            _crown.gameObject.SetActive(true);
         }
         
         public void Lower()
