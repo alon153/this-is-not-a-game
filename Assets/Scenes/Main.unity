@@ -479,12 +479,16 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _singleMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
