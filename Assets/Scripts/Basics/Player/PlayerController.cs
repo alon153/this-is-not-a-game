@@ -1,6 +1,7 @@
 using System;
 using Audio;
 using FMODUnity;
+using JetBrains.Annotations;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -50,6 +51,7 @@ namespace Basics.Player
         #region Non-Serialized Fields
 
         private StudioEventEmitter _moveEmitter;
+        [CanBeNull] private StudioEventEmitter _specialEmitter = null;
         private Vector3 _origScale;
 
         private bool _ready;
@@ -181,6 +183,8 @@ namespace Basics.Player
                 bool playing = _moveEmitter.IsPlaying();
                 if(playing)
                     StopMoveSound();
+                Destroy(_moveEmitter);
+                _moveEmitter = gameObject.AddComponent<StudioEventEmitter>();
                 _moveEmitter.EventReference = value;
                 if(playing)
                     PlayMoveSound();
