@@ -26,6 +26,7 @@ namespace GameMode
     [field: SerializeField] public EventReference DashSound { get; private set; }
     [field: SerializeField] public EventReference ActionSound { get; private set; }
     [field: SerializeField] public EventReference FallSound { get; private set; }
+    [field: SerializeField] public EventReference MoveSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
     [field: SerializeField] public GameObject ArenaForScoreScreen { get; private set; }
 
