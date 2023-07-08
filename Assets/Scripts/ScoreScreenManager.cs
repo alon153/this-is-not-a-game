@@ -9,6 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Utilities;
+using Random = System.Random;
 
 public class ScoreScreenManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class ScoreScreenManager : MonoBehaviour
   [SerializeField] private List<TextMeshProUGUI> _txts;
   [SerializeField] private GameObject _buttons;
   [SerializeField] private float _singleDuration = 1f;
+  [SerializeField] private List<ParticleSystem> _fireWorks = new List<ParticleSystem>();
+  [SerializeField] private float _fireWorkIntervals = 1f;
 
   #endregion
   #region Non-Serialized Fields
@@ -120,6 +123,7 @@ public class ScoreScreenManager : MonoBehaviour
     if (Arenas.Count == 0)
     {
       _buttons.gameObject.SetActive(true);
+      StartCoroutine(PlayFireWorks());
       return;
     }
     
@@ -242,6 +246,33 @@ public class ScoreScreenManager : MonoBehaviour
     if (_expanding.All((b => !b)) && _moving.All((b => !b)))
     {
       TimeManager.Instance.DelayInvoke(ShowNextArena, 1);
+    }
+  }
+
+  private List<ParticleSystem> ShuffleFireWorks(List<ParticleSystem> listToShuffle)
+  {
+    var rand = new Random();
+    for (int i = listToShuffle.Count - 1; i > 0; i--)
+    {
+      var k = rand.Next(i + 1);
+      var value = listToShuffle[k];
+      listToShuffle[k] = listToShuffle[i];
+      listToShuffle[i] = value;
+    }
+    return listToShuffle;
+  }
+
+  private IEnumerator PlayFireWorks()
+  {
+    
+    Color curWinnerColor = GameManager.Instance.PlayerColor(UIManager.Instance.CurrWinner);
+    _fireWorks = ShuffleFireWorks(_fireWorks);
+    foreach (var fireWork in _fireWorks)
+    {
+      var fireWorkMain = fireWork.main;
+      fireWorkMain.startColor = curWinnerColor;
+      fireWork.Play();
+      yield return new WaitForSeconds(_fireWorkIntervals);
     }
   }
 
