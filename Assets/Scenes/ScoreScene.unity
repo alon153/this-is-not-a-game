@@ -190,6 +190,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConfettiParticles (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
 --- !u!198 &79757662 stripped
@@ -485,6 +493,14 @@ PrefabInstance:
     - target: {fileID: 6283407990392192154, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
       propertyPath: m_Name
       value: ConfettiParticles (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
@@ -799,6 +815,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: ConfettiParticles (2) *
       objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
 --- !u!198 &925699776 stripped
@@ -948,6 +972,14 @@ PrefabInstance:
     - target: {fileID: 6283407990392192154, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
       propertyPath: m_Name
       value: ConfettiParticles (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
@@ -1500,11 +1532,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -494193883
-  m_SortingLayer: 1
+  m_SortingLayerID: 768130903
+  m_SortingLayer: 14
   m_SortingOrder: -1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2454,6 +2486,14 @@ PrefabInstance:
     - target: {fileID: 6283407990392192154, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
       propertyPath: m_Name
       value: ConfettiParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6283407990392192155, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 768130903
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f936ee78e94d608418cc57405c4cc931, type: 3}
