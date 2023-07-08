@@ -36,6 +36,7 @@ namespace GameMode.Juggernaut
         private GameObject lifePrefab;
         private List<AnimatorOverrideController> gorillaAnimatorOverrides;
         private Vector2 colliderSize;
+        private float gorillaForce;
         
         private EventReference _gorillaMove;
         private EventReference _gorillaDash;
@@ -60,6 +61,10 @@ namespace GameMode.Juggernaut
 
         private List<BoxCollider2D> _gorillaColliders = new List<BoxCollider2D>();
 
+        private float _playerKnockBackForce;
+
+        private float _playerMutualKnockBackForce;
+
         #endregion
 
         #region GameModeBase
@@ -81,9 +86,10 @@ namespace GameMode.Juggernaut
             lifePrefab = sObj.lifePrefab;
             gorillaAnimatorOverrides = sObj.gorillaAnimatorOverride;
             colliderSize = sObj.gorillaColliderSize;
-
+    
             _gorillaDash = sObj._gorillaDash;
             _gorillaMove = sObj._gorillaMove;
+            gorillaForce = sObj.gorillaForce;
         }
 
         protected override void InitRound_Inner()
@@ -99,7 +105,11 @@ namespace GameMode.Juggernaut
             SetUpPlayerAddOn();
             
             foreach (PlayerController player in GameManager.Instance.Players)
-                player.RegisterFallListener(this);            
+                player.RegisterFallListener(this);
+
+            var details = GameManager.Instance.Players[0].GetKnockBackDetails();
+            _playerKnockBackForce = details.Item1;
+            _playerMutualKnockBackForce = details.Item2;
         }
 
         protected override void InitArena_Inner()
@@ -121,6 +131,8 @@ namespace GameMode.Juggernaut
                 Object.Destroy(_playerCanvasAddOns[i].gameObject);
                 GameManager.Instance.Players[i].Addon = null;
                 GameManager.Instance.Players[i].UnRegisterFallListener(this);
+                GameManager.Instance.Players[i].SetKnockBackForce(_playerKnockBackForce, 
+                    _playerMutualKnockBackForce);
                 Object.Destroy(_gorillaColliders[i]);
             }
         }
@@ -179,7 +191,8 @@ namespace GameMode.Juggernaut
             _currTotemHolder = player;
             _gorillaColliders[_currTotemHolder.Index].enabled = true;
             _isAPlayerHoldingTotem = true;
-
+            _currTotemHolder.SetKnockBackForce(_playerKnockBackForce * gorillaForce, 
+                _playerMutualKnockBackForce * gorillaForce);
             TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
                 player.PlayerEffect.GetCurAnimationTime() * 0.5f);
 
@@ -195,6 +208,8 @@ namespace GameMode.Juggernaut
             // remove totem from current player
             _isAPlayerHoldingTotem = false;
             _gorillaColliders[_currTotemHolder.Index].enabled = false;
+            _currTotemHolder.SetKnockBackForce(_playerKnockBackForce / gorillaForce, 
+                _playerMutualKnockBackForce / gorillaForce);
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
         }

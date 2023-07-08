@@ -272,6 +272,15 @@ namespace Basics.Player
                 texSheet.SetSprite(i ,newSprites[i]);
             }
         }
+
+        public void SetKnockBackForce(float newKnockBack, float newMutualKnockBack)
+        {
+            _knockBackForce = newKnockBack;
+            _mutualKnockBackForce = newMutualKnockBack;
+        }
+
+        public Tuple<float, float> GetKnockBackDetails() => new (_knockBackForce, _mutualKnockBackForce);
+
         #endregion
     }
 }
