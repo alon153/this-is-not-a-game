@@ -6,21 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="101f7e7a-3b7a-4c1b-b285-967d60faf87a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.this-is-not-a-game/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animations/Arenas/IslandBackGround.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animations/Arenas/IslandBackGround.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Animators/Island.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Animators/Island.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach1.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach2.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach3.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach4.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach5.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach6.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach7.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Design/Modes/Island/IslandBackGround/beach8.png.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Feel/FeelDemos/FeelTemplatesDemo.unitypackage.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Feel/NiceVibrations/OlderVersions/v1.7/NiceVibrations-v-1-7.unitypackage.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Feel/NiceVibrations/OlderVersions/v2.0.1/NiceVibrations-v-2-0-1.unitypackage.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Feel/NiceVibrations/OlderVersions/v3.9/NiceVibrations-v-3-9-0.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Juggernaut.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Juggernaut.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Lasers.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Lasers.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Arrow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Arrow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Juggernaut/Totem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/Laser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/Laser.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/RightToLeftLaser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/RightToLeftLaser.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/SideWindow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Modes/Lasers/SideWindow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Basics/Player/PlayerCollision.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggerCanvasAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautGameMode.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameMode/Juggernaut/JuggernautPlayerAddOn.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/Layouts/CurrentMaximizeLayout.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Island.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Arenas/new arenas/Island.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +154,7 @@
       <workItem from="1685694147436" duration="2251000" />
       <workItem from="1686395396577" duration="5726000" />
       <workItem from="1686575850251" duration="6889000" />
+      <workItem from="1688814554239" duration="1816000" />
     </task>
     <servers />
   </component>
