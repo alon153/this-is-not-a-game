@@ -46,7 +46,7 @@ namespace Basics.Player
         [Tooltip("The time a player is knocked back")] 
         [SerializeField] private float _knockBackDelay = 0.15f;
 
-        [SerializeField] private StudioEventEmitter _longActionEmitter;
+        public StudioEventEmitter _longActionEmitter;
         #endregion
 
         #region Non-Serialized Fields

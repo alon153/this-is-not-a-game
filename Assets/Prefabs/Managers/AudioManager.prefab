@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bank: {fileID: 11400000, guid: 58c3e219064648e4995591af58b289e0, type: 2}
+  _masterVolume: 1
+  _musicVolume: 0.8
+  _sfxVolume: 1
   _defaultDash:
     Guid:
       Data1: 165002214
@@ -52,6 +55,13 @@ MonoBehaviour:
       Data3: -1933243236
       Data4: -276202440
     Path: event:/Player/Default Dash
+  _defaultCollision:
+    Guid:
+      Data1: -88160250
+      Data2: 1139454925
+      Data3: 1548829596
+      Data4: -930386457
+    Path: event:/Player/DefaultCollision
   _defaultMusic: 0
   _selectButton:
     Guid:
@@ -74,6 +84,3 @@ MonoBehaviour:
       Data3: 1959044228
       Data4: -1891071344
     Path: event:/SFX/CountDown
-  _masterVolume: 1
-  _musicVolume: 0.75
-  _sfxVolume: 1
