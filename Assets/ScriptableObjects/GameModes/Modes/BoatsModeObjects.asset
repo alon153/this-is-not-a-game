@@ -23,4 +23,4 @@ MonoBehaviour:
   minSpawnInterval: 1
   obstacleSpawnMultiplier: 3
   score: 30
-  dragUpPlayerSpeed: 0.004
+  dragUpPlayerSpeed: 0.006
