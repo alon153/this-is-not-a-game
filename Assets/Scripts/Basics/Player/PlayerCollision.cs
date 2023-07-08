@@ -61,6 +61,8 @@ namespace Basics.Player
                 // was the player bashing or only pushing the other player
                 if (Dashing || _isInPostDash)
                 {
+                    AudioManager.PlayCollision();
+                    
                     // player has bashed another player so a knockback needed.
                     bool isMutual = isOtherDashing;
                     GameManager.Instance.CameraScript.Shake(isMutual);

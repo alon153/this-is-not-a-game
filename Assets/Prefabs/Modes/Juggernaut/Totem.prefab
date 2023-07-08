@@ -103,6 +103,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totemAnimator: {fileID: 930299941870352762}
   effect: {fileID: 1258821026218263977}
+  _appearSound:
+    Guid:
+      Data1: 1857061615
+      Data2: 1318403562
+      Data3: 46572693
+      Data4: -1758670404
+    Path: event:/Player/Juggernaut/totem
   coolDownTime: 2
 --- !u!50 &163442539611249946
 Rigidbody2D:

@@ -119,3 +119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectsAnimator: {fileID: 5063278481138875943}
+  _poofSound:
+    Guid:
+      Data1: -927205630
+      Data2: 1186978138
+      Data3: -1555551092
+      Data4: 1244396585
+    Path: event:/SFX/Poof

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FMODUnity;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 
@@ -31,5 +32,8 @@ namespace GameMode.Juggernaut
         public JuggerCanvasAddOn canvasAddOnPrefab;
         public GameObject lifePrefab;
        
+        [Header("Sounds")]
+        public EventReference _gorillaMove;
+        public EventReference _gorillaDash;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Basics;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Managers;
@@ -12,9 +13,8 @@ namespace GameMode.Juggernaut
         public Rigidbody2D rigidBody;
 
         public SpriteRenderer spriteRenderer;
+        public EventReference _shootSound;
 
-        // Start is called before the first frame update
-       
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
