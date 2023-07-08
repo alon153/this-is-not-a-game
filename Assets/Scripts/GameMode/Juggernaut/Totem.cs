@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using Audio;
 using UnityEngine;
 using UnityEngine.Events;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using Utilities;
 
@@ -16,6 +18,7 @@ namespace GameMode.Juggernaut
         [SerializeField] private Animator totemAnimator;
 
         [SerializeField] private PlayerEffect effect;
+        [SerializeField] private EventReference _appearSound;
 
         private bool _canPickUp = false;
 
@@ -33,7 +36,6 @@ namespace GameMode.Juggernaut
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            
         }
 
         private void Update()
@@ -44,6 +46,7 @@ namespace GameMode.Juggernaut
                 if (_time >= coolDownTime)
                 {   
                     _time = 0f;
+                    AudioManager.PlayOneShot(_appearSound);
                     effect.PlayPuffAnimation();
                     TimeManager.Instance.DelayInvoke(() => { 
                             _spriteRenderer.color = Color.white;
@@ -52,7 +55,6 @@ namespace GameMode.Juggernaut
                         },
                         effect.GetCurAnimationTime() * 0.5f);
                     _canPickUp = true;
-                  
                 }
             }
         }

@@ -4,6 +4,7 @@ using Managers;
 using UnityEngine;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine.Pool;
 using Utilities.Interfaces;
@@ -33,6 +34,9 @@ namespace GameMode.Juggernaut
         private GameObject lifePrefab;
         private List<AnimatorOverrideController> gorillaAnimatorOverrides;
         private Vector2 colliderSize;
+        
+        private EventReference _gorillaMove;
+        private EventReference _gorillaDash;
 
         #endregion
 
@@ -76,6 +80,8 @@ namespace GameMode.Juggernaut
             gorillaAnimatorOverrides = sObj.gorillaAnimatorOverride;
             colliderSize = sObj.gorillaColliderSize;
 
+            _gorillaDash = sObj._gorillaDash;
+            _gorillaMove = sObj._gorillaMove;
         }
 
         protected override void InitRound_Inner()
@@ -282,12 +288,16 @@ namespace GameMode.Juggernaut
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                     ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
+                    _currTotemHolder.MoveSound = _gorillaMove;
+                    _currTotemHolder.SpecialDashSound = _gorillaDash;
                     break;
                 case AnimatorState.ToHunter:
                     newController = AnimatorOverride[_currTotemHolder.Index];
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                     ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
+                    _currTotemHolder.MoveSound = MoveSound;
+                    _currTotemHolder.SpecialDashSound = null;
                     _currTotemHolder = null;
                     break;
             }

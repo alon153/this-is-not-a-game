@@ -122,6 +122,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 7662390033102742716}
   spriteRenderer: {fileID: 7662390033102742718}
+  _shootSound:
+    Guid:
+      Data1: -433563459
+      Data2: 1144644916
+      Data3: -502481779
+      Data4: -2061791644
+    Path: event:/Player/Juggernaut/Hunter/Shoot
 --- !u!61 &-4581070828044684060
 BoxCollider2D:
   m_ObjectHideFlags: 0

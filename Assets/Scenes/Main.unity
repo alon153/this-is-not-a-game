@@ -488,15 +488,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
-      value: 30
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
@@ -577,6 +577,26 @@ PrefabInstance:
     - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _musicVolume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _defaultCollision.Path
+      value: event:/Player/DefaultCollision
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _defaultCollision.Guid.Data1
+      value: -88160250
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _defaultCollision.Guid.Data2
+      value: 1139454925
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _defaultCollision.Guid.Data3
+      value: 1548829596
+      objectReference: {fileID: 0}
+    - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: _defaultCollision.Guid.Data4
+      value: -930386457
       objectReference: {fileID: 0}
     - target: {fileID: 5775317529640911256, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive

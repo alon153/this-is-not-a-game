@@ -44,6 +44,7 @@ namespace Audio
         private EventReference _dashEvent;
         private EventReference _actionEvent;
         private EventReference _fallEvent;
+        private EventReference _collisionEvent;
 
         #endregion
 
@@ -70,6 +71,12 @@ namespace Audio
             set => _instance._fallEvent = value;
         }
 
+        public static EventReference CollisionEvent
+        {
+            get => _instance._collisionEvent;
+            set => _instance._collisionEvent = value;
+        }
+
         #endregion
 
         #region Function Events
@@ -85,6 +92,7 @@ namespace Audio
             _instance = this;
 
             DashEvent = _defaultDash;
+            CollisionEvent = _defaultCollision;
             SetMusic(MusicSounds.Lobby);
 
             transform.SetParent(null);

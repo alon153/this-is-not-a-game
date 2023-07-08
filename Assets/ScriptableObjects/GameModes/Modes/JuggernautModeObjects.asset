@@ -30,3 +30,17 @@ MonoBehaviour:
   timeToAddScore: 1
   canvasAddOnPrefab: {fileID: 1353604831650522001, guid: 0c01c1ac940e9d046ae34b1643784d0c, type: 3}
   lifePrefab: {fileID: 2016669720519209565, guid: 2eddaa227452fff41b80020436e0c62c, type: 3}
+  _gorillaMove:
+    Guid:
+      Data1: -2058634387
+      Data2: 1278388346
+      Data3: -773014908
+      Data4: -1720996471
+    Path: event:/Player/Juggernaut/Gorilla/Move
+  _gorillaDash:
+    Guid:
+      Data1: -1003920597
+      Data2: 1151002173
+      Data3: -915912778
+      Data4: -69632573
+    Path: event:/Player/Juggernaut/Gorilla/Dash

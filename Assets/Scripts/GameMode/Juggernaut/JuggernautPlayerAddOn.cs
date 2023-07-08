@@ -1,3 +1,4 @@
+using Audio;
 using Basics;
 using Basics.Player;
 using Managers;
@@ -104,6 +105,7 @@ namespace GameMode.Juggernaut
             velocity *= speed;
             projectile.rigidBody.velocity = velocity;
             projectile.SetProjectileRotation(velocity);
+            AudioManager.PlayOneShot(projectile._shootSound);
             _canShoot = false;
             
             TimeManager.Instance.DelayInvoke(() => _canShoot = true, _coolDown);

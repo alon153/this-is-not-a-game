@@ -12,8 +12,8 @@ namespace Audio
         [SerializeField] private EventReference _selectButton;
         [SerializeField] private EventReference _clickButton;
         [SerializeField] private EventReference _countDownButton;
-        
-        
+
+
         public static void SelectSound()
         {
             PlayOneShot(_instance._selectButton);
@@ -31,19 +31,26 @@ namespace Audio
         
         public static void PlayDash()
         {
-            RuntimeManager.PlayOneShot(_instance._dashEvent);
+            if(!DashEvent.IsNull)
+                RuntimeManager.PlayOneShot(DashEvent);
         }
 
         public static void PlayAction()
         {
-            if(!_instance._actionEvent.IsNull)
-                RuntimeManager.PlayOneShot(_instance._dashEvent);
+            if(!ActionEvent.IsNull)
+                RuntimeManager.PlayOneShot(ActionEvent);
         }
     
         public static void PlayFall()
         {
-            if(!_instance._fallEvent.IsNull)
-                RuntimeManager.PlayOneShot(_instance._fallEvent);
+            if(!FallEvent.IsNull)
+                RuntimeManager.PlayOneShot(FallEvent);
+        }
+
+        public static void PlayCollision()
+        {
+            if(!CollisionEvent.IsNull)
+                RuntimeManager.PlayOneShot(CollisionEvent);
         }
     }
 }

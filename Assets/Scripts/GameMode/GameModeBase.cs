@@ -59,6 +59,10 @@ namespace GameMode
       AudioManager.DashEvent = DashSound;
       AudioManager.ActionEvent = ActionSound;
       AudioManager.FallEvent = FallSound;
+      foreach (var player in GameManager.Instance.Players)
+      {
+        player.MoveSound = MoveSound;
+      }
       InitArena_Inner();
       InitRound_Inner();
     }

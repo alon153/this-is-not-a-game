@@ -120,7 +120,8 @@ namespace Audio
         Ikea,
         Rhythm,
         Boats,
-        Island
+        Island,
+        Juggernaut
     }
 
     public enum SfxSounds
