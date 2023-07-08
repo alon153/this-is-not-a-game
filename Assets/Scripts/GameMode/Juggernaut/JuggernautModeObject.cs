@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using FMODUnity;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ namespace GameMode.Juggernaut
         [Header("\nPlayers")] 
         public List<AnimatorOverrideController> gorillaAnimatorOverride = new List<AnimatorOverrideController>();
         public Vector2 gorillaColliderSize;
+        public float gorillaForce = 1.5f;
 
         [Header("\nProjectile")]
         public Projectile projectilePrefab;
@@ -31,5 +33,8 @@ namespace GameMode.Juggernaut
         public JuggerCanvasAddOn canvasAddOnPrefab;
         public GameObject lifePrefab;
        
+        [Header("Sounds")]
+        public EventReference _gorillaMove;
+        public EventReference _gorillaDash;
     }
 }

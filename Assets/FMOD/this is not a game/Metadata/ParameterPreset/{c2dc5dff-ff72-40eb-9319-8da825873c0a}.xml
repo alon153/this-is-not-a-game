@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{c2dc5dff-ff72-40eb-9319-8da825873c0a}">
+		<property name="note" />
 		<property name="name">
 			<value>Section</value>
 		</property>
@@ -16,7 +17,7 @@
 			<value>2</value>
 		</property>
 		<property name="maximum">
-			<value>9</value>
+			<value>10</value>
 		</property>
 		<property name="enumerationLabels">
 			<value>Lobby</value>
@@ -28,6 +29,7 @@
 			<value>Rhythm</value>
 			<value>Boats</value>
 			<value>Island</value>
+			<value>Juggernaut</value>
 		</property>
 		<property name="initialValue">
 			<value>0</value>

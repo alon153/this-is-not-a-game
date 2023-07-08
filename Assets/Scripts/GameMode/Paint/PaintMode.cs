@@ -17,6 +17,8 @@ namespace GameMode.Modes
     [Serializable]
     public class PaintMode : GameModeBase, IOnMoveListener
     {
+        public override GameModes Mode => GameModes.Paint;
+        
         #region Non-Serialized Fields
         
         private float _paintIntervals = 0.05f;

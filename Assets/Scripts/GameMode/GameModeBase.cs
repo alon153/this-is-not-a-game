@@ -26,8 +26,10 @@ namespace GameMode
     [field: SerializeField] public EventReference DashSound { get; private set; }
     [field: SerializeField] public EventReference ActionSound { get; private set; }
     [field: SerializeField] public EventReference FallSound { get; private set; }
+    [field: SerializeField] public EventReference MoveSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
     [field: SerializeField] public GameObject ArenaForScoreScreen { get; private set; }
+    public abstract GameModes Mode { get; }
 
     #endregion
 
@@ -58,6 +60,10 @@ namespace GameMode
       AudioManager.DashEvent = DashSound;
       AudioManager.ActionEvent = ActionSound;
       AudioManager.FallEvent = FallSound;
+      foreach (var player in GameManager.Instance.Players)
+      {
+        player.MoveSound = MoveSound;
+      }
       InitArena_Inner();
       InitRound_Inner();
     }

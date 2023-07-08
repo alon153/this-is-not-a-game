@@ -19,6 +19,8 @@ namespace GameMode.Island
     [Serializable]
     public class IslandMode : GameModeBase, IOnMoveListener, IOnPushedListener
     {
+        public override GameModes Mode => GameModes.Island;
+        
         #region ScriptableObject Fields
 
         private int _numTreasures;

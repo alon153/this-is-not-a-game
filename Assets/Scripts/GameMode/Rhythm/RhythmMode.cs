@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using Basics;
 using Managers;
 using ScriptableObjects.GameModes.Modes;
@@ -11,6 +12,8 @@ namespace GameMode.Rhythm
     [Serializable]
     public class RhythmMode : GameModeBase
     {
+        public override GameModes Mode => GameModes.Rhythm;
+
         private HashSet<RhythmPanel> _panels = new();
 
         #region GameModeBase

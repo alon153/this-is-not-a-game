@@ -1,6 +1,8 @@
 ﻿using System;
+using Audio;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +15,7 @@ namespace GameMode.Lasers
         
         [Tooltip("how much points the player gets for collecting that diamond")]
         [SerializeField] private int diamondValue;
+        [SerializeField] private EventReference _slurp;
 
         public UnityAction<DiamondCollectible, int> OnDiamondPickedUp;
        
@@ -32,6 +35,8 @@ namespace GameMode.Lasers
                        playerAddon.DiamondsCollected += 1; 
                        playerIdx = player.Index;
                        OnDiamondPickedUp.Invoke(this, playerIdx);
+                       
+                       AudioManager.PlayOneShot(_slurp);
                        return;
                     }
                 }

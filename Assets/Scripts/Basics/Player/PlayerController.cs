@@ -1,5 +1,7 @@
 using System;
 using Audio;
+using FMODUnity;
+using JetBrains.Annotations;
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -20,8 +22,7 @@ namespace Basics.Player
         #endregion
 
         #region Serialized Fields
-
-        [SerializeField] private TextMeshProUGUI _txtInteract;
+        
         [SerializeField] private Transform _playerFront;
         [SerializeField] public PlayerEffect PlayerEffect;
 
@@ -44,10 +45,14 @@ namespace Basics.Player
 
         [Tooltip("The time a player is knocked back")] 
         [SerializeField] private float _knockBackDelay = 0.15f;
+
+        public StudioEventEmitter _longActionEmitter;
         #endregion
 
         #region Non-Serialized Fields
 
+        private StudioEventEmitter _moveEmitter;
+        [CanBeNull] private StudioEventEmitter _specialEmitter = null;
         private Vector3 _origScale;
 
         private bool _ready;
@@ -68,6 +73,8 @@ namespace Basics.Player
 
         private bool _canMove = true;
         private bool _dashing;
+
+        private PressPrompt _pressPrompt;
 
         [field: SerializeField] public PlayerRenderer Renderer { get; private set; }
 
@@ -171,6 +178,24 @@ namespace Basics.Player
 
         public PlayerAddon Addon { get; set; }
 
+        public EventReference MoveSound
+        {
+            get => _moveEmitter.EventReference;
+            set
+            {
+                bool playing = _moveEmitter.IsPlaying();
+                if(playing)
+                    StopMoveSound();
+                Destroy(_moveEmitter);
+                _moveEmitter = gameObject.AddComponent<StudioEventEmitter>();
+                _moveEmitter.EventReference = value;
+                if(playing)
+                    PlayMoveSound();
+            }
+        }
+
+        public EventReference? SpecialDashSound { get; set; } = null;
+
         #endregion
 
         #region Function Events
@@ -179,6 +204,8 @@ namespace Basics.Player
         {
             Rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
+            _moveEmitter = GetComponent<StudioEventEmitter>();
+            _pressPrompt = GetComponentInChildren<PressPrompt>();
 
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;
@@ -194,7 +221,7 @@ namespace Basics.Player
             Color = _origColor;
             Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
-            _txtInteract.enabled = false;
+            _pressPrompt.HidePrompt();
             
 
             SetParticlesColors();
@@ -222,6 +249,10 @@ namespace Basics.Player
             ModifyPhysics();
             if (!_frozen)
                 MoveCharacter();
+            if(Rigidbody.velocity.magnitude > 0 && !Dashing)
+                PlayMoveSound();
+            else
+                StopMoveSound();
         }
 
         private void OnDestroy()
@@ -244,6 +275,7 @@ namespace Basics.Player
                     break;
                 case InputActionPhase.Canceled:
                     Direction = Vector2.zero;
+                    StopMoveSound();
                     break;
             }
         }
@@ -283,8 +315,17 @@ namespace Basics.Player
                             SetLongActionAnimation(true);
                         else
                             SetActionAnimation();
+                        _pressPrompt.Pressed = true;
+                        if (!Interactable.IsHold)
+                        {
+                            TimeManager.Instance.DelayInvoke((() => { _pressPrompt.Pressed = false; }), 0.2f);
+                            AudioManager.PlayAction();
+                        }
+                        else
+                        {
+                            _longActionEmitter.Play();
+                        }
                         Interactable.OnInteract(this);
-                        AudioManager.PlayAction();
                     }
                     else if (Addon is PlayerActionAddOn)
                     {
@@ -295,8 +336,12 @@ namespace Basics.Player
                 case InputActionPhase.Canceled:
                     if (Interactable != null)
                     {
-                        if(Interactable.IsHold)
+                        if (Interactable.IsHold)
+                        {
                             SetLongActionAnimation(false);
+                            _pressPrompt.Pressed = false;
+                            _longActionEmitter.Stop();
+                        }
                         Interactable.OnInteract(this, false);
                     }
                     break;
@@ -312,12 +357,6 @@ namespace Basics.Player
 
         #region Public Methods
 
-        private void ToggleInteractText(bool show, string text = "Press A")
-        {
-            _txtInteract.text = text;
-            _txtInteract.enabled = show;
-        }
-
         public void Freeze(bool timed = true, float time = 2, bool stunned = false)
         {
             if (_freezeId != Guid.Empty)
@@ -327,6 +366,7 @@ namespace Basics.Player
             }
 
             Rigidbody.velocity = Vector2.zero;
+            StopMoveSound();
             _frozen = true;
 
             if (timed)
@@ -413,6 +453,8 @@ namespace Basics.Player
 
         private void Dash()
         {
+            StopMoveSound();
+            
             _dashDirection = _direction.normalized;
 
             Dashing = true;
@@ -423,7 +465,10 @@ namespace Basics.Player
             _dashParticles.Play();
             
             TimeManager.Instance.DelayInvoke(() => { CanDash = true; }, _dashCooldown);
-            AudioManager.PlayDash();
+            if(SpecialDashSound != null)
+                AudioManager.PlayOneShot((EventReference) SpecialDashSound);
+            else
+                AudioManager.PlayDash();
 
             _dashingId = TimeManager.Instance.DelayInvoke(() =>
             {
@@ -431,6 +476,11 @@ namespace Basics.Player
                 _isInPostDash = true;
                 _postDashId = TimeManager.Instance.DelayInvoke(() => { _isInPostDash = false; }, _postDashPushTime);
             }, DashTime);
+        }
+
+        private void StopMoveSound()
+        {
+            _moveEmitter.Stop();
         }
 
         private void CancelDash()
@@ -478,6 +528,12 @@ namespace Basics.Player
             }
         }
 
+        private void PlayMoveSound()
+        {
+            if(!_moveEmitter.IsPlaying() && !_moveEmitter.EventReference.IsNull)
+                _moveEmitter.Play();
+        }
+
         private void ModifyPhysics()
         {
             var changingDirection = Vector3.Angle(_direction, Rigidbody.velocity) >= 90;
@@ -493,7 +549,7 @@ namespace Basics.Player
 
             if (_direction.magnitude == 0 && Rigidbody.velocity.magnitude < DecThreshold)
             {
-                Rigidbody.velocity *= Vector2.zero;
+                Rigidbody.velocity = Vector2.zero;
             }
         }
 

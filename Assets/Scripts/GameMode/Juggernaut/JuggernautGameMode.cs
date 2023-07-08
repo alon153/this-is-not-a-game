@@ -4,6 +4,7 @@ using Managers;
 using UnityEngine;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using ScriptableObjects.GameModes.Modes;
 using UnityEngine.Pool;
 using Utilities.Interfaces;
@@ -15,8 +16,10 @@ namespace GameMode.Juggernaut
 {   
     [Serializable]
     public class JuggernautGameMode : GameModeBase, IOnFallListener
-    {   
-        
+    {
+        public override GameModes Mode => GameModes.Juggernaut;
+
+
         #region ScriptableObject Fields  
         
         private Totem totemPrefab;
@@ -33,6 +36,10 @@ namespace GameMode.Juggernaut
         private GameObject lifePrefab;
         private List<AnimatorOverrideController> gorillaAnimatorOverrides;
         private Vector2 colliderSize;
+        private float gorillaForce;
+        
+        private EventReference _gorillaMove;
+        private EventReference _gorillaDash;
 
         #endregion
 
@@ -40,6 +47,8 @@ namespace GameMode.Juggernaut
 
         private float _time = 0f;
         
+        private Guid _changeAnimatorId = Guid.Empty;
+
         // totem
         private Totem _totem;
 
@@ -53,6 +62,10 @@ namespace GameMode.Juggernaut
         private List<JuggerCanvasAddOn> _playerCanvasAddOns = new List<JuggerCanvasAddOn>();
 
         private List<BoxCollider2D> _gorillaColliders = new List<BoxCollider2D>();
+
+        private float _playerKnockBackForce;
+
+        private float _playerMutualKnockBackForce;
 
         #endregion
 
@@ -75,7 +88,10 @@ namespace GameMode.Juggernaut
             lifePrefab = sObj.lifePrefab;
             gorillaAnimatorOverrides = sObj.gorillaAnimatorOverride;
             colliderSize = sObj.gorillaColliderSize;
-
+    
+            _gorillaDash = sObj._gorillaDash;
+            _gorillaMove = sObj._gorillaMove;
+            gorillaForce = sObj.gorillaForce;
         }
 
         protected override void InitRound_Inner()
@@ -91,7 +107,11 @@ namespace GameMode.Juggernaut
             SetUpPlayerAddOn();
             
             foreach (PlayerController player in GameManager.Instance.Players)
-                player.RegisterFallListener(this);            
+                player.RegisterFallListener(this);
+
+            var details = GameManager.Instance.Players[0].GetKnockBackDetails();
+            _playerKnockBackForce = details.Item1;
+            _playerMutualKnockBackForce = details.Item2;
         }
 
         protected override void InitArena_Inner()
@@ -107,12 +127,16 @@ namespace GameMode.Juggernaut
 
         protected override void ClearRound_Inner()
         {
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
             Object.Destroy(_totem.gameObject);
             for (int i = 0; i < GameManager.Instance.Players.Count; ++i)
             {
                 Object.Destroy(_playerCanvasAddOns[i].gameObject);
                 GameManager.Instance.Players[i].Addon = null;
                 GameManager.Instance.Players[i].UnRegisterFallListener(this);
+                GameManager.Instance.Players[i].SetKnockBackForce(_playerKnockBackForce, 
+                    _playerMutualKnockBackForce);
                 Object.Destroy(_gorillaColliders[i]);
             }
         }
@@ -171,9 +195,17 @@ namespace GameMode.Juggernaut
             _currTotemHolder = player;
             _gorillaColliders[_currTotemHolder.Index].enabled = true;
             _isAPlayerHoldingTotem = true;
-
-            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
-                player.PlayerEffect.GetCurAnimationTime() * 0.5f);
+            _currTotemHolder.SetKnockBackForce(_playerKnockBackForce * gorillaForce, 
+                    _playerMutualKnockBackForce * gorillaForce);
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
+            _changeAnimatorId = TimeManager.Instance.DelayInvoke(() =>
+                {
+                    SetNewAnimator(AnimatorState.ToGorilla);
+                    _changeAnimatorId = Guid.Empty;
+                },
+                0.26f);
+                // player.PlayerEffect.GetCurAnimationTime() * 0.5f);
 
             _time = 0;
 
@@ -182,11 +214,19 @@ namespace GameMode.Juggernaut
         private void OnTotemDropped()
         {   
             _totem.gameObject.SetActive(true);
-            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
+            _changeAnimatorId = TimeManager.Instance.DelayInvoke(() =>
+                {
+                    SetNewAnimator(AnimatorState.ToHunter);
+                    _changeAnimatorId = Guid.Empty;
+                },
                             _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
             // remove totem from current player
             _isAPlayerHoldingTotem = false;
             _gorillaColliders[_currTotemHolder.Index].enabled = false;
+            _currTotemHolder.SetKnockBackForce(_playerKnockBackForce / gorillaForce, 
+                _playerMutualKnockBackForce / gorillaForce);
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.transform.position = GenerateTotemPosition();
         }
@@ -282,12 +322,16 @@ namespace GameMode.Juggernaut
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                     ((JuggernautPlayerAddOn) _currTotemHolder.Addon).AddTotemToPlayer();
+                    _currTotemHolder.MoveSound = _gorillaMove;
+                    _currTotemHolder.SpecialDashSound = _gorillaDash;
                     break;
                 case AnimatorState.ToHunter:
                     newController = AnimatorOverride[_currTotemHolder.Index];
                     _currTotemHolder.Renderer.SetAnimatorOverride(newController);
                     PlayerAddon.CheckCompatability(_currTotemHolder.Addon, GameModes.Juggernaut);
                     ((JuggernautPlayerAddOn) _currTotemHolder.Addon).RemoveTotemFromPlayer();
+                    _currTotemHolder.MoveSound = MoveSound;
+                    _currTotemHolder.SpecialDashSound = null;
                     _currTotemHolder = null;
                     break;
             }

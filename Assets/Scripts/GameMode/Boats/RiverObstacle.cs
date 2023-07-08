@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using JetBrains.Annotations;
+using Managers;
 using Utilities;
 
 namespace GameMode.Boats
@@ -18,21 +19,24 @@ namespace GameMode.Boats
 
         private bool _inRiver;
 
+        private Guid _removeInvoke = Guid.Empty;
+
         private Color _obsColor;
 
         [CanBeNull] public Coroutine _fadeCoroutine = null;
 
-        public float speed = 0.01f;
+        public float speed = 0.015f;
 
         #endregion
 
         #region Properties
-        
+
         /// <summary>
         /// Flag used to control whether obstacle should do on triggerExit content or not.
         /// it will be switched to false when   
         /// </summary>
         public bool IsInMode { get; set; } = true;
+
         public Rigidbody2D ObstacleRigidbody2D { get; private set; }
 
         #endregion
@@ -45,7 +49,7 @@ namespace GameMode.Boats
         }
 
         public void FreezeObstacle()
-        {   
+        {
             if (gameObject.activeSelf)
                 ObstacleRigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
         }
@@ -60,12 +64,11 @@ namespace GameMode.Boats
         {
             StopCoroutine(_fadeCoroutine);
             _fadeCoroutine = null;
-            
+
             transform.localScale = Vector3.one;
             _spriteRenderer.color = _obsColor;
-
         }
-        
+
         /// <summary>
         /// Coroutine is called when an obstacle in the boats game mode has
         /// fallen from the game arena. the object is scaled and fades out and finally destroys.
@@ -76,7 +79,7 @@ namespace GameMode.Boats
             float timePassed = 0;
             var color = _spriteRenderer.color;
             var initScale = transform.localScale;
-            
+
             while (timePassed < _timeToFade)
             {
                 float progress = timePassed / _timeToFade;
@@ -86,14 +89,14 @@ namespace GameMode.Boats
 
                 _spriteRenderer.color = newColor;
                 transform.localScale = curScale;
-                
+
                 timePassed += Time.deltaTime;
                 yield return null;
             }
+
             _inDeactivation = false;
             _inRiver = false;
             gameObject.SetActive(false);
-           
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -105,17 +108,27 @@ namespace GameMode.Boats
             }
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("WaterObstacle"))
+            {
+                if (transform.position.y < other.gameObject.transform.position.y)
+                {
+                    gameObject.SetActive(false);
+                    BoatsInRiverMode.ObstaclesPool.Release(this);
+                }
+            }
+        }
+
         private void Update()
         {
-            if(Time.timeScale == 0) return;
-            
+            if (Time.timeScale == 0) return;
+
             var position = transform.position;
             float newY = position.y + speed;
             Vector3 newPosition = new Vector3(position.x, newY, position.z);
             position = newPosition;
             transform.position = position;
         }
-    
     }
-    
 }

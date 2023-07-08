@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using JetBrains.Annotations;
 using Managers;
 using UnityEngine;
@@ -27,10 +28,21 @@ namespace Basics.Player
                 if ((_interactable == null && value == null) ||
                     (_interactable != null && value != null)) return;
                 _interactable = value;
-                if(_interactable != null)
-                    ToggleInteractText(true, _interactable.IsHold ? "Hold A" : "Press A");
-                else
-                    ToggleInteractText(false);
+                if (GameManager.Instance.Mode != _pressPrompt.Mode)
+                {
+                    _pressPrompt.SetPrompt(_interactable);
+                    _pressPrompt.Mode = GameManager.Instance.Mode;
+                }
+
+                if (value == null)
+                {
+                    if(_longActionEmitter.IsPlaying())
+                        _longActionEmitter.Stop();
+                    _pressPrompt.Pressed = false;
+                }
+                    
+
+                _pressPrompt.Toggle(_interactable != null);
             }
         }
 
@@ -60,6 +72,8 @@ namespace Basics.Player
                 // was the player bashing or only pushing the other player
                 if (Dashing || _isInPostDash)
                 {
+                    AudioManager.PlayCollision();
+                    
                     // player has bashed another player so a knockback needed.
                     bool isMutual = isOtherDashing;
                     GameManager.Instance.CameraScript.Shake(isMutual);
@@ -258,6 +272,15 @@ namespace Basics.Player
                 texSheet.SetSprite(i ,newSprites[i]);
             }
         }
+
+        public void SetKnockBackForce(float newKnockBack, float newMutualKnockBack)
+        {
+            _knockBackForce = newKnockBack;
+            _mutualKnockBackForce = newMutualKnockBack;
+        }
+
+        public Tuple<float, float> GetKnockBackDetails() => new (_knockBackForce, _mutualKnockBackForce);
+
         #endregion
     }
 }

@@ -17,6 +17,8 @@ namespace GameMode.Lasers
     [Serializable]
     public class LasersMode : GameModeBase
     {
+        public override GameModes Mode => GameModes.Lasers;
+        
         #region ScriptableObject Fields
         
         private float freezeTime = 2;

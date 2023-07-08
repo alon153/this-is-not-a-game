@@ -1,3 +1,4 @@
+using Audio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;

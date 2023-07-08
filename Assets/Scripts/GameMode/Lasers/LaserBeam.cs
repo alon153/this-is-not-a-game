@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,7 @@ namespace GameMode.Lasers
         
         #region Non-Serialized Fields
 
+        private StudioEventEmitter _beamSound;
         private Collider2D _laserCollider;
 
         private SpriteRenderer _spriteRenderer;
@@ -25,6 +27,13 @@ namespace GameMode.Lasers
         {
             _laserCollider = GetComponent<BoxCollider2D>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _beamSound = GetComponent<StudioEventEmitter>();
+        }
+
+        private void OnDestroy()
+        {
+            if(_beamSound.IsPlaying())
+                _beamSound.Stop();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +59,10 @@ namespace GameMode.Lasers
 
         public void ToggleLaser(bool shouldActivate)
         {
+            if(shouldActivate)
+                _beamSound.Play();
+            else
+                _beamSound.Stop();
             _laserCollider.enabled = shouldActivate;
             _spriteRenderer.color = shouldActivate ? Color.white : new Color(1, 1, 1, 0);
             

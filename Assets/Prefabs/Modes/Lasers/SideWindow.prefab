@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2775014128045352358}
   - component: {fileID: 2599537877918414794}
   - component: {fileID: -2329715860132261156}
+  - component: {fileID: 7616956816619030428}
   m_Layer: 0
   m_Name: SideWindow
   m_TagString: Untagged
@@ -101,6 +102,39 @@ MonoBehaviour:
   laserToggleTime: 3
   maxGlow: 1
   windowGlow: {fileID: 2100000, guid: f510ca3765f61954d9502cd18287c2da, type: 2}
+  isSideWindow: 0
+  defaultVelocityMultiplier: 7
+--- !u!114 &7616956816619030428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3785516531289064045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 497860535
+      Data2: 1281832754
+      Data3: 1642003375
+      Data4: 253812823
+    Path: event:/Player/Lasers/Window/Warmup
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &182465166889152829
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using GameMode.Lasers;
 using UnityEngine;
 using System.Collections.Generic;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using Unity.Mathematics;
 using UnityEngine.Events;
@@ -29,7 +30,8 @@ namespace GameMode.Lasers
         #endregion
         
         #region Private Fields
-        
+
+        private StudioEventEmitter _warmUpSound;
         private LaserBeam _laserBeam;
 
         private SpriteRenderer _windowRenderer;
@@ -49,6 +51,7 @@ namespace GameMode.Lasers
         private void Awake()
         {
             _laserBeam = GetComponentInChildren<LaserBeam>();
+            _warmUpSound = GetComponent<StudioEventEmitter>();
             _windowRenderer = GetComponent<SpriteRenderer>();
             _windowRenderer.material = new Material(windowGlow);
 
@@ -68,11 +71,18 @@ namespace GameMode.Lasers
                 _shouldCastBeam = _randomBool.Next(2) == 1;
             }
 
-            else if (!_inMaxGlow && _shouldCastBeam)
-            {   
-                
-                var glow = Mathf.Lerp(Constants.MinProgress, maxGlow, _timer / laserToggleTime);
-                _windowRenderer.material.SetFloat(_colorFactor, glow);
+            else
+            {
+                if (_shouldCastBeam && laserToggleTime - _timer <= 3) // 3 is the length of the warmUp clip
+                {
+                    if(!_warmUpSound.IsPlaying())
+                        _warmUpSound.Play();
+                }
+                if (!_inMaxGlow && _shouldCastBeam)
+                {
+                    var glow = Mathf.Lerp(Constants.MinProgress, maxGlow, _timer / laserToggleTime);
+                    _windowRenderer.material.SetFloat(_colorFactor, glow);
+                }
             }
         }
 
@@ -89,6 +99,9 @@ namespace GameMode.Lasers
 
         private void OnCurCycleEnd(bool activate)
         {
+            if(_shouldCastBeam && _warmUpSound.IsPlaying())
+                _warmUpSound.Stop();
+            
             _laserBeam.ToggleLaser(activate);
             _inMaxGlow = activate;
             _windowRenderer.material.SetFloat(_colorFactor, _inMaxGlow ? maxGlow : Constants.MinProgress);
@@ -107,6 +120,11 @@ namespace GameMode.Lasers
 
         public void SetOnLaserHit(UnityAction<PlayerController, Vector2> action) => _laserBeam.OnLaserHit += action;
 
+        private void OnDestroy()
+        {
+            if(_warmUpSound.IsPlaying())
+                _warmUpSound.Stop();
+        }
 
         private void OnDrawGizmos()
         {

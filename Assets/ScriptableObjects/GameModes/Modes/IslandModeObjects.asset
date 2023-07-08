@@ -23,8 +23,8 @@ MonoBehaviour:
     count: 10
     sprites:
     - {fileID: 21300000, guid: b7fdfc7ade7fa86438912a97cf1e24c3, type: 3}
-  - score: 20
-    count: 2
+  - score: 15
+    count: 4
     sprites:
     - {fileID: 21300000, guid: 46ffe01dd3a18ca4193f7a108ff4f6f7, type: 3}
   _digTimes:
@@ -33,10 +33,10 @@ MonoBehaviour:
     count: 2
   - minTime: 4
     maxTime: 5
-    count: 10
+    count: 11
   - minTime: 7
     maxTime: 9
-    count: 2
+    count: 1
   _treasurePrefab: {fileID: -2000915396952698867, guid: 4600eb48d01123b489eae52ee77423de, type: 3}
   _vibrationRadius: 2
   _vibrationMaxForce: 0.1

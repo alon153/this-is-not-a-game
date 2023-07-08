@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
+using Audio;
 using UnityEngine;
 using UnityEngine.Events;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using Utilities;
 
@@ -16,14 +18,16 @@ namespace GameMode.Juggernaut
         [SerializeField] private Animator totemAnimator;
 
         [SerializeField] private PlayerEffect effect;
+        [SerializeField] private EventReference _appearSound;
 
         private bool _canPickUp = false;
 
         private float _time = 0f;
+        
+        private Guid _appearInvoke = Guid.Empty;
 
         private SpriteRenderer _spriteRenderer;
-
-        private readonly Color _disabledColor = new Color(1, 1, 1, 0);
+        
         public UnityAction<PlayerController> OnTotemPickedUp { set; get; }
 
         public float coolDownTime = 2f;
@@ -33,7 +37,6 @@ namespace GameMode.Juggernaut
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
-            
         }
 
         private void Update()
@@ -44,19 +47,29 @@ namespace GameMode.Juggernaut
                 if (_time >= coolDownTime)
                 {   
                     _time = 0f;
+                    AudioManager.PlayOneShot(_appearSound);
                     effect.PlayPuffAnimation();
-                    TimeManager.Instance.DelayInvoke(() => { 
-                            _spriteRenderer.color = Color.white;
+                    if (_appearInvoke != Guid.Empty)
+                        TimeManager.Instance.CancelInvoke(_appearInvoke);
+                    _appearInvoke = TimeManager.Instance.DelayInvoke(() =>
+                        {
+                            _spriteRenderer.enabled = true;
+                            _appearInvoke = Guid.Empty;
                             totemAnimator.SetBool(TotemEnabled, true);
                             
                         },
-                        effect.GetCurAnimationTime() * 0.5f);
+                        0.26f);
+                        // effect.GetCurAnimationTime() * 0.5f);
                     _canPickUp = true;
-                  
                 }
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_appearInvoke != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_appearInvoke);
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -79,7 +92,7 @@ namespace GameMode.Juggernaut
         {
             _canPickUp = false;
             _time = 0;
-            _spriteRenderer.color = _disabledColor;
+            _spriteRenderer.enabled = false;
             totemAnimator.SetBool(TotemEnabled, false);
         }
     }
