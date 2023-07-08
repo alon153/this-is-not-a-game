@@ -92,11 +92,17 @@
 		<property name="length">
 			<value>0.64063492063492067</value>
 		</property>
+		<property name="pitch">
+			<value>1</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{7aff9b1e-9494-4078-8e28-bce81ef887d6}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{d29126f7-6488-47ab-88c9-442732f75b50}">
+		<property name="volume">
+			<value>-8.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -113,6 +119,8 @@
 	<object class="MixerBusEffectChain" id="{4a7831af-3ec9-4289-a5d5-61008687f463}">
 		<relationship name="effects">
 			<destination>{10448bcb-2854-4091-8ff4-b51859d61b60}</destination>
+			<destination>{8127186a-3e28-44bd-ae69-672d73fd4d05}</destination>
+			<destination>{6f2fe4ce-8896-44bc-a5bf-a3250d2bb4d0}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{7f2e5d7c-66af-43d6-bf00-2717c8da6d32}" />
@@ -124,5 +132,27 @@
 	</object>
 	<object class="MixerBusPanner" id="{657417d8-4faa-4111-a60b-2c84da7788f4}" />
 	<object class="MixerBusFader" id="{10448bcb-2854-4091-8ff4-b51859d61b60}" />
+	<object class="ChorusEffect" id="{8127186a-3e28-44bd-ae69-672d73fd4d05}">
+		<property name="depth">
+			<value>40.5</value>
+		</property>
+		<property name="mix">
+			<value>54.5</value>
+		</property>
+	</object>
+	<object class="SFXReverbEffect" id="{6f2fe4ce-8896-44bc-a5bf-a3250d2bb4d0}">
+		<property name="decayTime">
+			<value>1600</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>34.5</value>
+		</property>
+		<property name="wetLevel">
+			<value>-21.5</value>
+		</property>
+		<property name="dryLevel">
+			<value>-6.5</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{878a18a5-1d5b-4a8b-9ec5-3d9edcdc6b62}" />
 </objects>
