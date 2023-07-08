@@ -15,7 +15,7 @@ MonoBehaviour:
   _paintMode:
     sObj: {fileID: 11400000, guid: 97409b55a88c78744bb312829379d450, type: 2}
     <ModeArena>k__BackingField: {fileID: 8297754426601155343, guid: 270ec6d96f32464428afbae02bcdca09, type: 3}
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aa2cf0c4c52827f47af60f4c1059ebbb, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 45c63bccf84ef674fb3a0c4db80b82b4, type: 3}
     <ChannelSprite>k__BackingField: {fileID: 21300000, guid: e0a6fb1ae5b1c4447afdac4d5f7de2b5, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 46361ceeaf825f3439698767a9a32eeb, type: 3}
@@ -117,7 +117,7 @@ MonoBehaviour:
   _ikeaMode:
     sObj: {fileID: 11400000, guid: 9192b268e8c052d4c940c07e38e4f664, type: 2}
     <ModeArena>k__BackingField: {fileID: 9035277194241255453, guid: e5828e09d26447b4999285a492af61b9, type: 3}
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: aee71c0335387f04da82e656e44514c9, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 5497bc76782f1754c80db8119b8db021, type: 3}
     <ChannelSprite>k__BackingField: {fileID: 21300000, guid: ddc3cc7fb64be4444aea4e02e0e063df, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 21300000, guid: 3a34aefe788dcbe479a151a68eddd041, type: 3}
@@ -372,7 +372,7 @@ MonoBehaviour:
   _juggernautMode:
     sObj: {fileID: 11400000, guid: 1176a0a20710f1249af131bb904c0b82, type: 2}
     <ModeArena>k__BackingField: {fileID: 7215795413516267002, guid: 2938c5c051aacce438be1541cd5f4cc2, type: 3}
-    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 4dd791aad167b6542bc6099cf23621c8, type: 3}
+    <InstructionsSprite>k__BackingField: {fileID: 21300000, guid: 3e6ea09d7b90bd243bdd94ed3011c0c1, type: 3}
     <ChannelSprite>k__BackingField: {fileID: 21300000, guid: b4a9528a72c062d41af3438f8dbf71a7, type: 3}
     <CharacterSprites>k__BackingField:
     - {fileID: 1165432570, guid: 72cc18bbc5d998d47a8efbb4b6cb44ab, type: 3}
