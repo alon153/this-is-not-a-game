@@ -22,7 +22,7 @@ namespace GameMode.Boats
 
         [CanBeNull] public Coroutine _fadeCoroutine = null;
 
-        public float speed = 0.01f;
+        public float speed = 0.015f;
 
         #endregion
 
