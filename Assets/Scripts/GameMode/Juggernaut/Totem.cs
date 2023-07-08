@@ -27,8 +27,7 @@ namespace GameMode.Juggernaut
         private Guid _appearInvoke = Guid.Empty;
 
         private SpriteRenderer _spriteRenderer;
-
-        private readonly Color _disabledColor = new Color(1, 1, 1, 0);
+        
         public UnityAction<PlayerController> OnTotemPickedUp { set; get; }
 
         public float coolDownTime = 2f;
@@ -52,8 +51,9 @@ namespace GameMode.Juggernaut
                     effect.PlayPuffAnimation();
                     if (_appearInvoke != Guid.Empty)
                         TimeManager.Instance.CancelInvoke(_appearInvoke);
-                    _appearInvoke = TimeManager.Instance.DelayInvoke(() => { 
-                            _spriteRenderer.color = Color.white;
+                    _appearInvoke = TimeManager.Instance.DelayInvoke(() =>
+                        {
+                            _spriteRenderer.enabled = true;
                             _appearInvoke = Guid.Empty;
                             totemAnimator.SetBool(TotemEnabled, true);
                             
@@ -92,7 +92,7 @@ namespace GameMode.Juggernaut
         {
             _canPickUp = false;
             _time = 0;
-            _spriteRenderer.color = _disabledColor;
+            _spriteRenderer.enabled = false;
             totemAnimator.SetBool(TotemEnabled, false);
         }
     }
