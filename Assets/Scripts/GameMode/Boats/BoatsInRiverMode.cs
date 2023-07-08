@@ -17,6 +17,8 @@ namespace GameMode.Boats
     [Serializable]
     public class BoatsInRiverMode : GameModeBase
     {
+        public override GameModes Mode => GameModes.Boats;
+        
         // used to clear and freeze all obstacles still on screen when round ends. 
         public static ObjectPool<RiverObstacle> ObstaclesPool;
 

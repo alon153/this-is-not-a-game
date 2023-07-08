@@ -16,6 +16,8 @@ namespace GameMode.Pool
     
     public class PoolMode : GameModeBase, IOnFallListener
     {
+        public override GameModes Mode => GameModes.Pool;
+        
         #region ScriptableObject Fields
 
         private float scoreOnHit = 10f;

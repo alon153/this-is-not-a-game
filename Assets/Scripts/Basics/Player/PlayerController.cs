@@ -22,8 +22,7 @@ namespace Basics.Player
         #endregion
 
         #region Serialized Fields
-
-        [SerializeField] private TextMeshProUGUI _txtInteract;
+        
         [SerializeField] private Transform _playerFront;
         [SerializeField] public PlayerEffect PlayerEffect;
 
@@ -46,6 +45,8 @@ namespace Basics.Player
 
         [Tooltip("The time a player is knocked back")] 
         [SerializeField] private float _knockBackDelay = 0.15f;
+
+        [SerializeField] private StudioEventEmitter _longActionEmitter;
         #endregion
 
         #region Non-Serialized Fields
@@ -72,6 +73,8 @@ namespace Basics.Player
 
         private bool _canMove = true;
         private bool _dashing;
+
+        private PressPrompt _pressPrompt;
 
         [field: SerializeField] public PlayerRenderer Renderer { get; private set; }
 
@@ -202,6 +205,7 @@ namespace Basics.Player
             Rigidbody = GetComponent<Rigidbody2D>();
             _input = GetComponent<PlayerInput>();
             _moveEmitter = GetComponent<StudioEventEmitter>();
+            _pressPrompt = GetComponentInChildren<PressPrompt>();
 
             if (_input.currentControlScheme == "Gamepad")
                 Gamepad = _input.devices[0] as Gamepad;
@@ -217,7 +221,7 @@ namespace Basics.Player
             Color = _origColor;
             Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
-            _txtInteract.enabled = false;
+            _pressPrompt.HidePrompt();
             
 
             SetParticlesColors();
@@ -311,8 +315,17 @@ namespace Basics.Player
                             SetLongActionAnimation(true);
                         else
                             SetActionAnimation();
+                        _pressPrompt.Pressed = true;
+                        if (!Interactable.IsHold)
+                        {
+                            TimeManager.Instance.DelayInvoke((() => { _pressPrompt.Pressed = false; }), 0.2f);
+                            AudioManager.PlayAction();
+                        }
+                        else
+                        {
+                            _longActionEmitter.Play();
+                        }
                         Interactable.OnInteract(this);
-                        AudioManager.PlayAction();
                     }
                     else if (Addon is PlayerActionAddOn)
                     {
@@ -323,8 +336,12 @@ namespace Basics.Player
                 case InputActionPhase.Canceled:
                     if (Interactable != null)
                     {
-                        if(Interactable.IsHold)
+                        if (Interactable.IsHold)
+                        {
                             SetLongActionAnimation(false);
+                            _pressPrompt.Pressed = false;
+                            _longActionEmitter.Stop();
+                        }
                         Interactable.OnInteract(this, false);
                     }
                     break;
@@ -339,12 +356,6 @@ namespace Basics.Player
         #endregion
 
         #region Public Methods
-
-        private void ToggleInteractText(bool show, string text = "Press A")
-        {
-            _txtInteract.text = text;
-            _txtInteract.enabled = show;
-        }
 
         public void Freeze(bool timed = true, float time = 2, bool stunned = false)
         {

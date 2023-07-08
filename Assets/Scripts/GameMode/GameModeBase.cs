@@ -29,6 +29,7 @@ namespace GameMode
     [field: SerializeField] public EventReference MoveSound { get; private set; }
     [field: SerializeField] public MusicSounds Music { get; private set; } = MusicSounds.Lobby;
     [field: SerializeField] public GameObject ArenaForScoreScreen { get; private set; }
+    public abstract GameModes Mode { get; }
 
     #endregion
 

@@ -13,6 +13,8 @@ namespace GameMode.Ikea
     [Serializable]
     public class IkeaMode : GameModeBase, IOnPushedListener
     {
+        public override GameModes Mode => GameModes.Ikea;
+        
         #region ScriptableObject Fields
 
         private List<IkeaPart> _partsPrefabs;

@@ -28,10 +28,21 @@ namespace Basics.Player
                 if ((_interactable == null && value == null) ||
                     (_interactable != null && value != null)) return;
                 _interactable = value;
-                if(_interactable != null)
-                    ToggleInteractText(true, _interactable.IsHold ? "Hold A" : "Press A");
-                else
-                    ToggleInteractText(false);
+                if (GameManager.Instance.Mode != _pressPrompt.Mode)
+                {
+                    _pressPrompt.SetPrompt(_interactable);
+                    _pressPrompt.Mode = GameManager.Instance.Mode;
+                }
+
+                if (value == null)
+                {
+                    if(_longActionEmitter.IsPlaying())
+                        _longActionEmitter.Stop();
+                    _pressPrompt.Pressed = false;
+                }
+                    
+
+                _pressPrompt.Toggle(_interactable != null);
             }
         }
 

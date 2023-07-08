@@ -12,6 +12,8 @@ namespace GameMode.Rhythm
     [Serializable]
     public class RhythmMode : GameModeBase
     {
+        public override GameModes Mode => GameModes.Rhythm;
+
         private HashSet<RhythmPanel> _panels = new();
 
         #region GameModeBase

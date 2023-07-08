@@ -76,6 +76,7 @@ namespace Managers
         public CameraScript CameraScript { get; private set; }
 
         public List<PlayerController> Players => Instance._players;
+        public GameModes Mode => GameMode?.Mode ?? GameModes.Null;
         public GameState State
         {
             get => _currentState;

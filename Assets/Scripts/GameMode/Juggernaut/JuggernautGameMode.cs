@@ -16,8 +16,10 @@ namespace GameMode.Juggernaut
 {   
     [Serializable]
     public class JuggernautGameMode : GameModeBase, IOnFallListener
-    {   
-        
+    {
+        public override GameModes Mode => GameModes.Juggernaut;
+
+
         #region ScriptableObject Fields  
         
         private Totem totemPrefab;
