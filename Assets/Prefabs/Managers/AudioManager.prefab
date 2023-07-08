@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bank: {fileID: 11400000, guid: 58c3e219064648e4995591af58b289e0, type: 2}
   _masterVolume: 1
-  _musicVolume: 0.8
+  _musicVolume: 1
   _sfxVolume: 1
   _defaultDash:
     Guid:
@@ -62,6 +62,27 @@ MonoBehaviour:
       Data3: 1548829596
       Data4: -930386457
     Path: event:/Player/DefaultCollision
+  _defaultDeath:
+    Guid:
+      Data1: -1777940827
+      Data2: 1132193782
+      Data3: 913473465
+      Data4: 188293966
+    Path: event:/Player/DefaultDeath
+  _defaultMove:
+    Guid:
+      Data1: 1633679378
+      Data2: 1251673569
+      Data3: -2146513785
+      Data4: -1003460908
+    Path: event:/Player/DefaultMove
+  _playerEnter:
+    Guid:
+      Data1: 852610773
+      Data2: 1332175202
+      Data3: 1524260742
+      Data4: -1433971513
+    Path: event:/SFX/SelectButton
   _defaultMusic: 0
   _selectButton:
     Guid:

@@ -592,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _musicVolume
-      value: 0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5775317529640911256, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive

@@ -222,8 +222,9 @@ namespace Basics.Player
             Renderer.Init(Color);
             GameManager.Instance.SetDefaultSprite(this);
             _pressPrompt.HidePrompt();
-            
 
+            AudioManager.PlayPlayerEnter();
+            AudioManager.MoveEvent = AudioManager.DefaultMove; // do this to set the move sound for each player
             SetParticlesColors();
         }
 

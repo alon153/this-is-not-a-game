@@ -57,15 +57,17 @@ namespace GameMode
       ExtractScriptableObject(sObj);
       SetPlayerSprites();
       SetCollisionParticles();
+      SetAudio();
+      InitArena_Inner();
+      InitRound_Inner();
+    }
+
+    private void SetAudio()
+    {
       AudioManager.DashEvent = DashSound;
       AudioManager.ActionEvent = ActionSound;
       AudioManager.FallEvent = FallSound;
-      foreach (var player in GameManager.Instance.Players)
-      {
-        player.MoveSound = MoveSound;
-      }
-      InitArena_Inner();
-      InitRound_Inner();
+      AudioManager.MoveEvent = MoveSound;
     }
 
     public virtual void OnTimerOver()

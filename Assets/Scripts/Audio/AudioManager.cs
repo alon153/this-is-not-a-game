@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using FMOD.Studio;
 using FMODUnity;
+using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
@@ -45,6 +46,7 @@ namespace Audio
         private EventReference _actionEvent;
         private EventReference _fallEvent;
         private EventReference _collisionEvent;
+        private EventReference _moveEvent;
 
         #endregion
 
@@ -68,7 +70,20 @@ namespace Audio
         public static EventReference FallEvent
         {
             get => _instance._fallEvent;
-            set => _instance._fallEvent = value;
+            set => _instance._fallEvent = value.IsNull ? _instance._defaultDeath : value;
+        }
+
+        public static EventReference MoveEvent
+        {
+            get => _instance._moveEvent;
+            set
+            {
+                _instance._moveEvent = value.IsNull ? _instance._defaultMove : value;
+                foreach (var player in GameManager.Instance.Players)
+                {
+                    player.MoveSound = _instance._moveEvent;
+                }
+            }
         }
 
         public static EventReference CollisionEvent
@@ -76,6 +91,8 @@ namespace Audio
             get => _instance._collisionEvent;
             set => _instance._collisionEvent = value;
         }
+
+        public static EventReference DefaultMove => _instance._defaultMove;
 
         #endregion
 
@@ -93,6 +110,9 @@ namespace Audio
 
             DashEvent = _defaultDash;
             CollisionEvent = _defaultCollision;
+            FallEvent = _defaultDeath;
+            MoveEvent = _defaultMove;
+            
             SetMusic(MusicSounds.Lobby);
 
             transform.SetParent(null);

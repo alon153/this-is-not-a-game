@@ -8,6 +8,9 @@ namespace Audio
         [Header("Sounds")] 
         [SerializeField] private EventReference _defaultDash;
         [SerializeField] private EventReference _defaultCollision;
+        [SerializeField] private EventReference _defaultDeath;
+        [SerializeField] private EventReference _defaultMove;
+        [SerializeField] private EventReference _playerEnter;
         [SerializeField] private MusicSounds _defaultMusic;
         [SerializeField] private EventReference _selectButton;
         [SerializeField] private EventReference _clickButton;
@@ -51,6 +54,12 @@ namespace Audio
         {
             if(!CollisionEvent.IsNull)
                 RuntimeManager.PlayOneShot(CollisionEvent);
+        }
+
+        public static void PlayPlayerEnter()
+        {
+            if(!_instance._playerEnter.IsNull)
+                RuntimeManager.PlayOneShot(_instance._playerEnter);
         }
     }
 }
