@@ -48,7 +48,7 @@ public class ScoreScreenManager : MonoBehaviour
     set
     {
       _maxScore = value;
-      _widthFactor = (1 - (_origMaxX - _origMinX)) / _maxScore;
+      _widthFactor = _maxScore > 0 ? (1 - (_origMaxX - _origMinX)) / _maxScore : 0;
     }
   }
   
