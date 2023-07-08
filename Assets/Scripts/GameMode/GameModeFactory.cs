@@ -127,5 +127,7 @@ namespace GameMode
         }
 
         #endregion
+
+        public bool IsEmpty => _availableModes == null || _availableModes.Count == 0;
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Audio;
 using FMODUnity;
+using GameMode;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -28,6 +29,7 @@ namespace Managers
         [Header("\nTimers")]
         [SerializeField] private TextMeshProUGUI _gameTimeText;
         [SerializeField] private TextMeshProUGUI _mainTimeText;
+        [SerializeField] private TextMeshProUGUI _lastRound;
 
         [Header ("\nMisc")]
         [SerializeField] private ScoreBlock[] _playerScores;
@@ -343,6 +345,7 @@ namespace Managers
 
             if (timer == CountDownTimer.Main || time <= 5)
             {
+                _lastRound.gameObject.SetActive(GameManager.Instance.IsLastRound && time > 0);
                 if(_fadeCoroutine != null)
                     StopCoroutine(_fadeCoroutine);
                 if(time > 0)
@@ -422,7 +425,7 @@ namespace Managers
             float time = 0;
             while (time < duration)
             {
-                time += Time.unscaledDeltaTime;
+                time += Time.deltaTime;
                 t = (duration - time) / duration;
                 color.a = t;
                 _mainTimeText.color = color;

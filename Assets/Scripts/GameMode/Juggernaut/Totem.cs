@@ -23,6 +23,8 @@ namespace GameMode.Juggernaut
         private bool _canPickUp = false;
 
         private float _time = 0f;
+        
+        private Guid _appearInvoke = Guid.Empty;
 
         private SpriteRenderer _spriteRenderer;
 
@@ -48,17 +50,26 @@ namespace GameMode.Juggernaut
                     _time = 0f;
                     AudioManager.PlayOneShot(_appearSound);
                     effect.PlayPuffAnimation();
-                    TimeManager.Instance.DelayInvoke(() => { 
+                    if (_appearInvoke != Guid.Empty)
+                        TimeManager.Instance.CancelInvoke(_appearInvoke);
+                    _appearInvoke = TimeManager.Instance.DelayInvoke(() => { 
                             _spriteRenderer.color = Color.white;
+                            _appearInvoke = Guid.Empty;
                             totemAnimator.SetBool(TotemEnabled, true);
                             
                         },
-                        effect.GetCurAnimationTime() * 0.5f);
+                        0.26f);
+                        // effect.GetCurAnimationTime() * 0.5f);
                     _canPickUp = true;
                 }
             }
         }
 
+        private void OnDestroy()
+        {
+            if (_appearInvoke != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_appearInvoke);
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {

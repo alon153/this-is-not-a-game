@@ -47,6 +47,8 @@ namespace GameMode.Juggernaut
 
         private float _time = 0f;
         
+        private Guid _changeAnimatorId = Guid.Empty;
+
         // totem
         private Totem _totem;
 
@@ -125,6 +127,8 @@ namespace GameMode.Juggernaut
 
         protected override void ClearRound_Inner()
         {
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
             Object.Destroy(_totem.gameObject);
             for (int i = 0; i < GameManager.Instance.Players.Count; ++i)
             {
@@ -192,9 +196,16 @@ namespace GameMode.Juggernaut
             _gorillaColliders[_currTotemHolder.Index].enabled = true;
             _isAPlayerHoldingTotem = true;
             _currTotemHolder.SetKnockBackForce(_playerKnockBackForce * gorillaForce, 
-                _playerMutualKnockBackForce * gorillaForce);
-            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToGorilla),
-                player.PlayerEffect.GetCurAnimationTime() * 0.5f);
+                    _playerMutualKnockBackForce * gorillaForce);
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
+            _changeAnimatorId = TimeManager.Instance.DelayInvoke(() =>
+                {
+                    SetNewAnimator(AnimatorState.ToGorilla);
+                    _changeAnimatorId = Guid.Empty;
+                },
+                0.26f);
+                // player.PlayerEffect.GetCurAnimationTime() * 0.5f);
 
             _time = 0;
 
@@ -203,7 +214,13 @@ namespace GameMode.Juggernaut
         private void OnTotemDropped()
         {   
             _totem.gameObject.SetActive(true);
-            TimeManager.Instance.DelayInvoke(() => SetNewAnimator(AnimatorState.ToHunter),
+            if (_changeAnimatorId != Guid.Empty)
+                TimeManager.Instance.CancelInvoke(_changeAnimatorId);
+            _changeAnimatorId = TimeManager.Instance.DelayInvoke(() =>
+                {
+                    SetNewAnimator(AnimatorState.ToHunter);
+                    _changeAnimatorId = Guid.Empty;
+                },
                             _currTotemHolder.PlayerEffect.GetCurAnimationTime() * 0.5f);
             // remove totem from current player
             _isAPlayerHoldingTotem = false;

@@ -73,6 +73,8 @@ namespace Managers
 
         #region Properties
         
+        public bool IsLastRound { get; set; } = false;
+        
         public CameraScript CameraScript { get; private set; }
 
         public List<PlayerController> Players => Instance._players;
@@ -214,6 +216,8 @@ namespace Managers
                     EndGame();
                 else
                 {
+                    if (_isSingleMode || _roundsPlayed == _numRounds || _gameModeFactory.IsEmpty)
+                        IsLastRound = true;
                     FreezePlayers(false);
                     AudioManager.Transition(GameMode.Music);
                     GameMode.InitRound();
@@ -236,7 +240,7 @@ namespace Managers
                 UIManager.Instance.ToggleFlash(false);
             }), _zapLength);
         }
-        
+
         /// <summary>
         /// Called by TimeManager when the current round's time is up.
         /// Calls the GameMode's OnTimeOver().
