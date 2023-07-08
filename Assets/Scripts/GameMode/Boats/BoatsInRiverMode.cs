@@ -137,7 +137,7 @@ namespace GameMode.Boats
             // set up obstacles pooling
             _maxPrefabIndex = obstaclesPrefab.Count;
             ObstaclesPool = new ObjectPool<RiverObstacle>(CreateObstacle,OnTakeObjectFromPool,
-                 OnReturnObstacleToPool, OnDestroyObstacle, true, defaultObstaclesCapacity,
+                 OnReturnObstacleToPool, OnDestroyObstacle, false, defaultObstaclesCapacity,
                  maxObstacleCapacity);
 
             _started = true;
@@ -236,7 +236,8 @@ namespace GameMode.Boats
             int spawnAmount = CalcSpawnAmount(roundProgress);
 
             for (int i = 0; i < spawnAmount; i++)
-                ObstaclesPool.Get();
+                TimeManager.Instance.DelayInvoke(() => ObstaclesPool.Get(),
+                    Random.Range(0f, Mathf.Min(0.1f,TimeManager.Instance.TimeLeft * 0.5f)));
         }
 
         private bool AllPlayersFell()
@@ -300,7 +301,7 @@ namespace GameMode.Boats
         }
 
         private void OnTakeObjectFromPool(RiverObstacle obstacle)
-        {   
+        {
             if (obstacle._fadeCoroutine != null)
                 obstacle.StopFadeCoroutine();
             // set the location of the object

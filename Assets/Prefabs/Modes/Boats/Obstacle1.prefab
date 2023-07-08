@@ -51,6 +51,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2310977808191821804, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
+      propertyPath: m_BodyType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310977808191821804, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
+      propertyPath: m_UseFullKinematicContacts
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2310977808191821805, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
       propertyPath: m_Name
       value: Obstacle1
@@ -74,6 +82,10 @@ PrefabInstance:
     - target: {fileID: 2310977808191821806, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2310977808191821806, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
+      propertyPath: m_MaskInteraction
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5520058347611387893, guid: 98083835bd6b2bf46bc9961c5ba91b20, type: 3}
       propertyPath: m_Size.y

@@ -13,7 +13,7 @@ namespace GameMode.Boats
         public List<RiverObstacle> obstaclesPrefab = new List<RiverObstacle>();
         [Range(5, 15)]
         public int defaultObstaclesCapacity = 8;
-        [Range(15, 20)]
+        [Range(15, 30)]
         public int maxObstacleCapacity = 20;
         [Tooltip("Initial Interval, it will go lower as round time progress.")]
         public float maxSpawnInterval = 3f;
