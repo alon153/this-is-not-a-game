@@ -258,6 +258,8 @@ namespace Audio
                     if (beat.beat % 2 == 0)
                         foreach (var l in _beatListeners)
                         {
+                            if(l == null) continue;
+                            
                             if (item == index)
                             {
                                 l.OnBeat(beat.beat);

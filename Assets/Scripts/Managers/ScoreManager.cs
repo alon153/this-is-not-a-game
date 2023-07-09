@@ -92,6 +92,8 @@ namespace Managers
             {
                 case true:
                     playerScore += score;
+                    if (_playerScores[playerId] < InitialScore)
+                        playerScore = InitialScore;
                     break;
                 
                 case false:

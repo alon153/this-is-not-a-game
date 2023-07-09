@@ -215,6 +215,12 @@ namespace Managers
         public void ToggleInstructions()
         {
             GameManager.Instance.instructionsMode = !GameManager.Instance.instructionsMode;
+            PlayerPrefs.SetInt("instructions",GameManager.Instance.instructionsMode ? 1 : 0);
+            UpdateInsturctionsButtons();
+        }
+
+        public void UpdateInsturctionsButtons()
+        {
             if (GameManager.Instance.instructionsMode)
             {
                 _instructionsOffBtn.SetActive(false);
@@ -231,7 +237,7 @@ namespace Managers
         }
 
         public void OnPressReset()
-        {   
+        {
             Time.timeScale = 1;
             _pauseMenu.SetActive(false);
             HideInstructions();

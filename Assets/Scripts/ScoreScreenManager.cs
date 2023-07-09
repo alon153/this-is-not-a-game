@@ -264,8 +264,9 @@ public class ScoreScreenManager : MonoBehaviour
 
   private IEnumerator PlayFireWorks()
   {
-    
-    Color curWinnerColor = GameManager.Instance.PlayerColor(UIManager.Instance.CurrWinner);
+    Color curWinnerColor = UIManager.Instance.CurrWinner == -1 
+      ? Color.white 
+      : GameManager.Instance.PlayerColor(UIManager.Instance.CurrWinner);
     _fireWorks = ShuffleFireWorks(_fireWorks);
     foreach (var fireWork in _fireWorks)
     {

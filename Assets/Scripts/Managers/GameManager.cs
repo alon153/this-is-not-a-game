@@ -123,7 +123,14 @@ namespace Managers
         private void Start()
         {
             Init();
-            instructionsMode = true;
+
+            if (!PlayerPrefs.HasKey("instructions"))
+            {
+                PlayerPrefs.SetInt("instructions",1);
+            }
+            
+            instructionsMode = PlayerPrefs.GetInt("instructions") == 1;
+            UIManager.Instance.UpdateInsturctionsButtons();
             CameraScript = Camera.main.GetComponent<CameraScript>();
         }
 
@@ -399,6 +406,7 @@ namespace Managers
 
         private void ResetGame()
         {
+            GameMode?.ClearRound();
             SceneManager.LoadScene("Main");
         }
 

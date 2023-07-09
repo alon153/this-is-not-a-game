@@ -46,8 +46,11 @@ namespace GameMode.Rhythm
         {
             foreach (var p in _panels)
             {
-                AudioManager.UnRegisterBeatListener(p);
-                p.StopRings();
+                if (p != null)
+                {
+                    AudioManager.UnRegisterBeatListener(p);
+                    p.StopRings();
+                }
             }
         }
 

@@ -1,3 +1,4 @@
+using System;
 using Audio;
 using FMODUnity;
 using UnityEngine;
@@ -9,7 +10,12 @@ namespace Managers
     {
         [SerializeField] private EventReference _clickButton;
         [SerializeField] private EventReference _selectButton;
-        
+
+        private void Awake()
+        {
+            PlayerPrefs.SetInt("instructions",1);
+        }
+
         public void LoadGame()
         {
             Debug.Log("Loading Game");
