@@ -70,6 +70,7 @@ namespace Basics.Player
 
         private bool _frozen = false;
         private Guid _freezeId = Guid.Empty;
+        private Guid _unfreezeId = Guid.Empty;
         private bool _stunned;
 
         private bool _canMove = true;
@@ -387,10 +388,10 @@ namespace Basics.Player
             if(GameManager.Instance.State == GameState.Instructions)
                 return;
             
-            if (_freezeId != Guid.Empty)
+            if (_unfreezeId != Guid.Empty)
             {
-                TimeManager.Instance.CancelInvoke(_freezeId);
-                _freezeId = Guid.Empty;
+                TimeManager.Instance.CancelInvoke(_unfreezeId);
+                _unfreezeId = Guid.Empty;
             }
 
             _frozen = false;
