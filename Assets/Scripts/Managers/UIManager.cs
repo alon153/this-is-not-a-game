@@ -8,6 +8,7 @@ using GameMode;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Utilities;
@@ -163,30 +164,36 @@ namespace Managers
         /// <summary>
         /// will lead to settings menu if in lobby, will lead to pause menu if in game. 
         /// </summary>
-        public void OnPressStart()
+        public void OnPressStart(InputAction.CallbackContext context)
         {
-            switch (GameManager.Instance.State)
+            switch (context.phase)
             {
-               case GameState.Lobby:
-                    _eventSystem.SetSelectedGameObject(_firstSettingsMenuBtn);
-                    _settingsMenu.SetActive(true);
-                    GameManager.Instance.State = GameState.SettingsMenu;
-                    break;
-                    
-                case GameState.Playing: 
-                    _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn); 
-                    GameManager.Instance.State = GameState.PauseMenu;
-                    ShowInstructions();
-                    break;
-                
-                case GameState.Instructions:
-                case GameState.MainMenu:
-                case GameState.PauseMenu:
-                case GameState.SettingsMenu:
-                    return;
-            }
+                   case InputActionPhase.Started: 
+                        switch (GameManager.Instance.State)
+                        {
+                            case GameState.Lobby:
+                                _eventSystem.SetSelectedGameObject(_firstSettingsMenuBtn);
+                                _settingsMenu.SetActive(true);
+                                GameManager.Instance.State = GameState.SettingsMenu;
+                                break;
 
-            Time.timeScale = 0;
+                            case GameState.Playing:
+                                _eventSystem.SetSelectedGameObject(_firstPauseMenuBtn);
+                                GameManager.Instance.State = GameState.PauseMenu;
+                                ShowInstructions();
+                                break;
+
+                            case GameState.Instructions:
+                            case GameState.MainMenu:
+                            case GameState.PauseMenu:
+                            case GameState.SettingsMenu:
+                                return;
+                        }
+
+                        AudioManager.PlayPlayerEnter();
+                        Time.timeScale = 0;
+                        break;
+            }
         }
 
         public void OnReturnToGame()
