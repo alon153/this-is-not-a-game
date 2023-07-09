@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
@@ -542,6 +542,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1697234468115786053, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1750921889819494122, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -574,6 +578,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -390
       objectReference: {fileID: 0}
+    - target: {fileID: 4565979815418834766, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5015106392550368003, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -592,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _musicVolume
-      value: 0
+      value: 0.27
       objectReference: {fileID: 0}
     - target: {fileID: 5775317529640911256, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive
@@ -641,6 +649,10 @@ PrefabInstance:
     - target: {fileID: 9063658894353620591, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_text
       value: LAST ROUND!
+      objectReference: {fileID: 0}
+    - target: {fileID: 9130398511794750034, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_Color.a
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
