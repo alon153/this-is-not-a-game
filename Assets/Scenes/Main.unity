@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
@@ -496,11 +496,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _modes.Array.data[0]
@@ -600,7 +600,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448552302603070643, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _musicVolume
-      value: 0.27
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 5775317529640911256, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive
@@ -652,7 +652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9130398511794750034, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_Color.a
-      value: 0.8
+      value: 0.23921569
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}

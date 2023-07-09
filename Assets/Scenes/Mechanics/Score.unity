@@ -427,5 +427,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8719950517926275263, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
+      propertyPath: m_Color.a
+      value: 0.23921569
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a017b417bb5e54448405e62aaf016a4, type: 3}
