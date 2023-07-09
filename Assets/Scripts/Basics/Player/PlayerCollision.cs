@@ -143,7 +143,7 @@ namespace Basics.Player
             // Renderer.Animator.SetTrigger(Dead);
             Renderer.SetActive(false);
             _fallParticles.Play();
-            Freeze();
+            // Freeze();
             if (shouldRespawn)
                 TimeManager.Instance.DelayInvoke((() => { Respawn(true); }), FallTime);
         }
