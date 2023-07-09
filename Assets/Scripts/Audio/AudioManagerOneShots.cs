@@ -16,6 +16,7 @@ namespace Audio
         [SerializeField] private EventReference _clickButton;
         [SerializeField] private EventReference _countDownButton;
         [SerializeField] private EventReference _victorySound;
+        [SerializeField] private EventReference _fireworksSound;
 
 
         public static void SelectSound()
@@ -31,6 +32,11 @@ namespace Audio
         public static void PlayVictory()
         {
             PlayOneShot(_instance._victorySound);
+        }
+        
+        public static void PlayFireworks()
+        {
+            PlayOneShot(_instance._fireworksSound);
         }
     
         public static void CountDownSound()

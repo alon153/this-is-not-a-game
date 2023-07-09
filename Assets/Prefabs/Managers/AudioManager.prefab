@@ -112,3 +112,10 @@ MonoBehaviour:
       Data3: -796333891
       Data4: 679747146
     Path: event:/SFX/victory
+  _fireworksSound:
+    Guid:
+      Data1: 962932312
+      Data2: 1339588732
+      Data3: -1629431654
+      Data4: 1744633120
+    Path: event:/SFX/Fireworks
