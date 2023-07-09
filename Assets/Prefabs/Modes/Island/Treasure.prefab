@@ -122,6 +122,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hintColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  _digSound:
+    Guid:
+      Data1: 1567740024
+      Data2: 1320461655
+      Data3: -691745133
+      Data4: -941148805
+    Path: event:/Player/Island/Item found
 --- !u!58 &8664931171539240777
 CircleCollider2D:
   m_ObjectHideFlags: 0
