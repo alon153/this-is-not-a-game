@@ -111,7 +111,8 @@ namespace Basics.Player
         #region Public Methods
 
         public void Fall(bool shouldRespawn = true, bool stun = true)
-        {
+        {   
+            PlayerEffect.StopStunAnimation();
             var vel = Rigidbody.velocity;
             Rigidbody.drag = _fallDrag;
             Rigidbody.AddForce(vel, ForceMode2D.Impulse);

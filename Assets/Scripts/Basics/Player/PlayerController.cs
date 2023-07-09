@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
 using Utilities.Interfaces;
+using Random = UnityEngine.Random;
 
 namespace Basics.Player
 {
@@ -300,7 +301,9 @@ namespace Basics.Player
         }
 
         public void OnAction(InputAction.CallbackContext context)
-        {
+        {   
+            if (_frozen && GameManager.Instance.State == GameState.Playing) return;
+
             switch (context.phase)
             {
                 case InputActionPhase.Started:
@@ -330,8 +333,10 @@ namespace Basics.Player
                     }
                     else if (Addon is PlayerActionAddOn)
                     {
-                        ((PlayerActionAddOn) Addon).OnAction(this);
-                        AudioManager.PlayAction();
+                        
+                            ((PlayerActionAddOn) Addon).OnAction(this);
+                            AudioManager.PlayAction();
+                        
                     }
                     break;
                 case InputActionPhase.Canceled:
@@ -351,7 +356,7 @@ namespace Basics.Player
 
         public void OnPause(InputAction.CallbackContext context)
         {   
-           UIManager.Instance.OnPressStart();
+           UIManager.Instance.OnPressStart(context);
         }
 
         #endregion

@@ -268,7 +268,8 @@ namespace Managers
         #region Private Methods
 
         private void EndGame()
-        {
+        {   
+            AudioManager.PlayNoise();
             maxScore = ScoreManager.Instance.GetPlayerScore(ScoreManager.Instance.GetWinner());
             UIManager.Instance.ResetScoreDisplays();
             
@@ -283,6 +284,7 @@ namespace Managers
             DontDestroyOnLoad(TimeManager.Instance.gameObject);
 
             SceneManager.LoadScene("ScoreScene");
+            
         }
 
         private void StartGame()
