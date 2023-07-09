@@ -101,7 +101,7 @@ namespace GameMode.Boats
             {
                 var transform = playerController.transform;
                 var draggingPosition = transform.position;
-                draggingPosition.y += dragUpSpeed;
+                draggingPosition.y += dragUpSpeed*Time.deltaTime;
                 transform.position = draggingPosition;
             }
         }

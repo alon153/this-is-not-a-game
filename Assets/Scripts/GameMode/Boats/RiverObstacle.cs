@@ -125,7 +125,7 @@ namespace GameMode.Boats
             if (Time.timeScale == 0) return;
 
             var position = transform.position;
-            float newY = position.y + speed;
+            float newY = position.y + speed*Time.deltaTime;
             Vector3 newPosition = new Vector3(position.x, newY, position.z);
             position = newPosition;
             transform.position = position;
