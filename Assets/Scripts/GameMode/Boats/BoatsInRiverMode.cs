@@ -236,7 +236,8 @@ namespace GameMode.Boats
             int spawnAmount = CalcSpawnAmount(roundProgress);
 
             for (int i = 0; i < spawnAmount; i++)
-                ObstaclesPool.Get();
+                TimeManager.Instance.DelayInvoke(() => ObstaclesPool.Get(),
+                    Random.Range(0f, Mathf.Min(0.1f,TimeManager.Instance.TimeLeft * 0.5f)));
         }
 
         private bool AllPlayersFell()
