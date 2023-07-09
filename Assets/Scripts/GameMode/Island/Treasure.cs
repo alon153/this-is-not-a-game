@@ -1,6 +1,8 @@
 ﻿using System;
+using Audio;
 using Basics;
 using Basics.Player;
+using FMODUnity;
 using Managers;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -10,6 +12,8 @@ namespace GameMode.Island
 {
     public class Treasure : InteractableObject
     {
+        [SerializeField] private EventReference _digSound;
+        
         #region Non-Serialized Fields
 
         private float _diggingTimeLeft;
@@ -105,6 +109,8 @@ namespace GameMode.Island
             
             AddScore();
             CreateTreasureSprite();
+            if(!_digSound.IsNull)
+                AudioManager.PlayOneShot(_digSound);
             if (Pool != null)
             {
                 Pool.Release(this);

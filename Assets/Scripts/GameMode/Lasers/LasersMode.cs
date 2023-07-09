@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Audio;
 using UnityEngine;
 using Basics;
 using Basics.Player;
@@ -410,6 +411,8 @@ namespace GameMode.Lasers
             var velocity = player.Rigidbody.velocity;
             Vector2 velocityBeforeFreeze =  defaultVelocity != Vector2.zero ? defaultVelocity : -velocity;
             player.Renderer.Animator.SetTrigger(Death);
+            
+            AudioManager.PlayFall();
 
             // 0.75f is the length of the death animation
             float animationTime = 0.9f;
