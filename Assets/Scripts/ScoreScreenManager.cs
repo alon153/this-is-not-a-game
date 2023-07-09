@@ -123,6 +123,7 @@ public class ScoreScreenManager : MonoBehaviour
     if (Arenas.Count == 0)
     {
       _buttons.gameObject.SetActive(true);
+      AudioManager.PlayVictory();
       StartCoroutine(PlayFireWorks());
       return;
     }

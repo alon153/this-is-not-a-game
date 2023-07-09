@@ -51,7 +51,7 @@ namespace Basics.Player
         // this will only have a value when this player is knocked by another. 
         [CanBeNull] public PlayerController _playerKnockedBy;
         
-        private Coroutine _resetMoveCoroutine = null;
+        private List<Coroutine> _resetMoveCoroutines = new List<Coroutine>();
         private static readonly int Dead = Animator.StringToHash("Dead");
 
         #endregion
@@ -176,10 +176,10 @@ namespace Basics.Player
             otherPlayerController.SetMovementAbility(false);
             otherPlayerController.SetPushingPlayer(this, true);
             otherPlayerRb.AddForce(knockDir * force, ForceMode2D.Impulse);
-            if (_resetMoveCoroutine != null)
-                StopCoroutine(_resetMoveCoroutine); 
+            if (_resetMoveCoroutines[otherPlayerController.Index] != null)
+                StopCoroutine(_resetMoveCoroutines[otherPlayerController.Index]); 
                 
-            _resetMoveCoroutine = StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb));
+            _resetMoveCoroutines[otherPlayerController.Index] = StartCoroutine(otherPlayerController.ResetMovementAfterKnockBack(otherPlayerRb,Index));
             Rigidbody.velocity = Vector2.zero;
         }
 
@@ -217,7 +217,7 @@ namespace Basics.Player
         /// <param name="playerRb"></param>
         /// <param name="playerControl"></param>
         /// <returns></returns>
-       public IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb)
+       public IEnumerator ResetMovementAfterKnockBack(Rigidbody2D playerRb, int index)
         {
             float time = 0f;
             Vector2 initialVelocity = playerRb.velocity;
@@ -233,7 +233,7 @@ namespace Basics.Player
             playerRb.velocity = Vector2.zero;
             SetMovementAbility(true);
             _playerKnockedBy = null;
-            _resetMoveCoroutine = null;
+            _resetMoveCoroutines[index] = null;
 
         }
 
@@ -252,10 +252,10 @@ namespace Basics.Player
             // set bashed player
             var curForce = force ?? _knockBackForce;
             Rigidbody.AddForce(knockDir * curForce, ForceMode2D.Impulse);
-            if (_resetMoveCoroutine != null)
-                StopCoroutine(_resetMoveCoroutine); 
+            if (_resetMoveCoroutines[Index] != null)
+                StopCoroutine(_resetMoveCoroutines[Index]); 
                 
-            _resetMoveCoroutine = StartCoroutine(ResetMovementAfterKnockBack(Rigidbody));
+            _resetMoveCoroutines[Index] = StartCoroutine(ResetMovementAfterKnockBack(Rigidbody,Index));
             Rigidbody.velocity = Vector2.zero;
         }
         

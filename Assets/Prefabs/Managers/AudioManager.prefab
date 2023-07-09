@@ -105,3 +105,10 @@ MonoBehaviour:
       Data3: 1959044228
       Data4: -1891071344
     Path: event:/SFX/CountDown
+  _victorySound:
+    Guid:
+      Data1: -846507517
+      Data2: 1246880141
+      Data3: -796333891
+      Data4: 679747146
+    Path: event:/SFX/victory

@@ -59,6 +59,8 @@ public class PressPrompt : MonoBehaviour
   public void SetPrompt(InteractableObject interactableObject)
   {
     HidePrompt();
+    if(interactableObject == null) return;
+    
     bool hold = interactableObject.IsHold;
     _currImage = hold ? _holdImage : _pressImage;
     _up = hold ? _holdUp : _pressUp;

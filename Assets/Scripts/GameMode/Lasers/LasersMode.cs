@@ -67,9 +67,7 @@ namespace GameMode.Lasers
         private Vector3? _playerPosition;
         private static readonly int Death = Animator.StringToHash("death");
         
-        private Guid _hitInvoke = Guid.Empty;
-        private Guid _deathInvoke = Guid.Empty;
-        private Guid _deathInvoke2 = Guid.Empty;
+        private List<Guid> _hitInvokes = new List<Guid>();
 
         #endregion
 
@@ -94,8 +92,10 @@ namespace GameMode.Lasers
         {
             _diamondsCollected = Constants.None;
             foreach (var player in GameManager.Instance.Players)
+            {
                 player.Addon = new LaserPlayerAddon();
-
+                _hitInvokes.Add(Guid.Empty);
+            }
 
             GameManager.Instance.GameModeUpdateAction += LaserModeUpdate;
             _allDiamondsCollected = false;
@@ -144,9 +144,11 @@ namespace GameMode.Lasers
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = null;
 
-            TimeManager.Instance.CancelInvoke(_hitInvoke);
-            TimeManager.Instance.CancelInvoke(_deathInvoke);
-            TimeManager.Instance.CancelInvoke(_deathInvoke2);
+            foreach (var invoke in _hitInvokes)
+            {
+                if(invoke != Guid.Empty)
+                    TimeManager.Instance.CancelInvoke(invoke);
+            }
 
             Object.Destroy(_windowParent);
         }
@@ -424,23 +426,29 @@ namespace GameMode.Lasers
 
             // 0.75f is the length of the death animation
             float animationTime = 0.9f;
-            player.Freeze(false);
-
-            if (_deathInvoke != Guid.Empty) TimeManager.Instance.CancelInvoke(_deathInvoke);
-            _deathInvoke = TimeManager.Instance.DelayInvoke(
-                (() => { player.Freeze(true, freezeTime-animationTime, true);}), 
+            player.Freeze();
+            
+            TimeManager.Instance.DelayInvoke(
+                (() =>
+                {
+                    player.Freeze(true, freezeTime-animationTime, true);
+                }), 
                 animationTime
                 );
             if (player.CanDash)
             {   
                 player.CanDash = false;
-                if (_deathInvoke2 != Guid.Empty) TimeManager.Instance.CancelInvoke(_deathInvoke2);
-                _deathInvoke2 = TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
+                TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
             }
             player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
-            if (_hitInvoke != Guid.Empty)  TimeManager.Instance.CancelInvoke(_hitInvoke);
-            _hitInvoke = TimeManager.Instance.DelayInvoke(
-                () =>  ((LaserPlayerAddon) player.Addon).InHit = false , 0.1f);
+            if (_hitInvokes[player.Index] != Guid.Empty)  
+                TimeManager.Instance.CancelInvoke(_hitInvokes[player.Index]);
+            _hitInvokes[player.Index] = TimeManager.Instance.DelayInvoke(
+                () =>
+                {
+                    ((LaserPlayerAddon) player.Addon).InHit = false;
+                    _hitInvokes[player.Index] = Guid.Empty;
+                } , 0.1f);
             
         }
 

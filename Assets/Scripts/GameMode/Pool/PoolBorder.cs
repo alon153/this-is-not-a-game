@@ -20,7 +20,7 @@ namespace GameMode.Pool
             Vector2 knockDir = (player.transform.position - transform.position).normalized;
             playerRb.AddForce(knockDir * knockBackForce, ForceMode2D.Impulse);
 
-            StartCoroutine(playerController.ResetMovementAfterKnockBack(playerRb));
+            StartCoroutine(playerController.ResetMovementAfterKnockBack(playerRb, playerController.Index));
 
 
         }

@@ -70,7 +70,6 @@ namespace Basics.Player
 
         private bool _frozen = false;
         private Guid _freezeId = Guid.Empty;
-        private Guid _unfreezeId = Guid.Empty;
         private bool _stunned;
 
         private bool _canMove = true;
@@ -214,6 +213,11 @@ namespace Basics.Player
 
             _lastPosition = transform.position;
             _originalScale = transform.localScale;
+
+            for (int i = 0; i < 5; i++)
+            {
+                _resetMoveCoroutines.Add(null);
+            }
         }
 
         private void Start()
@@ -302,12 +306,11 @@ namespace Basics.Player
         }
 
         public void OnAction(InputAction.CallbackContext context)
-        {   
-            if (_frozen && GameManager.Instance.State == GameState.Playing) return;
-
+        {
             switch (context.phase)
             {
                 case InputActionPhase.Started:
+                    if (_frozen && GameManager.Instance.State == GameState.Playing) return; 
                     if (GameManager.Instance.State is GameState.Lobby or GameState.Instructions)
                     {
                         Ready = !Ready;
@@ -348,8 +351,8 @@ namespace Basics.Player
                             SetLongActionAnimation(false);
                             _pressPrompt.Pressed = false;
                             _longActionEmitter.Stop();
+                            Interactable.OnInteract(this, false);
                         }
-                        Interactable.OnInteract(this, false);
                     }
                     break;
             }
@@ -388,10 +391,10 @@ namespace Basics.Player
             if(GameManager.Instance.State == GameState.Instructions)
                 return;
             
-            if (_unfreezeId != Guid.Empty)
+            if (_freezeId != Guid.Empty)
             {
-                TimeManager.Instance.CancelInvoke(_unfreezeId);
-                _unfreezeId = Guid.Empty;
+                TimeManager.Instance.CancelInvoke(_freezeId);
+                _freezeId = Guid.Empty;
             }
 
             _frozen = false;
