@@ -48,6 +48,7 @@ namespace GameMode.Juggernaut
                 {   
                     _time = 0f;
                     AudioManager.PlayOneShot(_appearSound);
+                    effect.gameObject.SetActive(true);
                     effect.PlayPuffAnimation();
                     if (_appearInvoke != Guid.Empty)
                         TimeManager.Instance.CancelInvoke(_appearInvoke);
@@ -93,6 +94,7 @@ namespace GameMode.Juggernaut
             _canPickUp = false;
             _time = 0;
             _spriteRenderer.enabled = false;
+            effect.gameObject.SetActive(false);
             totemAnimator.SetBool(TotemEnabled, false);
         }
     }

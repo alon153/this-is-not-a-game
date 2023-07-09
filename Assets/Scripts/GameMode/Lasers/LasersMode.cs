@@ -66,6 +66,10 @@ namespace GameMode.Lasers
 
         private Vector3? _playerPosition;
         private static readonly int Death = Animator.StringToHash("death");
+        
+        private Guid _hitInvoke = Guid.Empty;
+        private Guid _deathInvoke = Guid.Empty;
+        private Guid _deathInvoke2 = Guid.Empty;
 
         #endregion
 
@@ -139,6 +143,10 @@ namespace GameMode.Lasers
             GameManager.Instance.GameModeUpdateAction -= LaserModeUpdate;
             foreach (var player in GameManager.Instance.Players)
                 player.Addon = null;
+
+            TimeManager.Instance.CancelInvoke(_hitInvoke);
+            TimeManager.Instance.CancelInvoke(_deathInvoke);
+            TimeManager.Instance.CancelInvoke(_deathInvoke2);
 
             Object.Destroy(_windowParent);
         }
@@ -417,17 +425,21 @@ namespace GameMode.Lasers
             // 0.75f is the length of the death animation
             float animationTime = 0.9f;
             player.Freeze(false);
-            TimeManager.Instance.DelayInvoke(
+
+            if (_deathInvoke != Guid.Empty) TimeManager.Instance.CancelInvoke(_deathInvoke);
+            _deathInvoke = TimeManager.Instance.DelayInvoke(
                 (() => { player.Freeze(true, freezeTime-animationTime, true);}), 
                 animationTime
                 );
             if (player.CanDash)
-            {
+            {   
                 player.CanDash = false;
-                TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
+                if (_deathInvoke2 != Guid.Empty) TimeManager.Instance.CancelInvoke(_deathInvoke2);
+                _deathInvoke2 = TimeManager.Instance.DelayInvoke((() => { player.CanDash = true; }), animationTime);
             }
             player.PlayerByItemKnockBack(laserKnockBackForce, velocityBeforeFreeze);
-            TimeManager.Instance.DelayInvoke(
+            if (_hitInvoke != Guid.Empty)  TimeManager.Instance.CancelInvoke(_hitInvoke);
+            _hitInvoke = TimeManager.Instance.DelayInvoke(
                 () =>  ((LaserPlayerAddon) player.Addon).InHit = false , 0.1f);
             
         }
