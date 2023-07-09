@@ -31,7 +31,10 @@ public class ScoreScreenManager : MonoBehaviour
   private List<bool> _expanding = new List<bool>();
   private List<bool> _moving = new List<bool>();
   private List<float> _ys = new List<float>();
-  
+  private bool _playFireWorks = false;
+  private float _timeBetweenEachFirework = Constants.ResetTime;
+  private int _curParticleIdx = Constants.MinIndex;
+
   private int _maxScore;
 
   private float _origMinX;
@@ -62,6 +65,28 @@ public class ScoreScreenManager : MonoBehaviour
   {
     AudioManager.SetMusic(MusicSounds.Lobby);
     GameManager.Instance.SetScoreManager(this);
+    
+  }
+
+  private void Update()
+  {
+    if (_playFireWorks)
+    {
+      _timeBetweenEachFirework += Time.deltaTime;
+      if (_timeBetweenEachFirework >= _fireWorkIntervals)
+      {
+        _timeBetweenEachFirework = 0f;
+        _fireWorks[_curParticleIdx].Play();
+        AudioManager.PlayFireworks();
+        
+        _curParticleIdx += 1;
+        if (_curParticleIdx == _fireWorks.Count)
+        {
+          ShuffleFireWorks(_fireWorks);
+          _curParticleIdx = Constants.MinIndex;
+        }
+      }
+    }
   }
 
   #endregion
@@ -124,7 +149,7 @@ public class ScoreScreenManager : MonoBehaviour
     {
       _buttons.gameObject.SetActive(true);
       AudioManager.PlayVictory();
-      StartCoroutine(PlayFireWorks());
+      PrepareFireWorks();
       return;
     }
     
@@ -263,7 +288,7 @@ public class ScoreScreenManager : MonoBehaviour
     return listToShuffle;
   }
 
-  private IEnumerator PlayFireWorks()
+  private void PrepareFireWorks()
   {
     Color curWinnerColor = UIManager.Instance.CurrWinner == -1 
       ? Color.white 
@@ -273,9 +298,8 @@ public class ScoreScreenManager : MonoBehaviour
     {
       var fireWorkMain = fireWork.main;
       fireWorkMain.startColor = curWinnerColor;
-      fireWork.Play();
-      yield return new WaitForSeconds(_fireWorkIntervals);
     }
+    _playFireWorks = true;
   }
 
   public void OnMainMenu()
