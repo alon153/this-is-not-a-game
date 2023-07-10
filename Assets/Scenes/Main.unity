@@ -488,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _singleMode
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _roundLength
@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isSingleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 555857938806114383, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: _isGameModeByOrder
@@ -538,6 +538,10 @@ PrefabInstance:
       propertyPath: _eventSystem
       value: 
       objectReference: {fileID: 1535105644}
+    - target: {fileID: 1453636843271269442, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1567294435496450744, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -561,6 +565,22 @@ PrefabInstance:
     - target: {fileID: 1750921889819494122, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: Managers.UIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591634745758349653, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_text
+      value: 15:00
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591634745758349653, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_fontSize
+      value: 36.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591634745758349653, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_fontColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591634745758349653, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 16777215
       objectReference: {fileID: 0}
     - target: {fileID: 3784025119139436441, guid: 1b48c49850573f74e9ae7c9e7423f62c, type: 3}
       propertyPath: m_AnchorMax.x
