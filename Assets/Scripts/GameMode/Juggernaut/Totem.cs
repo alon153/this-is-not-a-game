@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using Basics.Player;
 using FMODUnity;
 using Managers;
+using UnityEngine.Serialization;
 using Utilities;
 
 
@@ -26,7 +27,7 @@ namespace GameMode.Juggernaut
         
         private Guid _appearInvoke = Guid.Empty;
 
-        private SpriteRenderer _spriteRenderer;
+        public SpriteRenderer SpriteRenderer;
         
         public UnityAction<PlayerController> OnTotemPickedUp { set; get; }
 
@@ -36,7 +37,7 @@ namespace GameMode.Juggernaut
 
         private void Start()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            SpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Update()
@@ -54,7 +55,7 @@ namespace GameMode.Juggernaut
                         TimeManager.Instance.CancelInvoke(_appearInvoke);
                     _appearInvoke = TimeManager.Instance.DelayInvoke(() =>
                         {
-                            _spriteRenderer.enabled = true;
+                            SpriteRenderer.enabled = true;
                             _appearInvoke = Guid.Empty;
                             totemAnimator.SetBool(TotemEnabled, true);
                             
@@ -71,6 +72,8 @@ namespace GameMode.Juggernaut
             if (_appearInvoke != Guid.Empty)
                 TimeManager.Instance.CancelInvoke(_appearInvoke);
         }
+        
+        
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -93,7 +96,7 @@ namespace GameMode.Juggernaut
         {
             _canPickUp = false;
             _time = 0;
-            _spriteRenderer.enabled = false;
+            SpriteRenderer.enabled = false;
             effect.gameObject.SetActive(false);
             totemAnimator.SetBool(TotemEnabled, false);
         }
