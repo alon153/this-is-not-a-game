@@ -8,8 +8,10 @@ using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Utilities;
 using Random = System.Random;
+using Random2 = UnityEngine.Random;
 
 public class ScoreScreenManager : MonoBehaviour
 {
@@ -20,12 +22,14 @@ public class ScoreScreenManager : MonoBehaviour
   [SerializeField] private GameObject _buttons;
   [SerializeField] private float _singleDuration = 1f;
   [SerializeField] private List<ParticleSystem> _fireWorks = new List<ParticleSystem>();
-  [SerializeField] private float _fireWorkIntervals = 1f;
+  [SerializeField] private float fireWorksIntervalsFirst = 1f;
+  [SerializeField] private float _fireWorksIntervalsSecond = 3f;
 
   #endregion
   #region Non-Serialized Fields
 
   private GameObject _currArena = null;
+  
   
   private List<RectTransform> _rects = new List<RectTransform>();
   private List<bool> _expanding = new List<bool>();
@@ -34,6 +38,7 @@ public class ScoreScreenManager : MonoBehaviour
   private bool _playFireWorks = false;
   private float _timeBetweenEachFirework = Constants.ResetTime;
   private int _curParticleIdx = Constants.MinIndex;
+  private float _desiredTime = 0;
 
   private int _maxScore;
 
@@ -65,17 +70,26 @@ public class ScoreScreenManager : MonoBehaviour
   {
     AudioManager.SetMusic(MusicSounds.Lobby);
     GameManager.Instance.SetScoreManager(this);
-    
+    _desiredTime = GetNextTime();
+
   }
 
+  private float GetNextTime()
+  {
+    int idx = Random2.Range(0, 2);
+    return idx == 0 ? fireWorksIntervalsFirst : _fireWorksIntervalsSecond;
+
+  }
+  
   private void Update()
   {
     if (_playFireWorks)
     {
       _timeBetweenEachFirework += Time.deltaTime;
-      if (_timeBetweenEachFirework >= _fireWorkIntervals)
+      if (_timeBetweenEachFirework >= _desiredTime)
       {
         _timeBetweenEachFirework = 0f;
+        _desiredTime = GetNextTime();
         _fireWorks[_curParticleIdx].Play();
         AudioManager.PlayFireworks();
         

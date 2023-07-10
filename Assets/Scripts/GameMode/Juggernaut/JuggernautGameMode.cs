@@ -63,6 +63,8 @@ namespace GameMode.Juggernaut
 
         private List<BoxCollider2D> _gorillaColliders = new List<BoxCollider2D>();
 
+        private List<CircleCollider2D> _playerColliders = new List<CircleCollider2D>();
+
         private float _playerKnockBackForce;
 
         private float _playerMutualKnockBackForce;
@@ -99,6 +101,7 @@ namespace GameMode.Juggernaut
             _isAPlayerHoldingTotem = false;
             _playerCanvasAddOns.Clear();
             _gorillaColliders.Clear();
+            _playerColliders.Clear();
             GameManager.Instance.GameModeUpdateAction += JuggernautModeUpdate;
             
             _projectilePool = new ObjectPool<Projectile>(CreateProjectile, OnTakeProjectileFromPool,
@@ -160,6 +163,7 @@ namespace GameMode.Juggernaut
             foreach (var player in GameManager.Instance.Players)
             {
 
+                _playerColliders.Add(player.GetComponent<CircleCollider2D>());
                 BoxCollider2D gorillaCollider = player.gameObject.AddComponent<BoxCollider2D>();
                 gorillaCollider.size = colliderSize;
                 gorillaCollider.enabled = false;
@@ -193,6 +197,7 @@ namespace GameMode.Juggernaut
             player.PlayerEffect.PlayPuffAnimation();
             _totem.gameObject.SetActive(false);
             _currTotemHolder = player;
+            _playerColliders[_currTotemHolder.Index].enabled = false;
             _gorillaColliders[_currTotemHolder.Index].enabled = true;
             _isAPlayerHoldingTotem = true;
             _currTotemHolder.SetKnockBackForce(_playerKnockBackForce * gorillaForce, 
@@ -214,6 +219,7 @@ namespace GameMode.Juggernaut
         private void OnTotemDropped()
         {   
             _totem.gameObject.SetActive(true);
+            _totem.SpriteRenderer.enabled = false;
             if (_changeAnimatorId != Guid.Empty)
                 TimeManager.Instance.CancelInvoke(_changeAnimatorId);
             _changeAnimatorId = TimeManager.Instance.DelayInvoke(() =>
@@ -225,6 +231,7 @@ namespace GameMode.Juggernaut
             // remove totem from current player
             _isAPlayerHoldingTotem = false;
             _gorillaColliders[_currTotemHolder.Index].enabled = false;
+            _playerColliders[_currTotemHolder.Index].enabled = true;
             _currTotemHolder.SetKnockBackForce(_playerKnockBackForce / gorillaForce, 
                 _playerMutualKnockBackForce / gorillaForce);
             _currTotemHolder.PlayerEffect.PlayPuffAnimation();

@@ -1174,7 +1174,8 @@ MonoBehaviour:
   - {fileID: 925699776}
   - {fileID: 79757662}
   - {fileID: 220370404}
-  _fireWorkIntervals: 3
+  fireWorksIntervalsFirst: 1
+  _fireWorksIntervalsSecond: 3
 --- !u!1 &1244229024
 GameObject:
   m_ObjectHideFlags: 0
